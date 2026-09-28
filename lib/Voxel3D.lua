@@ -49,6 +49,7 @@ local function mobileDiagnostic(name, ...)
   return nil
 end
 
+local DeviceShadows = V.require("DeviceShadows")
 local MOBILE_RUNTIME = CanvasPresentation.OS == "iOS"
   or CanvasPresentation.OS == "Android"
 
@@ -666,6 +667,40 @@ varying LOVE_HIGHP_OR_MEDIUMP vec3 vWorld;
   return core
 end
 
+-- Compact phone receiver: retain the bounded core, then add only shadow
+-- sampling. Aerial effects have their own compile fallback; no desktop
+-- instancing, derivatives, water-reflection or grid program is introduced.
+local function mobileShadowShaderSource(aerial)
+  local source,err=mobileCoreShaderSource(SHADER)
+  if not source then return nil,err end
+  source=source:gsub("#ifdef VERTEX", [[
+varying highp vec3 vSun;
+#ifdef VERTEX
+  uniform mat4 sunVP;
+  uniform mat4 sunModel;
+]],1)
+  source=source:gsub("vWorld = w.xyz;", [[vWorld = w.xyz;
+    vSun=(sunVP*(sunModel*caveWallPosition(vertex_position,VertexTexCoord.xy))).xyz;]],1)
+  local first=assert(SHADER:find("  uniform Image sunMap;",1,true))
+  local last=assert(SHADER:find("\n#ifdef VOXEL_GRID",first,true))
+  local functions=SHADER:sub(first,last-1)
+  if not aerial then
+    functions=assert(removeMarkedBlock(functions,
+      "// VASC_MOBILE_AERIAL_UNIFORMS_BEGIN","// VASC_MOBILE_AERIAL_UNIFORMS_END"))
+    functions=assert(removeMarkedBlock(functions,
+      "// VASC_MOBILE_AERIAL_FUNCTIONS_BEGIN","// VASC_MOBILE_AERIAL_FUNCTIONS_END"))
+  end
+  functions=functions:gsub("float sunDepth%(vec2 uv%)", "highp float sunDepth(highp vec2 uv)")
+    :gsub("vec4 c = Texel%(sunMap, uv%);", "highp vec4 c = Texel(sunMap, uv);")
+    :gsub("float sunlight%(vec3 p%)", "float sunlight(highp vec3 p)")
+    :gsub("float z = p.z", "highp float z = p.z")
+  source=source:gsub("#ifdef PIXEL",function()return "#ifdef PIXEL\n"..functions end,1)
+  source=source:gsub("vec3 rgb = p.rgb %* vShade %* dayTint;",
+    "vec3 rgb = p.rgb * vShade * dayTint * sunlight(vSun)"
+      ..(aerial and " * cloudlight(vWorld.xz) * birdlight(vWorld.xz);" or ";"),1)
+  return source
+end
+
 -- Two compilations of SHADER: the plain scene, and the same thing with the
 -- voxel wireframe compiled in. The wireframe needs shader derivatives
 -- (fwidth), the one piece of this a driver can refuse, so it is a separate
@@ -1055,7 +1090,10 @@ local INTERIOR_FLOOR_GLSL = V.require('Gen1OutdoorScenery').waterGLSL .. [[
 ]]
 local function shaderSource(variant, grid, lighting)
   local source, err = SHADER, nil
-  if variant == "mobile-core" then
+  if variant == "mobile-shadow" or variant == "mobile-shadow-aerial" then
+    source,err=mobileShadowShaderSource(variant=="mobile-shadow-aerial")
+    if not source then return nil,err end
+  elseif variant == "mobile-core" then
     source, err = mobileCoreShaderSource(SHADER)
     if not source then return nil, err end
   elseif variant == "mobile-safe" then
@@ -1131,7 +1169,7 @@ local function shaderSource(variant, grid, lighting)
   -- Surface functions above use highp intermediates, then restore LOVE's
   -- mediump effect signature. Changing the entry-point precision breaks the
   -- GLES prototype supplied by LOVE even when desktop drivers accept it.
-  if variant == "mobile-core" or variant == "mobile-safe" then
+  if variant:find("mobile",1,true) then
     source = "#define VASC_MOBILE_FLOOR 1\n" .. source
   end
   if grid then source = "#define VOXEL_GRID 1\n" .. source end
@@ -1193,11 +1231,17 @@ function Voxel3D.shader(grid)
         full = "driver does not expose shader derivatives",
       }
     elseif MOBILE_RUNTIME then
-      -- A native shader compiler can block instead of returning an error, so
-      -- attempting FULL before the fallback defeats the fallback completely.
-      -- Phones compile only the bounded world-core program; desktop keeps the
-      -- full -> mobile-safe rejection path below.
-      local shader, mobileError = compileShader("mobile-core", false)
+      local variant = "mobile-core"
+      local shader, mobileError
+      -- Test the production writer and framebuffer before compiling a receiver.
+      if ShadowMap.available() then
+        for _,candidate in ipairs({"mobile-shadow-aerial","mobile-shadow"}) do
+          shader,mobileError=compileShader(candidate,false)
+          if shader then variant=candidate;break end
+        end
+        if not shader then DeviceShadows.fail(mobileError or "shadow receiver unavailable") end
+      end
+      if not shader then shader,mobileError=compileShader("mobile-core",false) end
       if not shader then
         V.require('LocalLights').fail(mobileError or 'mobile light shader unavailable')
         shader=compileShader("mobile-core",false,false)
@@ -1208,10 +1252,8 @@ function Voxel3D.shader(grid)
       }
       if shader then
         shaders[grid] = shader
-        shaderVariants[grid] = "mobile-core"
-        warnShader("Gen-1 Voxel3D mobile first-frame policy: using the "
-          .. "mobile-core 3D shader with window lighting; optional shadows, weather, "
-          .. "reflections and voxel grid are disabled")
+        shaderVariants[grid] = variant
+        warnShader("Gen-1 phone renderer: "..variant.."; device shadows "..DeviceShadows.state)
       else
         shaders[grid] = false
         shaderVariants[grid] = "unavailable"
@@ -1374,7 +1416,12 @@ local unlitShaders={}
 function Voxel3D.unlitShader(grid)
   grid=not MOBILE_RUNTIME and grid and true or false
   if unlitShaders[grid]==nil then
-    local sh=compileShader(MOBILE_RUNTIME and "mobile-core" or "full",grid,false)
+    local variant=MOBILE_RUNTIME and (shaderVariants[false] or "mobile-core") or "full"
+    local sh=compileShader(variant,grid,false)
+    if not sh and MOBILE_RUNTIME then
+      DeviceShadows.fail("unlit shadow receiver unavailable")
+      sh=compileShader("mobile-core",grid,false)
+    end
     if not sh and not MOBILE_RUNTIME then sh=compileShader("mobile-safe",grid,false) end
     unlitShaders[grid]=sh or false
   end
@@ -2146,22 +2193,18 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
   pcall(sh.send, sh, "towerMood", skyContext and skyContext.towerMood or {0,0})
   pcall(sh.send, sh, "caveBattleMist", skyContext and skyContext.caveBattleMist or {0,0,0,0})
   if MOBILE_RUNTIME then
-    -- The standalone phone program declares exactly these presentation
-    -- uniforms. Do not probe absent desktop uniforms through pcall: some GLES
-    -- drivers defer uniform realization to first use, which puts avoidable
-    -- work back into the frame this path is meant to protect.
     pcall(sh.send, sh, "ghost", 0)
     pcall(sh.send, sh, "ghostColor", Voxel3D.GHOST_COLOR)
     pcall(sh.send, sh, "dayTint", Voxel3D.tint or { 1, 1, 1 })
-  else
+  end
+  if not MOBILE_RUNTIME or sh:hasUniform("sunMap") then
   -- the sun's frame, filled by ShadowMap just before this pass opened.
   -- Sent unconditionally: the sampler is declared either way, and leaving
   -- one unbound is a driver-dependent crash rather than a fallback.
-  local map = not MOBILE_RUNTIME and Shadows.enabled() and ShadowMap.active()
+  local map = Shadows.enabled() and ShadowMap.active()
   pcall(sh.send, sh, "sunVP", "row", map and ShadowMap.uvVP or IDENTITY)
-  -- mobile-core has no sunMap sampler; do not create ShadowMap's otherwise
-  -- mandatory 1x1 GPU placeholder merely to send it to an absent uniform.
-  local tex = not MOBILE_RUNTIME and ShadowMap.texture() or nil
+  -- This branch is entered only by a program with a shadow sampler.
+  local tex = ShadowMap.texture()
   if tex then pcall(sh.send, sh, "sunMap", tex) end
   pcall(sh.send, sh, "sunDark", map and Voxel3D.SHADOW_ALPHA or 0)
   -- Every scene begins with ordinary world receivers. Camera-facing battle
@@ -2778,7 +2821,7 @@ end
 -- narrow per-draw switch leaves baked face light, day tint, weather and every
 -- world receiver intact; callers must restore it immediately after the card.
 function Voxel3D.shadowReception(on)
-  if MOBILE_RUNTIME then return false end
+  if MOBILE_RUNTIME and not DeviceShadows.enabled() then return false end
   if not (active and activeShader) then return false end
   return pcall(activeShader.send, activeShader, "sunReceive",
                on == false and 0 or 1)
@@ -2894,7 +2937,7 @@ function Voxel3D.draw(mesh, texture, model, pull, sunModel)
   local function performDraw()
     -- LOVE defaults matrix uniforms to column-major; Mat4 is row-major
     pcall(sh.send, sh, "model", "row", model or IDENTITY)
-    if not MOBILE_RUNTIME then
+    if not MOBILE_RUNTIME or sh:hasUniform("sunModel") then
       pcall(sh.send, sh, "sunModel", "row", sunModel or model or IDENTITY)
     end
     pcall(sh.send, sh, "pull", pull or 0)
@@ -2922,6 +2965,10 @@ function Voxel3D.draw(mesh, texture, model, pull, sunModel)
     })
     local ok, err = pcall(performDraw)
     if not ok then
+      if MOBILE_RUNTIME and shaderVariants[false] and shaderVariants[false]:find("mobile-shadow",1,true) then
+        DeviceShadows.fail(err)
+        shaders[false],unlitShaders[false]=nil,nil
+      end
       mobileDiagnostic("fail", "D10", "scene-first-mesh-draw",
         tostring(err), {
           caller="love.graphics.draw", context="world",

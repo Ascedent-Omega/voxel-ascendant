@@ -1208,7 +1208,7 @@ function BattleScene.render(state, arena, textures, token)
   Voxel3D.camera = nil
   if not painting
       and (type(Shadows.enabled) ~= "function" or Shadows.enabled()) then
-    castShadows(state, arena, terrain, nbMesh, cx, cy, vw, vh, atlasFor,
+    ShadowMap.protected(castShadows,state, arena, terrain, nbMesh, cx, cy, vw, vh, atlasFor,
                 cards, token, host, neighbors, water, nbWater, groundY)
   end
 

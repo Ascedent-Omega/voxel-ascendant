@@ -2016,7 +2016,7 @@ function VoxelScene.render(state, w, h, vw, vh, paletteFor, eyes)
   -- but a head free to face south.
   local shCx, shCy = FirstPerson.shadowCenter(cx, cy, renderVh)
   if type(Shadows.enabled) ~= "function" or Shadows.enabled() then
-    castShadows(state, terrain, nbMesh, posed, shCx, shCy,
+    ShadowMap.protected(castShadows,state, terrain, nbMesh, posed, shCx, shCy,
                 renderVw, renderVh, atlasFor,
                 water, nbWater, battleCards, battleToken, towerMesh, towerModel)
   end

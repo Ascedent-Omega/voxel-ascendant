@@ -1,5 +1,5 @@
 {
-  "file_count": 11874,
+  "file_count": 11881,
   "files": [
     {
       "path": ".modkitromallow",
@@ -28,8 +28,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size_bytes": 68932,
-      "sha256": "1ffff5ead14e8ed2a98fad17cedd43b857769f969e1f33dfe5116c8df8c63445"
+      "size_bytes": 69217,
+      "sha256": "7e1259f0c012372e90817064dde28d04d6565e8f153fe24daa38d6bf6184f240"
     },
     {
       "path": "COBBLEMON_BATTLE_AUDIT_2026-09-25.md",
@@ -108,18 +108,18 @@
     },
     {
       "path": "QA-REPORT.md",
-      "size_bytes": 1617,
-      "sha256": "edd2ec9999c83bd1748e1916a08cf285565848c2535aeed12066b642835c2f29"
+      "size_bytes": 3295,
+      "sha256": "b5398c5d0086675d989d54ba24d165d7bd95a6386aea558c1d9f657ee1c5213c"
     },
     {
       "path": "README.md",
-      "size_bytes": 27939,
-      "sha256": "cf9e41d024dc42ebd01fef977fffc87e0bff26326b360a26bd7a8887e952369c"
+      "size_bytes": 28271,
+      "sha256": "8058169694140ff794a792232fa3f10461c98f33be30fa9020b090a75269ac2d"
     },
     {
       "path": "RELEASE_NOTES.md",
-      "size_bytes": 1896,
-      "sha256": "64abf1bd8f41f5529305f913a079c4c240a24f82a83e48b0c0d7fdb1fe537d54"
+      "size_bytes": 2282,
+      "sha256": "ea2d6246d5a7c2d92eb04267fd06a9203151178d7d803febde30980e1d487927"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -295,6 +295,11 @@
       "path": "RELEASE_NOTES_3.0.52.md",
       "size_bytes": 1896,
       "sha256": "64abf1bd8f41f5529305f913a079c4c240a24f82a83e48b0c0d7fdb1fe537d54"
+    },
+    {
+      "path": "RELEASE_NOTES_3.0.53.md",
+      "size_bytes": 2282,
+      "sha256": "ea2d6246d5a7c2d92eb04267fd06a9203151178d7d803febde30980e1d487927"
     },
     {
       "path": "RUNTIME_AUDIT_2026-09-25.md",
@@ -47118,8 +47123,8 @@
     },
     {
       "path": "gen2/lib/BattleScene.lua",
-      "size_bytes": 74152,
-      "sha256": "02d2ae5a8005e0032f61cfdd81a493c6f05f9cc4253cce7a2ebe82bd23822898"
+      "size_bytes": 74172,
+      "sha256": "7b763846976d41a1bda0fc56fdddbf49f3d725200315a8cd8733e25a79ccebae"
     },
     {
       "path": "gen2/lib/BattleStadium3DFx.lua",
@@ -47235,6 +47240,11 @@
       "path": "gen2/lib/DeviceProfile.lua",
       "size_bytes": 8672,
       "sha256": "29047f99614c9567e0fd8f02c8e288a0c1ab8d17f657bc4148845f16fff2a22b"
+    },
+    {
+      "path": "gen2/lib/DeviceShadows.lua",
+      "size_bytes": 4329,
+      "sha256": "26f56b93267ed01da5649e7ad3f15dc2e3fae872cc991d015341484ca7b14ead"
     },
     {
       "path": "gen2/lib/DioramaZoom.lua",
@@ -47653,8 +47663,8 @@
     },
     {
       "path": "gen2/lib/PixelCanvas.lua",
-      "size_bytes": 158,
-      "sha256": "a86164fa7147644e2c497fcf3ce4d6c00e1bbfc0d81601b35ac6f89f7bb6883c"
+      "size_bytes": 492,
+      "sha256": "c42cfa01ea2d39812df4abb2135b23b834ed8aafbb1931864e3f31bad822128c"
     },
     {
       "path": "gen2/lib/Pokedex.lua",
@@ -47703,8 +47713,8 @@
     },
     {
       "path": "gen2/lib/ShadowMap.lua",
-      "size_bytes": 31692,
-      "sha256": "a358788dcf11d6190aa352d2d3494111ad2af70974e5100d3d86f5044d200956"
+      "size_bytes": 33579,
+      "sha256": "22e5905508f7f818d53275add8a85ae1cab92da651cb627860c90ba1663ede45"
     },
     {
       "path": "gen2/lib/ShadowPolicy.lua",
@@ -47903,8 +47913,8 @@
     },
     {
       "path": "gen2/lib/Voxel3D.lua",
-      "size_bytes": 100989,
-      "sha256": "1e948a6c53abd364603d391dee8774a954addd1d3d2e4dc8195e20fecd2acbc3"
+      "size_bytes": 101037,
+      "sha256": "815a3f3dca26f4a3b0f78917a46f68e57544ce426248fe067cb0ac2e65044f34"
     },
     {
       "path": "gen2/lib/VoxelDiskCache.lua",
@@ -47918,8 +47928,8 @@
     },
     {
       "path": "gen2/lib/VoxelScene.lua",
-      "size_bytes": 114052,
-      "sha256": "0d2e9992870b7a399b3cac4cc427419e99a6f889c39321f5473bc2bab10b152d"
+      "size_bytes": 114072,
+      "sha256": "8ffb5a5d6b05c7a09bc674a50c41b0b796a03b728a892ac49a1d7d4c8ab4458d"
     },
     {
       "path": "gen2/lib/VoxelScenePatch.lua",
@@ -48283,8 +48293,8 @@
     },
     {
       "path": "gen2/options.lua",
-      "size_bytes": 38377,
-      "sha256": "031ef28d1565151cfb8b6b6e18d429509f7c5d92c407b1757eb9c82a6b8bfc38"
+      "size_bytes": 38394,
+      "sha256": "9f8939cd0bf29be3539c0d03b755325234ce8713ef96c73aa2da5dd64ae15a85"
     },
     {
       "path": "hotfixes/3.0.14/VALIDATION.md",
@@ -56618,8 +56628,8 @@
     },
     {
       "path": "lib/BattleScene.lua",
-      "size_bytes": 111583,
-      "sha256": "14aa45a2595d7ce4f765f36022607a1057c39e5b03ff10a094206c400ffc2e0c"
+      "size_bytes": 111603,
+      "sha256": "e6d18742a1338f40a9d37052d342c9254705bc6e31118cbd876873400da598bc"
     },
     {
       "path": "lib/BattleSoundPreparation.lua",
@@ -56775,6 +56785,11 @@
       "path": "lib/DeviceProfile.lua",
       "size_bytes": 8819,
       "sha256": "74831d6b121557d4b9f47f0fe1e532a83c3df5a186f97cfec80231d6e2d64d3d"
+    },
+    {
+      "path": "lib/DeviceShadows.lua",
+      "size_bytes": 4329,
+      "sha256": "26f56b93267ed01da5649e7ad3f15dc2e3fae872cc991d015341484ca7b14ead"
     },
     {
       "path": "lib/DexModelPreview.lua",
@@ -57648,8 +57663,8 @@
     },
     {
       "path": "lib/ShadowMap.lua",
-      "size_bytes": 33138,
-      "sha256": "ce36a55323c24ef6ee125ee030d78306fe6ae6d390d776f779b3bcb90b682105"
+      "size_bytes": 35521,
+      "sha256": "0024d60e8a8b0c7ff57140027f8ed33e626c67005d8b2687f8e2263d97cd09c6"
     },
     {
       "path": "lib/ShadowPolicy.lua",
@@ -58068,8 +58083,8 @@
     },
     {
       "path": "lib/Voxel3D.lua",
-      "size_bytes": 147690,
-      "sha256": "ea59c9c6755ac2afb53aa2e37e83fdbceb331764fe4fa9c7106bcb9f06a1c387"
+      "size_bytes": 149832,
+      "sha256": "55e4a1db0c6212d006a0f2d5422d490edf6cc0174ecd4fbbc15901ccf963fab3"
     },
     {
       "path": "lib/VoxelBattleStage.lua",
@@ -58128,8 +58143,8 @@
     },
     {
       "path": "lib/VoxelScene.lua",
-      "size_bytes": 153138,
-      "sha256": "f600c200e582f366f89bc1c44a49006fd1803711c214b01c5f483ec715e4c4f3"
+      "size_bytes": 152963,
+      "sha256": "11301df5c5d461d93178f6ce666ab48ff030b7591100b501d007354bc4f5ef99"
     },
     {
       "path": "lib/VoxelShortcut.lua",
@@ -58503,13 +58518,13 @@
     },
     {
       "path": "main_gen1.lua",
-      "size_bytes": 148980,
-      "sha256": "3257a866319871c655c673d3771bacf4f6e24b7c9e3fdf03c6384affe3e800cf"
+      "size_bytes": 149003,
+      "sha256": "bee162f9f5cbc9bbe46346ad8eed3c5f03b3dda47ad85e210bdd8e353122e511"
     },
     {
       "path": "manifest.json",
       "size_bytes": 22819,
-      "sha256": "830e6106f07e617f432fd59ef8b5bf777c158b25e7b00f827f0c10b996936687"
+      "sha256": "4bd53bd7d5975e3b6f5846f0e35d1e39f7054829055618524188414f567dcd31"
     },
     {
       "path": "mod.card",
@@ -58670,6 +58685,11 @@
       "path": "tests/crystal_front_lookup_test.lua",
       "size_bytes": 2066,
       "sha256": "f7571e61b05db6b2107ee70a4b7ece67bf97aa8ef1f90f8ae302ad371479a2da"
+    },
+    {
+      "path": "tests/device_shadows_failure_test.lua",
+      "size_bytes": 2421,
+      "sha256": "6082bfd23a0d8de6427c45cd3fd3bc7d02b24aaca94e59af195ae29aa4b83597"
     },
     {
       "path": "tests/dex_model_preview_test.lua",
@@ -58907,6 +58927,21 @@
       "sha256": "b173eda6810ef92a529e6b7258d6d10197b445ab52cfeac48b567b4339aa8848"
     },
     {
+      "path": "tests/mobile_shadow_gen2_driver.lua",
+      "size_bytes": 2458,
+      "sha256": "001309091a1d65314ca02c279db968208bacc2cc8eaaa9322cf5e5b3715a3b7d"
+    },
+    {
+      "path": "tests/mobile_shadow_gpu_test.lua",
+      "size_bytes": 5942,
+      "sha256": "23b7a6bc9083dcb3f3746b327d8c6b531637ec14b137177856c4b21a17d017e4"
+    },
+    {
+      "path": "tests/mobile_shadow_world_driver.lua",
+      "size_bytes": 2156,
+      "sha256": "69d51c51d9380cbf630e1ef84f2757aa3430da2b1c5f6bb9bc9d37bfe451d471"
+    },
+    {
       "path": "tests/mobile_terrain_queue_test.lua",
       "size_bytes": 1873,
       "sha256": "37299e6ccf27e2e201ed2834497abfca5655a223eb6b3545a6f8d569af21b3bd"
@@ -59088,8 +59123,8 @@
     },
     {
       "path": "tests/shadow_resource_lifecycle_test.lua",
-      "size_bytes": 2756,
-      "sha256": "564dc479ae61e70fd41f17d8191bab3bb739c7860787ebd8416ada0d39da3d08"
+      "size_bytes": 2865,
+      "sha256": "168297c5ccebd11c0ba7620bc3f9febf6e567952032a9da1b38e37dd23f6fc23"
     },
     {
       "path": "tests/spring_blossom_driver.lua",
@@ -59372,8 +59407,8 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "manifest_sha256": "830e6106f07e617f432fd59ef8b5bf777c158b25e7b00f827f0c10b996936687",
+  "manifest_sha256": "4bd53bd7d5975e3b6f5846f0e35d1e39f7054829055618524188414f567dcd31",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.52"
+  "version": "3.0.53"
 }

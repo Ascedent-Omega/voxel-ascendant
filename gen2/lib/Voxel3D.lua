@@ -108,7 +108,7 @@ Voxel3D.FACE_SHADE = {
 local SHADER = [[
   varying float vShade;
   varying float vWeatherTop;
-  varying vec3 vSun;          // this fragment's place in the sun's view
+  varying highp vec3 vSun;          // this fragment's place in the sun's view
   varying LOVE_HIGHP_OR_MEDIUMP vec3 vWorld;        // uncurved world position; battle visibility uses it
 #ifdef VOXEL_GRID
   // model space, one unit per voxel -- see VoxelGrid. Precision matters
@@ -122,7 +122,7 @@ local SHADER = [[
   uniform mat4 model;
   uniform mat4 sunModel;      // where the SUN sees this vertex (see below)
   uniform mat4 sunVP;         // world -> the shadow map's unit cube
-  uniform vec3 eye;
+  uniform highp vec3 eye;
   uniform float pull;
   uniform vec3 curve;         // xy = the focus in world XZ, z = k; 0 = off
   attribute float VertexShade;
@@ -204,15 +204,15 @@ local SHADER = [[
   uniform LOVE_HIGHP_OR_MEDIUMP vec4 cutaway;
 
   // the two-channel pack ShadowMap writes: high byte, then low
-  float sunDepth(vec2 uv) {
-    vec4 c = Texel(sunMap, uv);
+  highp float sunDepth(highp vec2 uv) {
+    highp vec4 c = Texel(sunMap, uv);
     return c.r + c.g * (1.0 / 255.0);
   }
 
   // 1.0 in full sun, 1.0 - sunDark in full shadow. Four taps half a texel
   // out on the diagonals: a 2x2 box filter, which is what turns the
   // shadow map's texel staircase into a one-pixel soft edge.
-  float sunlight(vec3 p) {
+  float sunlight(highp vec3 p) {
     if (sunDark <= 0.0 || sunReceive <= 0.0) return 1.0;
     // outside the sun's frustum nothing was recorded, so nothing occludes
     if (p.x < 0.0 || p.x > 1.0 || p.y < 0.0 || p.y > 1.0 || p.z > 1.0) {
@@ -227,7 +227,7 @@ local SHADER = [[
     vec2 e = min(p.xy, 1.0 - p.xy);
     float edge = smoothstep(0.0, 0.06, min(e.x, e.y));
     if (edge <= 0.0) return 1.0;
-    float z = p.z - sunBias;
+    highp float z = p.z - sunBias;
     float lit = step(z, sunDepth(p.xy + sunTexel * vec2(-0.5, -0.5)))
               + step(z, sunDepth(p.xy + sunTexel * vec2( 0.5, -0.5)))
               + step(z, sunDepth(p.xy + sunTexel * vec2(-0.5,  0.5)))
@@ -613,7 +613,7 @@ local litShaders={}
 local function lightingSource(source)
   local L=V.require('LocalLights')
   source=source:gsub('#ifdef PIXEL',function()
-    return '#ifdef PIXEL\nuniform vec3 eye;\nuniform float localActorOn;\n'..L.glsl()
+    return '#ifdef PIXEL\nuniform highp vec3 eye;\nuniform float localActorOn;\n'..L.glsl()
   end,1)
   local normal=L.mobile and 'vec3 localNormal=vec3(0,1,0);' or [[
     vec3 localNormal=cross(dFdx(vWorld),dFdy(vWorld));

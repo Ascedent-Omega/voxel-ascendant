@@ -14,7 +14,7 @@ for _,prefix in ipairs({'','gen2/'})do
   graphics={newCanvas=function()end,setDepthMode=function()end,newShader=function()return {}end,
    newImage=function()if failImage then error('injected image upload failure')end;return resource()end},
   image={newImageData=function()return {setPixel=function()end,release=function()dataReleased=dataReleased+1 end}end}}
- local modules={Mat4={identity=function()return {}end},VoxelState={},Gen1CaveWalls={},
+ local modules={DeviceShadows={mobile=false,enabled=function()return not mobile end,prepare=function()return not mobile end},Mat4={identity=function()return {}end},VoxelState={},Gen1CaveWalls={},
   CanvasPresentation=setmetatable({},{__index=function()return mobile and 'Android' or 'OS X'end}),
   Quality={shadowsOff=function()return off end,shadowSizes=function()return {1024,1536,2048}end},
   PixelCanvas={new=function()attempts=attempts+1;if failCanvas then return false,'injected allocation failure'end;return true,resource()end}}

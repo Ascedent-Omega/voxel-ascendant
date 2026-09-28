@@ -1,3 +1,7 @@
+## 3.0.53 — Mobile shadow hotfix
+
+Restore mobile shadows after a per-renderer depth/orientation test; correct Metal UV orientation, preserve nested graphics state, cap mobile resources and contain optional-pass failures. Based on public 3.0.52, independent of local RC development.
+
 ## 3.0.52 — Terrarium zoom
 
 - Add optical Terrarium zoom with the existing pinch, wheel, Q/E and stick-click controls.

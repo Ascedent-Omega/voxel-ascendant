@@ -2706,17 +2706,14 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     clock = Sky.clock or 0,
     clouds = not (Sky.cloudSetting and Sky.cloudSetting:get() == "off"),
   })
-  if MOBILE_RUNTIME then
-    -- The phone bootstrap has no shadow map and must not replace it with a
-    -- per-character decal pass while proving the first core world canvas.
-    -- Desktop retains the complete policy and all authored shadows.
+  if MOBILE_RUNTIME and not V.require("DeviceShadows").enabled() then
     shadowPolicy = {
-      enabled = false, casters = "none", key = "mobile-world-core",
-      cloudOpacity = 0, cloudProgress = 0, cloudSeed = 0,
-      birdOpacity = 0, birdEnabled = false,
-      birdProgress = 0, birdSeed = 0,
+      enabled=false, casters="none", key="device-shadow-fallback",
+      cloudOpacity=0, cloudProgress=0, cloudSeed=0,
+      birdOpacity=0, birdEnabled=false, birdProgress=0, birdSeed=0,
     }
   end
+
   if type(SkyEvents.requestShadowFlyer) == "function" then
     local native = shadowPolicy.birdEnabled
                    and type(SkyEvents.shadowState) == "function"
@@ -2903,7 +2900,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- depth-tested silhouette below.
 
   local shCx, shCy = FirstPerson.shadowCenter(cx, cy, renderVh)
-  castShadows(drawState, terrain, drawMesh, posed, shCx, shCy,
+  ShadowMap.protected(castShadows,drawState, terrain, drawMesh, posed, shCx, shCy,
               renderVw, renderVh,
               atlasFor, water, drawWater, shadowPolicy, horizon)
 

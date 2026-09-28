@@ -155,7 +155,7 @@ return {
       { "HIGH", "high" },
       { "SOFT", "soft" },
     },
-    description = "Controls 3D shadow-map cost and filtering. SOFT is intended for capable desktop GPUs; OFF is the safest mobile fallback.",
+    description = "Controls shadow filtering. Phones automatically check support and use a reduced resolution. OFF disables the shadow map; SOFT costs more.",
   },
   {
     key = "cameraControl",

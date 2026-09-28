@@ -32,6 +32,7 @@ local Voxel = V.require("VoxelState")
 local Quality = V.require("Quality")
 local CanvasPresentation = V.require("CanvasPresentation")
 
+local Device = V.require("DeviceShadows")
 local ShadowMap = {}
 
 -- v0.2.69: Android/iOS render the whole Game2 frame into an outer canvas
@@ -45,18 +46,11 @@ local function preserveCallerCanvas()
   return CanvasPresentation.OS == "Android" or CanvasPresentation.OS == "iOS"
 end
 
--- The packed depth shadow map is not stable inside the mobile whole-frame
--- presenter.  On iOS/Android its lookup can inherit the rotating compositor
--- target and turn a small world caster into a screen-sized patch that follows
--- the camera.  VoxelScene already has a cheaper object-space decal fallback;
--- make that the explicit mobile contract until the GPU pass can be proven on
--- the final device surface.  Desktop keeps the complete terrain shadow map.
+-- Admission is calibrated against this renderer, not the phone OS name.
 local function mobileObjectShadowFallback()
-  return preserveCallerCanvas()
+  return Device.mobile and not Device.enabled()
 end
-
 ShadowMap.mobileObjectShadowFallback = mobileObjectShadowFallback
-
 
 -- The sun, as the shear a shadow takes: a point `y` world-pixels above the
 -- ground drops its shadow (KX*y, KZ*y) away from the point under it. Both
@@ -143,7 +137,7 @@ ShadowMap.SLOPE = 3.1
 ShadowMap.slack = ShadowMap.BIAS
 
 local SHADER = [[
-  varying float vDepth;
+  varying highp float vDepth;
 #ifdef VERTEX
   uniform mat4 lightVP;
   uniform mat4 model;
@@ -168,7 +162,7 @@ local SHADER = [[
     // Blue says WHAT cast this, which costs a channel that was zero anyway
     // and lets a surface decline one kind of caster -- water does, for the
     // people (see Water's sunLit).
-    float d = clamp(vDepth, 0.0, 1.0) * 255.0;
+    highp float d = clamp(vDepth, 0.0, 1.0) * 255.0;
     return vec4(floor(d) / 255.0, fract(d), sprite, 1.0);
   }
 #endif
@@ -178,6 +172,7 @@ ShadowMap._source = function() return SHADER end   -- named for the suite
 
 local shader = nil            -- nil = untried, false = unavailable
 local canvas = nil            -- nil = untried, false = unavailable
+local mobileDepth, mobilePushed
 local canvasRes = 0           -- the edge `canvas` was made at
 local blank = nil             -- 1x1 stand-in so the sampler is never unbound
 local drawing = false
@@ -227,6 +222,10 @@ end
 
 local function restoreGraphicsState(state)
   local graphics = love and love.graphics or {}
+  if mobilePushed then
+    mobilePushed=false
+    return pcall(graphics.pop)
+  end
   local errors = {}
   restoreOne(errors, graphics.setShader, state and state.shader, { n=0 })
   restoreOne(errors, graphics.setDepthMode, state and state.depth, { n=0 })
@@ -271,8 +270,21 @@ end
 local function getCanvas(res)
   if canvas == false then return nil end
   if canvas and canvasRes == res then return canvas end
-  local ok, c = V.require("PixelCanvas").new(res, res)
+  local ok, c = V.require("PixelCanvas").new(res, res,
+    Device.mobile and {format="rgba8",msaa=0} or nil)
+  if ok and c and Device.mobile then
+    local made, depth = V.require("PixelCanvas").new(res,res,
+      {format=Device.depthFormat,readable=false,msaa=0})
+    if made then
+      if mobileDepth then pcall(mobileDepth.release,mobileDepth) end
+      mobileDepth=depth
+    else
+      pcall(c.release,c);ok,c=false,nil;Device.fail(depth)
+    end
+  end
   if not (ok and c) then
+    if mobileDepth then pcall(mobileDepth.release,mobileDepth);mobileDepth=nil end
+    if Device.mobile then Device.fail("shadow colour/depth allocation failed") end
     if canvas and canvas.release then pcall(canvas.release, canvas) end
     canvas, canvasRes, ready = false, 0, false
     return nil
@@ -315,16 +327,21 @@ function ShadowMap.available()
   -- it already carries for that case. One path, already written and
   -- already tested, instead of a second way of having no shadow map.
   if Quality.shadowsOff() then return false end
-  if mobileObjectShadowFallback() then return false end
   if not (love.graphics and love.graphics.newCanvas
           and love.graphics.setDepthMode) then
     return false
   end
-  if getShader() == nil then return false end
+  if Device.mobile and Device.state == "unsupported" then return false end
+  local writer = getShader()
+  if not writer then
+    if Device.mobile then Device.fail("depth shader unavailable") end
+    return false
+  end
+  if not Device.prepare(writer) then return false end
   -- Once fitted, this is a read-only capability check. Replacing the live
   -- canvas with the smallest rung here forces begin() to allocate it again.
   if canvas ~= nil then return canvas ~= false end
-  return getCanvas(Quality.shadowSizes()[1]) ~= nil
+  return getCanvas(Device.mobile and Device.resolution or Quality.shadowSizes()[1]) ~= nil
 end
 
 -- The map to sample, or the blank stand-in. Never nil once the main pass
@@ -343,6 +360,7 @@ end
 -- the world would wear one frozen frame of shadows forever, while the
 -- decal fallback ALSO drew because castShadows had stopped running.
 function ShadowMap.active()
+  if not Device.enabled() then return false end
   if Quality.shadowsOff() then return false end
   if mobileObjectShadowFallback() then return false end
   local okShadows, Shadows = pcall(V.require, "Shadows")
@@ -451,6 +469,7 @@ local function fit(cx, cy, vw, vh)
       break
     end
   end
+  if Device.mobile then res = Device.resolution end
   ShadowMap.res = res
 
   -- the box's SIZE is fixed (the sun and the view size are), so snapping
@@ -472,7 +491,11 @@ local function fit(cx, cy, vw, vh)
   proj = Mat4.mul(Mat4.scale(1, -1, 1), proj)
 
   ShadowMap.clipVP = Mat4.mul(proj, view)
-  ShadowMap.uvVP = Mat4.mul(TO_UNIT, ShadowMap.clipVP)
+  local toUV = TO_UNIT
+  if Device.mobile and Device.flipY then
+    toUV = { .5,0,0,.5, 0,-.5,0,.5, 0,0,.5,.5, 0,0,0,1 }
+  end
+  ShadowMap.uvVP = Mat4.mul(toUV, ShadowMap.clipVP)
   -- what the frustum ended up covering, for probes: the lateral extent in
   -- world pixels divided by RES is how fine a shadow edge can land
   ShadowMap.extent = { r - l, t - b, far - near }
@@ -590,6 +613,7 @@ function ShadowMap.canvasRestorePolicy()
 end
 
 function ShadowMap.begin(cx, cy, vw, vh)
+  if not ShadowMap.available() then return false end
   local sh = getShader()
   if not sh then return false end
   -- fit first: it is what decides which resolution rung this view wants
@@ -600,12 +624,17 @@ function ShadowMap.begin(cx, cy, vw, vh)
   -- returns to the physical screen. captureGraphicsState encodes that policy
   -- while retaining every other piece of graphics state exactly.
   savedGraphicsState = captureGraphicsState()
-  local ok = pcall(function()
-    love.graphics.setCanvas({ c, depth = true })
+  local ok, beginError = pcall(function()
+    if Device.mobile then
+      love.graphics.push("all");mobilePushed=true
+      love.graphics.origin();love.graphics.setScissor();love.graphics.setStencilTest()
+      love.graphics.setColorMask(true,true,true,true)
+    end
+    love.graphics.setCanvas(Device.mobile and { c, depthstencil=mobileDepth } or { c, depth = true })
     prevBlend, prevAlphaMode = love.graphics.getBlendMode()
     -- white clears to depth 1 + 1/255, past the far plane: a texel nothing
     -- was drawn into can never shadow anything
-    love.graphics.clear(1, 1, 0, 1, true, true)
+    love.graphics.clear(1, 1, 0, 1, 0, 1)
     love.graphics.setDepthMode("lequal", true)
     -- setting this to back instead puts holes in the shadows
     love.graphics.setMeshCullMode("none")
@@ -613,12 +642,13 @@ function ShadowMap.begin(cx, cy, vw, vh)
     love.graphics.setBlendMode("replace", "premultiplied")
     love.graphics.setShader(sh)
     love.graphics.setColor(1, 1, 1, 1)
-    pcall(sh.send, sh, "lightVP", "row", ShadowMap.clipVP)
+    sh:send("lightVP", "row", ShadowMap.clipVP)
     -- the world until a cast pass says otherwise, reset per pass so one that
     -- forgot to put it back cannot leak into the next map's terrain
     pcall(sh.send, sh, "sprite", 0)
   end)
   if not ok then
+    if Device.mobile then Device.fail(beginError) end
     drawing, ready, lastSig = false, false, nil
     restoreGraphicsState(savedGraphicsState)
     savedGraphicsState = nil
@@ -652,10 +682,10 @@ function ShadowMap.sprites(on)
   if sh then pcall(sh.send, sh, "sprite", on and 1 or 0) end
 end
 
-function ShadowMap.draw(mesh, texture, model)
+local function drawCaster(mesh, texture, model)
   if not (drawing and mesh) then return end
   local sh = getShader()
-  pcall(sh.send, sh, "model", "row", model or IDENTITY)
+  sh:send("model", "row", model or IDENTITY)
   local function drawPlain(value)
     if not value then return end
     if value.__voxelMeshParts then
@@ -677,6 +707,17 @@ function ShadowMap.draw(mesh, texture, model)
   else
     drawPlain(mesh)
   end
+end
+
+function ShadowMap.draw(mesh, texture, model)
+  if not Device.mobile then return drawCaster(mesh,texture,model) end
+  local ok,err=pcall(drawCaster,mesh,texture,model)
+  if not ok then
+    Device.fail(err)
+    ShadowMap.abort()
+    return false
+  end
+  return true
 end
 
 -- Close the pass and stamp it with the signature it was drawn for.
@@ -714,6 +755,7 @@ end
 
 -- Drop the GPU objects (window resize, hot reload).
 function ShadowMap.invalidate()
+  if mobileDepth then pcall(mobileDepth.release,mobileDepth);mobileDepth=nil end
   if canvas and canvas.release then pcall(canvas.release, canvas) end
   if blank and blank.release then pcall(blank.release, blank) end
   canvas, canvasRes, blank = nil, 0, nil
@@ -721,6 +763,19 @@ function ShadowMap.invalidate()
   deferred = 0
   savedGraphicsState = nil
   prevCanvas = nil
+end
+
+-- Fail only this optional effect if any caster, provider or uniform throws.
+-- A failed cleanup still propagates: continuing on the wrong target is unsafe.
+function ShadowMap.protected(fn,...)
+  if not Device.mobile then return fn(...) end
+  local ok,err=pcall(fn,...)
+  if not ok then
+    Device.fail(err)
+    ShadowMap.abort()
+    return false
+  end
+  return true
 end
 
 return ShadowMap

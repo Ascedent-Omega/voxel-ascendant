@@ -1915,7 +1915,7 @@ function BattleScene.render(state, arena, textures, token)
   end
   BattleLights.prepare(state,host,arena,outdoor,groundY,mapProps,battleLighting,
     BattleScene.weatherMode(host))
-  castShadows(state, arena, terrain, nbMesh, cx, cy, vw, vh, atlasFor,
+  ShadowMap.protected(castShadows,state, arena, terrain, nbMesh, cx, cy, vw, vh, atlasFor,
               cards, token, host, neighbors, water, nbWater, groundY, horizon,
               screenBackdrop, portableBackdrop, mapProps)
 

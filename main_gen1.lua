@@ -1002,9 +1002,8 @@ local SETTINGS = {
     "Moving sun and moon light, indoor window beams, evening room lamps, forest canopy light and flickering cave torches illuminate terrain, people, Pokemon and water. Gen1 on desktop and phones. Phones use a smaller source budget. OFF restores the original lighting.", full=true },
   { Shadows.setting,
     "Turn object-anchored world and character shadows ON or OFF in voxel "
-    .. "scenes and 3D battles. Turn "
-    .. "this off on mobile devices where the shadow pass is slow or renders "
-    .. "poorly.",
+    .. "scenes and 3D battles. Phones use a reduced shadow resolution and "
+    .. "automatically fall back if the device cannot render shadows correctly.",
     full = true },
   { WorldCurve.setting,
     "Bend the world down over the horizon, Animal Crossing style." },

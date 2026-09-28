@@ -1,3 +1,9 @@
+# VASC 3.0.53 — Mobile shadow hotfix
+
+World and character shadows return on supported iPhone and Android renderers, with a per-device GPU check and corrected Metal/OpenGL orientation. Standalone update from public 3.0.52; local RC features are excluded. See [release notes](RELEASE_NOTES.md) and [validation](QA-REPORT.md).
+
+---
+
 # VASC 3.0.52 — Terrarium zoom
 
 Zoom with pinch, mouse wheel, Q/E or stick clicks while the Terrarium camera keeps its authored position and angle. The selected zoom is remembered across battles and restarts for the current playthrough. See [release notes](RELEASE_NOTES.md), [controls](BATTLE_CONTROLS.md) and [validation](QA-REPORT.md).
