@@ -365,6 +365,7 @@ function BattleCam.setScreenSafetyEvaluator(evaluator)
   lastRetreatCut = nil
   portableFovFloor = nil
   BattleCam.mapRescueLens = nil
+  BattleCam.compositionContinuity = nil
   BattleCam.manualZoomSeat = nil
   BattleCam.manualAngularSeat = nil
   pendingScreenProbe = nil
@@ -402,6 +403,7 @@ function BattleCam.noteViewport(w, h, frameSpan)
   lastRetreatCut = nil
   portableFovFloor = nil
   BattleCam.mapRescueLens = nil
+  BattleCam.compositionContinuity = nil
   BattleCam.manualZoomSeat = nil
   BattleCam.manualAngularSeat = nil
   BattleCam.staticSafetyArena, BattleCam.staticSafetySeat = nil, nil
@@ -445,6 +447,7 @@ function BattleCam.applyDistanceSetting(force)
   BattleCam.directorManualUntil = 0
   portableFovFloor = nil
   BattleCam.mapRescueLens = nil
+  BattleCam.compositionContinuity = nil
   BattleCam.manualZoomSeat = nil
   BattleCam.manualAngularSeat = nil
   return true
@@ -637,6 +640,7 @@ function BattleCam.reset()
   lastRetreatCut = nil
   portableFovFloor = nil
   BattleCam.mapRescueLens = nil
+  BattleCam.compositionContinuity = nil
   BattleCam.manualZoomSeat = nil
   BattleCam.manualAngularSeat = nil
   pendingScreenProbe = nil
@@ -1391,6 +1395,55 @@ local function returnRevalidatedScreenCamera(
   return copyCamera(camera), pitch
 end
 
+-- These verdicts describe composition, not a broken camera or renderer.
+-- A menu covering a trainer must not retire MAP or switch the player's view.
+-- Keep speculative camera searches strict, then draw a fresh scene from the
+-- existing physical seat if no better composition exists. Invalid ownership,
+-- missing bounds, failed geometry/support and GPU errors are not covered.
+local function compositionLimit(reason)
+  if type(reason) ~= "string" then return false end
+  if reason == "actor-pair-too-close" or reason == "status-card-overlap"
+      or reason == "owner-render-unsafe" then return true end
+  for _, side in ipairs({"player", "enemy", "playerHero", "enemyHero"}) do
+    if reason == side .. "-outside-safe-frame"
+        or reason:sub(1, #side + 7) == side .. "-under-" then return true end
+  end
+  return false
+end
+
+local function sameComposition(record, arena, battle)
+  return sameScreenOwner(record, arena, battle)
+    and record.phase == battle.phase
+    and record.width == BattleCam.viewportW
+    and record.height == BattleCam.viewportH
+    and record.player == battle.player and record.enemy == battle.enemy
+    and record.playerMon == (battle.player and battle.player.mon)
+    and record.enemyMon == (battle.enemy and battle.enemy.mon)
+end
+
+local function retainComposition(arena, camera, pitch, reason)
+  freezeRejectedDirectorPath(arena)
+  pendingScreenProbe = nil
+  local retained = BattleCam.compositionContinuity
+  if not sameComposition(retained, arena, activeBattle)
+      or retained.camera ~= camera then
+    BattleCam.compositionContinuity = {
+      arena=arena, battle=activeBattle, phase=activeBattle.phase,
+      width=BattleCam.viewportW, height=BattleCam.viewportH,
+      player=activeBattle.player, enemy=activeBattle.enemy,
+      playerMon=activeBattle.player and activeBattle.player.mon,
+      enemyMon=activeBattle.enemy and activeBattle.enemy.mon,
+      camera=copyCamera(camera), pitch=pitch,
+    }
+  end
+  -- Do not advertise this camera as fully HUD-safe or cache it as last-safe.
+  -- Only its pose is retained; actors, animation and HUD render anew each frame.
+  BattleCam.screenSafetyOK = false
+  BattleCam.screenSafetyReason = "composition-limited:" .. reason
+  BattleCam.screenSafetyFallbackUsed = false
+  return copyCamera(camera), pitch
+end
+
 -- Large flying poses need distance as well as room in the lens. Expanding
 -- an already wide lens bends the whole map while the near actor can still
 -- leave the frame. Keep the bearing and aim, and try a physical retreat with
@@ -1666,9 +1719,9 @@ end
 -- be rendered. Candidate search is deliberately allowed to be approximate;
 -- this check runs after easing and after the physical-world fallback in rig,
 -- against the exact pre-letterbox camera consumed by BattleScene. An unsafe
--- frame reuses a still-valid previous camera or declines the voxel shot for
--- this frame. It is never allowed to leak through merely because a probe was
--- throttled or the player currently owns the camera.
+-- frame first tries a better composition. If only framing remains imperfect,
+-- retain a live camera in the selected mode. Provider/resource failures still
+-- decline; no unknown result is treated as a verified camera.
 local function guardRenderedCamera(arena, groundY, camera, pitch, canonical)
   if canonical or activeBattle == nil
       or type(screenSafetyEvaluator) ~= "function" then
@@ -1685,6 +1738,19 @@ local function guardRenderedCamera(arena, groundY, camera, pitch, canonical)
     subject=BattleCam.directorSubject, actual=true,
     manual=BattleCam.directorClock < BattleCam.directorManualUntil,
   }
+  local continuity = BattleCam.compositionContinuity
+  if not context.manual and sameComposition(continuity, arena, activeBattle) then
+    local safe, reason = screenSafeCamera(activeBattle, arena, groundY,
+      continuity.camera, {phase="rendered-continuity", actual=true})
+    if safe == true then
+      return returnRevalidatedScreenCamera(arena, continuity.camera,
+        continuity.pitch, reason or "composition-recovered", false)
+    elseif safe == false and compositionLimit(reason) then
+      return retainComposition(arena, continuity.camera, continuity.pitch, reason)
+    end
+    -- A cached composition never masks a new resource/provider/placement fault.
+  end
+  BattleCam.compositionContinuity = nil
   -- Keep the complete rendered camera as the optical gesture's origin. The
   -- ordinary live actor/HUD guard below still validates every eased frame.
   local zoomSeat=BattleCam.manualZoomSeat
@@ -1929,6 +1995,28 @@ local function guardRenderedCamera(arena, groundY, camera, pitch, canonical)
       arena, previous.camera, previous.pitch,
       "rolled-back:" .. tostring(reason or rollbackReason or "unsafe"),
       safe == false)
+  end
+
+  if safe == false and compositionLimit(reason) then
+    -- Prefer the proven physical pose when a newly opened menu invalidates its
+    -- composition. Otherwise retain this frame's world-checked pose. The next
+    -- phase, deployment, rotation or manual camera input gets a new solve.
+    local retained = matchingPrevious and rollbackSafe == false
+      and compositionLimit(rollbackReason) and previous or nil
+    local chosen = retained and retained.camera or uncorrectedCamera
+    local chosenPitch = retained and retained.pitch or uncorrectedPitch
+    -- The lens rescue may have evaluated a different pose. Revalidate the
+    -- exact one we will draw; its support/provider fault cannot be hidden by
+    -- a composition-only rejection from another candidate.
+    local chosenSafe, chosenReason = screenSafeCamera(activeBattle, arena,
+      groundY, chosen, {phase="rendered-composition-retain", actual=true})
+    if chosenSafe == true then
+      return returnRevalidatedScreenCamera(arena, chosen, chosenPitch,
+        chosenReason or "composition-recovered", true)
+    elseif chosenSafe == false and compositionLimit(chosenReason) then
+      return retainComposition(arena, chosen, chosenPitch, chosenReason)
+    end
+    safe, reason = chosenSafe, chosenReason or "composition-camera-unavailable"
   end
 
   -- A physical SMART path is preflighted against the HUD geometry visible at
@@ -2461,6 +2549,7 @@ function BattleCam.update(dt, arena, battle, groundY)
     lastRetreatCut = nil
     portableFovFloor = nil
     BattleCam.mapRescueLens = nil
+    BattleCam.compositionContinuity = nil
     BattleCam.manualZoomSeat = nil
     BattleCam.manualAngularSeat = nil
     pendingScreenProbe = nil

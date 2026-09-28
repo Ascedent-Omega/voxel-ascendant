@@ -1,3 +1,7 @@
+## 3.0.54 — Keep the selected battle view
+
+Keep fresh Gen 1 battle rendering in the selected environment after camera/HUD composition limits; bound repeated correction searches, preserve manual view changes and log the actual composition issue. Genuine renderer, ownership and physical placement faults retain recovery. Based on public 3.0.53, independent of local RC development.
+
 ## 3.0.53 — Mobile shadow hotfix
 
 Restore mobile shadows after a per-renderer depth/orientation test; correct Metal UV orientation, preserve nested graphics state, cap mobile resources and contain optional-pass failures. Based on public 3.0.52, independent of local RC development.

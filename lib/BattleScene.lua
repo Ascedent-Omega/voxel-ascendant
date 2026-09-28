@@ -1860,10 +1860,9 @@ function BattleScene.render(state, arena, textures, token)
     BattleCam.noteViewport(pw, ph, BattleScene.GB_H*s)
   end
   local cam, pitch = BattleCam.rig(arena, groundY)
-  -- The final provider-neutral safety gate may deliberately decline this
-  -- voxel frame when neither the eased camera nor its last safe snapshot fits
-  -- the current immutable HUD/actor geometry. Native battle rendering stays
-  -- available and the next update may retry with a recovered camera.
+  -- Composition limits retain a live pose in this arena. Only an unavailable
+  -- camera/provider/physical placement declines the scene; HUD overlap alone
+  -- must not trigger an automatic switch to another battle environment.
   if not cam then
     local cameraState = type(BattleCam.directorState) == "function"
       and BattleCam.directorState() or nil

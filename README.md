@@ -1,3 +1,9 @@
+# VASC 3.0.54 — Keep the selected battle view
+
+Camera/HUD composition limits keep the chosen Gen 1 environment running with fresh battle frames. Change the view manually when needed. Independent public hotfix from 3.0.53, including its mobile shadow fixes. See [release notes](RELEASE_NOTES.md) and [validation](QA-REPORT.md).
+
+---
+
 # VASC 3.0.53 — Mobile shadow hotfix
 
 World and character shadows return on supported iPhone and Android renderers, with a per-device GPU check and corrected Metal/OpenGL orientation. Standalone update from public 3.0.52; local RC features are excluded. See [release notes](RELEASE_NOTES.md) and [validation](QA-REPORT.md).

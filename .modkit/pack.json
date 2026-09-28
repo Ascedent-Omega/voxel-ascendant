@@ -1,6 +1,6 @@
 {
   "id": "VOXEL_ASCENDANT",
-  "version": "3.0.53",
+  "version": "3.0.54",
   "api": 2,
   "modkit": "1.0.0",
   "local_candidate": false,
@@ -32,8 +32,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 69217,
-      "sha256": "7e1259f0c012372e90817064dde28d04d6565e8f153fe24daa38d6bf6184f240"
+      "bytes": 69601,
+      "sha256": "2958400a56cc259202fd22270834830b9da3b7b3da5c541d5edb42b3774ea9a7"
     },
     {
       "path": "COBBLEMON_BATTLE_AUDIT_2026-09-25.md",
@@ -112,18 +112,18 @@
     },
     {
       "path": "QA-REPORT.md",
-      "bytes": 3295,
-      "sha256": "b5398c5d0086675d989d54ba24d165d7bd95a6386aea558c1d9f657ee1c5213c"
+      "bytes": 2929,
+      "sha256": "d46eb151b3d2fe609ecfdde572ea45130d3426a1a3fde97616eaf0e4ec5921b6"
     },
     {
       "path": "README.md",
-      "bytes": 28271,
-      "sha256": "8058169694140ff794a792232fa3f10461c98f33be30fa9020b090a75269ac2d"
+      "bytes": 28606,
+      "sha256": "3af418b6a33f335b4cf67e54140dd8e6dcb3019b3e4dc5c9f4349818d919a0af"
     },
     {
       "path": "RELEASE_NOTES.md",
-      "bytes": 2282,
-      "sha256": "ea2d6246d5a7c2d92eb04267fd06a9203151178d7d803febde30980e1d487927"
+      "bytes": 2032,
+      "sha256": "08aefce06f3859d1aed89d04b86cda4377ed78980422f32cc71e546d3ba96d52"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -304,6 +304,11 @@
       "path": "RELEASE_NOTES_3.0.53.md",
       "bytes": 2282,
       "sha256": "ea2d6246d5a7c2d92eb04267fd06a9203151178d7d803febde30980e1d487927"
+    },
+    {
+      "path": "RELEASE_NOTES_3.0.54.md",
+      "bytes": 2032,
+      "sha256": "08aefce06f3859d1aed89d04b86cda4377ed78980422f32cc71e546d3ba96d52"
     },
     {
       "path": "RUNTIME_AUDIT_2026-09-25.md",
@@ -56557,8 +56562,8 @@
     },
     {
       "path": "lib/BattleCam.lua",
-      "bytes": 140334,
-      "sha256": "d41e6740036eafdac30b441b431c05b31157941b4773d37fe16b35df7b831a45"
+      "bytes": 144876,
+      "sha256": "6eb8be465bd12db225f47c4a8ac76470fe74e7c4e2b7c0c26994f64b88772b5e"
     },
     {
       "path": "lib/BattleDOF.lua",
@@ -56632,8 +56637,8 @@
     },
     {
       "path": "lib/BattleScene.lua",
-      "bytes": 111603,
-      "sha256": "e6d18742a1338f40a9d37052d342c9254705bc6e31118cbd876873400da598bc"
+      "bytes": 111532,
+      "sha256": "e61d66fcdaba5ed94786750b8ab429edb0cb4281d83d87309cb72b30a6365e46"
     },
     {
       "path": "lib/BattleSoundPreparation.lua",
@@ -57507,8 +57512,8 @@
     },
     {
       "path": "lib/OverworldBattle.lua",
-      "bytes": 290272,
-      "sha256": "27ea2d9ef7bdcf4be189c0fbf9eba69f4a6f891c35518fec079d322924772f65"
+      "bytes": 290844,
+      "sha256": "8c990cb5027dd4da33b1d5a9341253dca16e134fbd4d72b3b6247d0d269d5e69"
     },
     {
       "path": "lib/OverworldPokemonCard.lua",
@@ -58528,7 +58533,7 @@
     {
       "path": "manifest.json",
       "bytes": 22819,
-      "sha256": "4bd53bd7d5975e3b6f5846f0e35d1e39f7054829055618524188414f567dcd31"
+      "sha256": "dd3c490966a5b6787e08e51a602d8fe0f01748d0ec60792ee4059d52521fa92c"
     },
     {
       "path": "mod.card",
@@ -58537,8 +58542,8 @@
     },
     {
       "path": "runtime-receipt.json",
-      "bytes": 2496933,
-      "sha256": "95fc39bd78768860cdc0711321d9fbbff2f33061f678b5eb0ccda62cf8a4de30"
+      "bytes": 2497456,
+      "sha256": "085acd89eb362187341d07026610346d2588a3136085ed82d7b599e75e7c6be9"
     },
     {
       "path": "scripts/repair_pokemmo_direction_rows.py",
@@ -58599,6 +58604,16 @@
       "path": "tests/battle_anchor_assignment_test.lua",
       "bytes": 2759,
       "sha256": "22cf4f035ff397433c04b19e6eedba2803ce2bfefcf0ed8d5aa3bfe354ac3270"
+    },
+    {
+      "path": "tests/battle_camera_continuity_driver.lua",
+      "bytes": 4704,
+      "sha256": "24dddabd0b6cc23f26b8aef07158af44ad64138e1b40e6b8a68dc15fa584cfa6"
+    },
+    {
+      "path": "tests/battle_camera_continuity_test.lua",
+      "bytes": 3993,
+      "sha256": "4d94bc1735b6df4a989b89382b8ec0b75471bfb0f39bd69261b430592df9fa40"
     },
     {
       "path": "tests/battle_choice_owner_test.lua",
@@ -59416,6 +59431,6 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "base_archive_sha256": "601912f57ef6838370fcc79311d97bd2b1fba1edf384de5c93a861476d8f4c9f",
-  "source_snapshot_sha256": "15ad8512d25ff123ca8341da4f3c0dad46385661c91ae0ea8cad60082f0f9495"
+  "base_archive_sha256": "92c129efa703f77d91eaedbab4c0df96bb90179986f64c308c3253d999ae08fc",
+  "source_snapshot_sha256": "0b0cad7d913843e9a6052176c308542117038101d7e9568a54c4d9654aeeada9"
 }

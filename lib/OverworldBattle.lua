@@ -3834,6 +3834,19 @@ local function commitShot(active, shot, pendingActors)
       end
     end
   end
+  local compositionReason = cameraState and cameraState.screenReason
+  if type(compositionReason) == "string"
+      and compositionReason:find("composition-limited:", 1, true) == 1 then
+    if active.diagnosticCompositionReason ~= compositionReason then
+      Diagnostics.write("battle-composition-limited", {
+        mode=active.arena and active.arena.presentationMode,
+        reason=compositionReason, action="selected-view-retained",
+      })
+    end
+    active.diagnosticCompositionReason = compositionReason
+  else
+    active.diagnosticCompositionReason = nil
+  end
   if cameraState and cameraState.screenFallback then
     if not active.diagnosticCameraFallback then
       active.diagnosticCameraFallback = true

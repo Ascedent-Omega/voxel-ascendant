@@ -1,17 +1,17 @@
-# VASC 3.0.53 — Mobile shadow hotfix
+# VASC 3.0.54 — Keep the selected battle view
 
-Standalone hotfix based on public VASC 3.0.52. Does not include the local 3.0.53-rc.* development changes. Recommended KASC pairing remains 6.7.27.
+Standalone hotfix based on public VASC 3.0.53. Local RC development is excluded. Includes the per-device mobile shadow fixes from 3.0.53.
 
 ## Changes
-- Restore Gen 1 and Gen 2 world/object/character shadow maps on capable iPhone and Android renderers. Existing SHADOWS / OBJECT SHADOWS switches still work; previously saved OFF preferences are preserved.
-- Test packed depth, actual depth rejection, render-target support and texture orientation on the current GPU at first use. Correct the Metal/OpenGL texture-orientation difference from the measured result, independently of the phone model or screen orientation.
-- Use a bounded 512-pixel mobile shadow map (256 when required by the reported texture limit), with an explicit depth attachment and high-precision depth packing. Desktop resolution and filtering are retained.
-- Add shadow sampling to the compact Gen 1 phone shader. Cloud/bird shadows are included where the existing sky/weather policy supplies them; a shader rejection first removes aerial effects, then falls back to the original compact renderer.
-- Fix a Gen 2 GLES shader-link mismatch by using matching camera-uniform precision in both shader stages.
-- Restore the complete caller graphics state, including nested colour/depth attachments, clipping and transforms. Failed mobile shadow passes are contained and latched for the session instead of repeatedly breaking the world renderer.
+- Keep the selected Gen 1 battle environment when a trainer or Pokemon overlaps the attack/message HUD, exceeds the preferred frame, or cannot satisfy the ideal composition. These checks previously could freeze the picture, relocate the battle and switch MAP to Terrarium after a timeout.
+- First try the existing camera corrections. If the composition remains imperfect, retain a physical camera pose and render fresh actors, animations and HUD in the same environment. The player can change the view manually using the existing battle controls.
+- Avoid repeating the complete camera search every frame. Reconsider the composition on phase changes, Pokemon deployment, orientation changes and manual camera input. Camera transaction rollback and owner changes discard the corresponding temporary state.
+- Record a composition-limited diagnostic separately from a renderer failure. This shared Gen 1 path applies to Android, iPhone and desktop.
 
-## Validation and limits
-Native macOS tests exercise iOS/Android policy paths on Metal and OpenGL, actual shadowed pixels, nested render targets, rotation and ON/OFF transitions. Strict GLSL/GLES compilation/linking and targeted regressions are included in QA-REPORT.md. These are not physical iPhone/Android device certifications. GPU admission runs separately on each device; it is a correctness check, not a frame-rate guarantee. A native driver hang or process termination cannot be recovered by Lua exception handling.
+## Scope and validation
+This removes automatic view changes caused by the listed composition checks. An overlap may remain visible until the camera, HUD or view is adjusted. Missing assets, invalid ownership, physically unsupported placement and actual renderer/GPU failures retain their existing recovery handling. Gen 2 camera logic is unchanged.
+
+Native Android/OpenGL and iOS/Metal policy tests on macOS cover a persistent injected trainer/attack-menu collision, fresh MAP frames beyond the old timeout, rotation, menu input and manual ARENA selection. A 3.0.53 comparison reproduces the automatic Terrarium switch. These are not physical phone tests. See QA-REPORT.md for the complete validation.
 
 ## Install / rollback
-Close the game, update through the launcher or import Voxel-Ascendant-3.0.53.zip, then restart. Use SHADOWS / OBJECT SHADOWS ON to enable the effect; Gen 2 shadow quality must also be above OFF. No save-format change. To roll back, import the complete public 3.0.52 package.
+Close the game, update through the launcher or import Voxel-Ascendant-3.0.54.zip, then restart. No save migration. Rollback: complete public VASC 3.0.53 package.
