@@ -1,0 +1,19 @@
+{
+  "method": "Local alpha extraction, compositing and rear-hair palette matching",
+  "body": "User-supplied Gemini four-directions-v4 sheet; original pose geometry retained",
+  "heads": "User-accepted voxel front and left/right views",
+  "cell": [
+    320,
+    384
+  ],
+  "anchor": [
+    160,
+    376
+  ],
+  "referenceHeight": 320,
+  "sourceSha256": {
+    "accepted-side-heads.png": "a7d9f68b1800d520f9b3a13b55a60af2c0544b309ea070ff1bb7d18a10a1bcab",
+    "body-3x4.png": "bff2610f19c5b75d5075c931f032a547dc8bfeda770113f8b8ed1bbd05ff0a05",
+    "accepted-front-head.png": "a1ff9e248d6d006731e5201e81992a5bb90846d81ac6c409f046c476e482fe1a"
+  }
+}

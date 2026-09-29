@@ -1,0 +1,37 @@
+{
+  "rootBone": "ascendant_blackbelt--blond-navy",
+  "portraitScale": 0.7,
+  "portraitTranslation": [
+    0,
+    -0.8,
+    0
+  ],
+  "profileScale": 0.5,
+  "profileTranslation": [
+    0,
+    0,
+    0
+  ],
+  "poses": {
+    "standing": {
+      "poseTypes": [
+        "STAND",
+        "PORTRAIT",
+        "PROFILE"
+      ],
+      "animations": [
+        "q.bedrock('ascendant_blackbelt--blond-navy', 'ground_idle')",
+        "q.bedrock('ascendant_blackbelt--blond-navy', 'blink')"
+      ]
+    },
+    "walking": {
+      "poseTypes": [
+        "WALK"
+      ],
+      "animations": [
+        "q.bedrock('ascendant_blackbelt--blond-navy', 'ground_walk')",
+        "q.bedrock('ascendant_blackbelt--blond-navy', 'blink')"
+      ]
+    }
+  }
+}

@@ -49,7 +49,7 @@ function M.new(options)
   if not world or not world.map or world.map.id~=profile.mapId then return end
   local found
   for _,actor in pairs(world.npcs or {})do
-   if actor.sprite==record.sprite then if found then return end;found=actor end
+   if actor.sprite==((record.spriteRef and record.spriteRef[1])or record.sprite) then if found then return end;found=actor end
   end
   local def=found and found.sprite and found.sprite.def
   if not def or found.def==nil or found.def.index~=profile.index

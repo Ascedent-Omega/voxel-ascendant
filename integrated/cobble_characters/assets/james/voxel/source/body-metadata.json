@@ -1,0 +1,201 @@
+{
+  "provider": "Google Gemini via Safari",
+  "source": "https://gemini.google.com/app/8189510a7a4b95be",
+  "columns": 3,
+  "rows": 4,
+  "frame_width": 192,
+  "frame_height": 256,
+  "anchor": [
+    96,
+    240
+  ],
+  "directions": [
+    "front",
+    "left",
+    "back",
+    "right"
+  ],
+  "poses": [
+    "stand",
+    "step-a",
+    "step-b"
+  ],
+  "walk_sequence": [
+    0,
+    1,
+    0,
+    2
+  ],
+  "frame_duration_ms": 180,
+  "frames": [
+    {
+      "direction": "front",
+      "pose": "stand",
+      "file": "front-stand.png",
+      "column": 0,
+      "row": 0,
+      "source_bbox": [
+        124,
+        101,
+        410,
+        713
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "front",
+      "pose": "step-a",
+      "file": "front-step-a.png",
+      "column": 1,
+      "row": 0,
+      "source_bbox": [
+        123,
+        101,
+        423,
+        713
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "front",
+      "pose": "step-b",
+      "file": "front-step-b.png",
+      "column": 2,
+      "row": 0,
+      "source_bbox": [
+        111,
+        101,
+        412,
+        714
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "left",
+      "pose": "stand",
+      "file": "left-stand.png",
+      "column": 0,
+      "row": 1,
+      "source_bbox": [
+        160,
+        21,
+        390,
+        602
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "left",
+      "pose": "step-a",
+      "file": "left-step-a.png",
+      "column": 1,
+      "row": 1,
+      "source_bbox": [
+        97,
+        19,
+        430,
+        603
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "left",
+      "pose": "step-b",
+      "file": "left-step-b.png",
+      "column": 2,
+      "row": 1,
+      "source_bbox": [
+        79,
+        20,
+        469,
+        601
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "back",
+      "pose": "stand",
+      "file": "back-stand.png",
+      "column": 0,
+      "row": 2,
+      "source_bbox": [
+        130,
+        13,
+        407,
+        595
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "back",
+      "pose": "step-a",
+      "file": "back-step-a.png",
+      "column": 1,
+      "row": 2,
+      "source_bbox": [
+        127,
+        14,
+        410,
+        598
+      ],
+      "mirrored": true
+    },
+    {
+      "direction": "back",
+      "pose": "step-b",
+      "file": "back-step-b.png",
+      "column": 2,
+      "row": 2,
+      "source_bbox": [
+        127,
+        14,
+        410,
+        598
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "right",
+      "pose": "stand",
+      "file": "right-stand.png",
+      "column": 0,
+      "row": 3,
+      "source_bbox": [
+        152,
+        8,
+        377,
+        589
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "right",
+      "pose": "step-a",
+      "file": "right-step-a.png",
+      "column": 1,
+      "row": 3,
+      "source_bbox": [
+        98,
+        6,
+        450,
+        594
+      ],
+      "mirrored": false
+    },
+    {
+      "direction": "right",
+      "pose": "step-b",
+      "file": "right-step-b.png",
+      "column": 2,
+      "row": 3,
+      "source_bbox": [
+        80,
+        6,
+        469,
+        591
+      ],
+      "mirrored": false
+    }
+  ],
+  "notes": "Generated artwork; locally cut, background removed and aligned. Back step-a mirrors the clean back step-b to exclude an extraneous generated fragment. Not integrated into game runtime."
+}

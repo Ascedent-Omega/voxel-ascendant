@@ -86,13 +86,13 @@ function M.rows(g,settings)
   end
  end
  for _,d in ipairs({
-  {'apo_hd_pokemon_grass','HD wild Pokémon','HD-Wild-Pokémon','wilds'},
+  {'apo_hd_pokemon_grass','Custom wild Pokémon','Eigene Wild-Pokémon-Grafik','wilds'},
   {'apo_grass_pokemon_sprite_source','Wild sprite source','Wild-Pokémon: Grafikquelle','wilds'},
-  {'apo_hd_pokemon_wilds_towns','HD ambient Pokémon','HD-Ambient-Pokémon','town'},
+  {'apo_hd_pokemon_wilds_towns','Custom ambient Pokémon','Eigene Ambient-Pokémon-Grafik','town'},
   {'apo_wilds_town_pokemon_sprite_source','Ambient sprite source','Ambient: Grafikquelle','town'},
-  {'apo_hd_pokemon_city','HD story Pokémon','HD-Story-Pokémon','town'},
+  {'apo_hd_pokemon_city','Custom story Pokémon','Eigene Story-Pokémon-Grafik','town'},
   {'apo_city_pokemon_sprite_source','Story sprite source','Story: Grafikquelle','town'},
-  {'apo_hd_pokemon_followers','HD follower artwork','HD-Begleitergrafik','followers'},
+  {'apo_hd_pokemon_followers','Custom follower artwork','Eigene Begleitergrafik','followers'},
   {'apo_follower_sprite_source','Follower sprite source','Begleiter: Grafikquelle','followers'},
   {'apo_dynamic_follower_spacing','Follower spacing','Begleiter-Abstand','followers'},
  })do

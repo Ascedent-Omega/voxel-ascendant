@@ -1,0 +1,1 @@
+{"schema":"ascendant.source-rig/v1","revision":2,"source":"../master-3x4.png","sourceSha256":"572794f5138ab0ac7891f1f1dd7caf63aa2d1a507328c514e5a31d4d6f05c7fb","generator":"tools/rocky-baker + src/rocky_puppet.lua","cell":[256,384],"anchor":[128,376],"referenceHeight":320,"walkFrames":12,"blinkFrames":4}

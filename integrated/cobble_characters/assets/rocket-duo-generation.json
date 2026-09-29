@@ -1,0 +1,22 @@
+{
+  "mode": "built-in image_gen",
+  "date": "2026-09-27",
+  "prompts": {
+    "jessie_hd": "Production transparent game sprite atlas. Jessie, the adult woman from Team Rocket, in the HD overworld visual style of reference 1; reference 2 is character/costume reference only. Friendly stylized adult game character, rounded smooth faceted HD shading and detailed clean outlines. Recognizable magenta swept-back long hair, green earrings, white Team Rocket uniform with red R, black gloves and boots. Neutral practical game poses, no glamour presentation. Exactly 3 columns and 4 rows on transparent background. Rows front, left-facing profile, back, right-facing profile. Columns standing with arms down, walking step A, walking opposite step B. Each figure full body and wholly within its equal-sized cell, constant proportions, consistent height, aligned feet. Straight orthographic cardinal views, no diagonal angles. Match the existing policewoman's polished HD rendering; do not pixelate, do not make cuboid Minecraft characters. No text other than uniform R, no floor, no labels, no extra characters.",
+    "james_hd": "Production transparent game sprite atlas. James, the adult man from Pokemon Team Rocket, in the HD overworld visual style of reference 1; reference 2 supplies James's identity and uniform ONLY. Smooth rounded faceted HD shading, crisp illustration contours, big expressive eyes, compact stylized adult game proportions matching the policewoman reference. Lavender purple chin-length bob with center part (NOT grey hair), pale complexion, white long-sleeve jacket with one red R on front, black high collar, black belt, white trousers, black gloves and black boots. Neutral practical game poses. EXACT layout: 3 equal columns by 4 equal rows, 12 isolated full-body figures, transparent background and generous gutters. Row 1 straight FRONT, row 2 LEFT-facing true profile, row 3 BACK, row 4 RIGHT-facing true profile. Column 1 standing arms relaxed at sides, legs slightly apart; column 2 walk left leg/right arm forward; column 3 opposite walk step. Every figure same height, proportions, outfit and baseline within its cell. Feet and hair fully contained. Cardinal orthographic views, never diagonal perspective. HD smooth shading, NOT pixel art, NOT Minecraft or Cobble. No scenery, floor, captions, extra characters, rose, weapons, Meowth, Jessie, police accessories. Tall portrait sheet.",
+    "jessie_voxel": "Use case: style-transfer. Transform image 1 (Jessie HD overworld sprite atlas) into the SAME FINE VOXEL rendering style as image 2 (accepted Officer Rocky voxel atlas). Image 1 is the edit target; image 2 is style reference only. Preserve Jessie exactly: adult character, long swept-back magenta hair, green earrings, white Team Rocket uniform and red R, black gloves and tall boots. Preserve all 12 poses, all four cardinal directions, precise 3-column/4-row layout, scale and full-body cell placement of image 1. Rebuild surfaces as MANY small densely arranged shaded voxels, subtle square/block facets, sculpted dimensional hair, face, clothing, hands and boots, following the fine miniature-voxel policewoman style in image 2. Rounded overall silhouette and expressive face remain recognizable; only the surface/volume rendering changes. NOT a flat pixelation/downsample filter; NOT Minecraft/Cobble rectangular head and slab limbs; no large cuboids. Genuine transparent background, no shadows outside silhouettes, no text or extra characters. Keep generous transparent cell gutters and every hair tip/boot inside its cell.",
+    "james_voxel": "Apply the fine voxel sculpture rendering of reference image 2 to the existing game sprite sheet in image 1. Keep the fully clothed adult male character, purple hair, uniform, all poses, all views and 3 by 4 sheet arrangement unchanged. Small detailed shaded voxel facets with rounded overall silhouette, just like reference 2. Retain transparent background. Do not add anything."
+  },
+  "status": {
+    "jessie_hd": "generated",
+    "james_hd": "generated",
+    "jessie_voxel": "generated",
+    "james_voxel": "assembled from user body sheet and accepted voxel heads; animated with dedicated source rig"
+  },
+  "james_voxel_sources": {
+    "assembly": "assets/james/voxel/assembly.json",
+    "sourceDirectory": "assets/james/voxel/source",
+    "sideHeadPrompt": "assets/james/voxel/source/side-heads-prompt.txt",
+    "blockedFullSheetAttempt": "assets/james/voxel/source/full-sheet-attempt.txt"
+  }
+}

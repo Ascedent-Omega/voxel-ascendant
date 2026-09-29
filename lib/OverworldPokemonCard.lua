@@ -84,7 +84,7 @@ function M.new(mod)
   local function proxy()
     local child={id="ascendant_pokemon_overworld",version=M.VERSION,
       path=mod.path.."/"..ROOT:sub(1,-2),exports={},log=mod.log,
-      _vascIntegrated=true, humanDlc=mod.exports.humanDlc, bicycleColors={texture=function(texture,...)
+      _vascIntegrated=true, characterArtSource=mod.exports.characterArtSource, humanDlc=mod.exports.humanDlc, bicycleColors={texture=function(texture,...)
         local paint=mod.exports.bicycleColors
         return paint and paint.texture(texture,...)or texture
       end}, worldSeats={

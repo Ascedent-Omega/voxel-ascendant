@@ -1,0 +1,37 @@
+{
+  "rootBone": "ascendant_bug-catcher",
+  "portraitScale": 0.7,
+  "portraitTranslation": [
+    0,
+    -0.8,
+    0
+  ],
+  "profileScale": 0.5,
+  "profileTranslation": [
+    0,
+    0,
+    0
+  ],
+  "poses": {
+    "standing": {
+      "poseTypes": [
+        "STAND",
+        "PORTRAIT",
+        "PROFILE"
+      ],
+      "animations": [
+        "q.bedrock('ascendant_bug-catcher', 'ground_idle')",
+        "q.bedrock('ascendant_bug-catcher', 'blink')"
+      ]
+    },
+    "walking": {
+      "poseTypes": [
+        "WALK"
+      ],
+      "animations": [
+        "q.bedrock('ascendant_bug-catcher', 'ground_walk')",
+        "q.bedrock('ascendant_bug-catcher', 'blink')"
+      ]
+    }
+  }
+}

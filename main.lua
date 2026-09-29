@@ -204,6 +204,7 @@ mod.hooks:wrap("core.update",function(nextFn,game,dt)
   contentSession:update(game,dt)
   return (unpack or table.unpack)(result)
 end)
+if generation == 1 then runEntry(mod, "lib/EmbeddedCobbleCharacters.lua").install(mod) end
 local OverworldCard = runEntry(mod, "lib/OverworldPokemonCard.lua")
 local overworldCard = OverworldCard.new(mod)
 mod._vascOverworldCard = overworldCard

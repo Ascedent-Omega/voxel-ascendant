@@ -1,21 +1,22 @@
-# Public release verification — 29 September 2026
+# VASC 3.0.56 verification — 29 September 2026
 
-Source: sealed complete RC11 candidates, the five-file native Recompiler startup hotfix, and the Game Corner seat recovery correction. Personal saves/options are excluded from the archives.
+Based on public VASC 3.0.55, paired with unchanged public KASC 6.7.29. Tests use isolated, muted LOVE 11.5 identities; personal saves/options are excluded.
 
-## Game Corner (VASC)
-- Reproduced the orphan-seat case before the fix: directional input left the player at (2,11).
-- Native LOVE 11.5 test: 28 unoccupied arcade seats; ordinary B exit and all six orphan departure inputs (four directions, B, Start) return to the valid adjacent aisle. Neighbor stools remain blocked.
-- Actual slot prompt entered and declined; actual slot minigame entered and quit before betting; player leaves into the aisle and coins remain unchanged.
-- Lua regressions cover ownership through scripts/input locks, occupied exits, recovery and retry, map/mode cleanup, NPC ownership and 15,360 seat contact-plane combinations.
+## Session evidence and transitions
+The supplied user-session logs recorded six flat-world outcomes involving pending people, horizon or canvas preparation. A native Red test visits Cinnabar, Routes 7, 8, 12 and 13, and Route 12 Gate 2F, and enters/exits an actual wild battle: zero flat-world outcomes, 686 covered preparation frames. This is a targeted regression result, not a universal FPS benchmark.
 
-## Startup
-- Final-source native matrix: Red/KASC, Blue/VASC, Yellow/both, Gold/both, Silver/VASC and Crystal/KASC. Each covers New Game and Continue, exactly one shared intro, native introduction ownership, readiness before reveal and no hidden player movement.
-- Prior native Recompiler 0.2.22 test on the user's Mac: largest observed startup gap fell from 7.133 s to 0.838 s; wardrobe cache reuse avoided the repeated composition. Pikachu, Eevee, rotating balls and Mew visibly progressed. Existing save-validation acknowledgement and world reveal were checked; save contents were unchanged.
-- Startup lifecycle tests cover shared ownership, adoption once, readiness, cleanup, failures and a simulated seven-second stall without skipping animation. Authored wardrobe cache test: cold 3.120 s, warm 0.0009 s, with key invalidation coverage.
-- ContinuePreparation and wardrobe-card regressions pass.
+Gate-exit testing verifies prepared terrain/auxiliary geometry/atlases for Routes 12–15, including Route 13, plus immediate Fuchsia/Lavender/Vermilion border terrain. Central-region panoramas become ready before reveal; boundary-city panoramas intentionally do not recursively load the entire continent. Memory admission remains bounded.
 
-## Packaging
-All packaged Lua files compile against the target Lua 5.1 runtime. ZIP CRC, exact source equality, unique archive paths and content receipts are verified. Explicit .modkit/ directory entries support launcher metadata writes. VASC prepared/binary model and terrain source hashes are verified; removed HD assets match the optional DLC payload.
+## Characters, menus and interactions
+- Real F6 cycles, map changes and Your Look constructor/page traversal pass. Native KASC Red/Blue/Green selection resolves the corresponding bundled Cobble definition without an external Cobble Card.
+- Native F3 rows select Cobblemon for all four Pokémon contexts in Red and Crystal. Gen 2 does not register the Gen 1 Your Look screen; no Gen 2 Your Look claim is made.
+- Native A interaction sits and stands; a rendered seated pose is visually checked. Unit seat tests include 15,360 contact-plane cases and existing blocked-exit/ownership recovery.
+- Native tower binocular dialogue and camera point toward Pokémon Tower from the relocated railing. The fishing scope retains its fisher subject. Vanilla-to-voxel roundtrip restores the appropriate sign locations.
+- Native Celadon decorative-shop interaction opens the intended text; unit tests check exact location, English/German, NPC priority, option gates and native-mode exclusion.
+- Native Silph pad waits for the first-teleport textbox before departure and suppresses repeats. Unit tests cover English/German, distinct saves, duplicate prompts and stale acknowledgements.
+
+## Unit and package checks
+Scene-cover, region planning, gate preload, Continue preparation, loading companion, seats, shop, setup persistence/validation/context and Silph transition regressions pass. Setup rules include 77 checks. All packaged Lua is syntax-compiled against the target runtime. ZIP CRC, explicit directory entries, source equality, receipt hashes, prepared/binary Cobble model hashes and binary metrics are checked during packaging.
 
 ## Limits
-The six-version runtime matrix uses desktop LOVE, not physical mobile hardware. A new outfit can still incur its first synchronous composition, and native restore/GPU upload stalls remain possible. Existing RC rooftop/performance tests are retained as historical evidence, not repeated universal FPS benchmarks. No claim of constant 60 FPS, fully stall-free loading or complete external-mod compatibility.
+Desktop LOVE tests do not certify physical Windows, iPhone or Switch execution or all third-party mod combinations. Slow preparation can still extend a loading screen. Unknown renderer failures retain their existing recovery; they are not hidden indefinitely. Prior startup/performance results from 3.0.55 remain historical evidence, not newly measured gains. HD people remain optional DLC; embedded Cobble character support is Gen 1.

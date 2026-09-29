@@ -1,4 +1,4 @@
--- Optional local-test Card. Appearance only: the existing wardrobe, battle
+-- Character presentation Card. Appearance only: the existing wardrobe, battle
 -- and species-cinematic owners keep all gameplay and animation timelines.
 local V=...
 local C={ID='vasc.gen1.voxel-characters',VERSION='0.1.0-test.3'}
@@ -18,7 +18,7 @@ function C.entries()
    refresh(game)
   end)
  end
- return{{setting,'Optional local test: voxel characters and wardrobe. F6: Original / HD / Voxel. Uses existing ball-throw, fishing, surfing and flying scripts.',full=true}}
+ return{{setting,'Characters and wardrobe. F6: Original / Voxel / Cobble; HD with optional DLC. Uses existing ball-throw, fishing, surfing and flying scripts.',full=true}}
 end
 function C.enabled()return setting and setting:get()==true end
 function C.bind(entries)

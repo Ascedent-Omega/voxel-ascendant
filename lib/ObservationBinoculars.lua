@@ -95,7 +95,7 @@ function M.install()
   if candidate then
    local subject=M.subject(self.map,sign,x,y)
    pending={world=self,map=self.map,player=p,x=p.cellX,y=p.cellY,bx=x,by=y,
-    yaw=subject and subject.yaw or 0,slope=subject and subject.slope,
+    yaw=subject and subject.yaw or (self.map.id=='ROUTE_12_GATE_2F'and sign.text=='TEXT_ROUTE12GATE2F_RIGHT_BINOCULARS'and math.pi or 0),slope=subject and subject.slope,
     zoom=subject and 4 or 2,subject=subject}
   end
   return result

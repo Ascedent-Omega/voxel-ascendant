@@ -39,6 +39,21 @@ local function advance(job,game)
  if job.phase=='plan'then
   if not Plan.step(job.plan)then return false end
   if job.plan.error then job.error=job.plan.error;return finish(job,'plan')end
+  -- A region can end inside a connected route (for example at a gate).
+  -- Its outdoor panorama still displays the direct neighbours beyond that
+  -- boundary. Prepare this one-map visual border too, without flooding the
+  -- next gameplay region or entering any of its houses.
+  local seen,halo={},{}
+  for _,id in ipairs(job.plan.ids)do seen[id]=true end
+  for _,id in ipairs(job.plan.ids)do
+   if Plan.isOutside(game.data,id)then
+    for _,row in ipairs(require('src.world.OverworldController').computeNeighbors(game.data.maps,id,1))do
+     if not seen[row.id]then seen[row.id]=true;halo[#halo+1]=row.id end
+    end
+   end
+  end
+  table.sort(halo);job.plan.halo=halo
+  for _,id in ipairs(halo)do job.plan.ids[#job.plan.ids+1]=id end
   job.visible=V.require('VisibleNeighborhood').apply(ow)
   job.live={[ow.map.id]=true};job.maps[ow.map.id]=ow.map
   for _,nb in ipairs(job.visible.neighbors or{})do job.live[nb.map.id]=true;job.maps[nb.map.id]=nb.map end

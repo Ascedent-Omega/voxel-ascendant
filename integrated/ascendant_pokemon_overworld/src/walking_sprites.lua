@@ -11,7 +11,7 @@ WalkingSprites.__index = WalkingSprites
 -- Optional public art-source seam; this binder retains entity ownership.
 local function externalSource(self)
  local handle=self.mod.find and self.mod:find('ASCENDANT_COBBLE_CHARACTERS')
- local source=handle and handle.exports and handle.exports.characterArtSource
+ local source=handle and handle.exports and handle.exports.characterArtSource or self.mod.characterArtSource
  return source and source.schema=='ascendant.character-art-source/v1'and source or nil
 end
 

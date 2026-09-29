@@ -1,0 +1,1 @@
+{"schema":"ascendant.source-rig/v1","revision":2,"source":"../master-3x4.png","sourceSha256":"2dbb77353f8e1416d4f688ff105d692545eb667685354556694ed8c131ad1b09","generator":"tools/duo-baker + src/duo_puppet.lua","cell":[320,384],"anchor":[160,376],"referenceHeight":320,"walkFrames":24,"blinkFrames":4}

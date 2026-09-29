@@ -299,6 +299,7 @@ local function find(map,buildingsOnly)
     result[#result+1]=p
   end
   for _,p in ipairs(V.require('Gen1SafariGates').find(P,map))do result[#result+1]=p end
+  V.require('ObservationLayout').apply(P,result,map)
   V.require('KantoSeatGeometry').orient(result,map,P)
   found[map]=result;return result
 end
@@ -367,8 +368,9 @@ function F.claim(S,map,peekTerrain)
         S.shapeAt[k]={class='ground',h=0,art='flat',flat=true,authored=true}
       end end
     elseif p.claimed and not p.keepTerrain then
+      local claimX,claimY=p.claimTx or p.tx,p.claimTy or p.ty
       for dy=0,p.h-1 do for dx=0,p.w-1 do
-        local k=key(p.tx+dx,p.ty+dy)
+        local k=key(claimX+dx,claimY+dy)
         S.voxelFurnitureClaims[k]=true
         S.skip[k]=true
         if model and model.replacesGround then S.ground[k]=model.groundAt(dx*8,dy*8)

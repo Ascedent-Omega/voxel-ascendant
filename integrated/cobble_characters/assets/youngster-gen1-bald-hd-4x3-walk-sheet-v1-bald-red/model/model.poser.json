@@ -1,0 +1,37 @@
+{
+  "rootBone": "ascendant_youngster-gen1-bald-hd-4x3-walk-sheet-v1-bald-red",
+  "portraitScale": 0.7,
+  "portraitTranslation": [
+    0,
+    -0.8,
+    0
+  ],
+  "profileScale": 0.5,
+  "profileTranslation": [
+    0,
+    0,
+    0
+  ],
+  "poses": {
+    "standing": {
+      "poseTypes": [
+        "STAND",
+        "PORTRAIT",
+        "PROFILE"
+      ],
+      "animations": [
+        "q.bedrock('ascendant_youngster-gen1-bald-hd-4x3-walk-sheet-v1-bald-red', 'ground_idle')",
+        "q.bedrock('ascendant_youngster-gen1-bald-hd-4x3-walk-sheet-v1-bald-red', 'blink')"
+      ]
+    },
+    "walking": {
+      "poseTypes": [
+        "WALK"
+      ],
+      "animations": [
+        "q.bedrock('ascendant_youngster-gen1-bald-hd-4x3-walk-sheet-v1-bald-red', 'ground_walk')",
+        "q.bedrock('ascendant_youngster-gen1-bald-hd-4x3-walk-sheet-v1-bald-red', 'blink')"
+      ]
+    }
+  }
+}

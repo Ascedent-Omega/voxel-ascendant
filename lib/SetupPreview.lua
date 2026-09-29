@@ -38,7 +38,7 @@ function P:set(source,dex,human)
  self:release();self.key=key;self.source=source;self.dex=dex or 25;self.human=human;self.error=nil;self.image=nil;self.anim=nil;self.sprite=nil;self.sheet=false;self.clip=nil;self.pendingHd=nil
  if human and source=='cobble' then
   local card=V.mod:find('ASCENDANT_COBBLE_CHARACTERS')
-  local sourceApi=card and card.exports and card.exports.characterArtSource
+  local sourceApi=card and card.exports and card.exports.characterArtSource or V.mod.exports.characterArtSource
   local kasc=V.mod:find('kanto_ascendant')
   local wardrobe=kasc and kasc.exports and kasc.exports.wardrobe or V.mod.exports.wardrobe
   local role=wardrobe and wardrobe.character()or'red'

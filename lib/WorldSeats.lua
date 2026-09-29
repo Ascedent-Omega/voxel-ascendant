@@ -105,8 +105,9 @@ function M.sit(world,x,y)
 end
 function M.playerProfile(game,record)
  local world=game and game.overworld;local s=world and M.current(world)
- if not s or not record or record.sprite~=world.player.sprite then return end
- local def=record.sprite.def
+ local sprite=record and ((record.spriteRef and record.spriteRef[1])or record.sprite)
+ if not s or sprite~=world.player.sprite then return end
+ local def=sprite.def
  if def.ascendantCharacterAction then return end
  if not s.profile or s.profile.role~=def.ascendantRole then
   s.profile={generation=1,alwaysSeated=true,mapId=world.map.id,index=0,row=s.row,contact=s.contact,

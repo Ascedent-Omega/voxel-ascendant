@@ -707,6 +707,7 @@ local voxelPipeline = {
     local held,holdReason
     if not canvas then
       held,holdReason=V.require('WorldSceneHold').pending(ctx.state, sw, sh, VoxelScene.pendingReason)
+      if held then V.require('LoadingCompanion').probe(ctx.state.map,false,'stream')end
     end
     V.require('WorldCanvasTrace').observe(Diagnostics,
       ctx.state and ctx.state.map and ctx.state.map.id, canvas or held,
@@ -2653,7 +2654,10 @@ end, POKEMON_UI_OUTER_HOST_PRIORITY)
 FirstPerson.install()
 FreeMove.install()
 V.require('WorldSeats').install()
+V.require('ObservationLayout').install()
 V.require('ObservationBinoculars').install()
+V.require('WorldSceneHold').install()
+V.require('CeladonClosedShop').install()
 V.require('SilphElevator').install()
 -- KASC installs its native follower transport on game.ready. Keep the
 -- camera-to-world input adapter outside that transport, including reloads.
@@ -2788,6 +2792,7 @@ mod.events:on("game.ready", function()
   pinEngineFx(Game)
   BattleAnimationCompat.install(Game, mod)
   V.require("SilphTeleport").install(Game)
+  V.require("TeleportFirstLine").install(Game)
   WarpPrefetch.install(Game)
   SpritePacks.restore(Game)
   LocalMusic.restore(Game)

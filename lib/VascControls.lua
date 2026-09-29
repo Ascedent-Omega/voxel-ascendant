@@ -80,7 +80,7 @@ function M.fps(g)
 end
 local germanRows={
   {key="0",title="Pokémon-Sprites",hint="0 · R1 + oben",detail="Im Kampf wechseln, sonst Sprite-Auswahl öffnen."},
-  {key="f6",title="Personen",hint="F6 · R1 + links",detail="Original-2D, HD und Voxel-Card umschalten."},
+  {key="f6",title="Personen",hint="F6 · R1 + links",detail="Original-2D, Voxel und Cobble umschalten; HD mit optionalem DLC."},
   {key="f7",title="Begleiter",hint="F7 · R1 + rechts",detail="Verfügbare Begleiter-Sprites wechseln."},
   {key="f4",title="FPS / Framezeit",hint="F4 · R1 + unten",detail="Leistungsanzeige ein- oder ausblenden."},
   {key="8",title="Kampfansicht",hint="8",detail="MAP, Arena, Discs und Terrarium durchschalten."},
@@ -94,7 +94,7 @@ local germanRows={
 }
 M.rows={
   {key="0",title="Pokémon sprites",hint="0 · R1 + up",detail="Switch in battle; otherwise open sprite selection."},
-  {key="f6",title="Characters",hint="F6 · R1 + left",detail="Cycle original 2D, HD and the voxel Card."},
+  {key="f6",title="Characters",hint="F6 · R1 + left",detail="Cycle original 2D, Voxel and Cobble; HD with optional DLC."},
   {key="f7",title="Follower",hint="F7 · R1 + right",detail="Cycle through available follower sprites."},
   {key="f4",title="FPS / Frame time",hint="F4 · R1 + down",detail="Show or hide performance statistics."},
   {key="8",title="Battle view",hint="8",detail="Cycle MAP, Arena, Discs and Terrarium."},

@@ -1,0 +1,1 @@
+Embedded from Ascendant Cobble Characters 0.2.5-rc.1. Authored assets and metadata retained. HD human artwork remains in the optional ASCENDANT_HD_CHARACTERS DLC. The host owns entity identity and gameplay.

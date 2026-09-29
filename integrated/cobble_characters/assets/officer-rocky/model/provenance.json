@@ -1,0 +1,13 @@
+{
+  "character": "Officer Rocky / Officer Jenny",
+  "hd_source": "ascendant-pokemon-overworld/preview/officer-jenny-kasc-hd-4x3-walk-sheet-v1.png",
+  "hd_sha256": "9ae96ca30a9330ddbc991b197cbc937d301bf14af107ef39b7972aa20998704c",
+  "hd_status": "existing local draft; no new visual approval implied",
+  "voxel": "Revision 3: HD-to-voxel style transfer matching existing Nurse Joy and Misty NPC artwork; established 384-pixel NPC atlas packing",
+  "cobble": "articulated original-v3-style rig; walk, idle, blink",
+  "voxel_visual_approval": "Revision 3 style accepted by user on 2026-09-27; animation and integration acceptance not implied",
+  "voxel_generator": "built-in image_gen",
+  "voxel_source_sha256": "e57ae1c31927b4ca4af2697c41c870e8a48ebd16bd6139d3b9ab8efa9e5713c7",
+  "voxel_animation": "3 generated poses per direction. Opposite limb phases require visual refinement. Closed-eye atlas retained as draft; runtime blinking disabled until registration is checked.",
+  "voxel_model": "2D sprite artwork; not the rejected revision-2 rig"
+}

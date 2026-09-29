@@ -2842,10 +2842,11 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
       })
     return nil
   end
-  if not MOBILE_RUNTIME and preparingCovered
+  if not MOBILE_RUNTIME and worldIsCovered(require('src.core.Game'))
       and not V.require('VoxelPropBatch').prepared(state.map)then
     -- Do not defeat sliced preparation by synchronously cloning the missing
     -- groups in this covered draw. The reveal gate waits for this receipt.
+    VoxelScene.pendingReason="props-pending"
     return nil
   end
   plan = plan or drawPlan(state, nbMesh, nbWater)

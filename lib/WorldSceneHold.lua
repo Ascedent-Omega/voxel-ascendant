@@ -1,6 +1,7 @@
 -- A height rebuild retires all geometry at once. Keep one independent copy
 -- of the last presented world while its replacement is built. Never borrow
 -- released mesh/canvas resources, carry a picture across maps, or replay FX.
+local V=...
 local H={}
 local last,held
 local cover,arrival
@@ -8,7 +9,7 @@ local serial=0
 function H.serial()return serial end
 local preparing={ ["terrain-pending"]=true,["horizon-pending"]=true,
  ["atlas-pending"]=true,["glass-pending"]=true,["people-pending"]=true,
- ["startup-seam-pending"]=true }
+ ["startup-seam-pending"]=true,["props-pending"]=true }
 local function now()return love.timer.getTime()end
 function H.clear()
  if held then held.canvas:release();held=nil end
@@ -55,7 +56,7 @@ end
 -- Cold map streaming has no complete world canvas yet. Use an opaque
 -- handoff (also under the native warp fade), not the native tile renderer or
 -- a stale picture from the previous map. One small, non-MSAA canvas per
--- arrival; preparation continues normally and the timeout cannot restart.
+-- arrival; known preparation work stays covered until it actually finishes.
 function H.pending(state,w,h,reason)
  local rebuilt=rebuildPending(state,w,h)
  if rebuilt then return rebuilt,"rebuild-hold" end
@@ -63,7 +64,7 @@ function H.pending(state,w,h,reason)
  if not arrival or arrival.map~=state.map then
   arrival={map=state.map,at=now()}
  end
- if arrival.ready or not preparing[reason] or now()-arrival.at>=3 then
+ if not preparing[reason] then
   if cover then cover.canvas:release();cover=nil end
   return
  end
@@ -85,5 +86,20 @@ function H.pending(state,w,h,reason)
   cover={canvas=canvas,w=w,h=h}
  end
  return cover.canvas,"map-loading-cover"
+end
+function H.loading(state)
+ return cover~=nil and arrival~=nil and state and arrival.map==state.map
+end
+function H.install()
+ local OW=require('src.world.OverworldController')
+ if OW.__vascSceneHoldInput then return end
+ local input=OW.handleInput
+ function OW:handleInput(...)
+  -- Never let movement, a random encounter or A advance an unseen world.
+  -- Native transitions and scripts keep their existing owners.
+  if V.require('VoxelState').active()and H.loading(self)then return end
+  return input(self,...)
+ end
+ OW.__vascSceneHoldInput=true
 end
 return H
