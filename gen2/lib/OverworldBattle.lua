@@ -355,8 +355,19 @@ local function normalizeGoldBattleMode(value)
   return OverworldBattle.MAP
 end
 
+local function originalAnimationsNow(forNewEncounter)
+  local stack=V.game and V.game.stack
+  for _,screen in ipairs(stack and stack.states or {}) do
+    if screen._vascGen2BattleScreenOwner then
+      return V.require("Gen2AnimationStyle").original(screen)
+    end
+  end
+  return forNewEncounter == true and V.mod.options:get("gen2MoveAnimations") == "original"
+end
+
 local function goldBattleModeNow()
   if not (V.game and V.game.world) then return nil end
+  if originalAnimationsNow() then return OverworldBattle.DEFAULT end
   local mod = V.mod
   local value = true
   if mod and mod.options and type(mod.options.get) == "function" then
@@ -380,13 +391,14 @@ end
 local function capturePresentationPlan()
   local mode = goldBattleModeNow()
   if mode == nil then mode = OverworldBattle.setting:get() end
+  if originalAnimationsNow(true) then mode = OverworldBattle.DEFAULT end
   return {
     schema="voxel-ascendant/gen2-battle-presentation-plan/v2",
     mode=mode,
     terarrium=V.mod.options:get("battle3dWorld")=="terarrium",
     smartCamera=smartCameraNow(),
     standardHud=standardBattleHudNow(),
-    modelsEnabled=modelsEnabledNow(),
+    modelsEnabled=mode ~= OverworldBattle.DEFAULT and modelsEnabledNow(),
     backPinned=false,
   }
 end

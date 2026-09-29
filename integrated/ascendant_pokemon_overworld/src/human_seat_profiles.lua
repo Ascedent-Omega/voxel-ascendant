@@ -107,6 +107,8 @@ for _,row in ipairs(rows)do
   path="assets/characters/npcs/"..filename,role=roleFrom(filename),
   sign=facingRow==1 and -1 or 1,bendSign=facingRow==1 and -1 or facingRow==3 and 1 or 0,
   headFade={90,116},headCut={101,121},frontOffset=0,offsetY=offsets[category]or -6}
+ -- Match the 5px cushion of the compact Gen1 casino chair (formerly 8px).
+ if generation==1 and mapId=='GAME_CORNER' then profile.offsetY=-10 end
  -- Back-facing occupants bend toward their desk, away from the viewing
  -- side of the card. The former shared front-facing depth left their
  -- straight shins on top of the chair. Side poses and Gen2 stay authored.

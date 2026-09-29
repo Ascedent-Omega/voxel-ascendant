@@ -255,6 +255,27 @@ end
 
 Stadium._catalogDex = catalogDex
 
+-- Resource-only preparation: do not create an actor or advance its animation
+-- before native send-out. Reuse the same variant, model cache and textures as
+-- setSpecies; the caller may yield while decoding packaged Cobblemon data.
+function Stadium.prepareResources(battle, side, checkpoint)
+  local battler=battle and battle[side]
+  local mon=battler and battler.mon
+  local source=V.PokemonModelProvider and V.PokemonModelProvider.resolve()
+  if not mon or source=="crystal" then return false end
+  local dex=catalogDex(dexOf(mon.species))
+  if not dex then return false end
+  local pack=source=="cobblemon" and V.require("CobblemonPack") or StadiumPack
+  local model=pack.load(dex,mon,checkpoint)
+  if not model then return false end
+  if checkpoint then checkpoint(true) end
+  for index=1,#(model.textures or {}) do
+    pack.image(model,index)
+    if checkpoint then checkpoint(true) end
+  end
+  return true
+end
+
 -- Whether this side is showing a TRAINER rather than a Pokemon.
 local function showingTrainer(battle, side)
   if side == "enemy" then
@@ -844,6 +865,20 @@ function Stadium.matchesVisualReceipt(actor)
     and mon.rig ~= nil and actor.battler == battler
     and actor.mon == battler.mon and actor.textureToken == mon.rig
     and actor.modelKey == "stadium:" .. tostring(mon.species)
+end
+
+-- DISCS has real 3D space: do not fit a dragon's wings into its old 56px
+-- sprite square. Keep the established compressed species-height policy, and
+-- one stable scale for its entire animation. Trainer scale is independent.
+function Stadium.diskSpeciesScale(side)
+  local mon=session and session[side]
+  local model=mon and mon.model
+  if not (model and model.source=="cobblemon" and mon.rig and mon.heightMeters) then return 1 end
+  local size=V.require("CobblemonSize")
+  local bounds=size.prepare(model,mon.rig)
+  local current=bounds and bounds.height*mon:worldHeight()/math.max(model.height,1e-6)
+  if not (current and current>0) then return 1 end
+  return size.targetHeight(mon.heightMeters)/current
 end
 
 function Stadium.presentationMatrices(layout)

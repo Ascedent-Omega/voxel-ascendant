@@ -1,7 +1,8 @@
 -- Native GPU test: a canvas already contains premultiplied fog RGB.
-local root=assert(arg[1]);local modules={LocalLights={active=function()return false end},Sky={clock=7},
+local root=assert(arg[1]);local modules={Voxel3D={},LocalLights={active=function()return false end},Sky={clock=7},
  Weather={isLavender=function()return true end},LedgeElevation={basisAtCell=function()return 0 end},
  KascLegendAtmosphere={profile=function()end}}
+modules.LavenderFog=assert(loadfile(root..'/lib/LavenderFog.lua')){require=function()return{position=function()return{x=0,y=0,anchor='kanto'}end}end}
 local M=assert(loadfile(root..'/lib/IndoorMist.lua'))({require=function(n)return assert(modules[n],n)end})
 local g=love.graphics;local target=g.newCanvas(64,64,{format='rgba16f',dpiscale=1})
 local data=love.image.newImageData(64,64)

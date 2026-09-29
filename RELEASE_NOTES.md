@@ -1,17 +1,18 @@
-# VASC 3.0.54 — Keep the selected battle view
+# Voxel Ascendant 3.0.55
 
-Standalone hotfix based on public VASC 3.0.53. Local RC development is excluded. Includes the per-device mobile shadow fixes from 3.0.53.
+Fixes getting stuck on Game Corner stools: leaving a seat returns the player to a free adjacent aisle, including after a minigame or restoration has lost the transient sitting state. Neighboring chairs remain solid; occupied exits are never used.
 
-## Changes
-- Keep the selected Gen 1 battle environment when a trainer or Pokemon overlaps the attack/message HUD, exceeds the preferred frame, or cannot satisfy the ideal composition. These checks previously could freeze the picture, relocate the battle and switch MAP to Terrarium after a timeout.
-- First try the existing camera corrections. If the composition remains imperfect, retain a physical camera pose and render fresh actors, animations and HUD in the same environment. The player can change the view manually using the existing battle controls.
-- Avoid repeating the complete camera search every frame. Reconsider the composition on phase changes, Pokemon deployment, orientation changes and manual camera input. Camera transaction rollback and owner changes discard the corresponding temporary state.
-- Record a composition-limited diagnostic separately from a renderer failure. This shared Gen 1 path applies to Android, iPhone and desktop.
+The shared loading intro runs after New Game or Continue, once when both mods are enabled. Pikachu/Eevee animation now advances with presented frames instead of skipping through the sequence after a loading stall. Required preparation stays covered until ready; the native introduction and save-validation prompts retain their ownership.
 
-## Scope and validation
-This removes automatic view changes caused by the listed composition checks. An overlap may remain visible until the camera, HUD or view is adjusted. Missing assets, invalid ownership, physically unsupported placement and actual renderer/GPU failures retain their existing recovery handling. Gen 2 camera logic is unchanged.
+Update the existing mod through the launcher, or import this complete ZIP as an update, then restart. Do not create a second mod with the same ID. Existing saves and options are retained; no new game is needed. No separate startup-preview mod is required.
 
-Native Android/OpenGL and iOS/Metal policy tests on macOS cover a persistent injected trainer/attack-menu collision, fresh MAP frames beyond the old timeout, rotation, menu input and manual ARENA selection. A 3.0.53 comparison reproduces the automatic Terrarium switch. These are not physical phone tests. See QA-REPORT.md for the complete validation.
+This release includes the prepared integration changes:
 
-## Install / rollback
-Close the game, update through the launcher or import Voxel-Ascendant-3.0.54.zip, then restart. No save migration. Rollback: complete public VASC 3.0.53 package.
+- Reuses validated wardrobe images across launches and recognizes Continue in older Recompiler versions, reducing repeated character setup during loading.
+- Covered rooftop arrivals wait for rendered surroundings. Generated rooftop/lookout scenery has a bounded, versioned disk cache; incompatible entries rebuild normally.
+- Cooperative weather-mask preparation and prewarmed Silph fountain animation reduce measured loading spikes. Yellow receives matching window captures and domestic bitmaps.
+- DISCS keeps the original Pokémon disk size, places trainers behind them on separate small patches, and uses closer framing, Terrarium zoom steps, a 180-degree manual orbit and fixed HP cards. Cobblemon size handling corrects oversized-wing-envelope shrinkage such as Charizard.
+- Integrated weather and character-provider adapters are retained. HD human assets are separated from the base package: Voxel/Cobble remain available, and HD requires the optional character DLC. Existing external character-card installations remain supported.
+- Gen 2 offers original move animations through the native battle presentation; explicit model selections clear stale sprite overrides. AUTO trainer art respects engine-delivered player replacements.
+
+Tests and limits are documented in QA-REPORT.md. This update reduces specific measured stalls; it does not promise constant 60 FPS or eliminate every first-use load. Physical iPhone/Switch performance is not certified by the desktop tests.

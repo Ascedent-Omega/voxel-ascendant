@@ -117,13 +117,20 @@ function M.light(map,clock,weather)
  local size=p.size*(.78+.12*math.sin(math.rad(math.max(0,elevation))))
  local dim=weatherTransmission[weather]or 1
  local power=math.max(0,math.min(1,clock.strengthAt(t)))*dim*(moon and .09 or 1)
+ -- A roof-mounted backlight fades in as the sky contribution recedes.
+ -- Its projection stays centred: it must never orbit with the moon/sun.
+ local fill=.26*(1-power)
  return {texture=texture,area={p.cx-math.cos(angle)*drift,p.cz-math.sin(angle)*drift,size,p.h},
-  color=moon and {.45,.60,1,power}or {1,.92,.82,power}}
+  color=moon and {.45,.60,1,power}or {1,.92,.82,power},
+  lampArea={p.cx,p.cz,p.size*.85,p.h},lampColor={1,.90,.78,fill}}
 end
 function M.transmission(map,clock,weather)
  local light=M.light(map,clock,weather);if not light then return nil end
- local c=light.color;local strength=.16+math.sqrt(c[4])*1.18
- return {c[1]*strength,c[2]*strength,c[3]*strength,1}
+ local c=light.color;local lamp=light.lampColor
+ local natural=math.sqrt(c[4])*1.18
+ local fill=math.sqrt(lamp[4])*.85
+ return {.16+c[1]*natural+lamp[1]*fill,
+  .16+c[2]*natural+lamp[2]*fill,.16+c[3]*natural+lamp[3]*fill,1}
 end
 function M.draw(renderer,rim,map,clock,weather,model)
  renderer.skylightTransmission(M.transmission(map,clock,weather))

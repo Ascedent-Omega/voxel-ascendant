@@ -2344,6 +2344,10 @@ function FloatingHud.ownerAnchorFor(shot, side)
   return { x=head.x, y=head.y, source=visual.hudHead and "stable-pokemon-pose" or "exact-rendered-ink-head" }
 end
 
+function FloatingHud.fixedCourtStatus(shot)
+  return shot and shot.layoutContext and shot.layoutContext.mode == "DISCS"
+end
+
 function FloatingHud.projectOwnerStatusRect(shot, side)
   local anchor = FloatingHud.ownerAnchorFor(shot, side)
   local visual = type(shot and shot.actorVisuals) == "table"
@@ -2384,7 +2388,8 @@ function FloatingHud.projectOwnerStatusRect(shot, side)
     hullX, hullY, hullW, hullH = anchor.x, anchor.y, 0, 0
   end
 
-  local mode = optionChoice("status_anchor", "outside"):lower()
+  local fixedCourt = FloatingHud.fixedCourtStatus(shot)
+  local mode = fixedCourt and "corners" or optionChoice("status_anchor", "outside"):lower()
   if mode ~= "above" and mode ~= "corners" then mode = "outside" end
   -- Prefer the side behind the head in landscape. In portrait it consumes
   -- most of the narrow axis, so
@@ -2452,10 +2457,13 @@ function FloatingHud.projectOwnerStatusRect(shot, side)
   -- overflowing card must be bounded here. The same frame still rejects any
   -- resulting actor/card collision below; no safety gate is disabled.
   x, y = clamp(x, minX, maxX), clamp(y, minY, maxY)
+  if fixedCourt then
+    return {x,y,w,h}, drawScale, logicalW, logicalH, anchor
+  end
   local padding = math.max(8,
     math.floor(math.min(shot.pw, shot.ph) * .012))
   local function hitsActor(px, py)
-    for _, actorSide in ipairs({ "player", "enemy" }) do
+    for _, actorSide in ipairs({ "player", "enemy", "playerHero", "enemyHero" }) do
       local actor = type(shot.actorVisuals) == "table"
                     and shot.actorVisuals[actorSide] or nil
       local actorHull = type(actor) == "table" and actor.hull or nil
@@ -2504,6 +2512,7 @@ function FloatingHud.statusViewportKey(shot)
   local left, top, right, bottom = FloatingHud.safeInsets(shot)
   return table.concat({
     tostring(shot.pw), tostring(shot.ph),
+    tostring(shot.layoutContext and shot.layoutContext.mode),
     tostring(left or 0), tostring(top or 0),
     tostring(right or 0), tostring(bottom or 0),
     ("%.5f"):format(uiScale(shot)),
@@ -2596,7 +2605,8 @@ function FloatingHud.refreshStatusSlot(old, visual, shot, side)
       and old.mon == visual.mon and type(old.rect) == "table"
       and type(old.anchor) == "table") then return nil end
   local slot=FloatingHud.statusSlotFromVisual(shot,side or old.side,visual)
-  if slot and old.anchor.source=="stable-pokemon-pose"
+  if slot and not FloatingHud.fixedCourtStatus(shot)
+      and old.anchor.source=="stable-pokemon-pose"
       and slot.anchor.source==old.anchor.source then
     -- Keep an already-cleared seat when a wing retracts. Recreating the
     -- preferred seat every frame made collision avoidance push it out and
@@ -2640,7 +2650,7 @@ function FloatingHud.statusLatchFrameSafe(shot, slots, reserved, frame)
           or rect[2] + rect[4] > shot.ph - (insetBottom or 0) then
         return false, side .. "-status-outside-safe-frame"
       end
-      for _, actorSide in ipairs({ "player", "enemy" }) do
+      for _, actorSide in ipairs({ "player", "enemy", "playerHero", "enemyHero" }) do
         local visual = type(shot.actorVisuals) == "table"
           and shot.actorVisuals[actorSide] or nil
         local hull = visual and visual.hull
@@ -2687,7 +2697,7 @@ function FloatingHud.searchOwnerStatus(shot, slots, reserved, frame)
         h[1]+h[3]+pad-1,h[2]+h[4]+pad-1}
     end
   end
-  for _,side in ipairs({"player","enemy"}) do
+  for _,side in ipairs({"player","enemy","playerHero","enemyHero"}) do
     obstacle(shot.actorVisuals and shot.actorVisuals[side]
       and shot.actorVisuals[side].hull)
   end
@@ -2894,7 +2904,15 @@ function FloatingHud.proposeStatusLatch(
   if ready then
     safe, unsafeReason = FloatingHud.statusLatchFrameSafe(
       shot, slots, reserved)
-    if not safe then
+    if FloatingHud.fixedCourtStatus(shot) then
+      -- A manual close-up may pass behind these fixed UI plates. Keep safe
+      -- areas, plate separation and command reservations authoritative.
+      local fixedShot = {}
+      for key,value in pairs(shot) do fixedShot[key]=value end
+      fixedShot.actorVisuals = {}
+      safe, unsafeReason = FloatingHud.statusLatchFrameSafe(fixedShot,slots,reserved)
+    end
+    if not safe and not FloatingHud.fixedCourtStatus(shot) then
       local recovered=FloatingHud.reflowOwnerStatus(shot,slots,reserved)
       if recovered then
         slots=recovered

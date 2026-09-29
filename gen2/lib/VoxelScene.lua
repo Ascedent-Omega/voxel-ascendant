@@ -630,6 +630,7 @@ VoxelScene.groundAt = groundAt
 -- also handles continuous free-camera motion and NPC interpolation without
 -- changing any entity coordinates or collision decisions.
 local function groundForPose(map, entity)
+  if not entity.jumping then local snow=V.require("SnowRamps").height(map,(entity.px or entity.cellX*16)+8,(entity.py or entity.cellY*16)+8);if snow then return snow end end
   local shapes = TileShape.forMap(map)
   local elevation = TileShape.elevation and TileShape.elevation(map, shapes)
   if not elevation or entity.px == nil or entity.py == nil then
@@ -1475,7 +1476,8 @@ function VoxelScene.drawWater(draws, cast)
   end
   local plain = not curved
   if Water.enabled() and Voxel3D.depthReadable() then
-    local mirror, depth = Voxel3D.beginWater(cast)
+    local skyTexture = Water.level()==1 and draws[1] and draws[1][2] or nil
+    local mirror, depth = Voxel3D.beginWater(cast,skyTexture)
     local w, h = Voxel3D.size()
     local ok = mirror and depth and Water.begin({
       reflect = mirror, depth = depth,
@@ -1567,6 +1569,7 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
                            towerMesh, towerModel)
   if not ShadowMap.available() then return end
   local sig = shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh)
+  sig=sig..":buriedFlowers:"..tostring(V.require("DeepSnow").buriesFlowers(state.map))
   if towerMesh then
     sig = sig .. "|tower:" .. tostring(towerMesh) .. ":" .. tostring(towerModel[2])
   end
@@ -2025,6 +2028,7 @@ function VoxelScene.render(state, w, h, vw, vh, paletteFor, eyes)
   -- path runs it once, a VR frame runs it once PER EYE -- same posed
   -- list, same shadow map, same glint, so the two eyes can never disagree
   -- about anything but their viewpoint.
+  local spatialRain = false
   local function drawScene()
 
   if sourceWorldReady then sourceWorldReady=JohtoWorldBackdrop.draw(state) end
@@ -2045,6 +2049,10 @@ function VoxelScene.render(state, w, h, vw, vh, paletteFor, eyes)
     end
   end
   if liveBattleArena then Voxel3D.battleOcclusion(nil) end
+  local ramps=V.require("SnowRamps")
+  local world=require('src.core.Game').world
+  ramps.observe(world or state,V.require('DeepSnow').setting:get()=='deep' and groundWeather=='snow' and groundAmount or 0)
+  ramps.draw(state)
   Voxel3D.weatherGround(false)
 
   if towerMesh then
@@ -2316,6 +2324,8 @@ function VoxelScene.render(state, w, h, vw, vh, paletteFor, eyes)
   end
 
 
+  V.require("DeepSnow").draw({map=state.map,neighbors=state.neighbors,snowArena=liveBattleArena}, weatherMode)
+  spatialRain = V.require("WorldWeather").draw(state, weatherMode)
   end   -- drawScene
 
   if not eyes then
@@ -2332,6 +2342,7 @@ function VoxelScene.render(state, w, h, vw, vh, paletteFor, eyes)
         state.map, "gen2-mobile-scenery"
     end
     local sceneSlot = mobileScenery and mobileSceneryNextSlot or nil
+    V.require("WeatherCover").prepare(state,groundWeather)
     local beginOK, began = true, nil
     if mobileScenery then
       beginOK, began = pcall(Voxel3D.beginScene,
@@ -2403,7 +2414,7 @@ function VoxelScene.render(state, w, h, vw, vh, paletteFor, eyes)
     -- painters, producing exactly the "music changes, no weather" state.
     if out and type(Weather.apply) == "function" then
       out = Weather.apply(out, w, h, state.map, Voxel3D.cell, weatherMode,
-                          worldPresentation)
+                          worldPresentation, spatialRain)
     end
     if out then
       out = WeatherTweak.apply(
@@ -2445,6 +2456,7 @@ function VoxelScene.render(state, w, h, vw, vh, paletteFor, eyes)
   for i, eye in ipairs(eyes) do
     Voxel3D.camera = eye.camera
     if eye.adopt then FirstPerson.adoptVReye(eye.camera) end
+    V.require("WeatherCover").prepare(state,groundWeather)
     if not Voxel3D.beginScene(eye.w, eye.h, cx, cy, vw, vh,
                               skyFor(state.map, skyWeatherMode), eye.slot,
                               { dynamicLighting = true, weather = skyWeatherMode,
@@ -2463,7 +2475,7 @@ function VoxelScene.render(state, w, h, vw, vh, paletteFor, eyes)
     out[i] = Voxel3D.endScene()
     if out[i] and type(Weather.apply) == "function" then
       out[i] = Weather.apply(out[i], eye.w, eye.h, state.map,
-                             Voxel3D.cell, weatherMode, worldPresentation)
+                             Voxel3D.cell, weatherMode, worldPresentation, spatialRain)
     end
     if out[i] then
       out[i] = WeatherTweak.apply(out[i], eye.w, eye.h, state.map,

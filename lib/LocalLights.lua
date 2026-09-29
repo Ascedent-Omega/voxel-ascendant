@@ -32,6 +32,7 @@ M.setting = V.require('ModSetting').new('localLights', 'DYNAMIC LIGHTING',
 M.setting:setGate(function(value) return not value or M.supported end)
 
 local shapes = setmetatable({}, {__mode='k'})
+local instances = setmetatable({}, {__mode='k'})
 local nativeWindows
 local frame = {lights={}, blockers={}}
 local function clamp(x, a, b) return math.max(a, math.min(b, x)) end
@@ -95,7 +96,11 @@ function M.select(candidates, focus, limit)
 end
 
 function M.assign(sources,buildings,focus,battle)
-  if not battle and #sources>M.MAX_LIGHTS then
+  local sourceCount=#sources
+  if not battle then
+    for _,l in ipairs(sources)do sourceCount=sourceCount+(l.sourceCount or 1)-1 end
+  end
+  if not battle and sourceCount>M.MAX_LIGHTS then
     frame.allLights=sources;frame.allBlockers=buildings;frame.lights={}
     for _,l in ipairs(sources)do l.weight=1 end
   else frame.lights=M.select(sources,focus,battle and M.MAX_BATTLE_LIGHTS or M.MAX_LIGHTS)end
@@ -153,6 +158,17 @@ local function emptyWall()
  return blankWall
 end
 
+function M.windowPortals(portals,direction)
+ local selected={}
+ for i,p in ipairs(portals)do
+  local n=p.normal;local d=direction
+  local score=-(n[1]*d[1]+n[2]*d[2]+n[3]*d[3])
+  if not p.facade or score>.015 then selected[#selected+1]={p=p,score=score,index=i}end
+ end
+ table.sort(selected,function(a,b)if a.score==b.score then return a.index<b.index end;return a.score>b.score end)
+ local out={};for i,p in ipairs(selected)do out[i]=p.p end;return out
+end
+
 function M.prepare(state, outdoor, focus, dark, weather, battle, props)
   M.clear()
   if not M.available() or not (battle == true or M.enabled()) or not state
@@ -161,6 +177,8 @@ function M.prepare(state, outdoor, focus, dark, weather, battle, props)
   local Items=V.require('VoxelItems')
   local sources, buildings={},{}
   V.require('AccessWayfinding').appendLights(state,sources)
+  V.require('Halloween').appendLights(state,sources)
+  V.require('CalendarDecor').lights(state,sources)
   local interior,indoorTint
   if not outdoor then interior,indoorTint=V.require('InteriorLights').prepare(state.map) end
   frame.interior=interior
@@ -182,7 +200,7 @@ function M.prepare(state, outdoor, focus, dark, weather, battle, props)
     local night=D.windowLight()
     frame.portalColor={1-night*.48,.88-night*.20,.65+night*.35}
     frame.portals={}
-    for _,p in ipairs(interior.portals)do
+    for _,p in ipairs(M.windowPortals(interior.portals,sky.direction))do
       if #frame.portals<M.MAX_PORTALS then frame.portals[#frame.portals+1]=p end
       local q=p.position
       sources[#sources+1]={x=q[1],y=q[2],z=q[3],normal=p.normal,radius=72,
@@ -210,7 +228,7 @@ function M.prepare(state, outdoor, focus, dark, weather, battle, props)
   local function eachSource(fn)
     if props then
       for _,p in ipairs(props.furniture or {})do fn(p.mesh,p.tex,p.mat,p.shade,p.extra)end
-    else V.require('VoxelFurniture').eachWorld(state,fn,true) end
+    else V.require('VoxelFurniture').eachWorldLights(state,fn) end
   end
   eachSource(function(_,_,mat,_,extra)
     local model=extra and extra.lightModel
@@ -228,20 +246,36 @@ function M.prepare(state, outdoor, focus, dark, weather, battle, props)
       return
     end
     if not outdoor or not model.terrain then return end
-    local shape=M.shape(model,Items.models[model.glassKind])
-    local building={lo={},hi={}}
-    for a=1,3 do
-      building.lo[a]=shape.lo[a]+mat[a*4]
-      building.hi[a]=shape.hi[a]+mat[a*4]
-    end
-    buildings[#buildings+1]=building
-    if (extra.glow or 0)<=0 then return end
-    for _,p in ipairs(shape.panes) do
-      local x,y,z=p.position[1]+mat[4],p.position[2]+mat[8],p.position[3]+mat[12]
-      do
-        sources[#sources+1]={x=x,y=y,z=z,radius=p.radius,
-          power=p.power*extra.glow,normal=p.normal,owner=building}
+    local glass=Items.models[model.glassKind]
+    local retained=instances[mat]
+    if not retained or retained.model~=model or retained.glass~=glass
+      or retained.x~=mat[4]or retained.y~=mat[8]or retained.z~=mat[12]then
+      local shape=M.shape(model,glass)
+      local building={lo={},hi={}}
+      for axis=1,3 do
+        building.lo[axis]=shape.lo[axis]+mat[axis*4]
+        building.hi[axis]=shape.hi[axis]+mat[axis*4]
       end
+      retained={model=model,glass=glass,x=mat[4],y=mat[8],z=mat[12],building=building,lights={}}
+      for _,p in ipairs(shape.panes)do
+        retained.lights[#retained.lights+1]={x=p.position[1]+mat[4],y=p.position[2]+mat[8],z=p.position[3]+mat[12],
+          radius=p.radius,basePower=p.power,power=p.power,normal=p.normal,owner=building,geometryKey=retained}
+      end
+      -- Dense facades use the same stationary world-cell aggregation as the
+      -- lighting grid, but build it once per immutable building transform.
+      -- Keep original panes for the separate battle/nearest-light policy.
+      if #retained.lights>M.MAX_LIGHTS then
+        retained.gridLights=V.require('LocalLightGrid').sources(retained.lights)
+        for _,l in ipairs(retained.gridLights)do
+          l.basePower=l.power;l.geometryKey=retained;l.sourceCount=l.count
+        end
+      end
+      instances[mat]=retained
+    end
+    buildings[#buildings+1]=retained.building
+    if (extra.glow or 0)<=0 then return end
+    for _,l in ipairs(not battle and retained.gridLights or retained.lights)do
+      l.power=l.basePower*extra.glow;sources[#sources+1]=l
     end
   end)
   if outdoor and not props and state.map.tileset then
@@ -285,6 +319,8 @@ uniform Image localMosaicArt;
 uniform float localMosaicWater;
 uniform vec4 localMosaicArea; // centre X/Z, size, roof height
 uniform vec4 localMosaicColor; // transmission RGB, strength
+uniform vec4 localMosaicLampArea; // fixed roof backlight, independent of sky bearing
+uniform vec4 localMosaicLampColor;
 
 uniform vec4 localSkyDir;
 uniform vec3 localSkyState; // enabled, canopy, wind clock
@@ -351,9 +387,9 @@ float localBoxHit(vec3 from, vec3 to, vec3 lo, vec3 hi) {
   end
   s[#s+1]='return visible*localCaveVisible(from,to); }'
   s[#s+1]=[[
-vec3 localMosaicLight(vec3 world,float water) {
-  if(localMosaicColor.w<=0.0 || world.y>localMosaicArea.w-8.0) return vec3(0.0);
-  vec2 p=world.xz-localMosaicArea.xy;
+vec3 localMosaicSample(vec3 world,float water,vec4 area,vec4 lightColor) {
+  if(lightColor.w<=0.0 || world.y>area.w-8.0) return vec3(0.0);
+  vec2 p=world.xz-area.xy;
   float shimmer=1.0;
   if(water>.5) {
     // Only the water receiver moves. Paths and the roof artwork remain still.
@@ -361,12 +397,16 @@ vec3 localMosaicLight(vec3 world,float water) {
     p+=vec2(sin(world.z*.16+t*1.1),sin(world.x*.19-t*.85))*1.3;
     shimmer=.87+.13*sin(world.x*.31+world.z*.23+t*1.8);
   }
-  vec2 uv=p/localMosaicArea.z+vec2(.5);
+  vec2 uv=p/area.z+vec2(.5);
   if(uv.x<0.0||uv.y<0.0||uv.x>1.0||uv.y>1.0)return vec3(0.0);
   vec3 glass=Texel(localMosaicArt,uv).rgb;
   // Lead seams block light; pigments are transmitted without a dark decal.
   glass=max(vec3(0.0),(glass-vec3(.045))/ .955);
-  return glass*localMosaicColor.rgb*localMosaicColor.w*shimmer;
+  return glass*lightColor.rgb*lightColor.w*shimmer;
+}
+vec3 localMosaicLight(vec3 world,float water) {
+  return localMosaicSample(world,water,localMosaicArea,localMosaicColor)
+    +localMosaicSample(world,water,localMosaicLampArea,localMosaicLampColor);
 }
 vec3 localLamp(vec3 world, vec4 pos, vec4 dir, vec4 tint) {
   vec3 d=world-pos.xyz;
@@ -430,6 +470,21 @@ float localPortalBeam(vec3 world,vec4 plane,vec4 rect,vec3 inward) {
   end
   s[#s+1]='return localPortalColor*light*localPortalOcclusion(world)*(.25+.75*max(0.0,dot(normal,localPortalSun.xyz))); }'
   if not rawVisibility then s[#s+1]=V.require('LocalLightGrid').GLSL end
+  -- The world shader previously selected between two complete irradiance
+  -- functions. Share their expensive light-list/visibility walk and select
+  -- only the actor/terrain weights. This preserves the same inputs, light
+  -- count and pixel math while reducing the compiled fragment program.
+  if not rawVisibility then
+    s[#s+1]=[[
+vec3 localCombinedIrradiance(vec3 world,vec3 normal,float actor) {
+ vec3 light=localWindowLight(world,actor>.5 ? vec3(0,1,0) : normal);
+ if(actor<=.5)light+=localMosaicLight(world,localMosaicWater)*max(0.0,normal.y);
+]]
+    for i=0,M.MAX_LIGHTS-1 do
+      s[#s+1]=('if(localLightCount>%.1f) { float diffuse=max(0.0,dot(normal,normalize(localPos%d.xyz-world))); light+=localLamp(world,localPos%d,localDir%d,localTint%d)*(actor>.5 ? .55+.45*diffuse : .12+.88*diffuse); }'):format(i+.5,i,i,i,i)
+    end
+    s[#s+1]='return min(light+localGridLight(world,normal,vec3(0),actor>.5 ? 1.0 : 0.0),vec3(.85)); }'
+  end
   s[#s+1]='vec3 localIrradiance(vec3 world, vec3 normal) { vec3 light=localWindowLight(world,normal)+localMosaicLight(world,localMosaicWater)*max(0.0,normal.y);'
   for i=0,M.MAX_LIGHTS-1 do
     s[#s+1]=('if(localLightCount>%.1f) light+=localLamp(world,localPos%d,localDir%d,localTint%d)*(.12+.88*max(0.0,dot(normal,normalize(localPos%d.xyz-world))));'):format(i+.5,i,i,i,i)
@@ -455,7 +510,7 @@ float localPortalBeam(vec3 world,vec4 plane,vec4 rect,vec3 inward) {
     -- Keep ray tests only in the cached visibility prepass. This also avoids
     -- enormous inlined programs/register spills on Apple's OpenGL driver.
     local first=assert(source:find('uniform float localBlockCount;',1,true))
-    local last=assert(source:find('vec3 localMosaicLight(',first,true))
+    local last=assert(source:find('vec3 localMosaicSample(',first,true))
     source=source:sub(1,first-1)..[[
       uniform Image localVisibility;
       uniform vec2 localPortalVolume;
@@ -516,6 +571,10 @@ function M.send(shader, enabled)
     local mosaic=enabled and frame.mosaic
     shader:send('localMosaicColor',mosaic and mosaic.color or {0,0,0,0})
     shader:send('localMosaicArea',mosaic and mosaic.area or {0,0,1,160})
+    if shader:hasUniform('localMosaicLampColor')then
+      shader:send('localMosaicLampColor',mosaic and mosaic.lampColor or {0,0,0,0})
+      shader:send('localMosaicLampArea',mosaic and mosaic.lampArea or {0,0,1,160})
+    end
     shader:send('localMosaicArt',mosaic and mosaic.texture or emptyWall())
   end
   if shader:hasUniform('localSkyDir') then shader:send('localSkyDir',sky and sky.direction or {0,1,0,0}) end
@@ -570,7 +629,11 @@ function M.send(shader, enabled)
       local ok,result=pcall(V.require('LocalLightGrid').prepare,frame,M,emptyWall())
       if not ok then M.fail(result);return M.send(shader,false) end
       grid=result
+    else
+      local gridModule=V.require('LocalLightGrid')
+      if gridModule.cancelPending then gridModule.cancelPending()end
     end
+    V.require('StaticLightField').send(shader,grid,frame,M.mobile)
     shader:send('localGridOn',grid and 1 or 0)
     if grid then
       shader:send('localGridData',grid.data);shader:send('localGridIndices',grid.indices)
@@ -594,6 +657,8 @@ end
 -- A renderer reset retires all GPU textures owned by this lighting pass.
 -- Forget uniform receipts as well, so surviving card shaders get fresh ones.
 function M.invalidate()
+  M.epoch=(M.epoch or 0)+1
+  instances=setmetatable({},{__mode='k'})
   if nativeWindows then nativeWindows.invalidate() end
   V.require('LightVisibility').invalidate()
   V.require('LocalLightGrid').invalidate()

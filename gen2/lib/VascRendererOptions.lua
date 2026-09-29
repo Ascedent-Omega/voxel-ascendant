@@ -191,6 +191,12 @@ function M.handleOptionsChanged(payload)
   if type(payload) ~= "table" or type(payload.key) ~= "string" then return false end
   if payload.mod ~= nil and mod and payload.mod ~= mod.id then return false end
   local changed = syncKey(payload.key, payload.value)
+  if payload.key=="pokemonModelSkin" then
+    local provider=module("PokemonModelProvider")
+    if provider and provider.selectionChanged then
+      provider.selectionChanged(payload.value,payload.game or currentGame())
+    end
+  end
   if changed and PROFILE_CHILD[payload.key] then
     local profile = module("DeviceProfile")
     if profile and type(profile.externalChanged) == "function" then

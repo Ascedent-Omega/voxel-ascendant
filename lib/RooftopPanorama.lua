@@ -42,6 +42,8 @@ function M.geometry(entry,emitWorld,yieldStep)
  -- The mart's source map has 32px nonwalkable padding on either side.
  local inset=entry.map.id=='CELADON_MART_ROOF'and 32 or 0
  local x0,x1,z0,z1=inset,w-inset,0,h
+ local gate=V.require('Gen1Rooftops').gate(entry.map)
+ if gate then local b=V.require('Gen1RoomBounds').forMap(entry.map);x0,x1,z0,z1=b.west,b.east,b.north,b.south end
  local terrace=V.require('VoxelItems').setting:get() and V.require('Gen1RoofTerrace').matches(entry.map)
  for _,edge in ipairs(terrace and {} or {'north','east','south','west'})do
   local horizontal=edge=='north'or edge=='south'
@@ -51,18 +53,20 @@ function M.geometry(entry,emitWorld,yieldStep)
    if horizontal then box(along,y,at-1,length,height,2,color)
    else box(at-1,y,along,2,height,length,color)end
   end
-  bar(start,40,finish-start,1.2,2)
+  local top=V.require('Gen1Rooftops').gate(entry.map)and 24 or 40
+  bar(start,top,finish-start,1.2,2)
   local bays=math.max(1,math.ceil((finish-start)/80));local span=(finish-start)/bays
-  for i=0,bays do bar(start+i*span-.6,8,1.2,33,1)end
+  for i=0,bays do bar(start+i*span-.6,0,1.2,top+1,1)end
   -- Sparse glints imply clear glass without an opaque blue front sheet.
-  for i=0,bays-1 do
+  for i=0,(gate and -1 or bays-1) do
    local a=start+i*span+8
-   for j=0,5 do bar(a+j,28+j,1.5,1,3)end
+   for j=0,5 do bar(a+j,top-12+j,1.5,1,3)end
   end
  end
  -- Exposed facade below the native roof edge establishes the building height.
- box(x0,-100,z0,x1-x0,100,1,4);box(x0,-100,z1-1,x1-x0,100,1,4)
- box(x0,-100,z0,1,100,z1-z0,4);box(x1-1,-100,z0,1,100,z1-z0,4)
+ local height=entry.facadeHeight or 100
+ box(x0,-height,z0,x1-x0,height,1,4);box(x0,-height,z1-1,x1-x0,height,1,4)
+ box(x0,-height,z0,1,height,z1-z0,4);box(x1-1,-height,z0,1,height,z1-z0,4)
  -- Layered cornice closes the top of the exposed facade while keeping
  -- railings, stair approaches and the view over the city open.
  for _,level in ipairs({{-5,3,2},{-2,2,3}})do
@@ -75,10 +79,22 @@ function M.geometry(entry,emitWorld,yieldStep)
  if emitWorld then emitWorld(out,group,quad,yieldStep)end
  return out
 end
-function M.build(entry,yieldStep,worldMaps)
+function M.build(entry,yieldStep,worldMaps,address)
  local out={}
  local near,baked=V.require('RooftopCache').load(entry,worldMaps,yieldStep)
- for _,g in ipairs(M.geometry(entry,function(out,group,quad)
+ if V.require('Gen1Rooftops').gate(entry.map) then
+  local game=require('src.core.Game');local source=worldMaps and worldMaps[V.require('Gen1Rooftops').source(entry.map)]
+  if source then
+   local city=require('src.world.Map').new(source,game.data.tilesets[source.tileset])
+   local a=V.require('RooftopWorld').anchor(entry,V.require('VoxelFurniture').findBuildings(city),V.require('VoxelItems').models)
+   if a then entry.facadeHeight=math.abs(a.y) end
+  end
+ end
+ local Cache=V.require('RooftopGeometryCache')
+ local key,path=Cache.key(entry,worldMaps,address,near,yieldStep)
+ local groups,peak=Cache.get(key,path,yieldStep)
+ if not groups then
+ groups=M.geometry(entry,function(out,group,quad)
   local batches={}
   local function emit(x,y,z,w,h,d,c,lit,foliage)
    local key=lit and 'windows'or foliage and 'foliage'or 'world';local g=batches[key]
@@ -93,17 +109,34 @@ function M.build(entry,yieldStep,worldMaps)
   if near then for _,b in ipairs(near)do emit(unpack(b))end
   else V.require('RooftopWorld').geometry(entry,worldMaps,emit,yieldStep)end
   V.require('RooftopWorld').mountains(entry,worldMaps,emit,yieldStep)
- end,yieldStep))do
-  local mesh=V.require('Voxel3D').newMesh(g.vertices,g.indices)
+ end,yieldStep)
+ local info=V.require('RooftopWorld').lastMountains;peak=info and info.volcano
+ for _,g in ipairs(groups)do
+  g.bounds={math.huge,math.huge,math.huge,-math.huge,-math.huge,-math.huge}
+  for _,v in ipairs(g.vertices)do for axis=1,3 do g.bounds[axis]=math.min(g.bounds[axis],v[axis]);g.bounds[axis+3]=math.max(g.bounds[axis+3],v[axis])end end
+  if yieldStep then yieldStep()end
+ end
+ Cache.put(key,path,groups,peak,yieldStep)
+ end
+ for _,g in ipairs(groups)do
+  local mesh=Cache.mesh(g,yieldStep)
   if not mesh then
    for _,p in ipairs(out)do p.mesh:release()end
    for _,p in ipairs(baked or{})do p.mesh:release();p.texture:release();if p.materialMask then p.materialMask:release()end end
    error('rooftop panorama mesh',0)
   end
+  local bounds=g.bounds
   local city=g.name~='frame'
-  out[#out+1]={mesh=mesh,texture=city and V.require('RooftopWorld').texture()or texture(g.name),ox=entry.ox or 0,oy=entry.oy or 0,
+  out[#out+1]={mesh=mesh,bounds=bounds,texture=city and V.require('RooftopWorld').texture()or texture(g.name),ox=entry.ox or 0,oy=entry.oy or 0,
    kind='wall',class=city and 'voxel_horizon'or 'rooftop_panorama',windowLight=g.lit==true,seasonalFoliage=g.foliage==true,castsShadow=false}
   if yieldStep then yieldStep()end
+ end
+ local Volcano=V.require('CinnabarVolcano')
+ if Volcano.active()and peak then
+  local p=peak
+  for _,rim in ipairs(Volcano.meshes(p.x,p.z,p.y))do
+   rim.ox,rim.oy=entry.ox or 0,entry.oy or 0;out[#out+1]=rim
+  end
  end
  for _,p in ipairs(baked or{})do out[#out+1]=p end
  return out

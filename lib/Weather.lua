@@ -88,7 +88,8 @@ end
 -- consumes this same predicate for the daylight rig; weather and battles can
 -- therefore never disagree about Safari, the dock or the exposed ship bow.
 -- Real rooms still require an ordinary outdoor definition or an explicit ID.
--- Lavender has authored local weather; it does not change the regional clock.
+-- Lavender's haunted air belongs to IndoorMist/LavenderFog in world space;
+-- the regional weather and sky must not switch when the active map changes.
 function Weather.isLavender(map)
   return map and map.def and map.def.generation~=2
     and mapId(map)=="LAVENDER_TOWN" or false
@@ -162,7 +163,7 @@ function Weather.blossomAt(clock)
 end
 
 function Weather.autumnLeafGust(map, selected, clock)
-  if selected ~= "auto" or not Weather.isOutdoor(map) or (Weather.isLavender and Weather.isLavender(map))
+  if selected ~= "auto" or not Weather.isOutdoor(map)
       or tostring(mapId(map)):match("^KA_MOLTRES_VOLCANO") then return nil end
   local _, autumn = Weather.foliageAt(clock)
   if autumn <= .01 then return nil end
@@ -173,7 +174,6 @@ end
 
 function Weather.modeAt(map, selected, clock, visit)
   local id = mapId(map)
-  if Weather.isLavender(map) then return "fog" end
   if not Weather.isOutdoor(map) then
     return "clear"
   end
@@ -249,9 +249,6 @@ end
 
 function Weather.mode(map)
   local id, outdoor = observeMap(map)
-  if Weather.isLavender(map) then
-    SkyEvents.setRainbowPreview(nil);noteResolved(id,"fog");return "fog"
-  end
   local selected = Weather.setting:get()
   if selected == "rainbow" then
     SkyEvents.setRainbowPreview(outdoor and id or nil)
@@ -275,7 +272,6 @@ end
 
 function Weather.skyState(map)
   if map and map.id=='KA_MOLTRES_VOLCANO'and V.require('KascVolcano').openSky(map)then return 'volcanic',false end
-  if Weather.isLavender(map) then return "fog", false end
   if skyProvider and Weather.isOutdoor(map) then
     local ok, supplied = pcall(skyProvider, map)
     if ok then
@@ -384,7 +380,7 @@ local function paintScreenRain(g, w, h, cell, storm, battle, map)
   for i = 1, count do
     local seed = mapSeed + i * 43
     local lane = ((seed * 17) % 79) / 78
-    local x = w * (.09 + lane * .82)
+    local x = w * (battle and (i%2==0 and .88+lane*.08 or .04+lane*.08) or (.09 + lane * .82))
     local start = h * (.08 + ((seed * 29) % 47) / 100)
     local travel = h * (.055 + (seed % 5) * .012)
     local y = start + progress * travel
@@ -413,11 +409,14 @@ Weather._paintScreenRain = paintScreenRain -- deterministic focused QA seam
 local function paintRain(g, w, h, cell, storm, battle, map)
   local step = math.max(1, cell)
   g.setColor(0.10, 0.18, 0.30,
-             storm and (battle and .16 or .13) or (battle and .045 or .025))
+             storm and (battle and .10 or .13) or (battle and .045 or .025))
   g.rectangle("fill", 0, 0, w, h)
   local near = battle and (storm and 28 or 22) or (storm and 40 or 32)
   local middle = battle and (storm and 40 or 34) or (storm and 56 or 46)
   local far = battle and 28 or 38
+  local profile=V.require("RainStrength").profile(storm and "storm" or "rain")
+  local density=profile.drops/(storm and 4 or 3)
+  near=math.max(1,math.floor(near*density));middle=math.max(1,math.floor(middle*density));far=math.max(1,math.floor(far*density))
   if not rainBand(g, w, h, step, far, 1, 31, step * 2.0,
                   math.max(1, math.min(1.35, step * .20)), .14, storm) then
     g.setColor(.76, .86, 1, storm and .7 or .55)
@@ -758,18 +757,20 @@ end
 
 -- Paint into and return the canvas supplied by VoxelScene. Failure is a
 -- visual fallback only: the already-finished world canvas remains valid.
-local function apply(canvas, w, h, map, cell, resolvedMode, battle)
-  -- Its depth-tested air is already in the world canvas, including battles.
-  if Weather.isLavender(map) then return canvas, canvas~=nil end
+local function apply(canvas, w, h, map, cell, resolvedMode, battle, spatialRain)
+  -- Regional rain/snow continue across Lavender's border; its local haunted
+  -- air is independently depth-tested by IndoorMist.
   local volcanic=map and (map.id or ''):match('^KA_MOLTRES_VOLCANO')and V.require('KascVolcano').profile(map)
   local mode = volcanic and 'volcanic'or resolvedMode or Weather.mode(map)
+  local activity=not battle and V.require('CinnabarActivity') or nil
+  local ash=activity and activity.ashAmount(map) or 0
   local rainbow = not battle and SkyEvents.rainbowProgress(mapId(map)) or nil
   if not canvas then return canvas, false end
   local autumnGust, autumnAmount
   if mode == "clear" or mode == "rain" then
     autumnGust, autumnAmount = Weather.autumnLeafGust(map, Weather.setting:get(), Weather.clock)
   end
-  if (mode == "clear" or mode == "off") and not rainbow and not autumnGust then
+  if (mode == "clear" or mode == "off") and not rainbow and not autumnGust and ash==0 then
     return canvas, true
   end
   if mode ~= "clear" and mode ~= "off" and mode ~= "rain"
@@ -797,10 +798,12 @@ local function apply(canvas, w, h, map, cell, resolvedMode, battle)
     if mode == "clear" or mode == "off" then
       -- The world-space arc is painted by SkyEvents behind the clouds.
     elseif mode == "rain" then
-      paintRain(g, w, h, cell, false, battle, map)
+      if not spatialRain then paintRain(g, w, h, cell, false, battle, map) end
     elseif mode == "snow" then
-      if battle then paintBattleSnow(g, w, h, cell)
-      else paintSnow(g, w, h, cell) end
+      if not spatialRain then
+        if battle then paintBattleSnow(g, w, h, cell)
+        else paintSnow(g, w, h, cell) end
+      end
     elseif mode == "fog" then
       if battle then paintBattleFog(g, w, h, cell)
       else paintFog(g, w, h, cell) end
@@ -810,21 +813,22 @@ local function apply(canvas, w, h, map, cell, resolvedMode, battle)
       paintHeat(g, w, h, battle)
     else
       if battle then
-        paintRain(g, w, h, cell, true, true, map)
+        if not spatialRain then paintRain(g, w, h, cell, true, true, map) end
         paintStormLeaves(g, w, h, cell, true)
         paintBattleLightning(g, w, h, map, cell, flash, occurrence)
       else
         g.setColor(0.04, 0.07, 0.13, 0.36)
         g.rectangle("fill", 0, 0, w, h)
-        paintRain(g, w, h, cell, true, false, map)
+        if not spatialRain then paintRain(g, w, h, cell, true, false, map) end
         paintStormLeaves(g, w, h, cell, false)
         paintLightning(g, w, h, map, cell, flash, occurrence)
       end
     end
+    if ash>0 then activity.paintAsh(g,w,h,cell,ash)end
     if autumnGust then
       paintStormLeaves(g,w,h,cell,battle,autumnGust,autumnAmount)
     end
-    if rainbow and mode ~= "fog" and mode ~= "storm" then
+    if rainbow and (mode == "clear" or mode == "off") then
       paintRainbowReflections(g, w, h, rainbow, map)
     end
     g.setCanvas()
@@ -844,7 +848,7 @@ local function apply(canvas, w, h, map, cell, resolvedMode, battle)
 end
 
 
-function Weather.apply(canvas, w, h, map, cell, resolvedMode)
+function Weather.apply(canvas, w, h, map, cell, resolvedMode, spatialRain)
   local mode = resolvedMode or Weather.mode(map)
   local changed = Weather._performanceMode ~= mode
   if changed and PerformanceDiagnostics
@@ -853,7 +857,7 @@ function Weather.apply(canvas, w, h, map, cell, resolvedMode)
       mapId=map and map.id, source="gen1-weather-pass",
     })
   end
-  local out, painted = apply(canvas, w, h, map, cell, mode, false)
+  local out, painted = apply(canvas, w, h, map, cell, mode, false, spatialRain)
   Weather._performanceMode = mode
   if PerformanceDiagnostics then
     if changed and type(PerformanceDiagnostics.endLoad) == "function" then
@@ -872,9 +876,9 @@ function Weather.apply(canvas, w, h, map, cell, resolvedMode)
   return out
 end
 
-function Weather.applyBattle(canvas, w, h, map, cell, resolvedMode)
+function Weather.applyBattle(canvas, w, h, map, cell, resolvedMode, spatialRain)
   local mode = resolvedMode or Weather.mode(map)
-  local out, painted = apply(canvas, w, h, map, cell, mode, true)
+  local out, painted = apply(canvas, w, h, map, cell, mode, true, spatialRain)
   if PerformanceDiagnostics
       and type(PerformanceDiagnostics.reportWeather) == "function" then
     PerformanceDiagnostics.reportWeather({

@@ -728,6 +728,7 @@ local function createController(mod, opts)
       }
     end
     local function usesLightInk(x, y)
+      if state.__ascendantElevatorFloors then return true end
       local gx, gy = transformedRectBounds(graphics, x + 4, y + 4, 0, 0)
       for _, region in ipairs(inkRegions) do
         if gx >= region[1] and gx < region[3]

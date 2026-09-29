@@ -63,7 +63,18 @@ return function(P,F)
   -- Different rows and silhouettes are deliberately authored for each department.
   for theme,accent in pairs(themes)do for _,half in ipairs({false,true})do for phase=0,2 do
     local name='retail_'..theme..(half and '_half' or '')..(phase>0 and '_v'..phase or '')
-    local b=model(name,32,half and 16 or 32)
+    local raw=model(name,32,half and 16 or 32)
+    -- Slender freestanding racks leave visible clearance around native aisles.
+    -- Snap both ends to the voxel lattice: fractional box origins otherwise
+    -- fragment adjacent faces and force the slower string-key voxel builder.
+    local function b(x,y,z,w,h,d,c)
+      local inset=half and 4 or 8
+      local x0=6+math.floor(x*.625+.5)
+      local x1=6+math.floor((x+w)*.625+.5)
+      local z0=inset+math.floor(z*.5+.5)
+      local z1=inset+math.floor((z+d)*.5+.5)
+      raw(x0,y,z0,math.max(1,x1-x0),h,math.max(1,z1-z0),c)
+    end
     local d=half and 14 or 28
     b(1,0,1,30,2,d,3);b(1,2,1,2,24,d,14);b(29,2,1,2,24,d,14)
     b(3,2,half and 1 or 13,26,23,2,C.walnut)
@@ -155,6 +166,13 @@ return function(P,F)
   end end
   b=model('arcade_end',16,16);b(1,0,1,14,2,14,3);b(1,2,2,14,21,12,C.navy)
   b(1,23,2,14,2,12,C.purple);b(4,9,14,8,5,1,11);ball(b,6,9,15,0)
+  -- Visible rear/side service panels have trim and ventilation too.
+  b(2,5,1,12,15,1,16);b(2,20,1,12,1,1,11)
+  for y=7,16,3 do b(4,y,0,8,1,1,3)end
+  for _,x in ipairs{0,15}do
+    b(x,4,3,1,17,10,16);b(x,20,3,1,1,10,11)
+    for y=7,16,3 do b(x,y,5,1,1,6,3)end
+  end
   b=model('lounge_chair',16,16)
   for _,x in ipairs({3,11})do for _,z in ipairs({4,11})do b(x,0,z,2,6,2,3)end end
   b(2,6,3,12,2,11,C.purple);b(2,8,3,12,6,2,C.purple);b(3,9,5,10,3,1,14)
@@ -165,6 +183,18 @@ return function(P,F)
   for _,side in ipairs({'left','right'})do
     b=model('lounge_chair_'..side,16,16)
     for _,v in ipairs(P.models.lounge_chair.boxes)do
+      b(side=='right' and v[3] or 16-v[3]-v[6],v[2],v[1],v[6],v[5],v[4],v[7])
+    end
+  end
+  -- Casino seats fit one adult, not the entire 16px native tile. Keep the
+  -- native footprint and centre so NPC positions/collision remain canonical.
+  b=model('arcade_chair',16,16)
+  for _,x in ipairs({4,10.5})do for _,z in ipairs({4,10.5})do b(x,0,z,1.5,3.5,1.5,3)end end
+  b(4,3.5,4,8,1.5,8,C.purple)
+  b(4,5,4,8,4,1.5,C.purple);b(5,6,5.5,6,2,.5,14)
+  for _,side in ipairs({'left','right'})do
+    b=model('arcade_chair_'..side,16,16)
+    for _,v in ipairs(P.models.arcade_chair.boxes)do
       b(side=='right' and v[3] or 16-v[3]-v[6],v[2],v[1],v[6],v[5],v[4],v[7])
     end
   end

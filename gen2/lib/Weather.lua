@@ -417,6 +417,9 @@ local function paintRain(g, w, h, cell, storm, battle, map)
   local near = battle and (storm and 28 or 22) or (storm and 40 or 32)
   local middle = battle and (storm and 40 or 34) or (storm and 56 or 46)
   local far = battle and 28 or 38
+  local profile=V.require("RainStrength").profile(storm and "storm" or "rain")
+  local density=profile.drops/(storm and 4 or 3)
+  near=math.max(1,math.floor(near*density));middle=math.max(1,math.floor(middle*density));far=math.max(1,math.floor(far*density))
   if not rainBand(g, w, h, step, far, 1, 31, step * 2.0,
                   math.max(1, math.min(1.35, step * .20)), .14, storm) then
     g.setColor(.76, .86, 1, storm and .7 or .55)
@@ -758,7 +761,7 @@ end
 -- Paint into and return the canvas supplied by VoxelScene. Failure is a
 -- visual fallback only: the already-finished world canvas remains valid.
 local function apply(canvas, w, h, map, cell, resolvedMode, battle,
-                     presentationReceipt)
+                     presentationReceipt, spatialRain)
   local mode = resolvedMode or Weather.mode(map)
   local rainbow = not battle and SkyEvents.rainbowProgress(mapId(map)) or nil
   if not canvas then return canvas, false end
@@ -799,10 +802,12 @@ local function apply(canvas, w, h, map, cell, resolvedMode, battle,
     if mode == "clear" or mode == "off" then
       -- The world-space arc is painted by SkyEvents behind the clouds.
     elseif mode == "rain" then
-      paintRain(g, w, h, cell, false, battle, map)
+      if not spatialRain then paintRain(g, w, h, cell, false, battle, map) end
     elseif mode == "snow" then
-      if battle then paintBattleSnow(g, w, h, cell)
-      else paintSnow(g, w, h, cell) end
+      if not spatialRain then
+        if battle then paintBattleSnow(g, w, h, cell)
+        else paintSnow(g, w, h, cell) end
+      end
     elseif mode == "fog" then
       if battle then paintBattleFog(g, w, h, cell)
       else paintFog(g, w, h, cell) end
@@ -810,13 +815,13 @@ local function apply(canvas, w, h, map, cell, resolvedMode, battle,
       paintHeat(g, w, h, battle)
     else
       if battle then
-        paintRain(g, w, h, cell, true, true, map)
+        if not spatialRain then paintRain(g, w, h, cell, true, true, map) end
         paintStormLeaves(g, w, h, cell, true)
         paintBattleLightning(g, w, h, map, cell, flash, occurrence)
       else
         g.setColor(0.04, 0.07, 0.13, 0.36)
         g.rectangle("fill", 0, 0, w, h)
-        paintRain(g, w, h, cell, true, false, map)
+        if not spatialRain then paintRain(g, w, h, cell, true, false, map) end
         paintStormLeaves(g, w, h, cell, false)
         paintLightning(g, w, h, map, cell, flash, occurrence)
       end
@@ -824,7 +829,7 @@ local function apply(canvas, w, h, map, cell, resolvedMode, battle,
     if autumnGust then
       paintStormLeaves(g,w,h,cell,battle,autumnGust,autumnAmount)
     end
-    if rainbow and mode ~= "fog" and mode ~= "storm" then
+    if rainbow and (mode == "clear" or mode == "off") then
       paintRainbowReflections(g, w, h, rainbow, map)
     end
     if previousCanvas then g.setCanvas(previousCanvas) else g.setCanvas() end
@@ -846,7 +851,7 @@ end
 
 
 function Weather.apply(canvas, w, h, map, cell, resolvedMode,
-                       presentationReceipt)
+                       presentationReceipt, spatialRain)
   local mode = resolvedMode or Weather.mode(map)
   local changed = Weather._performanceMode ~= mode
   if changed and PerformanceDiagnostics
@@ -856,7 +861,7 @@ function Weather.apply(canvas, w, h, map, cell, resolvedMode,
     })
   end
   local out, painted = apply(
-    canvas, w, h, map, cell, mode, false, presentationReceipt)
+    canvas, w, h, map, cell, mode, false, presentationReceipt, spatialRain)
   Weather._performanceMode = mode
   if PerformanceDiagnostics then
     if changed and type(PerformanceDiagnostics.endLoad) == "function" then
@@ -875,9 +880,9 @@ function Weather.apply(canvas, w, h, map, cell, resolvedMode,
   return out
 end
 
-function Weather.applyBattle(canvas, w, h, map, cell, resolvedMode)
+function Weather.applyBattle(canvas, w, h, map, cell, resolvedMode, spatialRain)
   local mode = resolvedMode or Weather.mode(map)
-  local out, painted = apply(canvas, w, h, map, cell, mode, true)
+  local out, painted = apply(canvas, w, h, map, cell, mode, true, nil, spatialRain)
   if PerformanceDiagnostics
       and type(PerformanceDiagnostics.reportWeather) == "function" then
     PerformanceDiagnostics.reportWeather({

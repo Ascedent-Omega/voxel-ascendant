@@ -4363,16 +4363,25 @@ local function updateBattleFrame(dt)
       pcall(BattleScene.prepareProgram, session.state, session.arena)
       return
     end
-    -- Decode each exact trainer atlas in its own covered frame. This only
-    -- warms resources on an opt-in provider, never creates a throw/pose state.
+    if stadiumModelsEnabled() and not session.modelPreparationDone then
+      local ok,worked=pcall(function()
+        return V.require("BattleModelWarmup").step(session)
+      end)
+      if ok and worked then return end
+      if not ok then session.modelPreparationDone=true;session.modelPreparationJob=nil end
+    end
+    -- Warm each exact trainer view in its own covered frame, including the
+    -- front/back views used by rotating DISCS. No throw/pose state is created.
     -- Failed or unavailable preparation leaves normal visible rendering in
     -- charge and cannot prolong the engine transition.
     local heroStep = session.heroPreparationStep or 0
-    if heroStep < 2 then
+    local heroViews = session.arena and session.arena.diskCourt and {"side", "front", "back"}
+    if heroStep < (heroViews and 6 or 2) then
       session.heroPreparationStep = heroStep + 1
       local ok, prepared = pcall(function()
         return V.require("BattleHeroesBridge").prepare(session.battle,
-          heroStep == 0 and "player" or "enemy", session.arena)
+          heroStep % 2 == 0 and "player" or "enemy", session.arena,
+          heroViews and heroViews[math.floor(heroStep / 2) + 1])
       end)
       if ok and prepared then return end
     end

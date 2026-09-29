@@ -1,4 +1,4 @@
-﻿-- A distant, player-centred Kanto horizon behind the real streamed maps.
+-- A distant, player-centred Kanto horizon behind the real streamed maps.
 --
 -- This is deliberately only the FAR layer. HorizonWall keeps ownership of
 -- the first edge cells, water, foliage and authored transition geometry; the
@@ -169,8 +169,12 @@ function PanoramaBackdrop.drawAt(x, baseY, z, context)
   if grade and type(setColor) == "function" then
     setColor(grade[1], grade[2], grade[3], grade[4])
   end
+  local frost=Voxel3D.weatherFoliageSnow
+  local frosted=type(frost)=="function" and frost(V.require("ScenerySnow").amount(context))
+  if frosted and type(context)=="table" and context.weather=="snow" and type(setColor)=="function" then setColor(1,1,1,1) end
   local okDraw = pcall(Voxel3D.draw, mesh, texture,
                        Mat4.translate(x or 0, baseY or 0, z or 0))
+  if type(frost)=="function" then pcall(frost,0) end
   -- Restore the ordinary world contract even if a driver rejected the draw.
   if grade and type(setColor) == "function" then pcall(setColor, 1, 1, 1, 1) end
   if glass then pcall(glass, true) end

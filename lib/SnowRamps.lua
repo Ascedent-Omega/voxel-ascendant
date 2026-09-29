@@ -1,7 +1,7 @@
 -- Settled snow bridges small native outdoor ledges. The map and its collision
 -- tables stay immutable. Only the resident map is retained; no travel history.
 local V=...
-local R={BUILD=.80,THAW=.65}
+local R={BUILD=.65,THAW=.45}
 local current, coat, retained = nil, false, nil
 local dirs={up={0,-1},down={0,1},left={-1,0},right={1,0}}
 local function key(x,y,w)return y*w+x end

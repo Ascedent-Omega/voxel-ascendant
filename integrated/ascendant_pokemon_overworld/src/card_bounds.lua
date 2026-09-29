@@ -2,7 +2,7 @@
 -- can skip a second decode; changed/DLC graphics keep the RGBA8 scanner.
 local M={}
 function M.new(mod)
- local catalog,fileCatalog,decoded
+ local catalog,fileCatalog,soleCatalog,decoded
  local function readCatalog(path)
   local ok,result=pcall(function()
    local text=assert(mod:read(path))
@@ -13,7 +13,8 @@ function M.new(mod)
  local function load()
   if catalog~=nil then return end
   catalog=readCatalog('production/card-bounds.lua')
-  fileCatalog=readCatalog('production/card-file-digests.lua');decoded={}
+  fileCatalog=readCatalog('production/card-file-digests.lua')
+  soleCatalog=readCatalog('production/card-sole-bounds.lua');decoded={}
  end
  local function digest(data)
   if not (love and love.data and love.data.hash and love.data.encode) then return nil end
@@ -28,7 +29,7 @@ function M.new(mod)
    w,h=entry[1],entry[2]
    local out={};for row=0,3 do out[row]={};for col=0,2 do
     local f=assert(entry[3][row*3+col+1])
-    out[row][col]={left=f[1],top=f[2],right=f[3],bottom=f[4],
+    out[row][col]={left=f[1],top=f[2],right=f[3],bottom=f[4],soleBottom=soleCatalog[key]and soleCatalog[key][row*3+col+1],
      imageWidth=w,imageHeight=h,cellX=col*math.floor(w/3),cellY=row*math.floor(h/4),
      gridColumns=10,gridRows=14,occupied=f[5],
      cubeColumns=16,cubeRows=22,cubeOccupied=f[6]}

@@ -9,6 +9,7 @@ for _,platform in ipairs({'Windows','Android','iOS'}) do
     LocalLightGrid={prepare=function()attempts=attempts+1;error('GPU texture allocation rejected')end},
     Diagnostics={write=function(event,fields)events[#events+1]={event,fields}end},
   }
+  modules.StaticLightField=assert(loadfile('lib/StaticLightField.lua'))({})
   local L=assert(loadfile('lib/LocalLights.lua'))({require=function(name)return assert(modules[name],name)end})
   L.current().allLights={{}}
   local shader={hasUniform=function(_,name)return name=='localLightCount' or name=='localGridOn'end,

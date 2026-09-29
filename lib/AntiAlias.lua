@@ -78,13 +78,14 @@ AntiAlias.setting = ModSetting.new(AntiAlias.KEY, AntiAlias.LABEL,
 -- 3-D workload at a predictable 1080p-class size, with native resolution an
 -- explicit quality choice. HUD/text are composited at display resolution.
 AntiAlias.resolution = ModSetting.new("sceneResolution", "3D RESOLUTION",
-  {"balanced", "native", "economy"}, {"1080P", "NATIVE", "720P"}, "balanced")
+  {"auto", "balanced", "native", "economy"}, {"AUTO 60", "1080P", "NATIVE", "720P"}, "auto")
 local function desktopFactor(w,h)
   local choice = AntiAlias.resolution:get()
   if choice == "native" then return 1 end
   local edge,short = choice == "economy" and 1280 or 1920,
     choice == "economy" and 720 or 1080
-  return math.min(1,edge/math.max(1,w,h),short/math.max(1,math.min(w,h)))
+  local capped=math.min(1,edge/math.max(1,w,h),short/math.max(1,math.min(w,h)))
+  return choice=='auto'and capped*V.require('FrameBudget').scale or capped
 end
 
 local live = 1
@@ -96,7 +97,7 @@ end
 -- What the row ASKS for. The scale in force is `factor()`, which is this
 -- clamped to what the driver will actually allocate.
 local function wanted()
-  local n = AntiAlias.samples()
+  local n = AntiAlias.resolution:get()=='auto'and 0 or AntiAlias.samples()
   if n <= 1 then return 1 end
   return math.sqrt(n)
 end

@@ -1,0 +1,3 @@
+local V = ...
+local source = assert(V.mod:read("shared/StarterConstellations.lua"))
+return assert((loadstring or load)(source, "@shared/StarterConstellations.lua"))()

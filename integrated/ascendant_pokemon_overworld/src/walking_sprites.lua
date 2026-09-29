@@ -8,6 +8,14 @@
 local WalkingSprites = {}
 WalkingSprites.__index = WalkingSprites
 
+-- Optional public art-source seam; this binder retains entity ownership.
+local function externalSource(self)
+ local handle=self.mod.find and self.mod:find('ASCENDANT_COBBLE_CHARACTERS')
+ local source=handle and handle.exports and handle.exports.characterArtSource
+ return source and source.schema=='ascendant.character-art-source/v1'and source or nil
+end
+
+
 WalkingSprites.SCHEMA = "ascendant.walking-sprite-replacements/v1"
 
 -- Character providers such as KASC publish their selected native renderer on
@@ -457,6 +465,12 @@ end
 -- KASC resolves the story role without rewriting the static map sprite.
 -- Use that live identity before consulting the generic NPC atlas catalog.
 function WalkingSprites:_npcVisual(mapId,entity,kascActive)
+  local external=externalSource(self)
+  local explicit=external and external.identity(entity)
+  if explicit then return 'external-character/'..explicit,explicit end
+  local visitor="assets/characters/npcs/hoenn-visitor-kasc-hd-4x3-walk-sheet-v1.png"
+  if self.generation==1 and normalize(self:_identity(entity))=="SPRITEKAHOENNVISITOR"
+      and self.runtimeByAtlas[visitor] then return visitor,"hoenn-visitor" end
   -- Mira owns her identity; never replace the shared female trainer sprite.
   local mira="assets/characters/npcs/mira-kasc-hd-4x3-walk-sheet-v1.png"
   if self.generation==1 and normalize(self:_identity(entity))=="SPRITEKAMIRAWALK"
@@ -480,12 +494,33 @@ function WalkingSprites:_npcVisual(mapId,entity,kascActive)
 end
 
 -- All surfaces (field, wardrobe and battle) use the same style/garments.
+function WalkingSprites:externalArt(entity,atlas,role,action,selection)
+ local source=externalSource(self);if not source then return nil end
+ local clothes=wardrobe()
+ local owned=role=='red'or role=='blue'or role=='green'
+ return source.resolve{generation=self.generation,entity=entity,atlas=atlas,role=role,action=action,
+  style=self.mod.options:get('human_art_style'),wardrobe=clothes,
+  selection=selection or owned and clothes and clothes.get(role),game=self.activeGame}
+end
+
 function WalkingSprites:appearance(path,role,action,selection)
+  local external=self:externalArt(nil,path,role,action,selection)
+  if external then return external.atlas,external.style=='voxel' end
   role=tostring(role):lower()
+  if self.generation==1 and role=="hoenn-visitor" then
+    local style=self.mod.options:get("human_art_style")
+    local folder=style=="voxel" and "voxel-npcs" or style=="cobble" and "cobble-npcs" or "npcs"
+    local stem=folder.."/hoenn-visitor-kasc-hd-4x3-walk-sheet-v1.png"
+    local atlas="assets/characters/"..stem
+    local runtime="assets/characters/runtime/"..stem
+    if self.mod:info(atlas) and self.mod:info(runtime) then
+      return self.mod.path.."/"..atlas,style=="voxel",self.mod.path.."/"..runtime
+    end
+  end
   local clothes=wardrobe()
   local owned=role=='red'or role=='blue'or role=='green'
   local selected=selection or (clothes and clothes.get(role))
-  if self.generation==1 and self:voxelEnabled() and not(selected and selected.style=='native')then
+  if self:voxelEnabled() and not(selected and selected.style=='native')then
     local relative=path:sub(1,#self.mod.path+1)==self.mod.path..'/' and path:sub(#self.mod.path+2) or nil
     local candidate
     if owned then
@@ -509,14 +544,36 @@ end
 
 function WalkingSprites:_bind(entity, atlas, role, identityOwner, action)
   if type(entity) ~= "table" or not atlas then return false end
+  local external=self:externalArt(entity,atlas,role,action)
   local runtime = self.runtimeByAtlas[atlas]
-  if not runtime then return false end
+  if not runtime and not external then
+    -- An explicit Card-only identity may lack the newly selected style.
+    -- Restore only our previous replacement; never leave a stale Cobble
+    -- image labelled by the menu as HD, or overwrite another owner's image.
+    local original=self.originals[entity]
+    if original and entity.sprite==original.replacement
+        and entity.sprite.def.ascendantExternalCharacterSource then
+      entity.sprite,entity.spriteDef=original.sprite,original.spriteDef
+      for _,key in ipairs({'ascendantCharacter','ascendantCharacterOwner','ascendantWalkingAtlas','ascendantWalkingSpriteOwner'})do entity[key]=original[key]end
+      self.originals[entity]=nil
+    end
+    return false
+  end
   local clothes=wardrobe()
   local ownedRole=role=='red'or role=='blue'or role=='green'
   local fullAtlas=self.mod.path..'/'..atlas
-  local fullRuntime=self.mod.path..'/'..runtime
-  local voxelDemo
-  fullAtlas,voxelDemo=self:appearance(fullAtlas,role,action)
+  local fullRuntime=external and external.runtime or self.mod.path..'/'..runtime
+  local voxelDemo,styleRuntime
+  if external then fullAtlas,voxelDemo=external.atlas,external.style=='voxel'
+  else
+    fullAtlas,voxelDemo,styleRuntime=self:appearance(fullAtlas,role,action)
+    fullRuntime=styleRuntime or fullRuntime
+  end
+  if self.mod.humanDlc then
+    fullAtlas=self.mod.humanDlc.path(fullAtlas)
+    local relative=fullAtlas:sub(#self.mod.path+2)
+    if fullAtlas:sub(1,#self.mod.path+1)==self.mod.path..'/' and not self.mod:info(relative)then return false end
+  end
   if clothes and ownedRole then fullRuntime=clothes.resolve(fullRuntime,role)end
   if entity.sprite and entity.sprite.def
       and entity.sprite.def.ascendantAtlasImage == fullAtlas then
@@ -540,6 +597,9 @@ function WalkingSprites:_bind(entity, atlas, role, identityOwner, action)
     self.originals[entity] = original
   end
   local def = clone(source)
+  if def.ascendantExternalCharacterSource then
+   for _,key in ipairs({'ascendantExternalCharacterSource','ascendantHumanCards','ascendantHumanFieldHands','cobbleCharacter','cobbleStyle','cobbleAnimated2D','cobbleWardrobeKey','ascendantPokemonBlinkSourceExact','ascendantPokemonBlinkSheet'})do def[key]=nil end
+  end
   def.image = fullRuntime
   def.frames, def.walker, def.trueColor = 6, true, true
   -- Every native fallback here is 16x96, including actions. Do not retain
@@ -552,6 +612,10 @@ function WalkingSprites:_bind(entity, atlas, role, identityOwner, action)
   def.ascendantRole = role or roleFromPath(atlas)
   def.ascendantScaleClass = scaleClass(def.ascendantRole)
   def.ascendantCharacterAction = action
+  if external then
+   for key,value in pairs(external.definition)do def[key]=value end
+   role=external.role
+  end
   local ok, renderer = pcall(SpriteRenderer.new, def, entity.id or "player")
   if not ok or not renderer then
     self.lastError = tostring(renderer or "renderer_creation_failed")
@@ -747,7 +811,7 @@ function WalkingSprites:install()
   if self.mod.events and type(self.mod.events.on) == "function" then
     local binder = self
     self.mod.events:on('wardrobe.changed',function(ev)
-      binder.fieldSprites={}
+      binder.fieldSprites=setmetatable({}, {__mode='v'})
       binder:apply(ev and ev.game or binder.activeGame,'kasc-event')
     end,PRESENTATION_PRIORITY)
     for _, event in ipairs({ "save.loaded", "save.created" }) do
@@ -843,7 +907,7 @@ function WalkingSprites:fieldSprite(player)
   if clothes and (role=='red'or role=='blue'or role=='green')and clothes.native(role)then return nil end
   local current = player.sprite
   local def = current and current.def or {}
-  local voxelHold = player.fishing and self:voxelEnabled() and (role=="red"or role=="blue"or role=="green")
+  local voxelHold = player.fishing and (self:voxelEnabled()or self.mod.options:get('human_art_style')=='cobble') and (role=="red"or role=="blue"or role=="green")
   local action = player.fishing and not voxelHold and "fishing" or nil
   local atlas = action and self.characterActions
     and self.characterActions.relative(role, action) or def.ascendantAtlasRelative
@@ -851,14 +915,14 @@ function WalkingSprites:fieldSprite(player)
     atlas = self.atlasByRole[role]
   end
   if not atlas or not self.runtimeByAtlas[atlas] then return current end
-  self.fieldSprites = self.fieldSprites or {}
-  local key = tostring(role) .. ":" .. atlas..':'..tostring(self:voxelEnabled())..':'..tostring(voxelHold)..':'..(clothes and clothes.token(role)or'original')
+  self.fieldSprites = self.fieldSprites or setmetatable({}, {__mode='v'})
+  local key = tostring(role) .. ":" .. atlas..':'..tostring(self.mod.options:get('human_art_style'))..':'..tostring(voxelHold)..':'..(clothes and clothes.token(role)or'original')
   if not self.fieldSprites[key] then
     local actor = {sprite=current, spriteDef=def, id="player"}
-    if not self:_bind(actor, atlas, role, self:_playerIdentityOwner(), action) then
+    if not self:_bind(actor, atlas, role, self:_playerIdentityOwner(), voxelHold and self.mod.options:get('human_art_style')=='cobble'and'hold'or action) then
       if not (actor.sprite and actor.sprite.def.ascendantAtlasImage) then return nil end
     end
-    if voxelHold then actor.sprite.def.ascendantVoxelFieldPose="fishing"end
+    if voxelHold then actor.sprite.def.ascendantVoxelFieldPose=self.mod.options:get('human_art_style')=='cobble'and'cobble-hold'or'fishing'end
     self.fieldSprites[key] = actor.sprite
   end
   return self.fieldSprites[key]
@@ -890,10 +954,28 @@ function WalkingSprites:voxelEnabled()
   return self:enabled() and self.mod.options and self.mod.options:get("human_art_style") == "voxel"
 end
 
+-- A distant NPC view uses the same catalog, variant and style as its live
+-- counterpart, without inserting an NPC into the current world or updating it.
+function WalkingSprites:scenerySprite(mapId,object,native)
+  if not self:enabled() or not object or not native then return native end
+  local actor={def=object,id=mapId.."_obj_"..tostring(object.index),
+    cellX=object.x,cellY=object.y,sprite=native,spriteDef=native.def}
+  local atlas,role,action=self:_npcVisual(mapId,actor,self:_kasc()~=nil)
+  self:_bind(actor,atlas,role,nil,action)
+  return actor.sprite
+end
+
 function WalkingSprites:public()
   local binder = self
   return {
     schema=WalkingSprites.SCHEMA,
+    artSourceExtension='ascendant.character-art-source/v1',
+    artStyle=function()return binder.mod.options:get('human_art_style')end,
+    setArtStyle=function(style,game)
+      if style~='hd'and style~='voxel'and style~='cobble'then return false,'invalid-style' end
+      binder.mod.options:setHumanArtStyle(style,game or binder.activeGame)
+      binder:apply(game or binder.activeGame);return true
+    end,
     resolveAppearance=function(path,role,action,selection)return binder:appearance(path,role,action,selection)end,
     voxelDemoEnabled=function() return binder:voxelEnabled() end,
     setVoxelDemo=function(enabled,game)
@@ -902,6 +984,7 @@ function WalkingSprites:public()
     end,
     enabled=function() return binder:enabled() end,
     fieldSprite=function(player) return binder:fieldSprite(player) end,
+    scenerySprite=function(mapId,object,native)return binder:scenerySprite(mapId,object,native)end,
     fieldNativeDef=function(player, world) return binder:fieldNativeDef(player, world) end,
     refresh=function(game) return binder:apply(game) end,
     restore=function() return binder:restore() end,

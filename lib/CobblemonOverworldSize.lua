@@ -18,11 +18,29 @@ local function positive(x)return type(x)=='number' and x==x and x>0 and x<1e6 en
 local function envelope(mon)
   local model,rig=mon.model,mon.rig
   local cached=measured[model];if cached then return cached end
-  local h,span=0,0
+  local prepared=model._preparedMetrics
+  if prepared then
+    cached={height=prepared.height,span=prepared.span,bodyHeight=prepared.bodyHeight,bodySpan=prepared.bodySpan}
+    measured[model]=cached;return cached
+  end
+  local h,span,bodyH,bodySpan=0,0,0,0
+  -- Mew's thin articulated tail is several body lengths long. It remains
+  -- rendered at the same scale, but must not shrink its head/body to a dot.
+  local excluded
+  if tonumber(model.species)==151 and model.boneNames then
+    excluded={}
+    for i,name in ipairs(model.boneNames)do
+      if name:match('^tail')or excluded[model.parent[i]]then excluded[i]=true end
+    end
+  end
   local function sample(clip,frame)
     rig:pose(clip,frame,true)
     local x,y,z,X,Y,Z=rig:posedBounds()
     if x then h=math.max(h,Y-y);span=math.max(span,X-x,Z-z) end
+    if excluded then
+      local a,b,c,A,B,C=rig:posedBounds(excluded)
+      if a then bodyH=math.max(bodyH,B-b);bodySpan=math.max(bodySpan,A-a,C-c)end
+    end
   end
   local seen={}
   for _,action in ipairs({'idle','walk'})do
@@ -36,7 +54,7 @@ local function envelope(mon)
   if not next(seen)then sample(nil,0)end
   -- prepareOne poses the current animation again before any draw/upload.
   local root=math.abs(tonumber(model.rootScale)or 1);if root==0 then root=1 end
-  cached={height=h*root,span=span*root}
+  cached={height=h*root,span=span*root,bodyHeight=bodyH*root,bodySpan=bodySpan*root}
   if not positive(cached.height)or not positive(cached.span)then return nil end
   measured[model]=cached
   return cached
@@ -52,6 +70,9 @@ function M.scale(mon,dex)
   -- The same-camera Wilds comparison also bounds depth/wing span: allow
   -- 20% over the sprite tier for a 3-D silhouette, not a two-times-long body.
   local fit=math.min(reference/size.height,reference*1.2/size.span)
+  if positive(size.bodyHeight)and positive(size.bodySpan)then
+    fit=math.min(reference/size.bodyHeight,reference*1.2/size.bodySpan,reference*2.6/size.span)
+  end
   return fit*height/base,{reference=reference,height=size.height*fit,span=size.span*fit}
 end
 return M

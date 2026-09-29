@@ -99,7 +99,9 @@ function M.material(map,profile,tile,x,y)
  end
  -- Ground materials never claim water, entrances or puzzle markings.
  -- Grass blades keep their native silhouette in the separate grass pass.
- if ts=='OVERWORLD'and map.id=='CINNABAR_ISLAND'and (tile==48 or tile==57)then return -160
+ if ts=='OVERWORLD'and map.id=='CINNABAR_ISLAND'and V.require('CinnabarVolcano').active() and (tile==35 or tile==44 or tile==48 or tile==57 or tile==82)then
+  return -183
+ elseif ts=='OVERWORLD'and map.id=='CINNABAR_ISLAND'and (tile==48 or tile==57)then return -160
  elseif ts=='OVERWORLD'and map.id=='LAVENDER_TOWN'and (tile==48 or tile==57)then return -173
  -- Native blocks $7A/$7B alternate path/grass pixels as decorative paving.
  -- Match both complete motifs; $7A is used in Fuchsia and on Route 12.
@@ -142,6 +144,7 @@ local waterTiles={
  PLATEAU={[20]=true,[31]=true,[50]=true,[51]=true},
 }
 function M.waterMaterial(map,profile,class,tile)
+ if class=='water'and tile==20 and map and map.id=='SILPH_CO_1F'and V.require('SilphFountains').matches(map)then return -174 end
  if profile=='kasc_habitat'and class=='water'then return -174 end
  local d=map and map.def
  local tiles=d and waterTiles[d.tileset]
@@ -342,6 +345,7 @@ function M.register(P,F)
   a.seasonalFoliage=(kind:match('^kanto_tree_') and not kind:match('_3$'))
     or kind:match('^kanto_cut_tree_') or (kind:match('^kanto_pillar_tree_') and not kind:match('_3$'))
   a.seasonalFoliage=a.seasonalFoliage and true or false
+  if a.seasonalFoliage then a.leafColors={[C.leafDark or 10]=true,[C.leaf or 12]=true,[C.leafLight or C.sage]=true,[1]=true}end
   return function(x,y,z,bw,bh,bd,c)
    assert(x>=0 and z>=0 and x+bw<=w and z+bd<=d,'outdoor footprint '..kind)
    a.boxes[#a.boxes+1]={x,y,z,bw,bh,bd,c}
@@ -369,35 +373,7 @@ function M.register(P,F)
   guard=function(map,x,y)return map.def.generation~=2 and x%2==0 and y%2==0
     and not map:isWarpTileCell(x/2,y/2)end,
   variant=function(map,x,y)return 'kanto_cut_tree_'..(1+(math.floor(x/2)+math.floor(y/2))%3)end}
- -- Three small shoreline palms. Add their mesh without replacing the quay
- -- or its submerged cells; even with decoration enabled Surf stays native.
- for variant,at in ipairs({{8,24},{12,28},{38,28}})do
-  local kind='cinnabar_palm_'..variant
-  local b=make(kind,16,16);local height=24+variant*3
-  for y=0,height-1,2 do
-   local lean=math.floor(y/12)*(variant==2 and -1 or 1)
-   b(6+lean,y,3,3,2,3,y%6==0 and C.oak or C.walnut)
-  end
-  -- Six separated, drooping fronds with a bright ridge and darker tips.
-  for ray=0,5 do
-   local angle=ray*math.pi/3+variant*.14
-   for n=0,6 do
-    local x=math.floor(7+math.cos(angle)*n)
-    local z=math.floor(7+math.sin(angle)*n)
-    local width=n<5 and 2 or 1
-    b(x,height+2-math.floor(n*n/12),z,width,2,width,
-      n<3 and (C.leafLight or C.sage)or n<5 and (C.leaf or 12)or (C.leafDark or 10))
-   end
-  end
-  b(6,height-2,5,2,3,2,C.walnut);b(9,height-1,6,2,2,2,C.oak)
-  F.patterns[#F.patterns+1]={kind=kind,sets={OVERWORLD=true},maps={CINNABAR_ISLAND=true},
-   x=at[1],y=at[2],tiles={{51,51},{20,20}},voxelOnly=true,keepTerrain=true,
-   enabled=function()return M.trees:get()end,
-   guard=function(map,x,y)
-    return map.def.generation~=2 and map.def.width==10 and map.def.height==9
-     and not map:isWalkableCell(x/2,y/2)and not map:isWarpTileCell(x/2,y/2)
-   end}
- end
+ V.require('CinnabarPalms').register(P,F,function()return M.trees:get()end)
  for size=1,2 do for variant=1,5 do
   local w=16*size;local b=make('kanto_tree_'..size..'_'..variant,w,w)
   -- All round silhouettes can host cherry blossom; placement chooses a
@@ -581,7 +557,7 @@ function M.register(P,F)
  for variant=1,#petals do
   local b=make('kanto_flower_'..variant,8,8)
   local model=P.models['kanto_flower_'..variant]
-  model.frost=true
+  model.frost=true;model.snowBuried=true
   model.groundParts={}
   local stem=C.leafDark or 10;local petal=petals[variant]
   for _,at in ipairs(clusters[variant])do

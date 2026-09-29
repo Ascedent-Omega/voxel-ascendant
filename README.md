@@ -1,3 +1,5 @@
+> Lokaler Integrationsstand vom 29.09.2026. Siehe LOCAL_RC.md; die folgenden öffentlichen Release-Dokumente bleiben als Referenz erhalten.
+
 # VASC 3.0.54 — Keep the selected battle view
 
 Camera/HUD composition limits keep the chosen Gen 1 environment running with fresh battle frames. Change the view manually when needed. Independent public hotfix from 3.0.53, including its mobile shadow fixes. See [release notes](RELEASE_NOTES.md) and [validation](QA-REPORT.md).

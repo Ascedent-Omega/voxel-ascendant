@@ -39,7 +39,7 @@ function M.register(P,F)
   if mart then
    m.support=function(x,z)
     for _,seat in ipairs(seats)do
-     if x>=seat[1]and x<seat[1]+16 and z>=seat[2]and z<seat[2]+16 then return 8.5 end
+     if x>=seat[1]and x<seat[1]+16 and z>=seat[2]and z<seat[2]+16 then return 6.375 end
     end
     return 0
    end
@@ -114,11 +114,14 @@ function M.register(P,F)
     -- full-roof claim forces the seated sprite down through its cushion.
     for _,sx in ipairs({x-16,x+32})do for _,sz in ipairs({z,z+16})do
      seats[#seats+1]={sx,sz}
+     local function seatBox(x,y,z,w,h,d,c)
+      b(sx+8+(x-8)*.75,y*.75,sz+8+(z-8)*.75,w*.75,h*.75,d*.75,c)
+     end
      for _,lx in ipairs({3,11})do for _,lz in ipairs({3,11})do
-      b(sx+lx,0,sz+lz,2,6,2,C.slate)
+      seatBox(lx,0,lz,2,6,2,C.slate)
      end end
-     b(sx+2,6,sz+2,12,2,12,C.silver)
-     b(sx+3,8,sz+3,10,.5,10,C.navy)
+     seatBox(2,6,2,12,2,12,C.silver)
+     seatBox(3,8,3,10,.5,10,C.navy)
     end end
    end
    -- Service/stair enclosure: low walls preserve the blocked footprint,

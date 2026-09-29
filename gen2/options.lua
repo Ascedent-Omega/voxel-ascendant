@@ -3,6 +3,12 @@
 local platform = love and love.system and love.system.getOS and love.system.getOS()
 local controlsTransparency = (platform == "iOS" or platform == "Android") and 40 or 20
 return {
+  {key="gen2MoveAnimations",type="choice",label="MOVE ANIMATIONS",default="vasc",
+    choices={{"VASC","vasc"},{"ORIGINAL (NATIVE BATTLE)","original"}},
+    description="Original uses the native Gen-2 battle presentation with complete cartridge animations and sound timing. VASC restores your selected 3D battle view. Applies from the next encounter."},
+  {key="gen2TrainerArt",type="choice",label="PLAYER TRAINER ART",default="auto",
+    choices={{"AUTO / RESPECT OTHER MODS","auto"},{"NATIVE / OTHER MOD","native"},{"VASC HD","hd"}},
+    description="AUTO preserves trainer pictures supplied by other mods before using Gold/Kris HD art. NATIVE always uses the engine's current trainer picture."},
   {key="terarriumBehindRed",type="choice",label="TERRARIUM: BATTLE ORIENTATION",default=false,choices={{"SIDE",false},{"BEHIND TRAINER",true}},description="Arrange both teams side by side or behind the trainer."},
   {key="terarriumLighting",type="toggle",label="TERRARIUM: LIGHTING",default=true,description="Soft cached shadows and local Terrarium lights. Independent of world lighting."},
   {key="terarriumIdleAnimation",type="toggle",label="TERRARIUM: IDLE MOTION",default=true,description="Gently rock the Terrarium while waiting in the command menu."},
@@ -613,6 +619,16 @@ return {
       { "RAINBOW", "rainbow" },
     },
     description = "Current VASC outdoor weather director: one regional AUTO front every four minutes across map transitions, four fronts per season, plus direct rain, snow, fog, storm/lightning, heat and rainbow previews. Interiors remain clear and live overworld battles keep the map weather.",
+  },
+  {
+    key="rainStrength",type="choice",label="RAIN STRENGTH",default="auto",
+    choices={{"AUTO","auto"},{"LIGHT","light"},{"NORMAL","normal"},{"HEAVY","heavy"}},
+    description="Rain density and sound together. AUTO uses normal rain and heavy storms. Roof shelter remains active.",
+  },
+  {
+    key="snowDepth",type="choice",label="SNOW DEPTH",default="normal",
+    choices={{"NORMAL","normal"},{"DEEP","deep"}},
+    description="Ankle-high drifts and footprints. Settled snow bridges small ledges on connected paths for walking uphill and downhill. Pokemon and trainers stand on continuous snow in battle. Deep snow buries flowers.",
   },
   {
     key = "weatherTweak",

@@ -2,10 +2,10 @@
 -- its adapter; battle model keys are deliberately never written here.
 local M = { PREFIX="apo_" }
 local rows = {
-  {"human_art_style", "PEOPLE STYLE", "FIGURENSTIL", "pokemon", "hd",
-    "Choose original HD artwork or the voxel character pack. Characters without a voxel asset retain their original HD artwork. Requires HD PEOPLE.",
-    "Original-HD oder Voxel-Figuren wählen. Figuren ohne Voxel-Grafik behalten ihre HD-Grafik. Benötigt HD-MENSCHEN.",
-    {{"ORIGINAL-HD", "hd"}, {"VOXEL", "voxel"}}},
+  {"human_art_style", "PEOPLE STYLE", "FIGURENSTIL", "pokemon", "voxel",
+    "Choose HD, Voxel or Cobble artwork. Available character variants and outfits retain their identity; missing styles use existing artwork. Requires HD PEOPLE.",
+    "HD, Voxel oder Cobble wählen. Figurenvarianten und Kleidung behalten ihre Identität; fehlende Stile nutzen vorhandene Grafiken. Benötigt HD-MENSCHEN.",
+    {{"ORIGINAL-HD", "hd"}, {"VOXEL", "voxel"}, {"COBBLE", "cobble"}}},
   {"card_animation_mode", "CARD ANIMATION", "KARTENANIMATION", "pokemon", "natural",
     "Natural enables the new human gait and idle motion. Classic restores the previous animation for every card immediately. Vanilla artwork is controlled by HD PEOPLE.",
     "Natürlich aktiviert den neuen Gang und Ruhebewegungen. Klassisch stellt sofort die bisherige Animation aller Karten wieder her. Originalgrafiken wählt HD-MENSCHEN.",
@@ -16,7 +16,7 @@ local rows = {
   {"enabled", "OVERWORLD CARD", "OVERWORLD-CARD", "pokemon", true,
     "Enable the integrated APO RC32 snapshot. Changing this master switch requires a game reload.",
     "Integrierten APO-RC32-Stand aktivieren. Dieser Hauptschalter benötigt einen Spielneustart."},
-  {"hd_walking_sprites", "HD PEOPLE", "HD-MENSCHEN", "pokemon", true,
+  {"hd_walking_sprites", "CUSTOM PEOPLE", "FIGUREN", "pokemon", true,
     "F6 cycles original 2D / HD / optional Voxel Card. Use bundled HD player/NPC artwork. Requires OVERWORLD CARD enabled at game start; after enabling that master switch, reload the game. Pokemon downloads and model sources do not control HD people. Character selection stays with the game, KASC or JASC."},
   {"pokemon_model_source", "OVERWORLD MODELS", "OVERWORLD-MODELLE", "pokemon", "auto",
     "Overworld only: Stadium 2 models, Full HD render sprites, then original sprites. Shiny Pokemon use their available Full HD/MMO colours because Stadium provides normal models only. Explicit MMO choices take precedence.", nil,
@@ -88,6 +88,7 @@ function M.schema(mod)
   local out, de = {}, german(mod)
   for _, r in ipairs(rows) do
     local choices = r[8] or (r[5]=="hd" and sourceChoices or nil)
+    if r[1]=="human_art_style" and not (mod.exports and mod.exports.humanDlc and mod.exports.humanDlc.available()) then choices={{"VOXEL","voxel"},{"COBBLE","cobble"}} end
     if choices then
       local copy = {}
       for i, choice in ipairs(choices) do

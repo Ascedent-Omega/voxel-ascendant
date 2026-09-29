@@ -4,6 +4,8 @@
 local H={}
 local last,held
 local cover,arrival
+local serial=0
+function H.serial()return serial end
 local preparing={ ["terrain-pending"]=true,["horizon-pending"]=true,
  ["atlas-pending"]=true,["glass-pending"]=true,["people-pending"]=true,
  ["startup-seam-pending"]=true }
@@ -15,6 +17,7 @@ function H.clear()
  arrival=nil
 end
 function H.presented(canvas,state,w,h)
+ serial=serial+1
  if cover then cover.canvas:release();cover=nil end
  arrival={map=state.map,ready=true}
  if held then held.canvas:release();held=nil end

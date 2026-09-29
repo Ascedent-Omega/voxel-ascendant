@@ -4,6 +4,7 @@
 -- this bridge adds only a visual overlay and never imports a Kanto module.
 
 local V = ...
+local Style = V.require("Gen2AnimationStyle")
 local Bridge = {
   installed=false, starts=0, draws=0, projectedDraws=0,
   lastMove=nil, lastError=nil, lastProjection=nil,
@@ -163,6 +164,7 @@ function Bridge.drawProjected(screen, shot, targetW, targetH)
 end
 
 function Bridge.install()
+  Style.install()
   local okState, BattleState = pcall(require, "src.ui.gen2.BattleState")
   local Player = playerModule()
   if not (okState and type(BattleState) == "table") then
@@ -190,7 +192,7 @@ function Bridge.install()
   BattleState.animForMove = function(self, moveId, side, ...)
     local started = innerAnimForMove(self, moveId, side, ...)
     releaseOverlay(self)
-    if started and moveId ~= nil and (side == "player" or side == "enemy") then
+    if not Style.original(self) and started and moveId ~= nil and (side == "player" or side == "enemy") then
       local okOverlay, overlay = pcall(
         Player.newGen2Overlay, moveId, side == "player")
       if okOverlay and overlay then

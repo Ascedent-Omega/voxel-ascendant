@@ -284,6 +284,13 @@ function Sky.weatherBands(mode)
   return weatherCache.bands
 end
 
+-- One visibility rule for the sky, world disc, and water reflection.
+function Sky.bodyObscured(weather)
+  weather = weather or frameWeather
+  return weather == "rain" or weather == "storm"
+      or weather == "snow" or weather == "fog"
+end
+
 function Sky.frameWeather()
   return frameWeather
 end
@@ -1032,18 +1039,20 @@ local function paintClouds(w, h, edge, cell, alpha, ray, night, weather,
   if not (g and type(g.draw) == "function" and type(g.setColor) == "function") then
     return
   end
+  local SkyStyle = V.require("SkyStyle")
+  local oldCloudShader, styledClouds = SkyStyle.beginClouds(g, weather)
   local shade = 1 - night * 0.55
   local scale, cloudAlpha = 1, alpha * 0.88
   local red, green, blue = shade, shade, math.min(1, shade + 0.04)
   if weather == "storm" then
     scale, cloudAlpha = 2.15, alpha * 0.96
-    red, green, blue = .34, .36, .37
+    red, green, blue = SkyStyle.wetCloudTint(weather, night)
   elseif weather == "fog" then
     scale, cloudAlpha = 1.72, alpha * 0.78
     red, green, blue = .70, .72, .72
   elseif weather == "rain" then
     scale, cloudAlpha = 1.42, alpha * 0.90
-    red, green, blue = .53, .56, .57
+    red, green, blue = SkyStyle.wetCloudTint(weather, night)
   elseif weather == "snow" then
     scale, cloudAlpha = 1.25, alpha * 0.82
     red, green, blue = .78, .80, .80
@@ -1083,6 +1092,7 @@ local function paintClouds(w, h, edge, cell, alpha, ray, night, weather,
         staticRed, staticGreen, staticBlue =
     Sky.staticWeatherCloudProfile(weather)
   if staticCount then
+    staticRed, staticGreen, staticBlue = SkyStyle.wetCloudTint(weather, night)
     g.setColor(staticRed, staticGreen, staticBlue, alpha * staticAlpha)
     for i = 1, staticCount do
       local variant, width, height =
@@ -1155,6 +1165,7 @@ local function paintClouds(w, h, edge, cell, alpha, ray, night, weather,
     end
   end
   g.setColor(1, 1, 1, 1)
+  if styledClouds then g.setShader(oldCloudShader) end
 end
 
 Sky._paintClouds = paintClouds -- focused headless budget/zero-work QA seam
@@ -1176,24 +1187,15 @@ Sky.STAR_VARIANTS = {
 
 function Sky.starVisual(i)
   i = math.max(1, math.floor(i or 1))
-  local variant = ((i * 11 + math.floor(i / 7)) % #Sky.STAR_VARIANTS) + 1
+  local roll = V.require("SkyStyle").sample(i, 1)
+  local variant = roll > .96 and 5 or (math.floor(roll * 4) + 1)
   local visual = Sky.STAR_VARIANTS[variant]
-  return visual.color, visual.cells, visual.speed, i * 1.37
+  return visual.color, visual.cells, visual.speed, V.require("SkyStyle").sample(i, 2) * TAU
 end
 
-local starDirections = {}
-
--- A deterministic low-discrepancy scatter over the upper hemisphere. Stars
--- never read Sky.clock here: only their brightness twinkles, never their place.
+-- Independent, separated samples remove the old visible spiral/meridian rows.
 function Sky.starDirection(i)
-  i = math.max(1, math.floor(i or 1))
-  if starDirections[i] then return starDirections[i] end
-  local az = wrapPi(i * GOLDEN_ANGLE)
-  local u = ((i * 73) % 167 + 0.5) / 167
-  local el = math.asin(0.06 + u * 0.92)
-  local direction = Sky.direction(az, el)
-  starDirections[i] = direction
-  return direction, az, el
+  return V.require("SkyStyle").star(i)
 end
 
 -- Three small, deliberately abstract Pokemon constellations. They are point
@@ -1201,41 +1203,35 @@ end
 -- body and tail, and a long neck over a shell. Their fixed bearing/elevation
 -- makes them genuine places in Kanto's sky instead of HUD ornaments.
 Sky.CONSTELLATIONS = {
-  {
-    id = "PIKACHU", az = math.rad(-52), el = math.rad(48),
-    color = { 1.00, 0.90, 0.58 },
-    points = {
-      { -2.0, -1.0 }, { -3.2, 3.0 }, { -1.2, 1.3 },
-      {  1.2, 1.3 }, {  3.2, 3.0 }, {  2.0, -1.0 },
-      {  0.0, -2.4 }, { -3.6, -0.7 }, { -5.0, -2.0 },
-      { -3.7, -2.6 },
-    },
-    segments = { {1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,1},
-                 {1,8},{8,9},{9,10},{10,8} },
-  },
-  {
-    id = "MAGIKARP", az = math.rad(36), el = math.rad(38),
-    color = { 0.72, 0.88, 1.00 },
-    points = {
-      { -3.4, 0.0 }, { -1.7, 1.7 }, { 0.7, 1.8 }, { 2.5, 0.0 },
-      {  0.7,-1.8 }, { -1.7,-1.7 }, { -5.0, 1.7 }, { -5.0,-1.7 },
-      {  1.0, 0.2 },
-    },
-    segments = { {1,2},{2,3},{3,4},{4,5},{5,6},{6,1},
-                 {1,7},{7,8},{8,1},{3,9} },
-  },
-  {
-    id = "LAPRAS", az = math.rad(139), el = math.rad(43),
-    color = { 0.86, 0.80, 1.00 },
-    points = {
-      { -3.8,-1.4 }, { -2.4, 0.2 }, { -0.5, 1.0 }, { 1.6, 0.6 },
-      {  3.4,-0.8 }, {  1.5,-1.7 }, { -1.1,-1.8 }, { -2.8,-1.2 },
-      {  2.4, 2.2 }, {  2.7, 4.1 }, { 3.5, 4.7 },
-    },
-    segments = { {1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,8},{8,1},
-                 {4,9},{9,10},{10,11} },
-  },
+  { id="PIKACHU", az=math.rad(-52), el=math.rad(48), color={1,.90,.58},
+    points={{-2,0},{-3.4,5},{-1,2.1},{1,2.1},{3.1,5},{2.4,0},
+      {1.8,-3.3},{-1.9,-3.3},{-2,0},{3.4,-2.1},{5.5,.3},{3.9,.1},
+      {5.8,3.2},{6.9,2.4},{5.4,-.9},{6.6,-.8},{3.9,-3.3},
+      {-1,.35},{1.2,.35},{.1,-.9}},
+    segments={{1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,8},{8,1},
+      {7,10},{10,11},{11,12},{12,13},{13,14},{14,15},{15,16},{16,17},{17,7}} },
+  { id="MAGIKARP", az=math.rad(36), el=math.rad(38), color={.72,.88,1},
+    points={{-3,0},{-1.6,2},{1,2.1},{3,1},{3.6,0},{3,-1.1},{1,-2},
+      {-1.5,-1.9},{-5.5,2.1},{-4.8,0},{-5.5,-2.1},{-.7,2.2},{.1,4},
+      {1,2.1},{-.2,-2.1},{.5,-3.3},{1,-2},{2, .75},{1,-.3},{-.9,.5},
+      {-.6,-.8},{4.8,1.2},{5.5,.3},{4.7,-1.3},{5.4,-.7}},
+    segments={{1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,8},{8,1},
+      {1,9},{9,10},{10,11},{11,1},{12,13},{13,14},{15,16},{16,17},
+      {19,20},{20,21},{21,19},{5,22},{22,23},{5,24},{24,25}} },
+  { id="LAPRAS", az=math.rad(139), el=math.rad(43), color={.86,.80,1},
+    points={{-4,-1.5},{-3,.3},{-2,1.5},{-.8,.8},{.3,1.8},{1.4,.7},{2,-.5},
+      {2.3,2.2},{2.3,4.2},{3.4,5.2},{4.1,4.3},{5,3.8},{4.2,3.1},
+      {3.5,3.2},{3.4,-1.4},{1.3,-2},{.6,-3.5},{-.8,-2.2},
+      {-2.3,-2},{-4.6,-3},{-3.6,-1.7},{3.4,4}},
+    segments={{1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,8},{8,9},
+      {9,10},{10,11},{11,12},{12,13},{13,14},{14,15},{15,16},
+      {16,17},{17,18},{18,19},{19,20},{20,21},{21,1},{1,7}} },
 }
+
+-- Preserve the shared trio; this region adds its own three starters.
+for _, def in ipairs(V.require("StarterConstellations")[1]) do
+  Sky.CONSTELLATIONS[#Sky.CONSTELLATIONS + 1] = def
+end
 
 local constellationDirections = {}
 
@@ -1247,10 +1243,14 @@ function Sky.constellationDirection(constellation, point)
   local key = tostring(def.id) .. ":" .. tostring(point)
   local cached = constellationDirections[key]
   if cached then return cached.direction, cached.az, cached.el end
-  local az = wrapPi(def.az + math.rad(p[1]))
-  local el = math.max(math.rad(8), math.min(math.rad(82),
-                                           def.el + math.rad(p[2])))
-  local answer = { direction = Sky.direction(az, el), az = az, el = el }
+  -- Place the drawing on the tangent plane of its centre, then normalize.
+  -- Adding longitude/latitude separately pinches ears/fins near the zenith.
+  local sa,ca,se,ce=math.sin(def.az),math.cos(def.az),math.sin(def.el),math.cos(def.el)
+  local px,py=math.tan(math.rad(p[1])),math.tan(math.rad(p[2]))
+  local dx,dy,dz=sa*ce+px*ca-py*sa*se,se+py*ce,ca*ce-px*sa-py*ca*se
+  local length=math.sqrt(dx*dx+dy*dy+dz*dz);dx,dy,dz=dx/length,dy/length,dz/length
+  local az,el=math.atan2(dx,dz),math.asin(dy)
+  local answer = { direction = {dx,dy,dz}, az = az, el = el }
   constellationDirections[key] = answer
   return answer.direction, az, el
 end
@@ -1290,7 +1290,7 @@ local function paintStars(w, h, edge, cell, alpha, ray, strength, context)
   local g = love.graphics
   local function star(i, x, y, strengthScale)
     local color, cells, speed, phase = Sky.starVisual(i)
-    local twinkle = 0.58 + 0.42 * math.sin(Sky.clock * speed + phase)
+    local twinkle = 0.80 + 0.20 * math.sin(Sky.clock * speed * .4 + phase)
     local a = alpha * strength * (strengthScale or 1) * twinkle
     g.setColor(color[1], color[2], color[3], a)
     local s = cell * cells
@@ -1378,8 +1378,8 @@ local function paintStars(w, h, edge, cell, alpha, ray, strength, context)
 
   local starEdge = math.max(cell, edge * 0.82)
   for i = 1, Sky.FALLBACK_STAR_COUNT do
-    local x = (i * 113 + (i * i) * 7) % math.max(1, math.floor(w))
-    local y = (i * 61 + (i * i) * 3) % math.max(1, math.floor(starEdge))
+    local x = V.require("SkyStyle").sample(i, 7) * w
+    local y = V.require("SkyStyle").sample(i, 11) * starEdge
     star(i, x, y)
   end
   constellations()
@@ -1557,6 +1557,7 @@ end
 -- fill is the whole sky. That fill is the palest band, so a frame that declines
 -- this looks like a hazy day rather than like a bug.
 function Sky.paint(w, h, sky, horizonY, cell, body, top, axis, ray, context)
+  if Sky.bodyObscured(context and context.weather) then body = nil end
   local bands = sky and sky.bands
   if not (bands and bands[1]) then return false end
   if not (w and h and w > 0 and h > 0) then return false end
@@ -1717,6 +1718,8 @@ function Sky.invalidate()
   end
   discBake.key, discBake.img = nil, nil
   Sky.invalidateCloudAsset()
+  V.require("SkyStyle").invalidate()
+  V.require("WorldWeather").invalidate()
   if SkyEvents and type(SkyEvents.invalidateAssets) == "function" then
     pcall(SkyEvents.invalidateAssets)
   end

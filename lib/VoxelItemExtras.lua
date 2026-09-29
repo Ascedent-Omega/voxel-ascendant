@@ -65,6 +65,14 @@ return function(P)
       b(7,6,6,2,1,4,9);b(6,5,9,4,1,2,9)
     else b(7,6,6,2,1,5,4);b(6,5,8,4,1,3,11) end
   end
+  -- Native read interactions stay on the object; the visible paper lies
+  -- on its furniture support instead of facing the camera as a billboard.
+  local note=model('desk_notes')
+  P.models.desk_notes.step=.5
+  note(2,0,2,12,1,13,13);note(2.5,1,2.5,11,1,12,4)
+  note(5.5,2,2,5,.5,1.5,14)
+  for z=5,12,2 do note(4,2,z,z==11 and 5 or 8,.5,.5,16)end
+  note(11,2.5,5,1,.5,3,7)
   -- The native book sprite is also Daisy's paper map and Cinnabar's diaries.
   local b=model('town_map')
   b(1,0,3,14,1,11,2);b(1,1,3,14,1,10,4)

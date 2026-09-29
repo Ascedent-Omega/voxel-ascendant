@@ -88,6 +88,12 @@ function M.geometry(map,profile,checkpoint)
   box(w/2-.4,h-.15,s[3],.8,.3,s[4]-s[3],2)
   box(s[1],h-.15,d/2-.4,s[2]-s[1],.3,.8,2)
  else box(0,h,0,w,2,d,color)end
+ -- Silph stays an enclosed office: fine panel joints make its retained
+ -- matte ceiling readable even where no light fixture fills the view.
+ if V.require('SilphWindows').floor(map)or V.require('SilphElevator').matches(map)then
+  for x=32,w-1,32 do box(x-.2,h-.12,0,.4,.12,d,2)end
+  for z=32,d-1,32 do box(0,h-.12,z-.2,w,.12,.4,2)end
+ end
  -- Narrow structural rails make the large commercial ceiling read at room scale.
  for _,z in ipairs(plan.style.beams and {.16,.50,.88}or {})do
   if not s or z*d<s[3]or z*d>s[4]then box(0,h-.7,z*d,w,.7,1.2,2)end

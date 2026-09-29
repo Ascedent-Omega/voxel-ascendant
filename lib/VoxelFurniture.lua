@@ -118,6 +118,17 @@ end
 F.patterns={
   {kind='elevator_control',sets={LOBBY=true},tiles={{62},{63}},
     maps={CELADON_MART_ELEVATOR=true,SILPH_CO_ELEVATOR=true,ROCKET_HIDEOUT_ELEVATOR=true},
+    variant=function(map,x,y)
+      local kind='elevator_control_wall_'..y
+      if not P.models[kind]then
+        local boxes={}
+        for _,row in ipairs(P.models.elevator_control.boxes)do
+          local b={unpack(row)};b[3]=b[3]-y*8-11;boxes[#boxes+1]=b
+        end
+        P.models[kind]={boxes=boxes,directBoxes=true,frameW=8,frameH=32,depth=16,offsetY=-16}
+      end
+      return kind
+    end,
     groundTile=32,guard=function(map,x,y)
       for _,sign in ipairs(map.def.signs or{})do
         if sign.x==math.floor(x/2) and sign.y==math.floor(y/2) then return true end
@@ -151,7 +162,7 @@ for i=#interiorPatterns,1,-1 do table.insert(F.patterns,1,interiorPatterns[i])en
 function F.variantKind(kind,map,x,y)
   if kind=='wood_chair_north' and map.id=='REDS_HOUSE_1F' then
     if x==4 then return 'reds_dining_chair_west' end
-    if x==10 then return y==8 and 'reds_dining_chair_west' or 'reds_dining_chair_east' end
+    if x==10 then return 'reds_dining_chair_east' end
   end
   -- The near bank faces its research table; the far bank faces south.
   if kind=='lounge_chair' and map.id=='CINNABAR_LAB_TRADE_ROOM' and y==10 then
@@ -160,8 +171,8 @@ function F.variantKind(kind,map,x,y)
   if kind=='wood_chair_north' and map.id=='VIRIDIAN_SCHOOL_HOUSE' and x==6 and y==10 then
     return 'wood_chair_south'
   end
-  if kind=='lounge_chair' and map.id=='GAME_CORNER' and y>=20 then
-    return 'lounge_chair_'..(x%12==4 and 'left' or 'right')
+  if kind=='lounge_chair' and map.id=='GAME_CORNER' then
+    return y>=20 and 'arcade_chair_'..(x%12==4 and 'left' or 'right') or 'arcade_chair'
   end
   if kind=='bookshelf' or kind=='bookshelf_short' then
     return 'bookshelf_'..((math.floor(x/2)+math.floor(y/2))%3)..(kind=='bookshelf_short' and '_short' or '')
@@ -172,9 +183,10 @@ function F.variantKind(kind,map,x,y)
       CELADON_MART_4F='stones',CELADON_MART_5F='medicine'})[map.id]
     if not theme then theme=({'balls','medicine','mixed'})[(math.floor(x/4)+math.floor(y/4))%3+1]end
     local phase=(math.floor(x/4)+math.floor(y/6))%3
-    return 'retail_'..theme..(kind=='mart_shelf_half' and '_half' or '')..(phase>0 and '_v'..phase or '')
+    local variant='retail_'..theme..(kind=='mart_shelf_half' and '_half' or '')..(phase>0 and '_v'..phase or '')
+    return V.require('RetailAisles').variant(P,variant,map,x,y)
   end
-  return kind
+  return V.require('KantoSeatGeometry').kind(kind,map,x,y)
 end
 V.require('Gen1RhyhornStatues').register(P,F)
 V.require('Gen1GymBallMarkers').register(P,F)
@@ -185,6 +197,7 @@ V.require('Gen1OutdoorScenery').register(P,F)
 V.require('Gen1LooseRocks')(P,F)
 V.require('Gen1VoxelSigns').register(P,F)
 V.require('Gen1FurnitureCompletion')(P,F,V.require('Gen1FurniturePatterns'))
+V.require('KantoSeatGeometry').register(P)
 V.require('Gen1Rooftops').register(P,F)
 V.require('Gen1RoofTerrace').register(P,F)
 V.require('TowerAtmosphere').register(P)
@@ -286,6 +299,7 @@ local function find(map,buildingsOnly)
     result[#result+1]=p
   end
   for _,p in ipairs(V.require('Gen1SafariGates').find(P,map))do result[#result+1]=p end
+  V.require('KantoSeatGeometry').orient(result,map,P)
   found[map]=result;return result
 end
 function F.find(map)return find(map,false)end
@@ -373,6 +387,13 @@ function F.claim(S,map,peekTerrain)
         end
       end end
     end
+  end
+  if P.setting:get()and V.require('Gen1Rooftops').gate(map)then
+    S.interiorFloorTiles=V.require('Gen1RoomBounds').floorTiles(map)
+    -- Former window band becomes the open terrace edge. Collision stays native.
+    for y=0,3 do for x=0,15 do local k=key(x,y)
+      S.skip[k]=true;S.ground[k]=1;S.shapeAt[k]={class='ground',h=0,art='flat',flat=true,authored=true}
+    end end
   end
   V.require('Gen1Harbor').claim(S,map)
 end
@@ -476,8 +497,11 @@ function F.each(state,draw,lightsOnly)
       local kind=decoration and decoration.kind or p.kind
       local model=P.models[p.kind];local cut=state.landmarkCutaway and model and model.cutawayKind
       if cut then kind=cut;model=P.models[kind]end
+      kind=V.require('SeasonalTrees').kind(P,kind,state.map.id,p.tx,p.ty)
+      model=P.models[kind] or model
       local mesh,tex=P.resolveKind(kind)
       local extra
+      if p.drawExtra then p.drawExtra.seasonalFoliage=nil;p.drawExtra.blossomSource=nil end
       if model and model.glassKind and (not model.glassVisible or model.glassVisible(state.map)) then
         local glass,glassTex=P.resolveKind(model.glassKind)
         if glass then
@@ -495,6 +519,7 @@ function F.each(state,draw,lightsOnly)
       if model and not lightsOnly and (model.winterKind or model.frost or model.seasonalFoliage) then
         p.drawExtra=p.drawExtra or {};extra=extra or p.drawExtra
         extra.frost=model.frost
+        extra.snowBuried=model.snowBuried
         extra.seasonalFoliage=model.seasonalFoliage
         if model.blossomSource and p.springBlossomSelected==nil then
           p.springBlossomSelected=V.require('SpringBlossom').selected(state.map.id,p.tx,p.ty)
@@ -541,6 +566,8 @@ end
 -- prepared descriptors while checking live visibility/claims and resource
 -- ownership. Moving harbor props and healing animations use ordinary each().
 local snapshots=setmetatable({},{__mode='k'})
+local snapshotFrame
+function F.beginFrame()snapshotFrame=(snapshotFrame or 0)+1 end
 local snapshotClock=0
 local function trimSnapshots()
   local count,oldest,oldMap=0,math.huge
@@ -562,9 +589,11 @@ function F.snapshot(state)
   local props=F.find(map)
   local elevation=V.require('LedgeElevation')
   local heights=type(elevation.map)=='function' and elevation.map(map) or nil
+  local winter=V.require("SeasonalTrees").winter()
   local previous=snapshots[map]
   local changed=not previous or previous.props~=props or previous.heights~=heights
-    or previous.version~=P.resourceVersion or previous.source~=F.each
+    or previous.version~=P.resourceVersion or previous.source~=F.each or previous.winter~=winter
+  if not changed and snapshotFrame and previous.frame==snapshotFrame then return previous.entries end
   local stamps=previous and previous.stamps or {}
   local active=0
   for i,p in ipairs(props)do
@@ -601,7 +630,7 @@ function F.snapshot(state)
       end
     end
     previous={props=props,heights=heights,version=P.resourceVersion,
-      source=F.each,stamps=stamps,entries=entries,lights=lights,used=snapshotClock}
+      source=F.each,winter=winter,stamps=stamps,entries=entries,lights=lights,used=snapshotClock}
     snapshots[map]=previous
     trimSnapshots()
   else
@@ -611,6 +640,7 @@ function F.snapshot(state)
       light.extra.glow=light.model.windowLight and light.model.windowLight() or (light.model.lightSource and 1 or 0)
     end
   end
+  previous.frame=snapshotFrame
   return previous.entries
 end
 -- The published terrain plan owns the visible neighborhood. Replacement
@@ -618,14 +648,114 @@ end
 -- geometry even when their map is only a neighbor. Keep each() map-local for
 -- battle snapshots, which already enumerate and translate their own maps.
 local shiftedMatrices=setmetatable({},{__mode='k'})
-function F.eachWorld(state,draw,lightsOnly)
-  F.each(state,draw,lightsOnly)
+-- Lighting consumes authored emitters and transforms, never the furniture
+-- meshes. Keep its descriptors separate from drawExtra so an early light
+-- preparation cannot publish incomplete GPU data into a render snapshot.
+local function eachLight(state,draw)
+  if state.sightFurniture then
+    for _,p in ipairs(state.sightFurniture)do
+      if p.extra and p.extra.lightModel then draw(nil,nil,p.mat,p.shade,p.extra)end
+    end
+    return
+  end
+  local elevation,heights
+  for _,p in ipairs(F.find(state.map))do
+    local model=P.models[p.kind]
+    if p.claimed and model and (model.glassKind or model.lightSource) and F.enabled(p)then
+      if state.landmarkCutaway and model.cutawayKind then model=P.models[model.cutawayKind]end
+      local glass=model and model.glassKind and P.models[model.glassKind]
+        and (not model.glassVisible or model.glassVisible(state.map))
+      if model and (glass or model.lightSource)then
+        local decoration=p.terrainDecoration and p.decorPlacement
+        local base=decoration and decoration.base or 0
+        if not decoration and model.terrain then
+          elevation=elevation or V.require('LedgeElevation')
+          if not heights and type(elevation.map)=='function'then heights=elevation.map(state.map)end
+          local x,y=math.floor((p.tx+p.w/2)/2),math.floor((p.ty+p.h-1)/2)
+          base=heights and heights:at(x,y)or elevation.basisAtCell(state.map,x,y)
+        end
+        local mat=p.drawMatrix
+        if not mat or mat[4]~=p.tx*8 or mat[8]~=base or mat[12]~=p.ty*8 then
+          mat=M.translate(p.tx*8,base,p.ty*8);mat._voxelStatic=true;p.drawMatrix=mat
+        end
+        p.lightExtra=p.lightExtra or {};local extra=p.lightExtra
+        extra.lightModel=model;extra.glowColor=model.glowColor
+        extra.glow=model.windowLight and model.windowLight()or (glass and 0 or 1)
+        draw(nil,nil,mat,1,extra)
+      end
+    end
+  end
+end
+local function eachPrepared(state,draw,lightsOnly)
+  local entries=not state.landmarkCutaway and F.snapshot(state)
+  if not entries then return F.each(state,draw,lightsOnly)end
+  for _,p in ipairs(entries)do
+    if not lightsOnly or (p.extra and p.extra.lightModel)then draw(p.mesh,p.tex,p.mat,p.shade,p.extra)end
+  end
+end
+local coverStates=setmetatable({},{__mode='k'})
+function F.weatherCover(map)
+ local props=F.find(map)
+ local E=V.require('LedgeElevation');local heights=E.map and E.map(map)
+ local winter=V.require('SeasonalTrees').winter()
+ local signature={tostring(props),tostring(heights),tostring(P.resourceVersion),tostring(winter)}
+ for _,p in ipairs(props)do
+  V.require('WeatherCover').check()
+  signature[#signature+1]=table.concat({p.kind,p.tx,p.ty,tostring(p.claimed and F.enabled(p)),tostring(p.decorPlacement)},':')
+ end
+ signature=table.concat(signature,';')
+ if coverStates[map]==signature and V.require('WeatherCover').propsRevision(map)>0 then return end
+ local cover=V.require('WeatherCover').begin(map,'props')
+ for _,p in ipairs(props)do if p.claimed and F.enabled(p)then
+  local decor=p.terrainDecoration and p.decorPlacement
+  local kind=V.require('SeasonalTrees').kind(P,decor and decor.kind or p.kind,map.id,p.tx,p.ty)
+  local model=P.models[kind]
+  if model and model.boxes and not model.snowBuried then
+   local base=decor and decor.base or 0
+   if not decor and model.terrain then
+    local x,z=math.floor((p.tx+p.w/2)/2),math.floor((p.ty+p.h-1)/2)
+    base=heights and heights:at(x,z)or E.basisAtCell(map,x,z)
+   end
+   for _,b in ipairs(model.boxes)do
+    local x,y,z=b[1]+p.tx*8,b[2]+b[5]+base,b[3]+p.ty*8
+    cover:add({{x,y,z},{x+b[4],y,z},{x+b[4],y,z+b[6]},{x,y,z+b[6]}})
+   end
+  end
+ end end
+ cover:publish();coverStates[map]=signature
+end
+V.require('WeatherCover').provider=F.weatherCover
+-- Identity of the immutable prop snapshots in the published neighborhood.
+-- Batch preparation can reuse its complete result until a snapshot changes;
+-- walking/turning and live light strength do not require recounting every prop.
+local batchReceipt
+function F.batchReceipt(state)
+  if not state or not state.map or state.landmarkCutaway or state.sightFurniture then return nil end
+  local entries=F.snapshot(state)
+  if not entries or not entries._voxelStaticSnapshot then return nil end
+  local snapshots={entries};local seen={[state.map]=true}
+  for _,nb in ipairs(state.neighbors or {})do
+    if nb.map and not seen[nb.map]then
+      seen[nb.map]=true
+      local nextEntries=F.snapshot({map=nb.map})
+      if not nextEntries or not nextEntries._voxelStaticSnapshot then return nil end
+      snapshots[#snapshots+1]=nextEntries
+    end
+  end
+  local same=batchReceipt and batchReceipt.map==state.map and #batchReceipt==#snapshots
+  if same then for i,entry in ipairs(snapshots)do if batchReceipt[i]~=entry then same=false;break end end end
+  if not same then snapshots.map=state.map;batchReceipt=snapshots end
+  return batchReceipt
+end
+local function eachWorld(state,draw,lightsOnly,descriptorsOnly)
+  local each=descriptorsOnly and eachLight or eachPrepared
+  each(state,draw,lightsOnly)
   if state.sightFurniture then return end -- already a complete world snapshot
   local seen={[state.map]=true}
   for _,nb in ipairs(state.neighbors or {})do
     if nb.map and not seen[nb.map]then
       seen[nb.map]=true
-      F.each({map=nb.map},function(mesh,tex,mat,shade,extra)
+      each({map=nb.map},function(mesh,tex,mat,shade,extra)
         local ox,oz=nb.ox or 0,nb.oy or 0
         local shifted
         if mat._voxelStatic then
@@ -641,6 +771,8 @@ function F.eachWorld(state,draw,lightsOnly)
     end
   end
 end
+function F.eachWorld(state,draw,lightsOnly)return eachWorld(state,draw,lightsOnly)end
+function F.eachWorldLights(state,draw)return eachWorld(state,draw,true,true)end
 function F.shadowHeight(state)
   local height=160
   local function include(map)
@@ -683,7 +815,7 @@ function F.drawProp(mesh,tex,mat,shade,extra)
   end
   return drawn
 end
-function F.draw(state)
+function F.drawOpaque(state)
   local blossom=V.require("SpringBlossom")
   blossom.begin(state.map)
   if not state.sightFurniture and state.map and state.map.id=='SAFFRON_CITY'
@@ -693,17 +825,54 @@ function F.draw(state)
     view.landmarkCutaway=true;state=view
   end
   local visible=V.require('PropVisibility').forView(G.vp,G.curveK,G.curveX,G.curveZ)
+  local occlusion=V.require('PropOcclusion');local distant=V.require('DistantProps')
+  if not occlusion.enabled or (G.curveK or 0)~=0 then
+    local lods=0;local _,height=G.size()
+    local function each(view,draw)
+      F.eachWorld(view,function(mesh,tex,mat,shade,extra)
+        if not P.bounds or visible(P.bounds(mesh),mat)
+          or (extra and extra.mesh and visible(P.bounds(extra.mesh),mat))then
+          local low=distant.enabled and P.distant(mesh)
+          if low and (G.curveK or 0)==0 and distant.use(P.bounds(mesh),mat,G.eye,G.vp,height)then mesh=low;lods=lods+1 end
+          if extra and extra.blossomSource then blossom.add(mat,extra.blossomSource)end
+          draw(mesh,tex,mat,shade,extra)
+        end
+      end)
+    end
+    V.require('VoxelPropBatch').draw(state,each,F.drawProp)
+    occlusion.last={hidden=0,faces=0,lods=lods}
+  else
+  local entries={}
+  F.eachWorld(state,function(mesh,tex,mat,shade,extra)
+    if not P.bounds or visible(P.bounds(mesh),mat)
+      or (extra and extra.mesh and visible(P.bounds(extra.mesh),mat))then entries[#entries+1]={mesh,tex,mat,shade,extra}end
+  end)
+  local faces=occlusion.faces(entries,P.solidBoxes,G.eye,G.curveK)
+  local hidden,lods=0,0;local _,height=G.size()
   local function each(view,draw)
-    F.eachWorld(view,function(mesh,tex,mat,shade,extra)
-      if not P.bounds or visible(P.bounds(mesh),mat)
-        or (extra and extra.mesh and visible(P.bounds(extra.mesh),mat))then
+    for _,p in ipairs(entries)do
+      local mesh,tex,mat,shade,extra=unpack(p)
+      local blocked=occlusion.hidden(P.bounds(mesh),mat,faces,G.eye)
+      if blocked and extra and extra.mesh then blocked=occlusion.hidden(P.bounds(extra.mesh),mat,faces,G.eye)end
+      if blocked and extra and extra.winterMesh then blocked=occlusion.hidden(P.bounds(extra.winterMesh),mat,faces,G.eye)end
+      if blocked then hidden=hidden+1 else
+        local low=P.distant(mesh)
+        if low and (G.curveK or 0)==0 and distant.use(P.bounds(mesh),mat,G.eye,G.vp,height)then mesh=low;lods=lods+1 end
         if extra and extra.blossomSource then blossom.add(mat,extra.blossomSource) end
         draw(mesh,tex,mat,shade,extra)
       end
-    end)
+    end
   end
   V.require('VoxelPropBatch').draw(state,each,F.drawProp)
-  blossom.draw()
+  occlusion.last={candidates=#entries,faces=#faces,hidden=hidden,lods=lods}
+  end
+  return state
+end
+-- Decorative layers retain their original cast ordering after solid scenery.
+function F.drawDetails(state)
+  V.require('SpringBlossom').draw()
+  V.require('Halloween').drawProps(state)
+  V.require('CalendarDecor').draw(state)
   love.graphics.setColor(1,1,1,1)
   local p,ha=F.activeHealer(state)
   local visible=not state.sightFurniture
@@ -713,6 +882,9 @@ function F.draw(state)
     end
   end
   if visible and P.setting:get() and p and p.claimed then V.require("VoxelHealingDisplay").draw(p,ha)end
+end
+function F.draw(state)
+  return F.drawDetails(F.drawOpaque(state))
 end
 function F.cast(state,shadow)
   local visible=V.require('PropVisibility').forView(shadow.clipVP)

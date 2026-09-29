@@ -43,7 +43,9 @@ function M.claim(S,map)
  -- the two sides of facility partitions. Claim only the narrow native wall
  -- course beside a real panel; an unrelated internal wall must remain.
  local covered={}
- for _,panel in ipairs(V.require('Gen1InteriorLayout').panelsFor(map,p))do
+ local panels=V.require('Gen1InteriorLayout').panelsFor(map,p)
+ S.interiorFloorTiles=V.require('Gen1RoomBounds').floorTiles(map)
+ for _,panel in ipairs(panels)do
   local horizontal=panel.edge=='north' or panel.edge=='south'
   local first,last=math.floor(panel.from/8),math.ceil(panel.upto/8)-1
   local near,far=math.floor(panel.at/8)-2,math.ceil(panel.at/8)+1

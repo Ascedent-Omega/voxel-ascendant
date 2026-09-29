@@ -25,10 +25,16 @@ local tiles={DOJO={17},GYM={17,9,10,25,26},HOUSE={1},REDS_HOUSE_1={1},
 local allowed={}
 for ts,list in pairs(tiles)do allowed[ts]={};for _,tile in ipairs(list)do allowed[ts][tile]=true end end
 function M.profile(map)
+  if V.require('Gen1Rooftops').gate(map)then return 7 end
   if map and (map.id=='CELADON_MART_ROOF'or map.id=='CELADON_MANSION_ROOF')
    and V.require('VoxelItems').setting:get() and V.require('Gen1RoofTerrace').matches(map)then return 6 end
   if not M.setting:get() then return nil end
   local d=map and map.def
+  -- Only the seven native Tower rooms. Plain flooring becomes worn slate;
+  -- the healing zone, graves, counters and stair warps keep their tile roles.
+  if d and d.generation~=2 and d.tileset=='CEMETERY'
+      and d.width==10 and d.height==9 and not next(d.connections or{})
+      and (map.id or''):match('^POKEMON_TOWER_[1-7]F$')then return 54 end
   local gym=d and gymFloors[map.id]
   if gym and d.generation~=2
       and d.tileset==gym[2] and d.width==gym[3] and d.height==gym[4]

@@ -1,0 +1,3 @@
+local V = ...
+local source = assert(V.mod:read("shared/SkyStyle.lua"))
+return assert((loadstring or load)(source, "@shared/SkyStyle.lua"))(V)

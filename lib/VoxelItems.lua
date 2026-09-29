@@ -21,6 +21,9 @@ local cache, texture = {}, nil
 local sharedGeometry={}
 local meshBounds=setmetatable({},{__mode='k'})
 function P.bounds(mesh)return meshBounds[mesh]end
+local solidBoxes,distantMeshes=setmetatable({},{__mode='k'}),setmetatable({},{__mode='k'})
+function P.solidBoxes(mesh)return solidBoxes[mesh]end
+function P.distant(mesh)return distantMeshes[mesh]end
 local palette = {
   {211,67,55}, {235,231,216}, {48,51,57}, {251,247,224},
   {174,40,46}, {231,77,65}, {94,201,223}, {28,63,71},
@@ -54,7 +57,9 @@ for _,entry in ipairs({{'walnut',99,70,54},{'oak',177,137,88},{'navy',40,62,85},
     {'looseRock4',94,83,70},{'looseRock5',128,111,88},{'looseRock6',159,140,111},
     {'martBlue',43,105,184},
     {'hauntedStone',96,99,111},{'hauntedMortar',49,51,63},
-    {'hauntedWeathered',128,130,133},{'hauntedSlate',55,58,74},{'hauntedGlass',112,133,119},{'silphGlass',113,178,199}})do
+    {'hauntedWeathered',128,130,133},{'hauntedSlate',55,58,74},{'hauntedGlass',112,133,119},{'silphGlass',113,178,199},{'pumpkin',235,113,23},{'pumpkinRib',194,72,13},
+    {'palmBark',139,105,63},{'palmWood',181,144,86},{'palmCoconut',113,79,45},
+    {'palmDark',62,116,71},{'palmLeaf',80,144,74},{'palmLight',119,167,82}})do
   palette[#palette+1]={entry[2],entry[3],entry[4]};P.decorColors[entry[1]]=#palette
 end
 P.palette = palette
@@ -120,6 +125,11 @@ function P.kind(def,seed)
     end
   end
   if def.id=='SPRITE_KA_WARDROBE'and def.kaWardrobe then return'kasc_wardrobe'end
+  if def.id == 'SPRITE_CLIPBOARD' and type(seed)=='string' then
+    local mapId=seed:match('^(.-)_obj_%d+$')
+    -- The bird's wall sign reuses this sprite and must remain upright.
+    if mapId=='SILPH_CO_5F'or mapId=='MT_MOON_POKECENTER'then return 'desk_notes' end
+  end
   if def.id == 'SPRITE_OLD_AMBER' then return 'old_amber' end
   if def.id == 'SPRITE_POKE_BALL' or def.id == 'SPRITE_FOSSIL' then
     if type(seed)=='string' then
@@ -380,7 +390,45 @@ function P.resolveKind(kind)
         if mesh and mesh~=existing and mesh.release then pcall(mesh.release,mesh)end
         return existing
       end
-      if mesh then meshBounds[mesh]=bounds end
+      if mesh then
+        meshBounds[mesh]=bounds
+        if authored and not kind:find('glass') then
+          local solids={}
+          for _,b in ipairs(authored.boxes)do
+            local step=authored.step or 1
+            local aligned=true;local large=0
+            for axis=1,3 do
+              if b[axis]/step~=math.floor(b[axis]/step) or b[axis+3]/step~=math.floor(b[axis+3]/step)then aligned=false end
+              if b[axis+3]>=12 then large=large+1 end
+            end
+            if aligned and large>=2 and math.min(b[4],b[5],b[6])>=step then
+              local inset=math.min(.125,step*.125)
+              solids[#solids+1]={b[1]+inset,b[2]+inset,b[3]+inset,b[1]+b[4]-inset,b[2]+b[5]-inset,b[3]+b[6]-inset}
+            end
+          end
+          local function area(b)local x,y,z=b[4]-b[1],b[5]-b[2],b[6]-b[3];return math.max(x*y,x*z,y*z)end
+          table.sort(solids,function(a,b)return area(a)>area(b)end)
+          for i=#solids,5,-1 do solids[i]=nil end
+          solidBoxes[mesh]=solids
+        end
+        local distant=authored and V.require('DistantProps').model(authored,Budget)
+        if distant and (P.distantReservedBytes or 0)+#verts*30<=8*1024*1024 then
+          P.distantReservedBytes=(P.distantReservedBytes or 0)+#verts*30
+          local name=kind..'__distant';P.models[name]=distant
+          local low=P.resolveKind(name)
+          if low and low:getVertexCount()<mesh:getVertexCount()then
+            distantMeshes[mesh]=low;P.distantCount=(P.distantCount or 0)+1
+            P.distantSavedVertices=(P.distantSavedVertices or 0)+mesh:getVertexCount()-low:getVertexCount()
+          end
+        end
+      end
+      -- Optional distant construction can yield too. A foreground caller
+      -- may have published the original while that preparation was paused.
+      existing=cache[kind] or (signature and sharedGeometry[signature])
+      if existing and existing~=mesh then
+        if mesh and mesh.release then pcall(mesh.release,mesh)end
+        return existing
+      end
       return mesh
     end)
     if not ok or not result then return nil end -- retain the native sprite on GPU failure
@@ -473,6 +521,8 @@ function P.invalidate()
   cache,texture,identities={},nil,{}
   sharedGeometry={}
   meshBounds=setmetatable({},{__mode='k'})
+  solidBoxes,distantMeshes=setmetatable({},{__mode='k'}),setmetatable({},{__mode='k'})
+  P.distantReservedBytes,P.distantCount,P.distantSavedVertices=0,0,0
 end
 V.require("VoxelItemExtras")(P)
 Assets.register(P.invalidate)

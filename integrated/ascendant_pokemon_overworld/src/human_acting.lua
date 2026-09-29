@@ -53,6 +53,7 @@ function M.new(options)
   if not state or state.texture or state.attempted or not self:enabled()then return end
   state.attempted=true
   local atlas,bounds=state.definition.atlas,state.definition.bounds
+  if mod.humanDlc and not mod:info(atlas) then return end
   local ok,result=pcall(function()
    local data=require('src.render.Assets').imageData(mod.path..'/'..atlas)
    assert(data and data:getWidth()==bounds[1].imageWidth and data:getHeight()==bounds[1].imageHeight,'acting atlas dimensions')

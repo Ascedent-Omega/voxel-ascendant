@@ -474,6 +474,7 @@ function SpeciesFlyCinematic.install()
 
   local function abort(ow)
     local shot = ow and activeByWorld[ow]
+    if shot then V.require('TravelPokemonModel').release(shot)end
     restoreOwnedArrivalMusic(ow, shot)
     releaseDepartureHold(ow, shot)
     releaseLandingLock(ow, shot)
@@ -621,7 +622,9 @@ function SpeciesFlyCinematic.install()
   local ROW_DOWN, ROW_LEFT, ROW_RIGHT, ROW_UP = 0, 1, 2, 3
 
   local function drawPokemon(image, row, col, centerX, footY, scale,
-                             alpha, tint)
+                             alpha, tint, shot)
+    if shot and V.require('TravelPokemonModel').draw(shot,shot.mon,speciesDex(shot.mon),'fly',
+      ({[0]='down',[1]='left',[2]='right',[3]='up'})[row],centerX,footY-4*scale,32*scale,alpha,tint)then return end
     if not image or scale <= 0 or (alpha or 1) <= 0 then return end
     local layout = quadsFor(image)
     local rows = layout.quads
@@ -1163,7 +1166,12 @@ function SpeciesFlyCinematic.install()
       and ctx.spriteColors() or nil
     local okAppearance, appearance = pcall(V.require, "FieldActorAppearance")
     local hdRider = okAppearance and appearance.resolve(p, p and p.sprite) ~= nil
-    profile.fieldRiderLift = hdRider and 6 or 0
+    local modelRide=V.require('TravelPokemonModel').enabled() and shot.travelModel and shot.travelModel.actor
+    profile.spriteSeatLift=profile.spriteSeatLift or profile.seatLift
+    -- Dense model cards centre the body in a 32px envelope. Align the
+    -- trainer's hips to that centre instead of the old sprite's high saddle.
+    profile.seatLift=modelRide and profile.mode=='mount' and 11 or profile.spriteSeatLift
+    profile.fieldRiderLift = hdRider and not modelRide and 6 or 0
     local playerDrawn = false
     local landingRider
     local function drawLivePlayer(...)
@@ -1364,7 +1372,7 @@ function SpeciesFlyCinematic.install()
             paletteColors)
         end
         if summon > 0 then
-          drawPokemon(shot.image, row, col, monX, monY, monScale, summon)
+          drawPokemon(shot.image, row, col, monX, monY, monScale, summon, nil, shot)
         end
         if mode == "balloon_rig" and summon > 0 then
           drawBalloonHarness(monX, monY, scale,
@@ -1503,7 +1511,7 @@ function SpeciesFlyCinematic.install()
         local bodyAlpha = 1 - recall
         local tint = recall > 0 and { 1, 0.72, 0.62 } or nil
         drawPokemon(shot.image, row, col, monX, monY,
-          monScale, bodyAlpha, tint)
+          monScale, bodyAlpha, tint, shot)
         if landingRider then
           if drawPlayer((table.unpack or unpack)(landingRider)) then playerDrawn = true end
         end

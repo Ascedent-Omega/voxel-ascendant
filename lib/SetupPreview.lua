@@ -36,9 +36,25 @@ function P:set(source,dex,human)
  local key=tostring(source)..':'..tostring(dex)..':'..tostring(human)
  if key==self.key then return end
  self:release();self.key=key;self.source=source;self.dex=dex or 25;self.human=human;self.error=nil;self.image=nil;self.anim=nil;self.sprite=nil;self.sheet=false;self.clip=nil;self.pendingHd=nil
+ if human and source=='cobble' then
+  local card=V.mod:find('ASCENDANT_COBBLE_CHARACTERS')
+  local sourceApi=card and card.exports and card.exports.characterArtSource
+  local kasc=V.mod:find('kanto_ascendant')
+  local wardrobe=kasc and kasc.exports and kasc.exports.wardrobe or V.mod.exports.wardrobe
+  local role=wardrobe and wardrobe.character()or'red'
+  local ok,art=pcall(function()return assert(sourceApi,'Cobble Card missing').resolve{
+    generation=1,role=role,style='cobble',wardrobe=wardrobe,
+    selection=wardrobe and wardrobe.get(role)}end)
+  if ok and art then
+   local data=Assets.imageData(art.atlas);self.image=love.graphics.newImage(data);data:release()
+   self.image:setFilter('nearest','nearest');self.sheet=true
+  else self.error=L('Cobble preview unavailable.','Cobble-Vorschau nicht verfügbar.')end
+  return
+ end
  if human then
   local root='integrated/ascendant_pokemon_overworld/assets/characters/'
   local path=root..(source=='voxel' and 'voxel-demo/' or '')..'red_cards_4x3.png'
+  if source=='cobble' then path=root..'cobble-npcs/hoenn-visitor-kasc-hd-4x3-walk-sheet-v1.png' end
   if source=='classic' then
    local sprite=self.game.overworld and self.game.overworld.player and self.game.overworld.player.sprite
    self.error=L("Original character: preview follows the game. HD/Voxel shows Red as a style example.",'Originalfigur: Vorschau folgt dem Spiel. HD/Voxel zeigt Red als Stilbeispiel.')

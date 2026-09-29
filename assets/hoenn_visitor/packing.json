@@ -1,0 +1,68 @@
+{
+  "hd": {
+    "source": "sources/hd_master.png",
+    "sourceSize": [
+      1086,
+      1448
+    ],
+    "union": [
+      27,
+      0,
+      322,
+      355
+    ],
+    "atlasSize": [
+      576,
+      1024
+    ],
+    "nativeSize": [
+      16,
+      96
+    ],
+    "frameHashes": 12
+  },
+  "voxel": {
+    "source": "sources/voxel_master.png",
+    "sourceSize": [
+      1086,
+      1448
+    ],
+    "union": [
+      29,
+      0,
+      323,
+      362
+    ],
+    "atlasSize": [
+      576,
+      1024
+    ],
+    "nativeSize": [
+      16,
+      96
+    ],
+    "frameHashes": 12
+  },
+  "cobble": {
+    "source": "cobble/preview.png",
+    "sourceSize": [
+      384,
+      640
+    ],
+    "union": [
+      33,
+      21,
+      95,
+      156
+    ],
+    "atlasSize": [
+      576,
+      1024
+    ],
+    "nativeSize": [
+      16,
+      96
+    ],
+    "frameHashes": 12
+  }
+}

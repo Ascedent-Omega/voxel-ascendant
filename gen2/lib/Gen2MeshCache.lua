@@ -3,6 +3,7 @@
 -- playthrough-scoped storage. Payloads are split so writes stay bounded.
 local V = ...
 local MeshParts = V.require("MeshParts")
+local WeatherCover = V.require("WeatherCover")
 local Budget = V.require("BuildBudget")
 -- A9 resolves shore stairs, land terraces and cascading water on one datum.
 -- A17 adds solid Ice Path rock hulls and atlas-local perimeter materials.
@@ -27,7 +28,7 @@ local Budget = V.require("BuildBudget")
 -- A53 adds exact native Kanto city buildings and the Celadon Mansion rear door.
 -- Blackthorn material pass tiles brick at native scale on stair/shaft faces.
 -- Johto props replace the exact sixteen entrance boxes with shared rounded markers.
-local Cache = { REVISION = "vasc-g2-mesh-a64-blackthorn-tex1-tower3-roof1-burned1-fuchsia1-johto-props1-cianwood-rocks1-olivine-rocks1-johto-planters1-viridian-hedges1-saffron-partitions1-tower-pillar1-tin-rail-base1", hits = 0, misses = 0,
+local Cache = { REVISION = "vasc-g2-mesh-a64-blackthorn-tex1-tower3-roof1-burned1-fuchsia1-johto-props1-cianwood-rocks1-olivine-rocks1-johto-planters1-viridian-hedges1-saffron-partitions1-tower-pillar1-tin-rail-base1-weather-cover1-tree-snow1", hits = 0, misses = 0,
   writes = 0, errors = 0, enqueues = 0, rejects = 0,
   bytesRead = 0, bytesWritten = 0, lastError = nil }
 local PART_BYTES, MOD = 1024 * 1024, 2147483647
@@ -208,6 +209,11 @@ function Cache.load(map, slot, masks)
     if mesh and mesh.release then pcall(mesh.release, mesh) end
     Cache.errors = Cache.errors + 1; Cache.lastError = werr; return nil
   end
+  if not WeatherCover.restore(map,meta.weatherCover)then
+    if mesh and mesh.release then pcall(mesh.release,mesh)end
+    if waterMesh and waterMesh.release then pcall(waterMesh.release,waterMesh)end
+    Cache.misses=Cache.misses+1;return nil
+  end
   Cache.hits, Cache.bytesRead, Cache.lastError = Cache.hits + 1,
     Cache.bytesRead + #terrain + #water, nil
   completed[base] = true
@@ -229,7 +235,7 @@ function Cache.enqueue(map, slot, masks, terrainBytes, terrainCount, waterBytes,
   for _, job in ipairs(queue) do if job.base == base then return true end end
   waterBytes = type(waterBytes) == "string" and waterBytes or ""
   queue[#queue + 1] = { base = base, signature = signature(map, slot, masks),
-    stage = "terrain", part = 1, terrain = terrainBytes,
+    stage = "terrain", part = 1, terrain = terrainBytes, weatherCover=WeatherCover.export(map),
     terrainCount = terrainCount or 0, water = waterBytes,
     waterCount = waterCount or 0, terrainParts = partsFor(terrainBytes),
     waterParts = partsFor(waterBytes) }
@@ -265,7 +271,7 @@ function Cache.enqueueTable(map, slot, masks, terrainVerts, terrainIndices,
   end
   queue[#queue + 1] = {
     base = base, signature = signature(map, slot, masks),
-    stage = "encode_terrain", part = 1,
+    stage = "encode_terrain", part = 1, weatherCover=WeatherCover.export(map),
     terrainSource = tableSource(terrainVerts, terrainIndices),
     waterSource = tableSource(waterVerts, waterIndices),
     terrainCount = #(terrainIndices or {}),
@@ -363,7 +369,7 @@ function Cache.pump(covered)
     elseif done then
       local meta = { revision = Cache.REVISION, signature = job.signature,
         terrainCount = job.terrainCount, waterCount = job.waterCount,
-        terrainParts = job.terrainParts, waterParts = job.waterParts }
+        terrainParts = job.terrainParts, waterParts = job.waterParts, weatherCover=job.weatherCover }
       if call("write", job.base .. "/meta", meta) then
         Cache.writes = Cache.writes + 1
         completed[job.base] = true

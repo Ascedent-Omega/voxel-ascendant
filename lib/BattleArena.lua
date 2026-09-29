@@ -452,9 +452,10 @@ end
 
 BattleArena.entryList = entryList
 
--- The map's open cells as one flat boolean grid, so the rectangle test
--- below is a lookup rather than a tileset walk per cell. Built once per
--- search; a battle asks for one.
+-- Memoize only cells touched by a candidate footprint during this request.
+-- Authored courts and bounded local searches do not need a full-map scan.
+-- Nothing survives the request, so live collision/furniture edits are observed
+-- on the next search without a separate invalidation contract.
 local function openGrid(map, surfing, compact, surface)
   local furniture
   if compact then
@@ -462,24 +463,22 @@ local function openGrid(map, surfing, compact, surface)
     if ok and type(value) == "table" then furniture = value end
   end
   local w, h = map.widthCells, map.heightCells
-  local grid = {}
-  for cy = 0, h - 1 do
-    local row = cy * w
-    for cx = 0, w - 1 do
-      local free = openCell(map, cx, cy, surfing)
-      if free and surface then
-        local water=map.isWaterCell and map:isWaterCell(cx,cy) or false
-        free=(surface=='water' and water) or (surface=='land' and not water)
-      end
-      if free and compact then
-        -- Native chair cells may be walkable so seated NPCs can occupy them.
-        -- Their replacement seat/pedestal deck is not a spare battle aisle.
-        free = furniture and type(furniture.supportAt) == "function"
-          and furniture.supportAt(map, cx * CELL, cy * CELL, true) == nil
-      end
-      grid[row + cx] = free
+  local grid = setmetatable({}, { __index = function(cells, index)
+    local cx, cy = index % w, math.floor(index / w)
+    local free = openCell(map, cx, cy, surfing)
+    if free and surface then
+      local water = map.isWaterCell and map:isWaterCell(cx, cy) or false
+      free = (surface == 'water' and water) or (surface == 'land' and not water)
     end
-  end
+    if free and compact then
+      -- Walkable seats and pedestal decks are not spare battle aisles.
+      free = furniture and type(furniture.supportAt) == "function"
+        and furniture.supportAt(map, cx * CELL, cy * CELL, true) == nil
+    end
+    free = not not free
+    cells[index] = free
+    return free
+  end })
   return grid, w, h
 end
 
@@ -1089,13 +1088,23 @@ function BattleArena.search(map, fromX, fromY, surfing, wantClear, options)
   for _, shape in ipairs(shapes) do
     for _, needClear in ipairs(passes) do
       local best, bestD = nil, nil
-      for y = 0, gh - shape.h do
-        for x = 0, gw - shape.w do
-          if fits(grid, gw, x, y, shape.w, shape.h) then
-            local mx = x + (shape.w - 1) / 2
-            local my = y + (shape.h - 1) / 2
-            local dx, dy = mx - fromX, my - fromY
-            local d = dx * dx + dy * dy
+      local minX, maxX, minY, maxY = 0, gw - shape.w, 0, gh - shape.h
+      local radius = options and options.maxDistance
+      if radius then
+        radius = math.abs(radius)
+        minX = math.max(minX, math.ceil(fromX - (shape.w - 1) / 2 - radius))
+        maxX = math.min(maxX, math.floor(fromX - (shape.w - 1) / 2 + radius))
+        minY = math.max(minY, math.ceil(fromY - (shape.h - 1) / 2 - radius))
+        maxY = math.min(maxY, math.floor(fromY - (shape.h - 1) / 2 + radius))
+      end
+      for y = minY, maxY do
+        for x = minX, maxX do
+          local mx = x + (shape.w - 1) / 2
+          local my = y + (shape.h - 1) / 2
+          local dx, dy = mx - fromX, my - fromY
+          local d = dx * dx + dy * dy
+          if (not radius or d <= radius * radius)
+             and fits(grid, gw, x, y, shape.w, shape.h) then
             local allowed = not options
             if options then
               allowed = true

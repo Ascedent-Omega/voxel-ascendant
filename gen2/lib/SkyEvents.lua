@@ -996,7 +996,8 @@ function SkyEvents.paint(ctx, layer)
 
   local light = SkyEvents.daylight(ctx)
   local drawn = 0
-  if rainbow and (guaranteed ~= nil or light >= 0.42) then
+  -- A guaranteed post-rain event still needs sunlight.
+  if rainbow and light >= 0.42 then
     drawn = drawn + paintRainbow(ctx, rainbow)
   end
   if ordinary then

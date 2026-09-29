@@ -40,10 +40,10 @@ local SECTION_KEYS = {
     "shortcutToast", "openWorld", "gen2WorldMap", "grid", "curve", "water",
   },
   weather = {
-    "sky", "clouds", "skyEvents", "weather", "weatherTweak", "scenery", "daytime", "localLights",
+    "sky", "clouds", "skyEvents", "weather", "weatherTweak", "snowDepth", "rainStrength", "scenery", "daytime", "localLights",
   },
   battle = {
-    "battle3dWorld", "battleSmartCamera", "battleGrid",
+    "battle3dWorld", "battleSmartCamera", "battleGrid", "gen2MoveAnimations", "gen2TrainerArt",
     "qolExpBar", "qolCaughtIndicator", "battleGender",
     "statusValues",
   },
@@ -418,7 +418,7 @@ local function buildSections(opts, extraKeys)
       help="Adjust and save the Gen-2 front, back, Mega, trainer and fallback-HUD layout zones.",
     },
     {
-      label="MOVE ANIMATIONS", action="animations",
+      label="ANIMATION COVERAGE", action="animations",
       help="Show the installed Gen-2 move-animation coverage.",
     },
   }

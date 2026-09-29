@@ -87,7 +87,7 @@ function M.register(P,F)
   if lab then
    window(9,9,front,16,11);window(61,9,front,20,11)
    b(4,6,front,w-8,2,1,10)
-   b(4,24,4,w-8,2,front-4,4)
+   b(0,24,0,w,2,d,4) -- continuous cornice seats the complete roof
    b(0,26,0,w,2,d,C.navy);b(2,28,2,w-4,2,d-4,4)
    b(5,30,5,w-10,2,d-10,10)
    -- A framed laboratory skylight, kept below the old 36px roof envelope.
@@ -140,7 +140,8 @@ function M.register(P,F)
  -- Rounded, stepped foliage and different mineral silhouettes, all within
  -- the old 16x16 border-cell footprint. No random generator or map writes.
  for variant=1,5 do
-  local _,b=model('pallet_border_'..variant,16,16)
+  local a,b=model('pallet_border_'..variant,16,16)
+  if variant<=2 then a.seasonalFoliage=true;a.leafColors={[10]=true,[12]=true,[1]=true}end
   if variant<=3 then
    b(6,0,6,4,14,4,C.walnut);b(5,0,5,6,2,6,C.oak)
    local layers=variant==3 and {{4,9,8,4},{1,13,14,3},{3,16,10,4},{5,20,6,4},{7,24,2,3}}

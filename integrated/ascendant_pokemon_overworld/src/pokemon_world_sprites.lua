@@ -815,11 +815,14 @@ function PokemonWorldSprites:_refreshProviders(game)
   end
 end
 
-function PokemonWorldSprites:refresh(game)
+function PokemonWorldSprites:refresh(game, stepped)
   game = game or self.activeGame
   if game then self.activeGame = game end
-  self:_installWildsBridges()
-  self:_refreshProviders(game)
+  local installed = self:_installWildsBridges()
+  -- A step can discover/rebind live actors without invalidating every
+  -- provider's sprite cache. Full refresh remains necessary on lifecycle,
+  -- settings changes and when a newly discovered provider is first patched.
+  if not stepped or installed > 0 then self:_refreshProviders(game) end
   return self:apply(game)
 end
 
@@ -870,7 +873,7 @@ function PokemonWorldSprites:install()
     for _, event in ipairs({ "mods.loaded", "game.ready", "save.loaded",
         "map.entered", "map.reloaded", "world.stepped" }) do
       self.mod.events:on(event, function(ev)
-        bridge:refresh(ev and ev.game or bridge.activeGame)
+        bridge:refresh(ev and ev.game or bridge.activeGame, event == "world.stepped")
       end)
     end
     self.mod.events:on("mod.options_changed", function(ev)

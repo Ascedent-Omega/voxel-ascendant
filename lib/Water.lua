@@ -1244,6 +1244,28 @@ function Water.shader(grid, skyOnly)
   return shaders[key] or nil
 end
 
+-- Warm the selected reflection path even when the first pond is offscreen.
+-- A refused program is prepared too: its established flat-water fallback
+-- must not hold a transition open or retry compilation every frame.
+function Water.programPrepared(grid)
+  if not Water.enabled() then return true end
+  local skyOnly=Water.level()==1
+  grid=grid and true or false
+  local key=skyOnly and (grid and 'sky-grid' or 'sky') or grid
+  if shaders[key]==false and grid then return Water.programPrepared(false) end
+  return shaders[key]~=nil
+end
+function Water.prepareProgram(grid)
+  if not Water.enabled() then return false end
+  local skyOnly=Water.level()==1
+  grid=grid and true or false
+  local key=skyOnly and (grid and 'sky-grid' or 'sky') or grid
+  if shaders[key]==false and grid then return Water.prepareProgram(false) end
+  if shaders[key]~=nil then return false end
+  Water.shader(grid,skyOnly)
+  return true
+end
+
 -- ------- the pass
 
 local active = nil        -- the shader this pass bound, or nil
@@ -1393,7 +1415,7 @@ function Water.sendSky(sh, ctx)
   send("skyOn", 1)
 
   local body = DayNight.body()
-  if not body then
+  if not body or Sky.bodyObscured() then
     send("bodyOn", 0)
     send("glowAmt", 0)
     return

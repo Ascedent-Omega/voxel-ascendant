@@ -1,7 +1,7 @@
 {
   "id": "VOXEL_ASCENDANT",
   "name": "Voxel Ascendant",
-  "version": "3.0.54",
+  "version": "3.0.55",
   "github": "Roxas2712/voxel-ascendant",
   "api": 2,
   "entry": "main.lua",
@@ -25,7 +25,8 @@
     "overworld_wild_spawns",
     "trainer_rematch",
     "translation-german-universal",
-    "red_3d_player"
+    "red_3d_player",
+    "ASCENDANT_HD_CHARACTERS"
   ],
   "compatibility_conflicts": [
     {
@@ -38,8 +39,8 @@
         "HD characters",
         "follower visual providers"
       ],
-      "reason_en": "This VASC test build integrates APO RC32 with bundled HD characters and optional Pokemon HD downloads. Loading standalone APO too would install duplicate providers.",
-      "reason_de": "Dieser VASC-Teststand integriert APO RC32 mit enthaltenen HD-Charakteren und optionalen Pokemon-HD-Downloads. Zusätzliches APO würde Provider doppelt installieren.",
+      "reason_en": "This VASC test build integrates APO RC32 with optional HD character and Pokemon downloads. Loading standalone APO too would install duplicate providers.",
+      "reason_de": "Dieser VASC-Teststand integriert APO RC32 mit optionalen HD-Charakter- und Pokemon-Downloads. Zusätzliches APO würde Provider doppelt installieren.",
       "resolution_en": "Use the integrated VASC Card, or keep the standalone APO package with a VASC version that does not embed it.",
       "resolution_de": "Die integrierte VASC-Card verwenden oder APO separat mit einer VASC-Version ohne eingebautes APO betreiben."
     },

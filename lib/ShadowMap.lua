@@ -31,7 +31,7 @@ local Mat4 = V.require("Mat4")
 local Voxel = V.require("VoxelState")
 
 local Device = V.require("DeviceShadows")
-local ShadowMap = {}
+local ShadowMap = { stableFootprint = true }
 
 -- The sun, as the shear a shadow takes: a point `y` world-pixels above the
 -- ground drops its shadow (KX*y, KZ*y) away from the point under it. Both
@@ -171,6 +171,14 @@ local lastSig = nil
 local prevBlend, prevAlphaMode = nil, nil
 local savedGraphicsState = nil
 local staticCanvas, staticRes, staticKey, staticVP = nil, 0, nil, nil
+local candidateKey,candidateVP
+local function stableFit(key,vp)
+  local same=candidateKey==key and candidateVP~=nil
+  if same then for i=1,16 do if candidateVP[i]~=vp[i]then same=false;break end end end
+  candidateKey=key;candidateVP=candidateVP or{}
+  for i=1,16 do candidateVP[i]=vp[i]end
+  return same
+end
 local restoreDepthShader
 local function dropStatic()
   if staticCanvas and staticCanvas.release then pcall(staticCanvas.release, staticCanvas) end
@@ -432,7 +440,13 @@ end
 -- continuously with the camera reprojects every shadow edge a fraction of a
 -- texel every frame and the whole world's shadows crawl and shimmer while
 -- you walk.
-local function fit(cx, cy, vw, vh, casterHeight)
+local function fit(cx, cy, vw, vh, casterHeight, omnidirectional)
+  local padding=0
+  if ShadowMap.stableFootprint then
+    -- A padded fixed cell keeps stationary depth reusable while walking.
+    -- Padding covers the entire displacement; actors still redraw live.
+    cx=math.floor(cx/64+.5)*64;cy=math.floor(cy/64+.5)*64;padding=32
+  end
   local f = sunDir()
   local view = Mat4.lookAt({ 0, 0, 0 }, f, { 0, 0, -1 })
 
@@ -448,12 +462,20 @@ local function fit(cx, cy, vw, vh, casterHeight)
   local ys = { -32, height }         -- -32 covers recessed water
   local zs = { cy - north, cy + vh / 2 + reach }
 
+  -- Eye-level views can turn through 360 degrees. Retain one enclosing
+  -- footprint instead of rebuilding all city shadows at every head turn.
+  if omnidirectional then
+    local radius=math.max(north,vw/2+spread)+reach
+    xs={cx-radius,cx+radius};zs={cy-radius,cy+radius}
+  end
+
   -- Battle cameras breathe and ease their lens by fractions of a pixel.
   -- Fitting a new-sized light box on every such change invalidates the
   -- static-world shadow cache despite unchanged scenery and sun. Round the
   -- requested footprint OUTWARD to native-cell boundaries: the full view
   -- stays covered, while small lens changes share the same light matrix.
   for _, range in ipairs({xs, zs}) do
+    range[1],range[2]=range[1]-padding,range[2]+padding
     range[1] = math.floor(range[1] / 16) * 16
     range[2] = math.ceil(range[2] / 16) * 16
   end
@@ -593,12 +615,12 @@ end
 
 -- Begin the sun pass. Returns false when it could not start, in which case
 -- the caller must not draw into it or call finish.
-function ShadowMap.begin(cx, cy, vw, vh, casterHeight, staticSignature)
+function ShadowMap.begin(cx, cy, vw, vh, casterHeight, staticSignature, omnidirectional)
   if not ShadowMap.available() then return false end
   local sh = getShader()
   if not sh then return false end
   -- fit first: it is what decides which resolution rung this view wants
-  fit(cx, cy, vw, vh, casterHeight)
+  fit(cx, cy, vw, vh, casterHeight, omnidirectional)
   local c = getCanvas(ShadowMap.res)
   if not c then return false end
   local reused = not Device.mobile and staticSignature ~= nil and staticSignature == staticKey
@@ -655,6 +677,8 @@ function ShadowMap.begin(cx, cy, vw, vh, casterHeight, staticSignature)
   end
   drawing = true
   ready = false
+  ShadowMap.staticReuses=(ShadowMap.staticReuses or 0)+(reused and 1 or 0)
+  ShadowMap.staticBuilds=(ShadowMap.staticBuilds or 0)+(reused and 0 or 1)
   return true, reused
 end
 
@@ -668,8 +692,11 @@ function ShadowMap.caveWalls(amount)
   end
 end
 
-function ShadowMap.storeStatic(signature)
+function ShadowMap.storeStatic(signature, onlyStableFit)
   if Device.mobile then return false end
+  -- Walking within one snapped light projection can still reuse scenery.
+  -- On misses, copy only after that projection has survived another frame.
+  if onlyStableFit and not stableFit(signature,ShadowMap.clipVP)then return false end
   if not drawing or not signature or not depthRestorer() then return false end
   if not staticCanvas or staticRes ~= canvasRes then
     dropStatic()
@@ -804,6 +831,7 @@ end
 -- Drop the GPU objects (window resize, hot reload).
 function ShadowMap.invalidate()
   if mobileDepth then pcall(mobileDepth.release,mobileDepth);mobileDepth=nil end
+  candidateKey,candidateVP=nil,nil
   dropStatic()
   if canvas and canvas.release then pcall(canvas.release, canvas) end
   if blank and blank.release then pcall(blank.release, blank) end

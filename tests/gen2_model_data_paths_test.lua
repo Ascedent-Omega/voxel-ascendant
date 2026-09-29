@@ -6,7 +6,7 @@ local b=assert(s:find('local gen2 = setmetatable',a,true))
 local resolve=assert(loadstring(s:sub(a,b-1)..'return privatePath'))()
 for _,name in ipairs({'StadiumContentState','CobblemonContent','CobblemonExpression','CobblemonGeometry',
  'CobblemonImport','CobblemonJson','CobblemonMotion','CobblemonPack','CobblemonSize',
- 'ContentJson','HdBinaryFetch','HdBinaryFetchWorker'})do
+ 'ContentJson','CobblemonBinary','CobblemonMetrics','CobblemonOverworldSize','HdBinaryFetch','HdBinaryFetchWorker'})do
  local path='lib/'..name..'.lua';assert(resolve(path)==path,'model loader recurses: '..name)
  assert(loadfile(path),'shared data module missing: '..name)
 end

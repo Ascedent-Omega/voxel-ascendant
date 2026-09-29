@@ -3462,15 +3462,19 @@ function Structures.buildStairs(S, map, x0, x1, y0, y1)
         end
         if data then
           local first=#S.objectQuads+1
-          stairCell(S, map, data, cx, cy, s)
-          if s.class=='stair_n' then
-            local mx,mz=cx*16,cy*16
-            for i=first,#S.objectQuads do for j=1,4 do
-              local v=S.objectQuads[i][j];local x,z=v[1]-mx,v[3]-mz
-              v[1],v[2],v[3]=mx+16-z,v[2]+(s.stairBase or 0),mz+x
-            end end
+          local stairs=V.require('Gen1Stairs')
+          if not stairs.buildStore(S,map,cx,cy,s) and not stairs.buildGeneral(S,map,cx,cy,s) then
+            stairCell(S, map, data, cx, cy, s)
+            if s.class=='stair_n' then
+              local mx,mz=cx*16,cy*16
+              for i=first,#S.objectQuads do for j=1,4 do
+                local v=S.objectQuads[i][j];local x,z=v[1]-mx,v[3]-mz
+                v[1],v[2],v[3]=mx+16-z,v[2]+(s.stairBase or 0),mz+x
+              end end
+            end
+            stairs.finish(map,S.objectQuads,first,s)
+            stairs.orient(map,S.objectQuads,first,cx,cy,s)
           end
-          V.require('Gen1Stairs').finish(map,S.objectQuads,first,s)
         end
       end
     end

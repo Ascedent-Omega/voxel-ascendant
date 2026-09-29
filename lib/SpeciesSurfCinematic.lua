@@ -38,7 +38,6 @@ function SpeciesSurfCinematic.install()
   local PaletteFX = require("src.render.PaletteFX")
 
   local PIPELINE_ID = "voxel"
-  local WORLD_DIR = "assets/vasc_runtime/followsprites_runtime"
   local CINEMATIC_DIR = "assets/species_cinematics/directional"
   local NATIONAL_DEX_MAX = 386
   local PIKACHU_DEX = 25
@@ -326,11 +325,12 @@ function SpeciesSurfCinematic.install()
     if not key then return nil end
     if bundleCache[key] then return bundleCache[key] end
 
-    local worldRel = WORLD_DIR .. "/" .. key .. ".png"
-    local worldImage, worldPath = loadImage(worldRel)
-    if not worldImage then return nil end
-    local iw, ih = worldImage:getDimensions()
-    if iw ~= 16 or ih < 96 then return nil end
+    -- The dense composite supplies all pixels. Its UV carrier is the
+    -- player's live sheet, as in the field-kit path; the old optional
+    -- followsprite directory is no longer required to start species Surf.
+    local p=ow and ow.player
+    local carrier=p and p.sprite and p.sprite.def and p.sprite.def.image
+    if type(carrier)~='string' or carrier=='' then return nil end
 
     local cinematicRel = CINEMATIC_DIR .. "/" .. key .. ".png"
     local cinematicImage = loadImage(cinematicRel)
@@ -373,9 +373,6 @@ function SpeciesSurfCinematic.install()
     if not canvas then return nil end
     local bundle = {
       key = key,
-      worldImage = worldImage,
-      worldPath = worldPath,
-      worldQuads = quads(worldImage, 16, 6),
       cinematicImage = cinematicImage,
       cinematicQuads = cinematicQuads,
       cinematicCell = cinematicCell,
@@ -383,7 +380,7 @@ function SpeciesSurfCinematic.install()
       canvas = canvas,
       profile = profileFor(mon),
     }
-    bundleCache[key] = attachRenderer(bundle, worldPath)
+    bundleCache[key] = attachRenderer(bundle, carrier)
     return bundle
   end
 
@@ -412,7 +409,7 @@ function SpeciesSurfCinematic.install()
 
   local function abort(ow, suppress)
     local shot = ow and activeByWorld[ow]
-    if shot then releaseLock(ow, shot) end
+    if shot then V.require('TravelPokemonModel').release(shot);releaseLock(ow, shot) end
     if ow then
       if suppress and ow.player and ow.player.surfing then
         suppressedByWorld[ow] = true
@@ -677,6 +674,8 @@ function SpeciesSurfCinematic.install()
       local cinematicCell = bundle.cinematicCell or 16
       local cinematicCol = math.floor((shot.frame or 0) / 7) % 4
       local function drawPokemon(direction, centerX, bottomY, targetSize, alpha)
+        if V.require('TravelPokemonModel').draw(shot,shot.mon,speciesDex(shot.mon),'surf',
+          direction,centerX,bottomY,targetSize,alpha)then return end
         local row = CINEMATIC_ROW[direction] or CINEMATIC_ROW.down
         local quad = bundle.cinematicQuads
           and bundle.cinematicQuads[row * 4 + cinematicCol]

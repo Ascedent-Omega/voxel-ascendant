@@ -180,6 +180,7 @@ function Gen2PublicExports.apply(exports)
     VoxelScene = resolve("VoxelScene"),
     VoxelState = resolve("VoxelState"),
     HdResidencyPlan = resolve("HdResidencyPlan"),
+    HdImageDecode = resolve("HdImageDecode"),
     Water = resolve("Water"),
     Weather = resolve("Weather"),
     WeatherTweak = publicWeatherTweak,

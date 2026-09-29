@@ -8,7 +8,7 @@ end
 for _,osName in ipairs({'Android','iOS'}) do
   local ready,aux,atlas,requests,live={},{},{},{},{}
   local horizonReady=false
-  local modules={CanvasPresentation={OS=osName},VoxelState={},Mat4={identity=function()return{}end},
+  local modules={WorldResidency={setting={get=function()return 128 end}},CanvasPresentation={OS=osName},VoxelState={},Mat4={identity=function()return{}end},
     ChunkMesher={request=function(m)requests[m.id]=true end,
       pair=function(m)return ready[m] and {id=m.id} or nil,ready[m] and {water=m.id} or nil end,
       setLive=function(ids)live=ids end,auxReady=function(m)return aux[m]==true end},

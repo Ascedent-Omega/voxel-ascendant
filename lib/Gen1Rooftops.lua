@@ -6,6 +6,17 @@ local profiles={
  CELADON_MANSION_ROOF={tileset='MANSION',width=4,height=6},
  CELADON_MART_ROOF={tileset='LOBBY',width=10,height=4},
 }
+for _,route in ipairs{11,12,15,16,18}do
+ profiles['ROUTE_'..route..'_GATE_2F']={tileset='GATE',width=4,height=4,source='ROUTE_'..route}
+end
+function M.source(map)
+ local p=profiles[map and (map.id or map.def and map.def.id)]
+ return p and (p.source or 'CELADON_CITY')
+end
+function M.gate(map)
+ local p=profiles[map and (map.id or map.def and map.def.id)]
+ return p and p.source~=nil and M.matches(map)or false
+end
 function M.matches(map)
  local d=map and map.def or{};local p=profiles[map and map.id or d.id]
  return p~=nil and d.generation~=2 and d.tileset==p.tileset

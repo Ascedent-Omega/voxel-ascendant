@@ -6,6 +6,7 @@ local gates={ROUTE_2_GATE=true,ROUTE_5_GATE=true,ROUTE_6_GATE=true,
  ROUTE_12_GATE_1F=true,ROUTE_15_GATE_1F=true,ROUTE_16_GATE_1F=true,
  ROUTE_18_GATE_1F=true,ROUTE_22_GATE=true,
  VIRIDIAN_FOREST_NORTH_GATE=true,VIRIDIAN_FOREST_SOUTH_GATE=true,SAFARI_ZONE_GATE=true}
+function M.isGate(id) return gates[id] == true end
 local function group(warps,axis,value,other,lo,hi)
  local found,seen,dest={}, {},nil
  for _,w in ipairs(warps or {})do

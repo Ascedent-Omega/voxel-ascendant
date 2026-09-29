@@ -678,7 +678,7 @@ end
 -- Used only when a model is first constructed to reject an obviously exploded
 -- standby animation.  Measuring the actual vertices matters: a bad wing chain
 -- can move several body lengths while the weighted body centre barely moves.
-local function poseBounds(self)
+local function poseBounds(self, excludedBones)
   local model, d = self.model, self.drawM
   local lo1, lo2, lo3 = math.huge, math.huge, math.huge
   local hi1, hi2, hi3 = -math.huge, -math.huge, -math.huge
@@ -687,7 +687,8 @@ local function poseBounds(self)
     for k = 1, prim.vertCount do
       local b = bone[k]
       local o = b and (b - 1) * 12 or -12
-      if b and b >= 1 and b <= model.boneCount and d[o + 12] ~= nil then
+      if b and b >= 1 and b <= model.boneCount and d[o + 12] ~= nil
+          and not (excludedBones and excludedBones[b]) then
         local x, y, z = px[k], py[k], pz[k]
         local a = d[o + 1] * x + d[o + 2] * y + d[o + 3] * z + d[o + 4]
         local c = d[o + 5] * x + d[o + 6] * y + d[o + 7] * z + d[o + 8]
@@ -706,8 +707,8 @@ end
 -- mesh bounds in raw Stadium model units, after skeletal animation/anchoring
 -- and before the caller's model matrix.  Keeping the scan here means preview
 -- code never has to reach into rig internals or duplicate skinning math.
-function StadiumRig:posedBounds()
-  return poseBounds(self)
+function StadiumRig:posedBounds(excludedBones)
+  return poseBounds(self, excludedBones)
 end
 
 local function finite(v)

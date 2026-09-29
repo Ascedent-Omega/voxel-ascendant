@@ -249,6 +249,11 @@ function M.cycle(game)
   return M.select(game,row.id)
 end
 -- Used by the existing model owner; selection expires with this encounter.
+function M.followModelSource(game)
+  M.styleSetting:setValue("current",game,true)
+  M.setting:setValue(false,game,true)
+  for _,s in pairs(states) do s.choice="current";s.label=nil;s.cache={} end
+end
 function M.modelRequest()
   local stack=Game.stack
   for _,b in ipairs(stack and stack.states or {})do

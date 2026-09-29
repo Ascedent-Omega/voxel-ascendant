@@ -31,7 +31,7 @@ function M.new(mod)
   -- Downloads activate in a separate store; the renderer's boot mount stays
   -- immutable until restart, including while a scene retains GPU textures.
   self.hdStatus={schema="vasc.hd-content-cache/v1",packages=0,epoch=0,
-    networkConfigured=false,rendererConnected=false,charactersBundled=true,
+    networkConfigured=false,rendererConnected=false,charactersBundled=false,
     state="cache_api_unavailable"}
   local session=assert(mod.exports.ascendantContent,"unified content session missing")
   self.hdBoot=session.hdBoot;self.hdContent=session.hdWrite
@@ -45,7 +45,7 @@ function M.new(mod)
   function self:get(key)
     -- Dialogue poses follow the figure mode, including F6/menu changes.
     if key=="human_acting_pilot" then return mod.options:get("apo_hd_walking_sprites")~=false end
-    if key=="human_art_style" and mod.options:get("voxelCharacterCardEnabled")==false then return "hd" end
+    if key=="human_art_style" then return mod.exports.humanDlc.style(mod.options:get("apo_human_art_style")) end
     local value=mod.options and mod.options:get("apo_"..key)
     if value==nil then return defaults["apo_"..key] end
     return value
@@ -84,7 +84,14 @@ function M.new(mod)
   local function proxy()
     local child={id="ascendant_pokemon_overworld",version=M.VERSION,
       path=mod.path.."/"..ROOT:sub(1,-2),exports={},log=mod.log,
-      _vascIntegrated=true, voxelWardrobe=V.require("VoxelWardrobe")}
+      _vascIntegrated=true, humanDlc=mod.exports.humanDlc, bicycleColors={texture=function(texture,...)
+        local paint=mod.exports.bicycleColors
+        return paint and paint.texture(texture,...)or texture
+      end}, worldSeats={
+        npcProfile=function(...)local seats=mod.exports.worldSeats;return seats and seats.npcProfile(...)end,
+        viewRow=function(...)local seats=mod.exports.worldSeats;return seats and seats.viewRow(...)end,
+        playerProfile=function(...)local seats=mod.exports.worldSeats;return seats and seats.playerProfile(...)end,
+      }, voxelWardrobe=V.require("VoxelWardrobe")}
     child._vascCobblemonDex=function(mon)
       local pack=mod.exports.cobblemonModels
       return pack and pack.dex(mon) or nil
@@ -121,8 +128,17 @@ function M.new(mod)
     end
     child.options={get=function(_,key) return self:get(key) end,
       setHumanArtStyle=function(_,value,game)
-        assert(value=="hd" or value=="voxel", "invalid human art style")
-        local setting=V.require("ModSetting").new("apo_human_art_style","PEOPLE STYLE",{"hd","voxel"},{"ORIGINAL-HD","VOXEL"},"hd")
+        assert(value=="hd" or value=="voxel" or value=="cobble", "invalid human art style")
+        if value=="hd" and not mod.exports.humanDlc.available() then return false,"hd_dlc_required" end
+        -- A direct style choice must also make that style available after a
+        -- previous SetupCard choice disabled its optional gate.
+        local Settings=V.require("ModSetting")
+        for _,key in ipairs({"apo_hd_walking_sprites", value=="voxel" and "voxelCharacterCardEnabled" or "apo_hd_walking_sprites"})do
+          if mod.options:get(key)==false then
+            self.options.decorateSetting(mod,Settings.new(key,key,{false,true},{"OFF","ON"},true)):setValue(true,game)
+          end
+        end
+        local setting=V.require("ModSetting").new("apo_human_art_style","PEOPLE STYLE",{"hd","voxel","cobble"},{"ORIGINAL-HD","VOXEL","COBBLE"},"voxel")
         return self.options.decorateSetting(mod,setting):setValue(value,game)
       end,
     }

@@ -1333,7 +1333,7 @@ function Water.sendSky(sh, ctx)
   send("skyOn", 1)
 
   local body = DayNight.body()
-  if not body then
+  if not body or Sky.bodyObscured() then
     send("bodyOn", 0)
     send("glowAmt", 0)
     return

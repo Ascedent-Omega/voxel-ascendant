@@ -19,6 +19,7 @@ local Shadows = V.require("Shadows")
 local ShadowPolicy = V.require("ShadowPolicy")
 local ChunkMesher = V.require("ChunkMesher")
 local SpriteBillboards = V.require("SpriteBillboards")
+local SilphTeleport = V.require("SilphTeleport")
 local VoxelItems = V.require("VoxelItems")
 local OverworldStadium = V.require("Gen1OverworldStadium")
 local HdAuthoredFigures = V.require("HdAuthoredFigures")
@@ -150,7 +151,6 @@ function VoxelScene.preparePrograms(state)
   if MOBILE_RUNTIME or not (state and state.map) then return false end
   local shadowCold=ShadowMap.programPrepared and not ShadowMap.programPrepared()
   local skyCold=Sky.programPrepared and not Sky.programPrepared()
-  if not shadowCold and not skyCold then return false end
   local outdoor=HorizonWall.hasSky(state.map)
   if shadowCold and Shadows.enabled() then
     local weather=Weather.skyMode and Weather.skyMode(state.map) or Weather.mode(state.map)
@@ -160,12 +160,98 @@ function VoxelScene.preparePrograms(state)
     if policy.enabled and policy.casters~="none" then ShadowMap.prepareProgram();return true end
   end
   if skyCold and outdoor then Sky.prepareProgram();return true end
-  return false
+  if Water.prepareProgram and Water.prepareProgram(VoxelGrid.enabled()) then return true end
+  if Water.level()==2 and V.require('WaterReflection').prepareProgram() then return true end
+  if V.require('StaticLightField').prepareProgram()then return true end
+  return V.require('IndoorMist').prepareProgram(state.map,state.dark)
+end
+
+-- Build the real lighting resources in the transition's update lane. The
+-- reveal gate waits for this work instead of merely displaying a spinner.
+local preparedLightMap,preparedLightKey
+local function lightKey()
+  local L=V.require('LocalLights')
+  return tostring(L.enabled())..':'..tostring(L.epoch or 0)..':'..tostring(V.require('SilphWindows').setting:get())
+end
+function VoxelScene.prepareLighting(state)
+  if MOBILE_RUNTIME or not (state and state.map)or not Voxel.ready then return false end
+  local key=lightKey()
+  if preparedLightMap==state.map and preparedLightKey==key then
+    local field=V.require('StaticLightField')
+    if field.pending()then
+      local lights=V.require('LocalLights');local frame=lights.current()
+      if lights.enabled() and frame.map==state.map then
+        field.prepare(V.require('LocalLightGrid').prepare(frame,lights,nil),frame,lights.mobile)
+      else field.prepare(nil,frame,lights.mobile)end
+      return true
+    end
+    return false
+  end
+  -- The renderer may have narrowed the union since the preload request. Let
+  -- its pending job finish; submitting the broad preload again every update
+  -- would continuously cancel the exact visible union's work.
+  if V.require('LocalLightGrid').pending()then return true end
+  local lights=V.require('LocalLights')
+  if not lights.enabled()then V.require('StaticLightField').prepare(nil,lights.current(),lights.mobile)end
+  if lights.enabled()then
+    local view=V.require('VisibleNeighborhood').apply(state)
+    local player=state.player or{}
+    lights.prepare(view,HorizonWall.hasSky(state.map),{player.px or 0,0,player.py or 0},state.dark,
+      Weather.skyMode and Weather.skyMode(state.map)or Weather.mode(state.map))
+    local shader=Voxel3D.shader(false)
+    if shader then lights.send(shader,true)end
+    if lights.current().allLights and V.require('LocalLightGrid').pending()then return true end
+  end
+  preparedLightMap,preparedLightKey=state.map,key
+  return true
+end
+local preparingCovered = false
+function VoxelScene.setPreparationCovered(value)
+ preparingCovered = value == true
+ V.require('LocalLightGrid').beginFrame(preparingCovered)
+ V.require('StaticLightField').beginFrame(preparingCovered)
+ V.require('VoxelPropBatch').beginFrame(preparingCovered)
+end
+
+-- A rooftop has no enclosing room to hide unfinished surroundings. Wait for
+-- the painted skyline, with a longer terminal-failure safety deadline on phones.
+function VoxelScene.revealTimeout(state)
+  if state and state.map and HorizonWall.enabled()
+      and V.require('Gen1Rooftops').matches(state.map) then
+    local progress
+    if MOBILE_RUNTIME and type(HorizonWall.cacheStatus)=='function' then
+      local h=HorizonWall.cacheStatus(state)
+      local g=MobileSceneryGate.status(state.map)
+      progress=table.concat({tostring(h.key),tostring(h.resumes),tostring(h.ready),
+        tostring(g.coreReady),tostring(g.resources.horizon),tostring(g.resources.panorama),
+        tostring(g.active),tostring(g.failed)},':')
+    end
+    return 60,3600,progress
+  end
 end
 
 function VoxelScene.readyForReveal(state)
+  local weatherCover=V.require('WeatherCover')
+  if weatherCover.pending and weatherCover.pending()then return false end
+  if state and state.map and not V.require('SilphFountains').prepared(state.map) then return false end
+  if MOBILE_RUNTIME and state and state.map and HorizonWall.enabled()
+      and (V.require('SilphWindows').enabled(state.map)
+           or V.require('Gen1Rooftops').matches(state.map)) then
+    local status=MobileSceneryGate.status(state.map)
+    -- Keep a real arrival covered until the exterior scene has actually been
+    -- drawn. A terminal resource failure still follows the existing fail-open
+    -- path; the transition timeout remains the final safety net.
+    if not (status and (status.active or status.failed)) then return false end
+  end
   return state ~= nil and state.map ~= nil
          and Voxel.ready == true and readyMap == state.map
+         and (MOBILE_RUNTIME or not VoxelScene.resumeNeighborhoodReady or VoxelScene.resumeNeighborhoodReady(state))
+         and (MOBILE_RUNTIME or (preparedLightMap==state.map and preparedLightKey==lightKey()
+              and not V.require('LocalLightGrid').pending()
+              and not V.require('StaticLightField').pending()
+              and V.require('StaticLightField').programPrepared()
+              and V.require('VoxelPropBatch').prepared(state.map)))
+         and (MOBILE_RUNTIME or not Water.programPrepared or Water.programPrepared(VoxelGrid.enabled()))
          and (MOBILE_RUNTIME or type(Voxel3D.worldCardsReady) ~= "function"
               or Voxel3D.worldCardsReady(state))
 end
@@ -466,6 +552,14 @@ local function rampFooting(map,entity)
 end
 
 local function groundForEntity(map, entity, hopping, neighbors)
+  if not hopping and map.def and map.def.tileset=='CAVERN' then
+    local support=V.require('Gen1Stairs').supportAt(map,
+      (tonumber(entity.px)or entity.cellX*16)+8,(tonumber(entity.py)or entity.cellY*16)+8)
+    if support~=nil then
+      local elevation=ChunkMesher.elevation(map)
+      return support+(elevation and elevation:at(entity.cellX,entity.cellY)or 0)
+    end
+  end
   local snow = V.require("SnowRamps").height(map,
     (tonumber(entity.px) or entity.cellX*16)+8,
     (tonumber(entity.py) or entity.cellY*16)+8)
@@ -703,7 +797,7 @@ end
 -- `lift` raises the figure off the ground plane (ledge hops arc UP in 3D,
 -- where the 2D path could only slide the sprite north).
 local function drawEntity(sprite, px, py, facing, phase, flip, gh, colors,
-                          lift)
+                          lift, costumeSeed, teleport)
   if VoxelItems.draw(sprite, px, py, gh, lift) then return true end
   local def = sprite.def
   local tex = sprite:resolveImage()
@@ -730,10 +824,19 @@ local function drawEntity(sprite, px, py, facing, phase, flip, gh, colors,
   -- vertex asks whether the light reached it; see ShadowMap.snug for why
   -- the lookup must match the stored transform to the letter
   Voxel3D.actorLighting(true)
-  Voxel3D.draw(mesh, tex, billboardMatrix(px, py, y, mirror),
-               billboardPull(),
-               ShadowMap.snug(Voxel3D.casterMatrix(px, py, y, mirror)))
+  Voxel3D.silphTeleport = teleport
+  local ok, why = true, nil
+  local model = billboardMatrix(px, py, y, mirror)
+  local caster = ShadowMap.snug(Voxel3D.casterMatrix(px, py, y, mirror))
+  if teleport then
+    ok, why = pcall(Voxel3D.draw, mesh, tex, model, billboardPull(), caster)
+  else
+    Voxel3D.draw(mesh, tex, model, billboardPull(), caster)
+  end
+  Voxel3D.silphTeleport = nil
   Voxel3D.actorLighting(false)
+  if not ok then error(why, 0) end
+  if costumeSeed then V.require('Halloween').drawCostume(def,costumeSeed,billboardMatrix(px,py,y,mirror),billboardPull())end
   return true
 end
 
@@ -750,6 +853,10 @@ VoxelScene.drawEntity = drawEntity
 -- patch either. A silhouette is an outline, so an outline is the right
 -- mesh for it.
 local function drawGhost(p)
+  if p.silphTeleport then
+    return drawEntity(p.sprite,p.px,p.py,viewFacing(p),p.phase,p.flip,p.gh,
+      p.colors,0,nil,p.silphTeleport)
+  end
   local def = p.sprite.def
   local frame, mirror = frameFor(def, viewFacing(p), p.phase, p.flip)
   local mesh = SpriteBillboards.shadowQuad(def, frame, p.sprite.image)
@@ -925,6 +1032,40 @@ function VoxelScene.planStatus()
   }
 end
 
+-- Resume may spend its existing cover on the direct outdoor neighbourhood,
+-- using the same queued builds and published plan as ordinary traversal.
+function VoxelScene.resumeNeighborhoodReady(state)
+  if MOBILE_RUNTIME or not(state and state.map and state.map.def) then return true end
+  -- A previously published union is only a receipt, not ownership of its
+  -- resources. Recheck the actual caches before releasing a loading cover:
+  -- optional gate preparation, eviction or invalidation can change them.
+  if not ChunkMesher.auxReady(state.map) or not atlasPrepared(state.map) then return false end
+  state=V.require('VisibleNeighborhood').apply(state)
+  local direct={}
+  for _,connection in pairs(state.map.def.connections or{}) do direct[connection.map]=true end
+  for _,nb in ipairs(state.neighbors or{}) do
+    if direct[nb.map.id] and (not ChunkMesher.ready(nb.map,true)
+        or not ChunkMesher.auxReady(nb.map) or not atlasPrepared(nb.map)) then return false end
+  end
+  if not HorizonWall.preferBody(state.map) then return true end
+  -- A failed optional panorama keeps its existing closed scene. Do not
+  -- strand a valid save behind a failed expansion or full-ring fallback.
+  if HorizonWall.cacheStatus({map=state.map,neighbors={},worldMaps=state.worldMaps}).failed then return true end
+  local missing=false
+  for _,connection in pairs(state.map.def.connections or{}) do
+    for _,nb in ipairs(state.neighbors or{}) do
+      if nb.map.id==connection.map and not(activeUnion and activeUnion.ids[nb.map.id]) then
+        missing=true
+        local future=copySet(activeUnion and activeUnion.ids or {[state.map.id]=true})
+        future[nb.map.id]=true
+        local expanded=stateForIds(state,future)
+        if expanded and HorizonWall.cacheStatus(expanded).failed then return true end
+      end
+    end
+  end
+  return not missing
+end
+
 -- A draw plan is the compact, hole-free subset of connected maps that may be
 -- painted THIS frame. The public prefetch tuple stays indexed like
 -- state.neighbors for BattleScene and other existing callers; the overworld
@@ -1091,7 +1232,7 @@ end
 -- this bounds the active phone ring without weakening that existing cache.
 local function setMobileRingLive(state, ring)
   local live = { [state.map.id] = true }
-  local key = "mobile-ring|" .. tostring(state.map.id)
+  local key = "mobile-ring|" .. tostring(state.map.id) .. "|budget=" .. tostring(V.require("WorldResidency").setting:get())
   local _, directOrder = directIds(state)
   for _, i in ipairs(directOrder) do
     local nb = state.neighbors[i]
@@ -1430,7 +1571,7 @@ function VoxelScene.prefetch(state)
   -- is evicted -- meshes released, analysis dropped -- so memory stays
   -- bounded by the neighbourhood instead of growing with every area
   -- ever visited.
-  local liveKey = state.map.id
+  local liveKey = state.map.id .. '|budget=' .. tostring(V.require('WorldResidency').setting:get())
   local live = { [state.map.id] = true }
   for _, nb in ipairs(state.neighbors or {}) do
     live[nb.map.id] = true
@@ -1514,17 +1655,20 @@ function VoxelScene.prefetch(state)
   for i, nb in ipairs(state.neighbors or {}) do
     -- Connected bodies are enough here: the current map's masked full ring is
     -- the legacy closure when SCENERY is off, while semantic scenery closes
-    -- the whole streamed union itself. With semantic scenery the current map
-    -- is the only urgent job: cold neighbours continue on the ordinary frame
-    -- budget after that complete first scene has appeared. The legacy/full
-    -- path remains atomic and therefore keeps all of its required bodies
+    -- the whole streamed union itself. While walking, semantic scenery keeps
+    -- the current map urgent and warms neighbours on the ordinary frame
+    -- budget. Under a loading cover, direct neighbours are required too.
+    -- The legacy/full path remains atomic and therefore keeps all of its required bodies
     -- urgent, exactly as before.
     local backgroundRank = 0
     if preferBody then
       if i == approachedIndex then backgroundRank = 2
       elseif directSet[nb.map.id] then backgroundRank = 1 end
     end
-    ChunkMesher.request(nb.map, true, nil, not preferBody, backgroundRank)
+    -- A loading cover promises the whole arrival neighbourhood, so finish
+    -- required direct maps before speculative survey/return-cache jobs.
+    local requiredArrival = preparingCovered and directSet[nb.map.id] == true
+    ChunkMesher.request(nb.map, true, nil, not preferBody or requiredArrival, backgroundRank)
     -- Neighbours are always requested body-only above; their own panorama
     -- class only controls the union's curtain, not this cache slot.
     nbMesh[i], nbWater[i] = ChunkMesher.pair(nb.map, true)
@@ -1549,8 +1693,19 @@ function VoxelScene.prefetch(state)
   local horizonReady
   if semanticBody then
     local horizonFailed
-    plan, horizonReady, horizonFailed = semanticPlan(
-      state, nbMesh, nbWater, approachedIndex)
+    if preparingCovered then
+      -- Under an opaque transition, build the final direct-ring enclosure
+      -- once. Incremental 1/2/3/4-map panoramas are useful while walking,
+      -- but rebuilding all those variants under a cover wastes load time.
+      local _, ready, failed = HorizonWall.meshes(state)
+      plan = drawPlan(state, nbMesh, nbWater)
+      horizonReady = ready and #plan.state.neighbors == #(state.neighbors or {})
+      horizonFailed = failed
+      if horizonReady then setActive(state, plan.maps) end
+    else
+      plan, horizonReady, horizonFailed = semanticPlan(
+        state, nbMesh, nbWater, approachedIndex)
+    end
     if horizonFailed then
       -- A failed semantic curtain can never make a body-only map complete.
       -- Fall back to the same masked FULL ring used when scenery is off, and
@@ -1586,7 +1741,8 @@ function VoxelScene.prefetch(state)
   end
   local glassReady = not wantsGlass or not GlassMask.prepared
                      or GlassMask.prepared(state.map.tileset)
-  local complete = terrain ~= nil and horizonReady and atlasPrepared(state.map)
+  local terrainReady = terrain ~= nil and ChunkMesher.auxReady(state.map)
+  local complete = terrainReady and horizonReady and atlasPrepared(state.map)
                    and glassReady
   local startupSeam = semanticBody and complete
     and V.require('StartupSeamWarmup').pending(
@@ -1598,7 +1754,7 @@ function VoxelScene.prefetch(state)
     VoxelScene.pendingReason = nil
   else
     VoxelScene.pendingReason = startupSeam and 'startup-seam-pending'
-      or not terrain and 'terrain-pending'
+      or not terrainReady and 'terrain-pending'
       or not horizonReady and 'horizon-pending'
       or not atlasPrepared(state.map) and 'atlas-pending' or 'glass-pending'
   end
@@ -1611,6 +1767,11 @@ function VoxelScene.prefetch(state)
   -- scene is ready. Never advertise an incomplete plan: until this gate opens
   -- the engine is still presenting its 2D fallback.
   if complete then
+    -- Spend the existing loading cover on template uploads for every camera
+    -- direction. The reveal gate checks the batch cache receipt as well.
+    local furniture=V.require('VoxelFurniture')
+    V.require('VoxelPropBatch').prewarm(plan.state,furniture.eachWorld,
+      preparingCovered and .003 or .0005,furniture.batchReceipt)
     setActive(plan.state, plan.maps)
     V.require('StartupSeamWarmup').open(state.map)
   end
@@ -1963,8 +2124,15 @@ local function posesOf(state, spriteColors, drawableMaps, externalPlayerWalker)
         -- person, where it would fill the lens from inside; the SUN pass
         -- reads the same list and deliberately does not check the mark
         me.isPlayer = true
+        me.silphTeleport = SilphTeleport.current(state)
+        if me.silphTeleport then
+          me.facing, me.phase, me.flip, me.lift = me.silphTeleport.facing, 0, false, 0
+        end
       end
     end
+  end
+  for _,p in ipairs(V.require('ObservationBinoculars').poses(state,spriteColors)or{})do
+    posed[#posed+1]=p
   end
   return posed, me
 end
@@ -2028,6 +2196,29 @@ local function actorEngulfsEye(p)
     return false
   end
 
+  -- Imported bodies are not 16px cards. If the near optical ray enters
+  -- their actual animated bounds, suppress that actor until the eye clears
+  -- it. This also covers a large follower behind a third-person camera.
+  local b=p.stadiumBounds
+  if b then
+    local dx,dy,dz=focus[1]-eye[1],focus[2]-eye[2],focus[3]-eye[3]
+    local length=math.sqrt(dx*dx+dy*dy+dz*dz)
+    if length<ACTOR_EPS then return false end
+    local ray={dx/length,dy/length,dz/length};local lo,hi=0,ACTOR_CARD_SIZE
+    for axis=1,3 do
+      local d=ray[axis]
+      if math.abs(d)<ACTOR_EPS then
+        if eye[axis]<b[axis]or eye[axis]>b[axis+3]then return false end
+      else
+        local a,z=(b[axis]-eye[axis])/d,(b[axis+3]-eye[axis])/d
+        if a>z then a,z=z,a end
+        lo,hi=math.max(lo,a),math.min(hi,z)
+        if lo>hi then return false end
+      end
+    end
+    return hi>=lo
+  end
+
   local foot = (p.gh or 0) + (p.lift or 0)
   local cx, cz = p.px + ACTOR_CARD_HALF, p.py + ACTOR_CARD_HALF
   local dx, dz = cx - eye[1], cz - eye[3]
@@ -2078,6 +2269,22 @@ VoxelScene._actorEngulfsEye = actorEngulfsEye
 -- artwork is concerned, just ones drawn by the tileset instead of by a
 -- sprite sheet, so they get the same lean and the same camera-ward pull).
 --
+local function prepareOpaqueFurniture(state, waterDraws)
+  -- Solid furniture enters the scene once before the reflective copy.
+  -- Scene and reflection share those pixels/depth; only actors and decorative
+  -- layers still need the two ordered cast draws.
+  local opaquePrepared = #waterDraws > 0 and not MOBILE_RUNTIME
+    and Water.level()==2 and Voxel3D.depthReadable()
+  if opaquePrepared then
+    Voxel3D.roomVisibility(state.currentRoom)
+    Voxel3D.glass(false);Voxel3D.seams(false)
+    V.require("VoxelFurniture").drawOpaque(state)
+    Voxel3D.glass(true);Voxel3D.seams(true)
+    love.graphics.setColor(1,1,1,1)
+  end
+  return opaquePrepared
+end
+
 -- One function because it is drawn TWICE and the two must be identical: once
 -- into the frame, and once into the water's reflection copy (see drawWater --
 -- Gen 1 draws people over the world, and water is world, so the cast cannot
@@ -2093,13 +2300,14 @@ VoxelScene._actorEngulfsEye = actorEngulfsEye
 -- Sprite sheets until the figure pass: their texture coordinates mean
 -- nothing to the tileset-shaped glass mask, so the glass is off or the
 -- panes' atlas positions stripe the cast with lamplight at night.
-local function drawCast(state, posed, atlasFor, ghostPose, beforeActors)
+local function drawCast(state, posed, atlasFor, ghostPose, beforeActors, opaquePrepared)
   local actorVisible=V.require('PropVisibility').forView(Voxel3D.vp,
     Voxel3D.curveK,Voxel3D.curveX,Voxel3D.curveZ)
   Voxel3D.roomVisibility(state.currentRoom)
   Voxel3D.glass(false)
   Voxel3D.seams(false)
-  V.require("VoxelFurniture").draw(state)
+  local furniture=V.require("VoxelFurniture")
+  if opaquePrepared then furniture.drawDetails(state) else furniture.draw(state) end
   -- All opaque scenery must have written depth before the silhouette.
   -- In particular, replacement voxel buildings are furniture, not terrain.
   -- Draw the ghost before any character so it cannot hit its own card.
@@ -2154,14 +2362,15 @@ local function drawCast(state, posed, atlasFor, ghostPose, beforeActors)
   Voxel3D.roomVisibility(nil) -- whole visible actors, not clipped sprite limbs
   for _, p in ipairs(posed) do
     local hidden = p.isPlayer and hideMe
-    if not hidden and hideNearActor and not p.isPlayer then
+    if not hidden and not p.isPlayer and (hideNearActor
+        or (p.entity and p.entity.pikachuFollower and Voxel.isThirdPerson(Voxel.level))) then
       hidden = actorEngulfsEye(p)
     end
     if not hidden then
       Voxel3D.waterline(p.waterline)
       if not OverworldStadium.draw(p,actorVisible,billboardPull()) then
         drawEntity(p.sprite, p.px, p.py, viewFacing(p), p.phase, p.flip, p.gh,
-                   p.colors, p.lift)
+                   p.colors, p.lift, not p.isPlayer and p.sprite.seed or nil, p.silphTeleport)
       end
       Voxel3D.waterline(nil)
     end
@@ -2257,6 +2466,9 @@ VoxelScene._drawCast = drawCast       -- named for the focused draw contract
 -- flat water). Confined to the curve there is no regression to reach: the
 -- flat world never had the far-shore bug in the first place.
 function VoxelScene.drawWater(draws, cast, options)
+  -- Prepare even when the first camera faces away from nearby water. The
+  -- initial covered scene then pays this allocation, not a later camera turn.
+  if #draws>0 and not MOBILE_RUNTIME and Water.level()==2 then Voxel3D.prepareWater() end
   -- No full-frame reflection copy or second character pass for a pond
   -- wholly outside this eye's view. The bound includes world curvature;
   -- uncertain and partially visible meshes keep the original water path.
@@ -2335,7 +2547,7 @@ end
 -- most of a dialog, a menu, or any moment standing still.
 local sigBuf = {}
 local function shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh,
-                               policy, horizon)
+                               policy, horizon, static)
   local n = 0
   local function put(v)
     n = n + 1
@@ -2343,8 +2555,7 @@ local function shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh,
   end
   -- quarter-pixel camera granularity: the light frustum is snapped to
   -- whole texels anyway, each a third of a world pixel
-  put(math.floor(cx * 4))
-  put(math.floor(cy * 4))
+  if not static then put(math.floor(cx * 4));put(math.floor(cy * 4))end
   -- the view size and the camera PITCH are both what the light frustum is
   -- fitted to (a lower camera sees further north, so the box grows), so a
   -- zoom step, a window resize or a rung change invalidates the map even
@@ -2359,7 +2570,8 @@ local function shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh,
   put(math.floor(ShadowMap.KX * 128))
   put(math.floor(ShadowMap.KZ * 128))
   put(policy and policy.key or "legacy-world")
-  put(FirstPerson.signature())
+  if not static then put(FirstPerson.signature())end
+  put(VoxelItems.resourceVersion or 0)
   put(VoxelItems.setting:get() and "voxel-items" or "native-items")
   put(tostring(terrain))
   for i = 1, #nbMesh do put(tostring(nbMesh[i])) end
@@ -2380,6 +2592,7 @@ local function shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh,
     put(p.px); put(p.py); put(p.gh); put(p.lift or 0)
     put(p.facing); put(p.phase); put(p.flip and 1 or 0)
     put(p.stadiumDex or 0); put(p.stadiumShadowTick or 0)
+    put(p.silphTeleport and SilphTeleport.amount(p.silphTeleport.transition) or "solid")
     end
   end
   for i = n + 1, #sigBuf do sigBuf[i] = nil end
@@ -2414,13 +2627,20 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
   local sig = shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh,
                               policy, horizon)
   local caveWalls=V.require('Gen1CaveWalls').amount(state.map,Voxel.level)
-  sig=sig..':caveWalls:'..caveWalls
+  local snowBurial=':buriedFlowers:'..tostring(V.require('DeepSnow').buriesFlowers(state.map))
+  sig=sig..':caveWalls:'..caveWalls..snowBurial
   if state.sightSignature then sig=sig..state.sightSignature end
   if state.healAnim then
     sig=sig..":heal:"..tostring(state.healAnim.lit)..":"..tostring(state.healAnim.visible)
   end
   if not ShadowMap.stale(sig) then return end
-  if not ShadowMap.begin(cx, cy, vw, vh,V.require('VoxelFurniture').shadowHeight(state)) then return end
+  local staticKey=shadowSignature(terrain,nbMesh,{},cx,cy,vw,vh,policy,horizon,true)..':walls:'..caveWalls..snowBurial
+  if state.sightSignature then staticKey=staticKey..state.sightSignature end
+  local harbor=V.require('Gen1Harbor')
+  if state.healAnim or harbor.kind(state.map)then staticKey=nil end
+  for _,nb in ipairs(state.neighbors or{})do if harbor.kind(nb.map)then staticKey=nil end end
+  local began,reused=ShadowMap.begin(cx,cy,vw,vh,V.require('VoxelFurniture').shadowHeight(state),staticKey,FirstPerson.cardBlend()>.99)
+  if not began then return end
   ShadowMap.caveWalls(caveWalls)
   if type(ShadowMap.objectOnly) == "function" then
     ShadowMap.objectOnly(policy.casters == "objects")
@@ -2430,6 +2650,7 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
   -- shader discards every ordinary quad and keeps only ChunkMesher's signed
   -- building/tree/prop markers. This avoids a duplicate GPU mesh while
   -- preventing ground, cliffs, water and the map border from casting.
+  if not reused then
   ShadowMap.draw(terrain, atlasFor(state.map), nil)
   for i, nb in ipairs(state.neighbors or {}) do
     ShadowMap.draw(nbMesh[i], atlasFor(nb.map),
@@ -2484,11 +2705,19 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
       ShadowMap.draw(mesh, texture or atlasFor(nb.map), ShadowMap.snug(caster))
     end)
   end
+  if staticKey then ShadowMap.storeStatic(staticKey,true)end
+  end -- retained stationary scenery; actors still redraw every frame
+  ShadowMap.sprites(true)
   local actorVisible=V.require('PropVisibility').forView(ShadowMap.clipVP)
   for _, p in ipairs(posed) do
     -- Immersed actors reflect in the water; no dry-ground drop shadow.
     -- Their bob must not invalidate the full-map sun cache each frame.
-    if not p.swimming and not VoxelItems.cast(p, ShadowMap)
+    if p.silphTeleport then
+      local fx = p.silphTeleport
+      local mesh = SilphTeleport.animate(fx)
+      if mesh then ShadowMap.draw(mesh, fx.texture, fx.sunModel or fx.model) end
+    end
+    if not p.silphTeleport and not p.swimming and not VoxelItems.cast(p, ShadowMap)
         and not OverworldStadium.cast(p, ShadowMap,actorVisible) then
       local def = p.sprite.def
       -- viewFacing, exactly as the camera draw picks it (see viewFacing for
@@ -2549,7 +2778,14 @@ end
 -- M10 core errors and all desktop errors retain their historical propagation.
 function VoxelScene.render(state, w, h, vw, vh, paletteFor)
   if not MOBILE_RUNTIME then
-    return renderWorld(state, w, h, vw, vh, paletteFor)
+    local loading=V.require('ContinuePreparation')
+    local regions=V.require('RegionPreparation')
+    local cached=loading.cachedScene(state,w,h,vw,vh) or regions.cachedScene(state,w,h,vw,vh)
+    if cached then return cached end
+    local canvas=renderWorld(state,w,h,vw,vh,paletteFor)
+    loading.rememberScene(canvas,state,w,h,vw,vh)
+    regions.rememberScene(canvas,state,w,h,vw,vh)
+    return canvas
   end
   local ok, canvasOrError = pcall(
     renderWorld, state, w, h, vw, vh, paletteFor)
@@ -2604,6 +2840,12 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
         caller="VoxelScene.prefetch", context="world",
         terrainReady=terrain ~= nil, sceneReady=Voxel.ready == true,
       })
+    return nil
+  end
+  if not MOBILE_RUNTIME and preparingCovered
+      and not V.require('VoxelPropBatch').prepared(state.map)then
+    -- Do not defeat sliced preparation by synchronously cloning the missing
+    -- groups in this covered draw. The reveal gate waits for this receipt.
     return nil
   end
   plan = plan or drawPlan(state, nbMesh, nbWater)
@@ -2669,14 +2911,16 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- Semantic sky/horizon discovery belongs to the desktop scene.  Mobile's
   -- bounded world-core pass intentionally starts with neutral lighting and
   -- adds no horizon, glass or weather dependency before the first canvas.
-  local outdoor = HorizonWall.hasSky(state.map)
+  local silphWindows=V.require('SilphWindows').enabled(state.map)
+  local outdoor = HorizonWall.hasSky(state.map)and not silphWindows
   local dynamic=V.require("LocalLights").enabled()
   local indoorLight=dynamic and not outdoor and V.require('InteriorLights').layout(state.map)
-  DayNight.applyRig(outdoor or (dynamic and DayNight.isCanopy(state.map))
+  DayNight.applyRig(outdoor or silphWindows or (dynamic and DayNight.isCanopy(state.map))
     or (indoorLight and #indoorLight.portals>0))
   Voxel3D.tint = V.require("TowerAtmosphere").tint(state.map,
     DayNight.tint(outdoor or DayNight.isCanopy(state.map)))
-  Voxel3D.tint = V.require("IndoorMist").tint(state.map,Voxel3D.tint)
+  Voxel3D.tint = V.require("IndoorMist").tint(state.map,Voxel3D.tint,
+    state.player and state.player.px+8,state.player and state.player.py+8)
   Voxel3D.tint = V.require("CaveTorches").nativeTint(state.map,state.dark,Voxel3D.tint)
 
   -- Resolve the effective sky weather before the sun pass. This includes the
@@ -2689,12 +2933,18 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   elseif type(Weather.skyMode) == "function" then
     skyWeatherMode = Weather.skyMode(state.map)
   end
+  if silphWindows then
+    local sourceId=V.require('SilphWindows').source(state.map)
+    local source=require('src.core.Game').data.maps[sourceId]
+    skyWeatherMode=Weather.skyMode({id=sourceId,def=source})
+    nativeGround=false
+  end
   WeatherTweak.observe(state.map, weatherMode, Weather.clock, outdoor)
   local groundWeather = WeatherTweak.groundMode(
     state.map, skyWeatherMode, nativeGround)
   local groundAmount = WeatherTweak.groundAmount(
     state.map, skyWeatherMode, nativeGround)
-  V.require("SnowRamps").observe(state, groundWeather == "snow" and nativeGround ~= false
+  V.require("SnowRamps").observe(state, V.require("DeepSnow").setting:get()=="deep" and groundWeather == "snow" and nativeGround ~= false
     and type(WeatherTweak.enabled)=="function" and WeatherTweak.enabled() and groundAmount or 0)
   local shadowPolicy = resolveShadowPolicy({
     map = state.map,
@@ -2893,6 +3143,9 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   local fpRig, fpCx, fpCy = FirstPerson.frame(
     VoxelScene.fieldCameraPose(state,me), cx, cy, renderVw, renderVh)
   if fpRig then cx, cy = fpCx, fpCy end
+  local binocularRig,bx,bz=V.require('ObservationBinoculars').frame(state,cx,cy)
+  if binocularRig then fpRig,cx,cy=binocularRig,bx,bz end
+  cx,cy=V.require('CinnabarActivity').camera(state.map,cx,cy,fpRig)
 
   -- Ordinary overworld occluders stay intact; battle-only SightClearance
   -- must not remove buildings/trees here. The Silph landmark owns a narrow
@@ -2900,6 +3153,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- depth-tested silhouette below.
 
   local shCx, shCy = FirstPerson.shadowCenter(cx, cy, renderVh)
+  if FirstPerson.cardBlend()>.99 then shCx,shCy=cx,cy end
   ShadowMap.protected(castShadows,drawState, terrain, drawMesh, posed, shCx, shCy,
               renderVw, renderVh,
               atlasFor, water, drawWater, shadowPolicy, horizon)
@@ -2908,6 +3162,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- path runs it once, a VR frame runs it once PER EYE -- same posed
   -- list, same shadow map, same glint, so the two eyes can never disagree
   -- about anything but their viewpoint.
+  local spatialRain = false
   local function drawScene()
   Voxel3D.roomVisibility(roomView)
 
@@ -2948,8 +3203,15 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   local completeArenaCeiling = HorizonWall.arenaViewFor(state.map) ~= nil
     local outdoorHorizon=V.require('OutdoorHorizon')
     local horizonVisible=outdoorHorizon.visibility()
+    if silphWindows then
+      local profile=HorizonWall.interiorProfileFor(state.map)
+      indoorCutaway=not V.require('SilphCutawayBackground').inside(
+        state.map.def.width*32,state.map.def.height*32,profile.shellHeight,Voxel3D.eye)
+    end
+    local windowVisible=silphWindows and V.require('SilphWindowVisibility').forView(state.map,HorizonWall.interiorProfileFor(state.map),Voxel3D.eye)
   for _, rim in ipairs(horizon) do
-    if rim.kind ~= "water"
+    if rim.kind ~= "water" and rim.kind~='window_glass'
+       and (rim.class~='silph_exterior'or not windowVisible or windowVisible(rim.bounds,rim.ox,rim.oy))
        and cutawayRimVisible(rim, indoorCutaway) then
       -- The floor reachability mask has no meaning at ceiling height. Its
       -- blocked cells otherwise punch sky-shaped holes above arena props.
@@ -2963,7 +3225,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
       -- real body joins the draw union.
       local rimTexture = rim.textureMap and atlasFor(rim.textureMap)
                          or rim.texture
-      if indoorCutaway and rim.kind == "wall" and not rim.interiorPanel then
+      if indoorCutaway and rim.kind == "wall" and not rim.interiorPanel and rim.class~='silph_exterior' then
         if type(InteriorCutaway.wallPlane) == "function" then
           setCutaway(InteriorCutaway.wallPlane(
             Voxel3D.eye, Voxel3D.focus))
@@ -2975,6 +3237,17 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
       end
       if rim.class=='rooftop_baked'then
         V.require('RooftopCache').draw(rim,Mat4.translate(rim.ox,0,rim.oy))
+      elseif rim.class=='silph_exterior'then
+        Voxel3D.roomVisibility(nil);Voxel3D.drawTint(DayNight.tint(true))
+        Voxel3D.silphWindow(state.map,HorizonWall.interiorProfileFor(state.map).shellHeight)
+        if rim.bakedWindow then
+          V.require('RooftopCache').draw(rim,Mat4.translate(rim.ox,0,rim.oy))
+        else
+        outdoorHorizon.draw(rim,Mat4.translate(rim.ox,V.require('SilphElevator').offset(state.map),rim.oy),horizonVisible)
+        end
+        Voxel3D.silphWindow(nil)
+        Voxel3D.drawTint()
+        Voxel3D.roomVisibility(roomView,true)
       elseif rim.class=='voxel_horizon'then
         outdoorHorizon.draw(rim,Mat4.translate(rim.ox,0,rim.oy),horizonVisible)
       elseif rim.class=='room_breach_exterior' or rim.class=='room_breach_roof' then
@@ -3022,7 +3295,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
       and not Voxel3D.shadowsActive() then
     Voxel3D.beginShadows()
     for _, p in ipairs(posed) do
-      if not p.swimming then drawShadow(p.sprite, p.px, p.py, viewFacing(p), p.phase, p.flip, p.gh,
+      if not p.silphTeleport and not p.swimming then drawShadow(p.sprite, p.px, p.py, viewFacing(p), p.phase, p.flip, p.gh,
                  p.lift) end
     end
     Voxel3D.endShadows()
@@ -3038,6 +3311,9 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- ShadowMap.sprites) -- people do not shadow water either way.
   local lighting=V.require('LocalLights').current()
   V.require('InteriorLights').draw(lighting.interior,lighting.lights,Voxel3D.eye,Voxel3D.focus,state.map)
+  -- Jets enter the reflection copy with the opaque scene; the water pass
+  -- keeps their own depth and reflects them into the surrounding basin.
+  V.require('SilphFountains').draw(drawState)
   local waterDraws = {}
   local function maritime(map)
     return type(Water.maritime) == "function" and Water.maritime(map) == true
@@ -3067,10 +3343,11 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- the cast goes into the reflection copy only -- see drawWater for why it
   -- cannot be composited yet and why it is drawn through the same function
   -- the real pass below uses
+  local opaquePrepared = prepareOpaqueFurniture(drawState, waterDraws)
   if #waterDraws > 0 then
     VoxelScene.drawWater(waterDraws, function()
-      drawCast(drawState, posed, atlasFor)
-    end, { maritime = maritimeWater, indoorPool=state.map.id=="CERULEAN_GYM" and HorizonWall.arenaViewFor(state.map)~=nil })
+      drawCast(drawState, posed, atlasFor, nil, nil, opaquePrepared)
+    end, { maritime = maritimeWater, indoorPool=V.require('SilphFountains').matches(state.map) or (state.map.id=="CERULEAN_GYM" and HorizonWall.arenaViewFor(state.map)~=nil) })
   end
 
 
@@ -3114,7 +3391,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     Voxel3D.modelGrass(nil)
   end
   local grassFirst = CanvasPresentation.OS == "iOS"
-  drawCast(drawState, posed, atlasFor, me, grassFirst and drawGrass or nil)
+  drawCast(drawState, posed, atlasFor, me, grassFirst and drawGrass or nil, opaquePrepared)
   if not grassFirst then drawGrass() end
   -- flower billboards: pulled like the characters and the grass, MINUS
   -- the depth of 8 world pixels along the view (8 sin a -- the camera
@@ -3137,8 +3414,20 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
                  ShadowMap.snug(Mat4.translate(nb.ox, 0, nb.oy)))
   end
 
+  -- Transparent panes are drawn after opaque actors/furniture, depth-tested
+  -- without depth writes so they cannot conceal anything behind the facade.
+  for _,rim in ipairs(horizon)do
+    if rim.kind=='window_glass'and cutawayRimVisible(rim,indoorCutaway)then
+      setCutaway();Voxel3D.roomVisibility(roomView,true)
+      V.require('SilphWindows').drawPane(Voxel3D,rim,Mat4.translate(rim.ox,0,rim.oy))
+    end
+  end
+  Voxel3D.roomVisibility(roomView)
   V.require("LightAtmosphere").draw(state)
   Voxel3D.indoorMist(state.map,state.dark)
+  V.require('Halloween').drawEyes(state)
+  V.require("DeepSnow").draw(drawState or state, weatherMode)
+  spatialRain = V.require("WorldWeather").draw(drawState or state, weatherMode)
   end   -- drawScene
 
   if mobileScenery and mobileSceneryCanvasMap ~= state.map then
@@ -3153,7 +3442,9 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   V.require("LightAtmosphere").transition(V.require("LocalLights").current(),state,
     V.require("LocalLights").active(),Sky.clock or 0)
   local sceneArgs = {
+    flatInterior = not HorizonWall.isOutdoorMap(state.map) and (not V.require("Gen1Rooftops").matches(state.map) or V.require("Gen1Rooftops").gate(state.map)),
     localLights = true,
+    silphCutaway = silphWindows and {map=state.map,height=HorizonWall.interiorProfileFor(state.map).shellHeight} or nil,
     caveBattleMist = not state.dark and V.require("CaveBattleMist").forView(state.map,roomView) or nil,
     towerMood = V.require("TowerAtmosphere").uniforms(state.map),
     towerLight = not V.require("LocalLights").enabled() and V.require("TowerAtmosphere").lights(state.map,state.dark) or nil,
@@ -3163,6 +3454,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     groundAmount = groundAmount,
     shadowPolicy = shadowPolicy,
   }
+  V.require("WeatherCover").prepare(drawState or state,groundWeather)
   local sceneSky = sceneArgs.caveBattleMist or skyFor(state.map, skyWeatherMode)
   local beginOK, began
   if mobileScenery then
@@ -3194,6 +3486,11 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
       return MobileSceneryGate.lastSafeCanvas(state.map)
     end
     return nil
+  end
+  -- beginScene has sent the real draw union's light resources. This receipt
+  -- prevents a broader update-time preparation from rebuilding them again.
+  if not MOBILE_RUNTIME and not V.require('LocalLightGrid').pending()then
+    preparedLightMap,preparedLightKey=state.map,lightKey()
   end
   local drawOK, drawError = true, nil
   if mobileScenery then
@@ -3263,7 +3560,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- layer underneath it (the real-device symptom was weather music with a
   -- permanently clear picture).
   if MOBILE_RUNTIME then
-    out = Weather.apply(out, w, h, state.map, Voxel3D.cell, weatherMode)
+    out = Weather.apply(out, w, h, state.map, Voxel3D.cell, weatherMode, spatialRain)
     out = WeatherTweak.apply(
       out, w, h, state.map, Voxel3D.cell, weatherMode, false)
     -- Only an actual completed canvas opens direct-map streaming.  Merely
@@ -3302,11 +3599,11 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     elseif type(MobileSceneryGate.noteSafeCanvas) == "function" then
       MobileSceneryGate.noteSafeCanvas(state.map, out)
     end
-    return out
+    return V.require('ObservationBinoculars').hud(out,w,h)
   end
-  out = Weather.apply(out, w, h, state.map, Voxel3D.cell, weatherMode)
-  return WeatherTweak.apply(
-    out, w, h, state.map, Voxel3D.cell, weatherMode, false)
+  out = Weather.apply(out, w, h, state.map, Voxel3D.cell, weatherMode, spatialRain)
+  out=WeatherTweak.apply(out,w,h,state.map,Voxel3D.cell,weatherMode,false)
+  return V.require('ObservationBinoculars').hud(out,w,h)
 end
 
 return VoxelScene

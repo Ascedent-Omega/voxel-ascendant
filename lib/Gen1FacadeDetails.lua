@@ -46,6 +46,21 @@ function D.add(a,b,g,C,doors,w,d,front,theme,tx,ty,house,museum)
    end
    runs=nextRuns
   end end
+  -- Rear window panes have their own opaque frame. Horizontal timber
+  -- relief must leave the whole opening clear, including its rear plane.
+  if side=='north'and y>=12 and y<25 then
+   for x=8,w-15,20 do if not doorNear('north',x+5,8)then
+    local nextRuns={}
+    for _,run in ipairs(runs)do
+     if x+10<=run[1]or x>=run[2]then nextRuns[#nextRuns+1]=run
+     else
+      if run[1]<x then nextRuns[#nextRuns+1]={run[1],x}end
+      if run[2]>x+10 then nextRuns[#nextRuns+1]={x+10,run[2]}end
+     end
+    end
+    runs=nextRuns
+   end end
+  end
   for _,run in ipairs(runs)do
    if side=='north'then b(run[1],y,1,run[2]-run[1],1,2,dark)
    else b(side=='west' and 1 or w-3,y,run[1],2,1,run[2]-run[1],dark)end

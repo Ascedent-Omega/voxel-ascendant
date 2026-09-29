@@ -79,6 +79,10 @@ local BattleCam = {}
 -- Named for the LENS, because that is what an author is choosing between
 -- when they look at a shot and decide it wants more room in it.
 BattleCam.RIGS = {
+  disk_court = {
+    side=128, back=0, height=80,
+    lookX=0, lookY=8, frameH=72,
+  },
   -- A diagonal seat along a narrow indoor aisle keeps all four actors in
   -- frame without the extreme lens of a camera directly against the graves.
   court_aisle = {
@@ -272,8 +276,8 @@ BattleCam.pitch = 0
 BattleCam.pitchGoal = 0
 BattleCam.zoom = 1
 BattleCam.zoomGoal = 1
--- Terrarium keeps its authored seat and owns only a separate optical lens.
--- MAP/DISCS distance preferences must neither move it nor overwrite gestures.
+-- Terrarium and DISCS share optical zoom stops and their saved lens.
+-- MAP distance preferences must neither move it nor overwrite gestures.
 BattleCam.terrariumZoom = 1
 BattleCam.terrariumZoomGoal = 1
 local terrariumProfile = V.require("TerrariumZoomProfile").new(
@@ -456,7 +460,7 @@ end
 -- The distance actually used to compose this frame. ARENA starts from its 3X
 -- master but keeps the live lens after direct input.
 function BattleCam.presentationDistance(arena)
-  if arena and arena.terarrium then
+  if arena and (arena.terarrium or arena.diskCourt) then
     return BattleCam.still and 1 or BattleCam.terrariumZoom
   end
   if authoredArena(arena) then return BattleCam.zoom end
@@ -706,8 +710,13 @@ function BattleCam.angularCamera(arena)
   local elevation=math.atan2(y,flat)+(BattleCam.pitch-seat.pitch)*BattleCam.PITCH_RANGE
   elevation=math.max(math.rad(5),math.min(math.rad(85),elevation))
   local reach=radius*math.cos(elevation)
+  -- End-on courts use more vertical screen space. Translate the optical rig
+  -- down smoothly to keep the foreground trainer above the command dock;
+  -- preserve bearing, elevation, lens, disk size and every actor position.
+  if arena.diskCourt then focus[2]=focus[2]-16*math.abs(math.sin(yaw)) end
   return {eye={focus[1]+rx/flat*reach,focus[2]+radius*math.sin(elevation),focus[3]+rz/flat*reach},
-    focus=focus,fov=source.fov,curve=0}
+    focus=focus,fov=2*math.atan(math.tan(source.fov*.5)
+      *BattleCam.presentationDistance(arena)/(seat.zoom or 1)),curve=0}
 end
 
 -- Both axes go through here, so the "nothing while a BACK row holds the
@@ -728,7 +737,8 @@ local function setAxis(key, goal)
         and rawequal(lastScreenSafe.battle,activeBattle)
         and not BattleCam.manualAngularSeat then
       BattleCam.manualAngularSeat={arena=activeArena,battle=activeBattle,
-        camera=lastScreenSafe.camera,orbit=BattleCam.orbit,pitch=BattleCam.pitch}
+        camera=lastScreenSafe.camera,orbit=BattleCam.orbit,pitch=BattleCam.pitch,
+        zoom=BattleCam.presentationDistance(activeArena)}
     end
     if not pendingManualRollback then
       pendingManualRollback = {
@@ -739,8 +749,8 @@ local function setAxis(key, goal)
       }
     end
     BattleCam[key] = nextValue
-    BattleCam.directorManualUntil = BattleCam.directorClock
-                                    + BattleCam.DIRECTOR_MANUAL_HOLD
+    BattleCam.directorManualUntil = (activeArena and activeArena.map and not activeArena.discs) and math.huge
+      or BattleCam.directorClock + BattleCam.DIRECTOR_MANUAL_HOLD
   end
   return changed
 end
@@ -794,7 +804,7 @@ end
 -- The zoom, in notches (positive pulls OUT, like every other zoom here).
 function BattleCam.stepZoom(notches, arena)
   if not BattleCam.steerable or not notches or notches == 0 then return false end
-  if arena and arena.terarrium then
+  if arena and (arena.terarrium or arena.diskCourt) then
     if BattleCam.still then return false end
     local was = BattleCam.terrariumZoomGoal
     BattleCam.terrariumZoomGoal = math.max(BattleCam.ZOOM_MIN,
@@ -840,8 +850,8 @@ function BattleCam.stepZoom(notches, arena)
     end
     BattleCam.manualAngularSeat = nil
     BattleCam.zoomGoal = nextValue
-    BattleCam.directorManualUntil = BattleCam.directorClock
-                                    + BattleCam.DIRECTOR_MANUAL_HOLD
+    BattleCam.directorManualUntil = (activeArena and activeArena.map and not activeArena.discs) and math.huge
+      or BattleCam.directorClock + BattleCam.DIRECTOR_MANUAL_HOLD
   end
   return changed
 end
@@ -923,6 +933,9 @@ end
 -- the ground it shows -- which is why BattleScene asks this rather than
 -- multiplying for itself.
 function BattleCam.frameH(arena)
+  if arena and arena.diskCourt then
+    return BattleCam.rigFor(arena).frameH * BattleCam.presentationDistance(arena)
+  end
   if arena and arena.terarrium then
     return 204 * BattleCam.presentationDistance(arena)
   end
@@ -1733,6 +1746,23 @@ local function guardRenderedCamera(arena, groundY, camera, pitch, canonical)
     BattleCam.screenSafetyFallbackUsed = false
     return nil, nil
   end
+  if arena.diskCourt then
+    -- Terrarium-style optical zoom is deliberate, including close-up cropping.
+    -- Validate resources/ownership every frame, but never auto-widen the lens,
+    -- relocate HP cards or cancel a requested turn to repair composition.
+    local safe, reason = screenSafeCamera(activeBattle, arena, groundY,
+      camera, {phase="rendered-fixed-court", actual=true})
+    if safe == true or safe == false and compositionLimit(reason) then
+      lastScreenSafe = {arena=arena,battle=activeBattle,
+        camera=copyCamera(camera),pitch=pitch}
+      pendingManualRollback = nil
+      BattleCam.screenSafetyOK = safe == true
+      BattleCam.screenSafetyReason = safe and "fixed-court" or "composition-limited:"..reason
+      BattleCam.screenSafetyFallbackUsed = false
+      return camera, pitch
+    end
+    -- Pending or malformed resources still use the ordinary bounded gate.
+  end
   local context = {
     phase="rendered-final", shot=BattleCam.directorShot,
     subject=BattleCam.directorSubject, actual=true,
@@ -2529,8 +2559,8 @@ function BattleCam.update(dt, arena, battle, groundY)
              or activeArena and activeArena.stadiumDirector)
   if not rawequal(activeArena, arena) or not rawequal(activeBattle, battle) then
     if not rawequal(activeBattle, battle)
-        or not (activeArena and activeArena.terarrium) then
-      local saved = arena and arena.terarrium
+        or not (activeArena and (activeArena.terarrium or activeArena.diskCourt)) then
+      local saved = arena and (arena.terarrium or arena.diskCourt)
         and terrariumProfile.load(battle and battle.game) or terrariumProfile.value
       BattleCam.terrariumZoom, BattleCam.terrariumZoomGoal = saved, saved
     end
@@ -2886,6 +2916,7 @@ function BattleCam.rig(arena, groundY, canonical)
   local angular = not canonical and playerSteer and BattleCam.angularCamera(arena)
   if angular then eye,focus=angular.eye,angular.focus end
 
+
   -- Last line of defence for physical MAP travel. The visibility solver above
   -- chooses readable destinations; this guard additionally checks every small
   -- travelled segment between rendered frames. If a facade, wall or tree body
@@ -2978,6 +3009,32 @@ function BattleCam.fitPortrait(cam, pitch, pw, ph, arena)
      or not (tonumber(pw) and tonumber(ph))
      or pw <= 0 or ph <= 0 or pw >= ph or authoredArena(arena) then
     return cam, pitch, 0
+  end
+
+  if arena and arena.diskCourt then
+    -- One aspect-ratio framing adjustment, independent of actors and phase.
+    -- Preserve Terrarium's zoom ratios and leave room above the command dock.
+    local result={}
+    for k,v in pairs(cam) do result[k]=v end
+    result.eye={unpack(cam.eye)};result.focus={unpack(cam.focus)}
+    local amount=math.max(0,math.min(1,(ph/pw-1)/.42))
+    result.fov=2*math.atan(math.tan(cam.fov*.5)*(1+.4*amount))
+    local x,y,z=cam.eye[1]-cam.focus[1],cam.eye[2]-cam.focus[2],cam.eye[3]-cam.focus[3]
+    local flat=math.sqrt(x*x+z*z);local radius=math.sqrt(flat*flat+y*y)
+    if flat>1e-6 and radius>1e-6 then
+      local angle=math.max(math.atan2(y,flat),math.rad(48)*amount)
+      local reach=radius*math.cos(angle)
+      x,z=x/flat*reach,z/flat*reach;y=radius*math.sin(angle);flat=reach
+      result.eye={cam.focus[1]+x,cam.focus[2]+y,cam.focus[3]+z}
+      pitch=math.atan2(flat,y)
+      local drop=radius*math.tan(result.fov*.5)*.32*amount
+      local up={-x*y/(flat*radius),flat/radius,-z*y/(flat*radius)}
+      for i=1,3 do
+        result.eye[i]=result.eye[i]-up[i]*drop
+        result.focus[i]=result.focus[i]-up[i]*drop
+      end
+    end
+    return result,pitch,0
   end
 
   local eye, focus = cam.eye, cam.focus

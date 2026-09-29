@@ -68,14 +68,15 @@ function C.unpack(raw)
  end
  return out
 end
-function C.faceGeometry(entry,face,radius,crop)
+function C.faceGeometry(entry,face,radius,crop,options)
+ options=options or{};local size=options.size or C.FACE_SIZE;local eyeY=options.eyeY or 40
  local vv={};radius=radius or C.RADIUS
  for _,uv in ipairs({{0,0},{1,0},{1,1},{0,1}})do
-  local u=crop and (crop.x+uv[1]*crop.w)/C.FACE_SIZE or uv[1]
-  local v=crop and (crop.y+uv[2]*crop.h)/C.FACE_SIZE or uv[2]
+  local u=crop and (crop.x+uv[1]*crop.w)/size or uv[1]
+  local v=crop and (crop.y+uv[2]*crop.h)/size or uv[2]
   local a,b=u*2-1,1-v*2
   vv[#vv+1]={entry.w/2+radius*(face.dir[1]+a*face.right[1]+b*face.up[1]),
-   40+radius*(face.dir[2]+a*face.right[2]+b*face.up[2]),
+   eyeY+radius*(face.dir[2]+a*face.right[2]+b*face.up[2]),
    entry.h/2+radius*(face.dir[3]+a*face.right[3]+b*face.up[3]),uv[1],uv[2],1}
  end
  return vv,{1,2,3,1,3,4}
@@ -90,8 +91,14 @@ function C.load(entry,defs,yieldStep)
   if not(alternative and alternative.revision==C.REVISION and C.signature(defs,alternative.maps,game.data.tilesets)==alternative.signature)then C.misses=C.misses+1;return end
   meta=alternative
  end
+ return C.loadMeta(entry,meta,yieldStep)
+end
+-- Shared decoder for rooftop and indoor-window captures. The caller validates
+-- source fingerprints and settings before any textures are allocated.
+function C.loadMeta(entry,meta,yieldStep,options)
+ options=options or{}
  local readOK,raw=pcall(V.mod.read,V.mod,meta.path..'/near.bin');local near=readOK and C.unpack(raw)
- if not near then C.misses=C.misses+1;return end
+ if not near or (options.expectedNear~=nil and #near~=options.expectedNear)then C.misses=C.misses+1;return end
  local newTextures={};local parts={}
  local success,err=pcall(function()
   for _,face in ipairs(C.faces)do for _,layer in ipairs({'land','lights'})do
@@ -108,10 +115,12 @@ function C.load(entry,defs,yieldStep)
      mask:setFilter('nearest','nearest');mask:setWrap('clamp','clamp');newTextures[name..'-materials']=mask
      assert(mask:getWidth()==tex:getWidth() and mask:getHeight()==tex:getHeight(),'rooftop material dimensions')
     end
-    local v,i=C.faceGeometry(entry,face,layer=='lights'and C.RADIUS-.1 or C.RADIUS,meta.files[name])
+    local v,i=C.faceGeometry(entry,face,layer=='lights'and C.RADIUS-.1 or C.RADIUS,meta.files[name],options)
     local mesh=assert(V.require('Voxel3D').newMesh(v,i),'rooftop cache mesh')
-    parts[#parts+1]={mesh=mesh,texture=tex,materialMask=mask,ox=entry.ox or 0,oy=entry.oy or 0,
-     kind='wall',class='rooftop_baked',windowLight=layer=='lights',ownsTexture=true,castsShadow=false}
+    local bounds={math.huge,math.huge,math.huge,-math.huge,-math.huge,-math.huge}
+    for _,point in ipairs(v)do for axis=1,3 do bounds[axis]=math.min(bounds[axis],point[axis]);bounds[axis+3]=math.max(bounds[axis+3],point[axis])end end
+    parts[#parts+1]={mesh=mesh,texture=tex,materialMask=mask,bounds=bounds,ox=entry.ox or 0,oy=entry.oy or 0,
+     kind='wall',class=options.class or 'rooftop_baked',bakedWindow=options.class=='silph_exterior',windowLight=layer=='lights',ownsTexture=true,castsShadow=false}
     if yieldStep then yieldStep()end
    end
   end end

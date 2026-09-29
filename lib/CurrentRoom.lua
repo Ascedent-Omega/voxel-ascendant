@@ -6,7 +6,8 @@ local function key(x,y)return(y+64)*4096+x+64 end
 local dirs={{1,0},{-1,0},{0,1},{0,-1}}
 local cache
 local function wholeFootprint(map,profile)
- return (profile and profile.cutawayPlan) or tostring(map.id):match('^CELADON_MANSION_[123]F$')~=nil
+ return (profile and (profile.nativeRoomPanels or profile.cutawayPlan)) or tostring(map.id):match('^CELADON_MANSION_[123]F$')~=nil
+  or (profile and V.require('SilphWindows').enabled(map))
 end
 function M.release()
  if cache then
@@ -29,17 +30,28 @@ function M.plan(map,S,ox,oy,panels)
  local w,h=map.def.width*4,map.def.height*4
  local H=V.require('HorizonWall')
  local profile=type(H.interiorProfileFor)=='function' and H.interiorProfileFor(map)
- -- Authored dungeon partitions already occlude through depth. A second,
+ -- Authored native room partitions already occlude through depth. A second,
  -- player-centred flood mask invents walls in native passages and clips
  -- real wall faces to black from oblique eye-level cameras. Preserve the
  -- native footprint at every camera level; only orbit cutaway lowers walls.
  if wholeFootprint(map,profile) then
   local visible={}
+  local windows=profile and V.require('SilphWindows').enabled(map)
   for y=0,h-1 do for x=0,w-1 do
    local block=map.def.blocks[math.floor(y/4)*map.def.width+math.floor(x/4)+1]
-   if block~=nil and block~=map.def.borderBlock then visible[key(x,y)]=true end
+   if windows or (block~=nil and block~=map.def.borderBlock)then visible[key(x,y)]=true end
   end end
-  return {w=w,h=h,ox=ox,oy=oy,visible=visible,blocked={},gates={},map=map,distance={}}
+  local north=0
+  if tostring(map.id):match('^SILPH_CO_%d+F$')or tostring(map.id):match('^CELADON_MART_[12345]F$')then
+   for _,warp in ipairs(map.def.warps or{})do
+    local shaft=V.require('Gen1Stairs').perimeterShaft(map,warp)
+    if shaft then
+     north=math.min(north,shaft.back/8)
+     for y=shaft.back/8,-1 do for x=math.floor(shaft.from/8),math.ceil(shaft.upto/8)-1 do visible[key(x,y)]=true end end
+    end
+   end
+  end
+  return {w=w,h=h,maskNorth=north,maskH=h-north,ox=ox,oy=oy,visible=visible,blocked={},gates={},map=map,distance={}}
  end
  local blocked,sections={},{}
  for y=0,h-1 do for x=0,w-1 do
@@ -190,9 +202,12 @@ function M.prepare(state)
  local panels=profile and V.require('Gen1InteriorLayout').panelsFor(map,profile)or nil
  local view=M.plan(map,S,ox,oy,panels);view.S=S;view.cutaway=cutaway;view.complete=complete
  local g=love.graphics
- if view.w>g.getSystemLimits().texturesize or view.h>g.getSystemLimits().texturesize then return nil,'room-mask-too-large' end
- local data=reuse and reuse.data or love.image.newImageData(view.w,view.h)
+ local maskH=view.maskH or view.h
+ if view.w>g.getSystemLimits().texturesize or maskH>g.getSystemLimits().texturesize then return nil,'room-mask-too-large' end
+ if reuse and reuse.data:getHeight()~=maskH then reuse.image:release();reuse.data:release();reuse=nil end
+ local data=reuse and reuse.data or love.image.newImageData(view.w,maskH)
  data:mapPixel(function(x,y)
+  y=y+(view.maskNorth or 0)
   local k=key(x,y);local n=view.visible[k]and 1 or 0
   -- Red stays binary; green stores path distance for smooth battle fog.
   -- Solid corner/hidden neighbours inherit a nearby distance only for
@@ -225,7 +240,7 @@ function M.prepare(state)
  -- They sit slightly on the visible side, so the same visibility mask never
  -- clips them at a cell boundary. Material is borrowed from the room shell.
  for y=0,view.h-1 do for x=0,view.w-1 do
-  if profile and view.visible[key(x,y)]then
+  if profile and not profile.nativeRoomPanels and view.visible[key(x,y)]then
    for _,d in ipairs(dirs)do
     local nx,ny=x+d[1],y+d[2]
     local nk=key(nx,ny)
@@ -257,7 +272,8 @@ end
 function M.texture(view,horizon)
  if not view then return nil end
  for _,rim in ipairs(horizon or{})do
-  if rim.kind=='wall'and rim.texture and rim.class~='room_door'and rim.class~='room_security_door'then return rim.texture end
+  if rim.kind=='wall'and rim.texture and rim.class~='room_door'and rim.class~='room_security_door'
+    and rim.class~='silph_exterior'and rim.class~='silph_frame'and rim.class~='silph_glass'then return rim.texture end
  end
  return nil
 end

@@ -42,6 +42,7 @@ function M.geometry(maps,horizon,emit,yieldStep,worldMaps)
  for _,e in ipairs(maps)do
   local id=e.map.id;local def=e.map.def
   for _,s in ipairs(def and def.generation~=2 and specs[id]or{})do
+   if not(s.kind=='volcano' and V.require('CinnabarVolcano').active())then
    local along=s.along
    local len=(s.edge=='west'or s.edge=='east')and e.h or e.w
    if along<len and horizon.edgeClass(e.map,s.edge,along)=='open_water'then
@@ -97,6 +98,7 @@ function M.geometry(maps,horizon,emit,yieldStep,worldMaps)
     end
    end
    if yieldStep then yieldStep()end
+   end
   end
  end
 end

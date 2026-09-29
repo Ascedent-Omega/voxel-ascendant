@@ -336,6 +336,10 @@ local SHADER = [[
   uniform float ghost;        // 0 = shade normally, 1 = flatten to it
   uniform vec3 dayTint;       // the hour's light on the world; 1,1,1 = noon
   uniform float prismTransmission; // arena stained-glass pass only
+  uniform Image weatherCover;
+  uniform vec2 weatherCoverOrigin;
+  uniform vec2 weatherCoverSize;
+  uniform float weatherCoverOn;
   uniform float weatherGround;// 0 off, 1 wet, 2 snow, 3 heat-dried green tops
   uniform float weatherGrass; // 1 snow / 2 heat, only during grass mesh draws
   uniform float weatherAmount;// 0..1 accumulated coat / draining wetness
@@ -351,6 +355,8 @@ local SHADER = [[
   // actors always receive w=0 and therefore keep their complete geometry.
   uniform vec4 cutaway;
   uniform float actorWaterline;
+  uniform float volcanoMagma;
+  uniform float volcanoTime;
 
   vec4 effect(vec4 color, Image tex, vec2 tc, vec2 sc) {
     if (cutaway.w > 0.5 && dot(vWorld.xz, cutaway.xy) > cutaway.z) discard;
@@ -369,7 +375,17 @@ local SHADER = [[
     // This bit is geometric, not chromatic. Ground, sloped/flat roofs and
     // tree crowns receive weather; vertical house art never can, even when a
     // facade deliberately uses the same brightness as an upper surface.
+    float exposed=1.0;
+    if(weatherCoverOn>.5 && ((weatherGround>.5 && vWeatherTop>.5) || weatherGrass>.5)){
+      vec2 coverUV=(vWorld.xz-weatherCoverOrigin)/weatherCoverSize;
+      if(coverUV.x>=0.0 && coverUV.y>=0.0 && coverUV.x<1.0 && coverUV.y<1.0){
+        vec2 cap=Texel(weatherCover,coverUV).rg;
+        float roof=(floor(cap.r*255.0+.5)*256.0+floor(cap.g*255.0+.5)-32768.0)/16.0;
+        exposed=step(roof-5.0,vWorld.y);
+      }
+    }
     if (weatherGround > 0.5 && vWeatherTop > 0.5) {
+      if(exposed>.5){
       // Broad world-fixed basins, each with its own birth/drain phase. They
       // live on real upward voxel surfaces, so perspective, roofs, occlusion
       // and camera motion all come for free. No screen-space ellipses remain
@@ -384,23 +400,53 @@ local SHADER = [[
                   + sin((vWorld.x + vWorld.z) * 0.031);
       float weatherPatch = smoothstep(0.25, 1.05, basin) * born * drained;
       if (weatherGround < 1.5) {
-        // Wet ground is darker at its rim and carries a moving grey-sky glint
-        // through its centre, which reads much closer to shallow water than a
-        // blue tint. Every pool still returns completely to the source tile.
-        vec3 wet = mix(rgb * 0.48, vec3(0.34, 0.39, 0.40), 0.46);
-        float glint = max(0.0, sin((vWorld.x - vWorld.z) * 0.18
-                                  + weatherTime * 0.72));
-        wet += vec3(0.13, 0.15, 0.15) * glint * weatherPatch;
-        rgb = mix(rgb, wet,
-                  weatherPatch * 0.72 * clamp(weatherAmount, 0.0, 1.0));
+        // Fixed basins on a two-world-pixel grid. Rain fills them; only the
+        // weather owner's accumulated wetness can drain them. No cycling
+        // birth/death, screen masks or smooth oval decals over the voxel art.
+        vec2 wetCell = floor(vWorld.xz / 2.0) * 2.0;
+        float field = sin(wetCell.x * .092 + sin(wetCell.y * .05) * 1.3)
+                    + cos(wetCell.y * .103)
+                    + sin((wetCell.x - wetCell.y) * .041) * .6;
+        float amount = clamp(weatherAmount, 0.0, 1.0);
+        // Authored vegetation absorbs water: dark damp grass, sparse small
+        // pools. Neutral paving retains broader, brighter standing water.
+        float porous = smoothstep(.025,.15,p.g-max(p.r,p.b));
+        float threshold = mix(2.65, 1.15+porous*.82, amount);
+        float pool = smoothstep(threshold, threshold + .14, field);
+        float rim = smoothstep(threshold - .22, threshold, field) - pool;
+        // Quiet three-tone sky sheen, with the original terrain visible below.
+        // This is stylised reflected sky light, not a copied screen reflection.
+        float sky = floor((.5 + .5 * sin(wetCell.x * .047
+                          + sin(wetCell.y * .032) * 2.0)) * 3.0) / 3.0;
+        vec3 reflection = mix(vec3(.36,.43,.48), vec3(.65,.70,.73), sky) * dayTint;
+        vec3 wet = mix(rgb * .70, reflection, .54-porous*.28);
+        rgb *= 1.0-porous*amount*.10;
+        // Sparse stepped octagonal ripples, clipped to each actual pool.
+        vec2 region = floor(vWorld.xz / 24.0);
+        float seedWet = fract(sin(dot(region,vec2(12.9898,78.233))) * 97.31);
+        float phaseWet = fract(weatherTime * .72 + seedWet);
+        vec2 centreWet = (region + vec2(.25 + seedWet*.5,.7-seedWet*.4))*24.0;
+        vec2 deltaWet = abs(wetCell-centreWet);
+        float distWet = max(max(deltaWet.x,deltaWet.y),(deltaWet.x+deltaWet.y)*.70);
+        float ringWet = 1.0-smoothstep(.35,1.1,abs(distWet-phaseWet*9.0));
+        ringWet *= (1.0-phaseWet) * step(.98,amount) * step(.40,seedWet);
+        wet += vec3(.085,.09,.095) * dayTint * ringWet;
+        rgb *= 1.0-rim*.12*amount;
+        rgb = mix(rgb,wet,pool*.78*amount);
       } else if (weatherGround < 2.5) {
         // Snow must read as snow even on a red or blue authored roof. Keep a
         // little world-fixed variation, but guarantee a dense near-white coat
         // on every real upper surface for the whole active snow spell. The
         // source colour returns immediately when the weather state clears.
-        float cover = .78 + smoothstep(-0.55, .75, basin) * .16;
-        rgb = mix(rgb, vec3(.965, .975, .985),
-                  cover * .96 * clamp(weatherAmount, 0.0, 1.0));
+        vec2 snowCell=floor(vWorld.xz/2.0)*2.0;
+        float drift=sin(snowCell.x*.067)+cos(snowCell.y*.083)+sin((snowCell.x+snowCell.y)*.031);
+        float coat=clamp(weatherAmount,0.0,1.0);
+        float cover=smoothstep(mix(2.8,-2.8,coat),mix(3.1,-2.5,coat),drift);
+        cover=max(cover,smoothstep(.12,.65,coat));
+        float tone=floor(clamp(.55+drift*.13,0.0,1.0)*3.0)/3.0;
+        vec3 snowColor=mix(vec3(.69,.77,.85),vec3(.965,.975,.985),tone);
+        rgb = mix(rgb, snowColor * dayTint,
+                  cover * .94 * min(1.0,coat*2.0));
       } else {
         // HEAT dries only authored green texels. The upward-face gate above
         // keeps facades and trunks intact, while a broad slow world pattern
@@ -412,7 +458,8 @@ local SHADER = [[
         rgb = mix(rgb, earth * dayTint, green * dry);
       }
     }
-    if (weatherGrass > 0.5) {
+      }
+    if (weatherGrass > 0.5 && exposed > .5) {
       // Tall-grass blades are camera-facing cards, not upward terrain faces,
       // so they use a separately gated draw state. The texture's alpha was
       // discarded above; only the authored blades become frosted white.
@@ -469,6 +516,13 @@ local SHADER = [[
     // solid silhouette. Last in the chain, so neither the sun nor a voxel
     // seam can mottle it.
     rgb = mix(rgb, ghostColor, ghost);
+    if (volcanoMagma > 0.5) {
+      vec2 flow=vWorld.xz*.12+vec2(-volcanoTime*.32,volcanoTime*.19);
+      float melt=sin(flow.x+sin(flow.y*1.3))*sin(flow.y+sin(flow.x*.7));
+      float seam=smoothstep(-.18,.24,melt);
+      rgb=mix(vec3(.24,.025,.008),vec3(1.0,.23,.012),seam);
+      rgb=mix(rgb,vec3(1.0,.77,.17),smoothstep(.56,.94,melt));
+    }
     if (prismTransmission > 0.0)
       return vec4(mix(vec3(1.0), p.rgb, prismTransmission), 1.0);
     return vec4(rgb, 1.0) * color;
@@ -607,6 +661,8 @@ varying LOVE_HIGHP_OR_MEDIUMP vec3 vWorld;
   uniform float prismTransmission; // arena stained-glass pass only
   uniform vec4 cutaway;
   uniform float actorWaterline;
+  uniform float volcanoMagma;
+  uniform float volcanoTime;
 
   uniform Image glassMask;
   uniform vec2 glassSize;
@@ -631,6 +687,13 @@ varying LOVE_HIGHP_OR_MEDIUMP vec3 vWorld;
       rgb = mix(pane, lamp, glassNight * glass);
     }
     rgb = mix(rgb, ghostColor, ghost);
+    if (volcanoMagma > 0.5) {
+      vec2 flow=vWorld.xz*.12+vec2(-volcanoTime*.32,volcanoTime*.19);
+      float melt=sin(flow.x+sin(flow.y*1.3))*sin(flow.y+sin(flow.x*.7));
+      float seam=smoothstep(-.18,.24,melt);
+      rgb=mix(vec3(.24,.025,.008),vec3(1.0,.23,.012),seam);
+      rgb=mix(rgb,vec3(1.0,.77,.17),smoothstep(.56,.94,melt));
+    }
     if (prismTransmission > 0.0)
       return vec4(mix(vec3(1.0), p.rgb, prismTransmission), 1.0);
     return vec4(rgb, 1.0) * color;
@@ -820,8 +883,10 @@ end
 
 -- Every GPU object one slot owns. The mirror is the copy of the frame the
 -- water pass reads (see beginWater); it is only ever made if something asks
--- for one, so a session that never sees a lake never pays for it.
+-- for one. Nearby water prepares its reflection target under the initial
+-- loading cover even when the first camera faces away from the lake.
 local function releaseSlot(slotHeld)
+  V.require("WaterReflection").release(slotHeld)
   for _, key in ipairs({ "canvas", "depth", "depthBuffer", "mirror" }) do
     local obj = slotHeld[key]
     if obj and obj.release then pcall(obj.release, obj) end
@@ -856,6 +921,18 @@ local INTERIOR_FLOOR_GLSL = V.require('Gen1OutdoorScenery').waterGLSL .. [[
     vec2 pos=world.xz;
     float family = floor(-material - 128.0 + 0.5);
     if (family == 46.0) return outdoorWater(pos,0.0);
+    if (family == 54.0) {
+      // Muted Tower slate: broad worn courses, no palette-cycling checker.
+      // Gentle joints remain readable on a phone without subpixel grain.
+      vec2 size=vec2(24.0,16.0);
+      float row=floor(pos.y/size.y);
+      vec2 cell=vec2(pos.x+mod(row,2.0)*12.0,pos.y);
+      vec2 phase=mod(cell,size);
+      float joint=1.0-smoothstep(.15,.7,min(min(phase.x,size.x-phase.x),min(phase.y,size.y-phase.y)));
+      float wear=sin(pos.x*.065+sin(pos.y*.053))*.013;
+      float block=mod(floor(cell.x/24.0)+row*3.0,5.0)*.005;
+      return vec4((vec3(.48,.48,.51)+wear+block)*(1.0-joint*.16),1.0);
+    }
 #ifdef VASC_MOBILE_FLOOR
     // Phone-size pixels cannot resolve half-world-pixel random grains.
     // Use continuous broad variation for the two reported outdoor floors;
@@ -903,6 +980,21 @@ local INTERIOR_FLOOR_GLSL = V.require('Gen1OutdoorScenery').waterGLSL .. [[
       vec3 rock=family==52.0 ? vec3(.24,.36,.39) : vec3(.40,.52,.58);
       vec3 mineral=family==52.0 ? vec3(.40,.54,.55) : vec3(.65,.78,.80);
       return vec4(mix(rock,mineral,vein*.48)+(n-.5)*.07,1.0);
+    }
+    if (family == 55.0) {
+      // Cinnabar's volcanic soil: broad wind-blown ash deposits, warmer
+      // mineral sand and fine clinker. Continuous world-space detail avoids
+      // checkerboard patches or repainting native water/entrance tiles.
+      vec2 p=floor(pos*2.0);
+      float grain=fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);
+      float drift=sin(pos.x*.029+sin(pos.y*.022)*1.8)
+                 +sin(pos.y*.041+pos.x*.013)*.55;
+      float sand=smoothstep(-.45,1.25,drift);
+      vec3 soil=mix(vec3(.30,.295,.28),vec3(.51,.455,.355),sand*.72);
+      float ripple=sin(pos.y*.27+sin(pos.x*.045)*2.2)*.012;
+      soil+=ripple+(grain-.5)*.072;
+      soil=mix(soil,vec3(.13,.14,.145),step(.965,grain)*.4);
+      return vec4(soil,1.0);
     }
     if (family == 49.0) {
       // Fine charcoal ash and broken basalt grains, continuous across cells.
@@ -1110,14 +1202,14 @@ local function shaderSource(variant, grid, lighting)
     return V.require('Gen1CaveWalls').GLSL
   end,1)
   source=source:gsub("#ifdef PIXEL",function()
-    return "#ifdef PIXEL\nuniform highp vec3 eye;\nuniform Image roomMask;\nuniform vec3 roomMaskSize;\n".."#ifdef GL_ES\nprecision highp float;\n#endif\n"..INTERIOR_FLOOR_GLSL..CaveSurfaces.GLSL..TowerAtmosphere.GLSL..V.require("CaveBattleMist").GLSL.."\n#ifdef GL_ES\nprecision mediump float;\n#endif\n"
+    return "#ifdef PIXEL\nuniform highp vec3 eye;\nuniform Image roomMask;\nuniform vec3 roomMaskSize;\nuniform vec2 roomMaskOrigin;\n".."#ifdef GL_ES\nprecision highp float;\n#endif\n"..V.require("SilphWindowVisibility").GLSL..INTERIOR_FLOOR_GLSL..CaveSurfaces.GLSL..TowerAtmosphere.GLSL..V.require("CaveBattleMist").GLSL.."\n#ifdef GL_ES\nprecision mediump float;\n#endif\n"
   end,1)
   source=source:gsub("vec4 p = Texel%(tex, tc%);",
-    "if(roomMaskSize.z>0.5){vec2 ru=vWorld.xz/roomMaskSize.xy;bool outsideRoomMap=ru.x<0.0||ru.y<0.0||ru.x>=1.0||ru.y>=1.0;if(outsideRoomMap){if(roomMaskSize.z<1.5)discard;}else if(Texel(roomMask,(floor(vWorld.xz/8.0)+vec2(0.5))/(roomMaskSize.xy/8.0)).r<0.5)discard;}\n    vec4 p = Texel(tex, tc);\n    if (tc.x < -200.5) p = caveSurface(tc.x, vWorld); else if (tc.x < -128.5) p = interiorFloor(tc.x, vWorld);")
-  source=source:gsub("#ifdef PIXEL", "#ifdef PIXEL\nuniform Image rooftopMaterialMask;\nuniform float rooftopMaterials;\nuniform vec3 seasonWeights;\nuniform float seasonalFoliage;",1)
+    "if(silphWindow.x>0.0 && !silphThroughWindow(vWorld))discard;\n    if(roomMaskSize.z>0.5){vec2 roomLocal=vWorld.xz-roomMaskOrigin;vec2 ru=roomLocal/roomMaskSize.xy;bool outsideRoomMap=ru.x<0.0||ru.y<0.0||ru.x>=1.0||ru.y>=1.0;if(outsideRoomMap){if(roomMaskSize.z<1.5)discard;}else if(Texel(roomMask,(floor(roomLocal/8.0)+vec2(0.5))/(roomMaskSize.xy/8.0)).r<0.5)discard;}\n    vec4 p = Texel(tex, tc);\n    if (tc.x < -200.5) p = caveSurface(tc.x, vWorld); else if (tc.x < -128.5) p = interiorFloor(tc.x, vWorld);")
+  source=source:gsub("#ifdef PIXEL", "#ifdef PIXEL\nuniform float rooftopMaterials;\nuniform vec3 seasonWeights;\nuniform float seasonalFoliage;",1)
   source=source:gsub("vec3 rgb = p.rgb", [[
     vec2 roofMaterial=vec2(0.0);
-    if(rooftopMaterials>.5) roofMaterial=Texel(rooftopMaterialMask,tc).rg;
+    if(rooftopMaterials>.5) roofMaterial=Texel(glassMask,tc).rg;
     if (seasonalFoliage > .5 || roofMaterial.g > .5) {
       float green=smoothstep(.01,.10,p.g-max(p.r,p.b));
       float brightness=max(p.r,max(p.g,p.b));
@@ -1137,7 +1229,7 @@ local function shaderSource(variant, grid, lighting)
     vec3 rgb = p.rgb]],1)
   source=source:gsub("weatherGround > 0.5 && vWeatherTop > 0.5", "weatherGround > 0.5 && (vWeatherTop > 0.5 || roofMaterial.r > .5)")
   source=source:gsub("Texel%(glassMask, tc%).a %* glassOn",
-    "Texel(glassMask, tc).a * glassOn * step(-128.5, tc.x)")
+    "Texel(glassMask, tc).a * glassOn * step(-128.5, tc.x) * (1.0-step(.5,rooftopMaterials))")
   source=source:gsub("rgb = mix%(rgb, ghostColor, ghost%);",
     "rgb = caveBattleFade(towerMist(rgb, vWorld), vWorld);\n    rgb = mix(rgb, ghostColor, ghost);")
   local localLights = V.require("LocalLights")
@@ -1161,7 +1253,7 @@ local function shaderSource(variant, grid, lighting)
     localNormal*=dot(localNormal,eye-vWorld)<0.0 ? -1.0 : 1.0;]]
     source=source:gsub("vec3 rgb = p.rgb %* vShade", normal..[[
     vec3 rgb = p.rgb * localSurfaceShade(vShade,localActorOn>.5 ? vec3(0,1,0) : localNormal,vWorld)]],1)
-    source=source:gsub("rgb = caveBattleFade", "rgb += p.rgb * (localActorOn>.5 ? localActorIrradiance(vWorld,localNormal) : localIrradiance(vWorld,localNormal));\n    rgb = caveBattleFade",1)
+    source=source:gsub("rgb = caveBattleFade", "rgb += p.rgb * localCombinedIrradiance(vWorld,localNormal,localActorOn);\n    rgb = caveBattleFade",1)
   end
   -- GLES links shared uniforms across stages; LOVE uses different default
   -- float precision in vertex and fragment shaders. Specify the same one.
@@ -1172,8 +1264,15 @@ local function shaderSource(variant, grid, lighting)
   if variant:find("mobile",1,true) then
     source = "#define VASC_MOBILE_FLOOR 1\n" .. source
   end
+  source=V.require("ScenerySnow").inject(source)
   if grid then source = "#define VOXEL_GRID 1\n" .. source end
   return source
+end
+
+function Voxel3D.weatherFoliageSnow(amount)
+  if not (active and activeShader) then return false end
+  amount=tonumber(amount)or 0;if amount~=amount then amount=0 end
+  return pcall(activeShader.send,activeShader,"scenerySnow",math.max(0,math.min(1,amount)))
 end
 
 local function warnShader(message)
@@ -1694,7 +1793,7 @@ function Voxel3D.viewProjection(cx, cy, vw, vh)
     -- radians per canvas pixel is exactly this over the frame height
     Voxel3D.fovY = cam.fov
     local proj = Mat4.perspective(cam.fov, vw / vh,
-                                  math.max(1, dist * 0.05), dist * 4 + 4096)
+                                  math.max(1, dist * 0.05), dist * 4 + 6144)
     -- the same clip-space Y flip the orbit needs, for the same reason: we
     -- bypass LOVE's transform_projection and canvas coordinates run Y down
     proj = Mat4.mul(Mat4.scale(1, -1, 1), proj)
@@ -1740,7 +1839,7 @@ function Voxel3D.viewProjection(cx, cy, vw, vh)
   Voxel3D.atmosphereRayLive = cameraRay(eye, focus, up, fov, vw / vh)
 
   local proj = Mat4.perspective(fov, vw / vh,
-                                math.max(1, dist * 0.05), dist * 4 + 4096)
+                                math.max(1, dist * 0.05), dist * 4 + 6144)
   -- Flip clip-space Y. Mat4.perspective emits textbook GL clip space with
   -- +Y up, but we bypass LOVE's own transform_projection, and LOVE's canvas
   -- coordinates run Y DOWN -- so without this the entire scene composites
@@ -1910,6 +2009,7 @@ end
 local discMesh = nil
 
 local function drawWorldDisc(w, h)
+  if Sky.bodyObscured() then return end
   local b = DayNight.body()
   if not (b and b.dy and b.dy > 0.005) then return end
   -- A direction outside the camera fan must not contribute one enormous
@@ -2087,8 +2187,7 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
   local skyRay = Voxel3D.skyRayLive
   local atmosphereRay = Voxel3D.atmosphereRayLive or skyRay
   local skyWeather = skyContext and skyContext.weather or nil
-  local bodyObscured = skyWeather == "storm" or skyWeather == "fog"
-                       or skyWeather == "rain" or skyWeather == "snow"
+  local bodyObscured = Sky.bodyObscured(skyWeather)
   local hy = Voxel3D.horizonY(h)
   -- where the sky's bottom edge lands, which is what the reflection
   -- reads its bands against (see Water). nil when nothing painted bands.
@@ -2114,7 +2213,7 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
     CanvasPresentation.begin2D(love.graphics, h)
     if skyRay and sky.bands then
       Sky.paint(w, h, sky, nil, Voxel3D.cell,
-                bodyObscured and nil or Voxel3D.skyBody(w, h),
+                not bodyObscured and Voxel3D.skyBody(w, h) or nil,
                 nil, nil, skyRay, {
                   ray = atmosphereRay,
                   weather = skyContext and skyContext.weather or nil,
@@ -2142,6 +2241,13 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
     end
   else
     love.graphics.clear(0, 0, 0, 0, true, true)
+  end
+  if skyContext and skyContext.silphCutaway then
+    local room=skyContext.silphCutaway
+    love.graphics.push("all")
+    CanvasPresentation.begin2D(love.graphics,h)
+    V.require('SilphCutawayBackground').paint(love.graphics,w,h,room.map,room.height,Voxel3D.eye,Voxel3D.vp)
+    love.graphics.pop()
   end
   love.graphics.setDepthMode("lequal", true)
   -- models mirror on X for right-facing and alternate walk steps, which
@@ -2194,6 +2300,7 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
   pcall(sh.send, sh, "caveBattleMist", skyContext and skyContext.caveBattleMist or {0,0,0,0})
   if MOBILE_RUNTIME then
     pcall(sh.send, sh, "ghost", 0)
+    pcall(sh.send, sh, "volcanoMagma", 0)
     pcall(sh.send, sh, "ghostColor", Voxel3D.GHOST_COLOR)
     pcall(sh.send, sh, "dayTint", Voxel3D.tint or { 1, 1, 1 })
   end
@@ -2247,6 +2354,7 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
   -- a driver hiccup between beginGhost and endGhost -- would otherwise
   -- start out flattening everything it drew.
   pcall(sh.send, sh, "ghost", 0)
+    pcall(sh.send, sh, "volcanoMagma", 0)
   pcall(sh.send, sh, "ghostColor", Voxel3D.GHOST_COLOR)
   -- the hour's light, as the caller last set it (see Voxel3D.tint)
   pcall(sh.send, sh, "dayTint", Voxel3D.tint or { 1, 1, 1 })
@@ -2258,11 +2366,13 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
                         or 0
   Voxel3D.weatherAmount = math.max(0, math.min(1,
     tonumber(skyContext and skyContext.groundAmount) or 1))
+  pcall(sh.send, sh, "scenerySnow", 0)
   pcall(sh.send, sh, "weatherGround", 0)
   pcall(sh.send, sh, "weatherGrass", 0)
   pcall(sh.send, sh, "weatherAmount", Voxel3D.weatherAmount)
   pcall(sh.send, sh, "weatherTime", Sky.clock or 0)
   end -- desktop-only sun/weather uniform batch
+  pcall(sh.send, sh, "scenerySnow", 0)
   -- the window glass: the tileset's mask (or the blank -- the sampler is
   -- declared either way, and unbound is a driver-dependent crash), how lit
   -- the panes are, and the movement-fed glint as the caller last set it
@@ -2287,22 +2397,26 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
     pcall(sh.send,sh,"caveSurfaceSize",{cw,ch})
   end
   local roomBlank=GlassMask.blank()
-  pcall(sh.send,sh,"rooftopMaterialMask",roomBlank)
   local towerLight=skyContext and skyContext.towerLight
   if roomBlank then pcall(sh.send,sh,'towerLight',towerLight and towerLight.texture or roomBlank)end
   pcall(sh.send,sh,'towerLightSize',towerLight and towerLight.size or {0,0})
   if roomBlank then pcall(sh.send,sh,'roomMask',roomBlank)end
   pcall(sh.send,sh,'roomMaskSize',{1,1,0})
+  pcall(sh.send,sh,'roomMaskOrigin',{0,0})
   -- No cut unless VoxelScene explicitly opens a FULL indoor shell below.
   pcall(sh.send, sh, "cutaway", { 0, 0, 0, 0 })
   pcall(sh.send, sh, "caveWallsTall", 0)
   Voxel3D.actorWaterline = nil
   pcall(sh.send, sh, "actorWaterline", -30000)
+  pcall(sh.send, sh, "silphWindow", {0,0,0,0})
+  pcall(sh.send, sh, "silphRearOnly", 0)
+  pcall(sh.send, sh, "houseWindow", {0,0})
+  pcall(sh.send, sh, "houseWindowMask", GlassMask.blank())
   -- the curved world bends about the camera's focus, so the horizon keeps
   -- a fixed distance ahead of the player rather than sitting on the map.
   -- A placed camera may decline it outright (Voxel3D.camera.curve = 0).
   local placed = Voxel3D.camera
-  Voxel3D.curveK = (placed and placed.curve) or WorldCurve.k(vh)
+  Voxel3D.curveK = skyContext and skyContext.flatInterior and 0 or ((placed and placed.curve) or WorldCurve.k(vh))
   Voxel3D.curveX, Voxel3D.curveZ = cx, cy
   pcall(sh.send, sh, "curve", { cx, cy, Voxel3D.curveK })
   -- clip w at the focus point, the reference depth project() reports scale
@@ -2581,6 +2695,12 @@ end
 -- `amount` is how far toward that colour, 0..1; omitted is all the way.
 -- Anything short of 1 leaves the sprite's own shading showing through, which
 -- is the difference between a hit flash and a white cut-out.
+function Voxel3D.magma(on)
+  if not(active and activeShader)then return end
+  activeShader:send('volcanoMagma',on and 1 or 0)
+  if on then activeShader:send('volcanoTime',love.timer.getTime()%3600)end
+end
+
 function Voxel3D.flatten(color, amount)
   if not (active and activeShader) then return end
   local sh = activeShader
@@ -2589,6 +2709,7 @@ function Voxel3D.flatten(color, amount)
     pcall(sh.send, sh, "ghost", math.max(0, math.min(1, amount or 1)))
   else
     pcall(sh.send, sh, "ghost", 0)
+    pcall(sh.send, sh, "volcanoMagma", 0)
   end
 end
 
@@ -2630,8 +2751,17 @@ end
 -- did.
 --
 -- MUST be paired with endWater, which puts the frame back together.
+function Voxel3D.prepareWater()
+  if active and held and held.depth and not MOBILE_RUNTIME then
+    return V.require("WaterReflection").prepare(held)
+  end
+end
+
 function Voxel3D.beginWater(paint)
   if not (active and canvas and held and held.depth) then return nil end
+  local reflection,sceneDepth=V.require("WaterReflection").draw(held,paint,activeShader)
+  if reflection then return reflection,sceneDepth end
+  -- Optional target/program failure keeps the original full-size path.
   if not held.mirror then
     -- The reflection copy is attached to the readable scene depth target, so
     -- it must use the same one-texel-per-pixel DPI rule as that whole family.
@@ -2905,11 +3035,16 @@ function Voxel3D.towerBackdrop(on)
  if activeShader then pcall(activeShader.send,activeShader,"towerBackdrop",on and 1 or 0)end
 end
 
+function Voxel3D.drawTint(tint)
+ if activeShader then activeShader:send('dayTint',tint or Voxel3D.tint or {1,1,1})end
+end
+
 function Voxel3D.roomVisibility(view, enclosure)
  if not activeShader then return end
  if view and view.image then
   activeShader:send('roomMask',view.image)
-  activeShader:send('roomMaskSize',{view.w*8,view.h*8,enclosure and 2 or 1})
+  activeShader:send('roomMaskOrigin',{0,(view.maskNorth or 0)*8})
+  activeShader:send('roomMaskSize',{view.w*8,(view.maskH or view.h)*8,enclosure and 2 or 1})
  else activeShader:send('roomMaskSize',{1,1,0})end
 end
 
@@ -2928,12 +3063,31 @@ function Voxel3D.actorLighting(on)
   end
 end
 
+function Voxel3D.silphWindow(map,H)
+  if activeShader then
+    local house=map and V.require('HouseWindows').describe(map)
+    local north=0
+    if house then for _,p in ipairs(house.panes)do if p.edge=='north'then north=p.at;break end end end
+    local b=map and V.require('Gen1RoomBounds').forMap(map)
+    pcall(activeShader.send,activeShader,'silphBounds',b and {b.west,house and north or b.north,b.east,b.south}or {0,0,0,0})
+    pcall(activeShader.send,activeShader,'houseWindow',{map and 1 or 0,north})
+    if map then activeShader:send('houseWindowMask',house and V.require('HouseWindows').mask(map)or V.require('SilphWindows').mask(map,H))end
+    local value=map and {map.def.width*32,map.def.height*32,house and 12 or 10,house and H-10 or H-5}or {0,0,0,0}
+    pcall(activeShader.send,activeShader,"silphWindow",value)
+    pcall(activeShader.send,activeShader,"silphRearOnly",0)
+  end
+end
+
 function Voxel3D.draw(mesh, texture, model, pull, sunModel)
   if not (active and mesh) then return end
   -- the variant beginScene actually bound, not whichever one is default:
   -- sending a uniform to the other shader would go nowhere
   local sh = activeShader
   if not sh then return end
+  if Voxel3D.silphTeleport then
+    local fx = Voxel3D.silphTeleport
+    mesh = V.require('SilphTeleport').present(fx, mesh, texture, model, sunModel) or mesh
+  end
   local function performDraw()
     -- LOVE defaults matrix uniforms to column-major; Mat4 is row-major
     pcall(sh.send, sh, "model", "row", model or IDENTITY)
@@ -2999,15 +3153,19 @@ end
 function Voxel3D.weatherGround(on)
   if MOBILE_RUNTIME then return false end
   if not (active and activeShader) then return false end
+  V.require("WeatherCover").bind(activeShader)
   local amount = on and (Voxel3D.weatherKind or 0) or 0
   local ok = pcall(activeShader.send, activeShader, "weatherGround", amount)
   return ok and amount > 0
 end
 
--- Only pre-baked rooftop voxel surfaces carry this semantic mask.
+-- Baked rooftop meshes use their own atlas, never the native glass atlas.
+-- Reuse that sampler during this draw and restore it afterwards: adding a
+-- seventeenth texture here otherwise disables dynamic lighting on 16-slot GPUs.
+-- rooftopMaterials also gates glass in the shader, regardless of caller state.
 function Voxel3D.rooftopMaterials(mask)
   if not (active and activeShader) then return false end
-  local ok=pcall(activeShader.send,activeShader,"rooftopMaterialMask",mask or GlassMask.blank())
+  local ok=pcall(activeShader.send,activeShader,"glassMask",mask or Voxel3D.glassMask or GlassMask.blank())
   pcall(activeShader.send,activeShader,"rooftopMaterials",mask and ok and 1 or 0)
   return ok
 end
@@ -3177,6 +3335,7 @@ function Voxel3D.invalidate()
   Sky.invalidate()
   -- and so does the water, for the same reason
   V.require("Water").invalidate()
+  V.require("WaterReflection").invalidate()
   -- and the glass masks are textures of this context too
   GlassMask.invalidate()
 end

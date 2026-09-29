@@ -612,7 +612,7 @@ function FirstPerson.frame(me, cx, cy, vw, vh)
   local head
   if me then
     head = { me.px + 8,
-             (me.gh or 0) + (me.lift or 0) + FirstPerson.EYE_HEIGHT,
+             (me.gh or 0) + (me.lift or 0) + FirstPerson.EYE_HEIGHT + V.require('WorldSeats').cameraOffset(),
              me.py + 8 }
     lastEye = head
   else

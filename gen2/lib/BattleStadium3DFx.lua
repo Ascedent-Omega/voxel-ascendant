@@ -11,6 +11,7 @@
 -- No Pokemon Stadium effect assets are included or extracted here. The shapes
 -- are original procedural stand-ins built from LÖVE canvases.
 local V = ...
+local Style = V.require("Gen2AnimationStyle")
 local M = {}
 
 local PI, TAU = math.pi, math.pi * 2
@@ -1553,7 +1554,7 @@ function M.install()
     local innerAnimForMove = GoldBattleState.animForMove
     GoldBattleState.animForMove = function(self, moveId, side, ...)
       local started = innerAnimForMove(self, moveId, side, ...)
-      if moveId ~= nil and (side == "player" or side == "enemy") then
+      if not Style.original(self) and moveId ~= nil and (side == "player" or side == "enemy") then
         goldToken = goldToken + 1
         self._stadium3DFxMove = moveId
         self._stadium3DFxSide = side
@@ -1583,7 +1584,7 @@ function M.install()
         and self._stadium3DFxReadyToken == token
         and (tonumber(self._stadium3DFxReadyFrames) or 0) >= 2
       local view = self and self.animView
-      if owns and view and type(view.drawObjects) == "function" then
+      if not Style.original(self) and owns and view and type(view.drawObjects) == "function" then
         local priorRaw = rawget(view, "drawObjects")
         view.drawObjects = function() end
         local out = { pcall(innerDrawSceneBody, self, ...) }

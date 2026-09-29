@@ -84,6 +84,7 @@ local function resetMobileGate(gate, map, now)
   gate.probes = 0
   gate.released = false
   gate.marked = false
+  gate.progress = nil
 end
 
 local function mapLabel(map)
@@ -96,7 +97,7 @@ local function mapLabel(map)
   return tostring(map)
 end
 
-local function markMobileFailOpen(gate, map, elapsed, route, fallbackBy)
+local function markMobileFailOpen(gate, map, elapsed, route, fallbackBy, timeoutSeconds, timeoutFrames)
   if gate.marked then return end
   gate.marked = true
   local caller = "gen1-TransitionReveal." .. tostring(route or "unknown")
@@ -108,8 +109,8 @@ local function markMobileFailOpen(gate, map, elapsed, route, fallbackBy)
     mapId = mapLabel(map),
     elapsedSeconds = elapsed,
     probeCount = gate.probes,
-    timeoutSeconds = MOBILE_TIMEOUT_SECONDS,
-    timeoutFrames = MOBILE_TIMEOUT_FRAMES,
+    timeoutSeconds = timeoutSeconds,
+    timeoutFrames = timeoutFrames,
     fallbackBy = fallbackBy,
     fallback = "native-2d",
   }
@@ -133,7 +134,9 @@ local function markMobileFailOpen(gate, map, elapsed, route, fallbackBy)
   })
 end
 
-local function mobileRevealReady(gate, map, sceneReady, route)
+local function mobileRevealReady(gate, map, sceneReady, route, timeoutSeconds, timeoutFrames, progress)
+  timeoutSeconds=timeoutSeconds or MOBILE_TIMEOUT_SECONDS
+  timeoutFrames=timeoutFrames or MOBILE_TIMEOUT_FRAMES
   gate = gate or directMobileGate
   local now = clockNow()
   if gate.map ~= map then resetMobileGate(gate, map, now) end
@@ -147,6 +150,12 @@ local function mobileRevealReady(gate, map, sceneReady, route)
   end
   if gate.released then return true end
 
+  -- Rooftops may legitimately need longer on a slow phone. Renew their
+  -- watchdog only when the actual construction/presentation receipt advances;
+  -- a stalled builder still fails open, ordinary maps keep the old deadline.
+  if progress~=nil and progress~=gate.progress then
+    gate.progress=progress;gate.startedAt=now;gate.probes=0
+  end
   gate.probes = gate.probes + 1
   if gate.startedAt == nil and now ~= nil then gate.startedAt = now end
 
@@ -159,14 +168,14 @@ local function mobileRevealReady(gate, map, sceneReady, route)
     end
     elapsed = now - gate.startedAt
   end
-  local timedOut = elapsed ~= nil and elapsed >= MOBILE_TIMEOUT_SECONDS
+  local timedOut = elapsed ~= nil and elapsed >= timeoutSeconds
   local frameTimedOut = elapsed == nil
-                        and gate.probes >= MOBILE_TIMEOUT_FRAMES
+                        and gate.probes >= timeoutFrames
   if not timedOut and not frameTimedOut then return false end
 
   gate.released = true
   markMobileFailOpen(gate, map, elapsed, route,
-    timedOut and "timer" or "frame-fallback")
+    timedOut and "timer" or "frame-fallback",timeoutSeconds,timeoutFrames)
   return true
 end
 
@@ -188,8 +197,20 @@ local function readyNow(Pipelines, Game, requireOwner, gate, route)
     local okReady, value = pcall(Scene.readyForReveal, ow)
     if okReady then ready = value == true end
   end
-  if not MOBILE_RUNTIME then return ready end
-  return mobileRevealReady(gate, map, ready, route)
+  local okRegion,regions=pcall(V.require,'RegionPreparation')
+  if okRegion then ready=regions.transitionReady(Game,ready)end
+  if MOBILE_RUNTIME then
+    local seconds,frames,progress
+    if okScene and type(Scene.revealTimeout)=='function'then
+      local ok,a,b,c=pcall(Scene.revealTimeout,ow)
+      if ok then seconds,frames,progress=a,b,c end
+    end
+    ready=mobileRevealReady(gate,map,ready,route,seconds,frames,progress)
+  end
+  -- Notification only: the animation never owns or extends the native wait.
+  local ok,loader=pcall(V.require,'LoadingCompanion')
+  if ok then loader.probe(map,ready,'warp')end
+  return ready
 end
 
 local function supportsEngineHook(Pipelines, Schemas)

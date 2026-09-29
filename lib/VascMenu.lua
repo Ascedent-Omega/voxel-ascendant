@@ -27,11 +27,15 @@ local ROOT_HELP = {
 }
 
 local SETTING_HELP_DE = {
+  bicycleColor="Rahmenfarbe für die Voxel-Fahrräder von Rot, Blau und Grün. Kleidung, Reifen und Lampen bleiben erhalten.",
+  calendarEvents="April: Blumenfest. Juli: Laternenfest. Dezember: Winterfest mit Geschenken und Schneemännern. Alle folgen dem lokalen Datum und bieten eine ganzjährige Vorschau. Halloween läuft jedes Jahr vom 1. bis 31. Oktober: leuchtende Kürbisse, verkleidete NPCs und gelegentliche rote Augen mit Geisterschreien im Pokémon-Turm. Vorschau funktioniert ganzjährig; AUS deaktiviert alles. Schreie beachten die Effektlautstärke.",
+  surfaceFootsteps="Leise Schritte passend zum Untergrund: Holz, Stein, Gras, Schnee und Regen. Beachten die Effektlautstärke. AUS deaktiviert diese zusätzlichen Schritte.",
   liveDisplay="Kleine Live-Anzeige oben rechts in Welt, Kämpfen und Menüs. AUS beendet alle Messungen; die Einzelschalter bleiben gespeichert.",
   liveClock="Lokale Geräteuhrzeit im 24-Stunden-Format. Unabhängig von der Tageszeit im Spiel.",
   liveFps="Tatsächliche Bilder pro Sekunde und mittlere Bildzeit der letzten halben Sekunde. Grün: ab 55 FPS; Gelb: 30 bis 54; Rot: unter 30.",
   liveCpu="CPU-Zeit des Spielprozesses pro Bild, gemittelt über eine halbe Sekunde. Einschließlich Prozess-Threads; keine CPU-Prozentanzeige oder GPU-Wartezeit.",
   liveGpu="Speicher für LÖVE-Texturen und Renderflächen in MiB. Keine GPU-Auslastung und kein gesamter Grafikspeicherverbrauch.",
+  cinnabarVolcano="Standard: großer Vulkan westlich der Insel mit freiem ursprünglichem Surfweg mit fließendem Magma, Sand-/Ascheküste, gelegentlichem Ascheregen und kurzen Erdstößen (auch in Häusern) in der Voxelansicht. Vanilla/2D bleibt unverändert. KLASSISCHES PANORAMA stellt den bisherigen getrennten Vulkan wieder her.",
   outdoorHorizon="Voxel-Wälder, Felsen und Dächer am äußeren Kartenrand, bisherige Bitmap-Kulisse oder AUS. Innenraum-Panoramen bleiben separat.",
   desktopNeighborRing="PC: aktuelle Karte und alle direkten Nachbarn vorbereiten. AUS lädt zusätzlich weiter entfernte Karten. Android behält seinen mobilen Kartenring.",
   terarriumBehindRed="Teams seitlich oder hinter dem Trainer anordnen. Wechsel erfolgt im nächsten Befehlsmenü.",
@@ -59,6 +63,8 @@ local SETTING_HELP_DE = {
     .. "geprüfte Themenfamilien einschließlich Fahrrad. Klarer Tag sowie "
     .. "nicht registrierte Themen bleiben bei der normalen Spiel-/KASC-Musik; "
     .. "Kampf, Story, SURF und Jingles haben immer Vorrang.",
+  rainStrength = "AUTO nutzt normalen Regen und kräftige Gewitter. LEICHT, NORMAL und STARK ändern Regendichte und Regengeräusch gemeinsam. Unter Dächern bleibt es geschützt.",
+  snowDepth = "NORMAL zeigt dünnen Belag. TIEF ergänzt knöchelhohe Verwehungen und Fußspuren. Fester Schnee macht kleine Sprungabsätze auf verbundenen Wegen in beide Richtungen begehbar. Pokémon und Trainer stehen im Kampf auf der geschlossenen Schneedecke. Blumen verschwinden im Tiefschnee.",
   weatherTweak = "Optionale Details über dem VASC-Wetter. Normaler Regen "
     .. "bleibt unberührt. SUBTLE oder FULL ergänzen Sturmblätter, regionale "
     .. "Böen, Schnee-Hagel, Nebel-Gischt, Staub, Asche, seltene Meteore, "
@@ -86,6 +92,7 @@ local SETTING_HELP_DE = {
   palletSurrounds = "Voxelbäume, Felsen und Pfähle. Wege bleiben erhalten. AUS und 2D zeigen die alte Umgebung.",
   battleLights = "Sonnen-, Mond- und Umgebungslicht für Feld und Pokémon in Gen-1-MAP und ARENA. Unabhängig vom Licht beim Herumlaufen abschaltbar. Andere Kampfmodi bleiben unverändert.",
   localLights = "Sonne, Mond, Fensterstrahlen, Raumlampen und flackernde Fackeln beleuchten Räume, Wald, Figuren und Wasser. Für Gen1 auf PC und Handy; mobil mit begrenzter Zahl an Lichtquellen. AUS stellt die bisherige Beleuchtung wieder her.",
+  realWindows = "Echte Außenansicht in unterstützten Innenräumen: Silph Co., alle elf Etagen, Glasaufzug und Wohnhäuser mit passender Außenfassade. AUS spart die Stadtgeometrie und stellt geschlossene Wände wieder her. Decken und Fenster funktionieren in First und Third Person gleich.",
   palletWindowLights = "Beleuchtete Fenster an den neuen Gebäuden bei Dämmerung und Nacht. Separat abschaltbar.",
   waterActors = "Schwimmer und Wasser-Pokémon tauchen in 3D ins Wasser ein und wippen leicht. AUS zeigt sie wie bisher. Bewegung, Surfer und 2D bleiben unverändert.",
   caveTorches = "Wenige Wandfackeln nahe echten Höhleneingängen und Leitern. Wege bleiben frei; Blitz bleibt in dunklen Höhlen nötig. AUS entfernt Fackeln und Lichtschein.",
@@ -247,11 +254,11 @@ local SECTION_DEFS = {
   horizon={title="OUTDOOR HORIZON",help={
     en="A distant voxel skyline, the original bitmap edge, or no outdoor backdrop. Indoor panoramas remain separate.",
     de="Ferne Voxel-Kulisse, bisheriger Bitmap-Rand oder kein Außenhorizont. Innenraum-Panoramen bleiben separat."},
-    keys={outdoorHorizon=true,desktopNeighborRing=true}},
+    keys={cinnabarVolcano=true,outdoorHorizon=true,desktopNeighborRing=true}},
   pallet={title="KANTO SCENERY",help={
     en="Kanto buildings, outdoor ground, regional trees, rocks and window lighting can be switched independently.",
     de="Kanto-Gebäude, Außenboden, regionale Bäume, Steine und Fensterlicht lassen sich einzeln schalten."},
-    keys={palletBuildings=true,lavenderTowerStyle=true,palletSurrounds=true,palletWindowLights=true,localLights=true,outdoorGround=true,outdoorTrees=true,outdoorStone=true,outdoorSigns=true}},
+    keys={realWindows=true,bicycleColor=true,calendarEvents=true,palletBuildings=true,lavenderTowerStyle=true,palletSurrounds=true,palletWindowLights=true,localLights=true,outdoorGround=true,outdoorTrees=true,outdoorStone=true,outdoorSigns=true}},
   terarrium={title="TERRARIUM",help={
     en="Built-in Terrarium battle stage. Pinch, mouse wheel or Q/E zoom without moving the camera. Zoom is remembered for this playthrough. Select with 8 in battle; customize orientation, shell, background and dome here.",
     de="Integrierte Terrarium-Kampfkarte. Pinch, Mausrad oder Q/E zoomen bei fester Kamera. Der Zoom wird fuer diesen Spielstand gemerkt. Im Kampf mit 8 waehlen; hier Ausrichtung, Schale, Hintergrund und Glaskuppel anpassen."},
@@ -288,7 +295,7 @@ local SECTION_DEFS = {
         .. "nutzen denselben Outdoor-Zustand, auch in unterstützten Kämpfen.",
     },
     keys = {
-      daytime=true, weather=true, weatherMusic=true, weatherTweak=true,
+      daytime=true, weather=true, weatherMusic=true, weatherTweak=true, snowDepth=true, rainStrength=true, surfaceFootsteps=true,
       sky=true, clouds=true, skyEvents=true,
       scenery=true, voxelItems=true, interiorFloors=true, currentRoom=true,
     },
@@ -588,6 +595,12 @@ end
 -- ids stable, but never leak their English developer labels into a German
 -- Universal-German session.
 local UI_LABEL_DE = {
+  ["CINNABAR VOLCANO"]="ZINNOBER-VULKAN",
+  ["VOLCANIC COAST"]="VULKANKÜSTE",
+  ["CLASSIC PANORAMA"]="KLASSISCHES PANORAMA",
+  ["FOOTSTEPS"]="SCHRITTE",
+  ["MONTHLY EVENTS"]="KALENDER-EVENTS",
+  ["HALLOWEEN PREVIEW"]="HALLOWEEN-VORSCHAU",
   ["BALL THROWS"]="BALLWURF",
   ["POKEMON HD DOWNLOADS"]="POKéMON-HD-DOWNLOADS",
   ["VIEW + WORLD"]="SICHT + WELT",
@@ -635,11 +648,11 @@ local SETTING_LABEL_DE = {
   liveDisplay="LIVE-ANZEIGE", liveClock="UHRZEIT", liveFps="FPS + BILDZEIT",
   liveCpu="CPU-ZEIT", liveGpu="GPU-TEXTURSPEICHER",
   deviceProfile="GERÄTEPROFIL", sky="HIMMEL", clouds="WOLKEN",
-  skyEvents="HIMMELSEREIGNIS", weather="WETTER",
-  weatherMusic="WETTERMUSIK", weatherTweak="WETTER-EFFEKTE",
-  scenery="KULISSE", outdoorHorizon="AUSSENHORIZONT", desktopNeighborRing="PC-KARTENRING", preload="VORLADEN", grid="VOXEL-GITTER",
+  skyEvents="HIMMELSEREIGNIS", weather="WETTER", bicycleColor="FAHRRADFARBE",calendarEvents="KALENDER-EVENTS", surfaceFootsteps="SCHRITTE",
+  weatherMusic="WETTERMUSIK", weatherTweak="WETTER-EFFEKTE", snowDepth="SCHNEETIEFE", rainStrength="REGENSTÄRKE",
+  cinnabarVolcano="ZINNOBER-VULKAN", scenery="KULISSE", outdoorHorizon="AUSSENHORIZONT", desktopNeighborRing="PC-KARTENRING", preload="VORLADEN", grid="VOXEL-GITTER",
   terrainHeights="GELÄNDEHÖHEN", battleGrid="KAMPF-GITTER",
-  outdoorSigns="ORTSSCHILDER",outdoorGround="AUSSENBODEN",outdoorTrees="BÄUME + BLUMEN",outdoorStone="STEINE + ZÄUNE",lavenderTowerStyle="POKéMON-TURM",palletBuildings="GEBÄUDE", palletSurrounds="ALABASTIA-DEKOR", palletWindowLights="FENSTERLICHT",localLights="DYNAMISCHES LICHT",battleLights="KAMPFLICHT",
+  realWindows="ECHTE FENSTER",outdoorSigns="ORTSSCHILDER",outdoorGround="AUSSENBODEN",outdoorTrees="BÄUME + BLUMEN",outdoorStone="STEINE + ZÄUNE",lavenderTowerStyle="POKéMON-TURM",palletBuildings="GEBÄUDE", palletSurrounds="ALABASTIA-DEKOR", palletWindowLights="FENSTERLICHT",localLights="DYNAMISCHES LICHT",battleLights="KAMPFLICHT",
   voxelItems="Voxel Items", currentRoom="NUR AKTUELLER RAUM", interiorFloors="INNENRAUMBÖDEN", shadows="SCHATTEN", curve="WELTKRÜMMUNG", water="WASSER", waterActors="SCHWIMMEN", voxelStairs="TREPPEN", towerAtmosphere="TURM-ATMOSPHÄRE", caveTorches="WANDFACKELN",
   battles="3D-KÄMPFE", arenaArt="ARENA-GRAFIK",
   diskArt="DISK-GRAFIK", qol_ui_skin="MENÜ-DESIGN",
@@ -682,7 +695,7 @@ local VALUE_DE = {
   ["GAME DEFAULT"]="SPIEL-STANDARD", ["VASC DEFAULT"]="VASC-STANDARD",
   DAY="TAG", NIGHT="NACHT", DUSK="ABEND", DAWN="MORGEN",
   CLEAR="KLAR", CUSTOM="EIGEN", NONE="KEINE", LOW="NIEDRIG",
-  HIGH="HOCH", NORMAL="NORMAL", FRONT="VORNE", BACK="HINTEN",
+  HIGH="HOCH", DEEP="TIEF", NORMAL="NORMAL", LIGHT="LEICHT", HEAVY="STARK", FRONT="VORNE", BACK="HINTEN",
   LEFT="LINKS", RIGHT="RECHTS", CENTER="MITTE",
   WORLD="WELT", LOCAL="ÖRTLICH", FLAT="FLACH", WIDE="BREIT",
   ["ORAS GLASS"]="ORAS-GLAS", ["ORAS FULLSCREEN"]="ASC-BOX",

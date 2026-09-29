@@ -53,10 +53,21 @@ function M.resolve(role,action,wardrobe,selection)
  local hit=M.cache[request]
  if hit and V.mod.cache:exists(hit.file)then return hit.path end
  compositor=compositor or readLua('integrated/wardrobe/wardrobe_overlay.lua')
+ local options={hair=selection.hair,streak=selection.streak,allowDraft=M.allowDraft==true or(V.mod.exports.voxelCharacterCard and V.mod.exports.voxelCharacterCard.enabled())==true}
+ local key=compositor.cacheKey(pack,action,parts,sha,options)
+ local cachedFile=CACHE_ROOT..role..'/'..key..'.png'
+ -- Only admit outputs in the bounded index of previously validated builds.
+ local info=sizes[cachedFile]and V.mod.cache:info(cachedFile)
+ if info and info.size==sizes[cachedFile]then
+  local path='mod_cache/'..V.mod.id..'/'..cachedFile
+  M.cache[request]={path=path,file=cachedFile};M.diskHits=(M.diskHits or 0)+1
+  return path
+ end
  local output,receipt=compositor.build(pack,action,parts,{
   newImage=love.image.newImageData,sha256=sha,
   read=function(file)return love.image.newImageData(V.mod.path..'/'..dir..file)end,
- },{hair=selection.hair,streak=selection.streak,allowDraft=M.allowDraft==true or(V.mod.exports.voxelCharacterCard and V.mod.exports.voxelCharacterCard.enabled())==true})
+ },options)
+ assert(receipt.cacheKey==key,'voxel wardrobe content identity mismatch')
  local png=output:encode('png');output:release()
  local bytes=png:getString();png:release()
  -- The path carries the geometry family so idle/blink use voxel landmarks.

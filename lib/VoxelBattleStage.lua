@@ -1458,7 +1458,7 @@ end
 
 -- The two platforms this frame, as (side, matrix) -- shared by the camera's
 -- pass and the sun's, so the two can never disagree about where they are.
-local function each(arena, groundY, fn)
+local function each(arena, groundY, fn, cards)
   if arena.arenaStyle and arena.mid then
     fn(Mat4.mul(
       Mat4.translate(arena.mid[1], groundY - VoxelBattleStage.SINK,
@@ -1471,6 +1471,16 @@ local function each(arena, groundY, fn)
     if cell then
       fn(VoxelBattleStage.matrix(cell[1], groundY, cell[2],
                                  VoxelBattleStage.radiusFor(nil)))
+    end
+  end
+  -- Separate small ground patches for visible trainers. Reuse the selected
+  -- disk material and quad; Pokemon platforms keep their original size.
+  if arena.diskCourt then
+    for _,card in ipairs(cards or {}) do
+      if (card.side=="playerHero" or card.side=="enemyHero") and card.shadowFoot then
+        local foot=card.shadowFoot
+        fn(VoxelBattleStage.matrix(foot[1],foot[2],foot[3],6))
+      end
     end
   end
 end
@@ -1500,6 +1510,12 @@ function VoxelBattleStage.arena(map, style, diskStyle)
   arena.arenaStyle = style
   arena.diskStyle = diskStyle
   arena.portableStage = style and "arena" or "discs"
+  if not style then
+    -- Fixed team positions: trainers cannot follow the camera into their mon.
+    arena.diskCourt = true
+    arena.cam = "disk_court"
+    arena.trainerOffsets = { player={12,28}, enemy={-12,-28} }
+  end
   return arena
 end
 
@@ -1508,7 +1524,7 @@ end
 -- The discs, in the main pass. No wireframe: everything else in this frame is
 -- built a unit per voxel and wears the seams that fall out of that, and a
 -- disc is a turned solid with no grid to draw.
-function VoxelBattleStage.draw(arena, groundY)
+function VoxelBattleStage.draw(arena, groundY, cards)
   if arena and arena.terarrium then return arena.terarriumService.draw(arena, groundY) end
   if not (arena and arena.discs) then return end
   local m = VoxelBattleStage.mesh()
@@ -1516,7 +1532,7 @@ function VoxelBattleStage.draw(arena, groundY)
   if not (m and tex) then return end
   Voxel3D.seams(false)
   Voxel3D.glass(false)
-  each(arena, groundY, function(matrix) Voxel3D.draw(m, tex, matrix) end)
+  each(arena, groundY, function(matrix) Voxel3D.draw(m, tex, matrix) end, cards)
   Voxel3D.glass(true)
   Voxel3D.seams(true)
 end
@@ -1525,13 +1541,13 @@ end
 -- are standing on. Without this the shadow map is empty where the discs are
 -- and a mon casts onto nothing at all -- which, with no ground behind it
 -- either, reads as the pair floating.
-function VoxelBattleStage.cast(shadowMap, arena, groundY)
+function VoxelBattleStage.cast(shadowMap, arena, groundY, cards)
   if arena and arena.terarrium then return arena.terarriumService.cast(shadowMap, arena, groundY) end
   if not (arena and arena.discs and shadowMap) then return end
   local m = VoxelBattleStage.mesh()
   local tex = VoxelBattleStage.textureFor(arena)
   if not (m and tex) then return end
-  each(arena, groundY, function(matrix) shadowMap.draw(m, tex, matrix) end)
+  each(arena, groundY, function(matrix) shadowMap.draw(m, tex, matrix) end, cards)
 end
 
 return VoxelBattleStage

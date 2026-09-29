@@ -57,7 +57,13 @@ return function(mod)
   if not states[b] then states[b]={frame=0,role=Motion.identity(b),enemyRole=CharSprite.enemyDefault(b)} end
   return states[b]
  end
+ local function artAvailable(role)
+  local spec=CharSprite.get(role)
+  return not mod.assetAvailable or mod.assetAvailable(spec.path)
+ end
  local function valid(b)
+  local player,enemy=identities(b)
+  if not artAvailable(player) or (b.kind=='trainer'and not artAvailable(enemy))then return false end
   return enabled('enabled') and not b.demo and not b.oakDemo and not b.link
  end
  local function sound(b,name)
@@ -260,7 +266,9 @@ return function(mod)
    or not (valid(b) or standing(b)) or not staged(b)
    or (side=='enemy' and b.kind~='trainer') then return false end
   local player,enemy=identities(b)
-  return Art.prepareHero(side=='enemy' and enemy or player,side,view)
+  local role=side=='enemy'and enemy or player
+  if not artAvailable(role)then return false end
+  return Art.prepareHero(role,side,view)
  end
  mod.exports.presentation=function(b)
   local s,action,age=pose(b)

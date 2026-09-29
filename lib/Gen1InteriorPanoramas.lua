@@ -117,7 +117,7 @@ room('SILPH_CO_ELEVATOR','LOBBY',2,2,'elevator')
 room('CELADON_MART_ELEVATOR','LOBBY',2,2,'elevator')
 for _,route in ipairs({11,12,15,16,18}) do
   room('ROUTE_'..route..'_GATE_1F','GATE',route==12 and 5 or 4,route==12 and 4 or (route==16 and 7 or 5),'gate')
-  room('ROUTE_'..route..'_GATE_2F','GATE',4,4,'gate')
+  -- Upper floors are open viewing terraces in VASC; native maps are unchanged.
 end
 for _,route in ipairs({2,22}) do room('ROUTE_'..route..'_GATE','GATE',5,4,'gate') end
 for _,route in ipairs({5,6}) do room('ROUTE_'..route..'_GATE','GATE',4,3,'gate') end

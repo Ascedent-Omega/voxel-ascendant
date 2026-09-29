@@ -5,7 +5,7 @@ local function reference(expr)
  local group,name=expr:match("q%.bedrock[%w_]*%('%s*([%w_%-]+)'%s*,%s*'([%w_%-]+)'")
  return group,name
 end
-function M.compile(catalog,dex,aspects,read,decode)
+function M.compile(catalog,dex,aspects,read,decode,travel)
  local rows={};for _,path in ipairs(catalog.species[tostring(dex)] or {})do
   local r=decode(assert(read(path),path));rows[#rows+1]=r
  end
@@ -31,6 +31,8 @@ function M.compile(catalog,dex,aspects,read,decode)
   local function pick(list)for _,n in ipairs(list)do if a['animation.'..group..'.'..n]then return "q.bedrock('"..group.."', '"..n.."')"end end end
   local idle=pick{'ground_idle','idle','air_idle','water_idle'}
   local walk=pick{'ground_walk','walk','air_fly','swim'}
+  if travel=='fly' then idle=pick{'air_fly','air_idle','fly','hover'}or idle
+  elseif travel=='surf' then idle=pick{'water_swim','swim','water_idle','float'}or idle end
   if idle then poser.poses.standing={poseTypes={'STAND'},animations={idle}}end
   local battle=pick{'battle_idle','battle_standing','battle'}
   if battle then poser.poses['battle-standing']={isBattle=true,poseTypes={'STAND'},animations={battle}}end
@@ -53,17 +55,17 @@ function M.compile(catalog,dex,aspects,read,decode)
   return cache[path]['animation.'..group..'.'..name]
  end
  local function expressions(pose)
-  local out={}
+  local out={pose=pose}
   for _,expr in ipairs(pose and pose.animations or {})do local raw=clip(expr);if raw then out[#out+1]=raw end end
   if #out>0 then return out end
  end
  local poses=poser.poses or {};local chosen={}
- for _,name in ipairs{'standing','ground','idle','hover','flying','floating','swimming','walking','battle-standing','battle-hover','battle-flying'}do
+ for _,name in ipairs{'standing','ground','idle','hover','flying','floating','swimming','walk','walking','battle-standing','battle-hover','battle-flying'}do
   local p=poses[name]
   if p then
    local raw=expressions(p)
    if raw then
-    if name=='walking'then chosen.walk=raw
+    if name=='walking'or name=='walk'then chosen.walk=chosen.walk or raw
     elseif p.isBattle==true then chosen.battle=raw
     elseif not p.isTouchingWater then chosen.idle=chosen.idle or raw end
    end
@@ -77,7 +79,32 @@ function M.compile(catalog,dex,aspects,read,decode)
    elseif pt=='WALK' or pt=='FLY'then chosen.walk=chosen.walk or raw end
   end end
  end
+ if travel then
+  local best,score
+  local keys={};for name in pairs(poses)do keys[#keys+1]=name end;table.sort(keys)
+  for _,name in ipairs(keys)do
+   local p=poses[name];local rank=0
+   if not p.isBattle then
+    for _,pt in ipairs(p.poseTypes or{})do
+     if travel=='fly' then rank=math.max(rank,pt=='FLY'and 4 or pt=='HOVER'and 2 or 0)
+     else rank=math.max(rank,pt=='SWIM'and 4 or pt=='FLOAT'and 2 or 0)end
+    end
+    if travel=='surf'and p.isTouchingWater and rank>0 then rank=rank+1 end
+    local raw=rank>0 and expressions(p)
+    if raw and (not score or rank>score)then best,score=raw,rank end
+   end
+  end
+  if best then chosen.idle=best end
+ end
  chosen.idle=chosen.idle or chosen.battle;chosen.battle=chosen.battle or chosen.idle
+ local function visibility(pose)
+  local out={}
+  for _,part in ipairs(pose and pose.transformedParts or{})do
+   if type(part.isVisible)=='boolean'and names[part.part]then out[tostring(names[part.part])]=part.isVisible end
+  end
+  return out
+ end
+ local defaultVisibility=visibility(chosen.idle and chosen.idle.pose)
  local animations=poser.animations or {}
  -- Keep categories independent: a missing special clip must not silently
  -- replay a physical attack. CobblemonMotion supplies the VASC default.
@@ -101,6 +128,8 @@ function M.compile(catalog,dex,aspects,read,decode)
     for _,layer in ipairs(layers)do c.seconds=math.max(c.seconds,layer.seconds)end
    end
    model.anims[#model.anims+1]=c;model.actions[action]=#model.anims;model.actionSources[action]=catalog.authored and catalog.authored[tostring(dex)] and 'vasc' or 'cobblemon'
+   c.visibility={};for key,value in pairs(defaultVisibility)do c.visibility[key]=value end
+   for key,value in pairs(visibility(chosen[action]and chosen[action].pose))do c.visibility[key]=value end
   end
  end
  -- An unsupported battle-only clip must not hide a valid original idle.
@@ -108,6 +137,9 @@ function M.compile(catalog,dex,aspects,read,decode)
   model.actions.battle=model.actions.idle;model.actionSources.battle=model.actionSources.idle
  end
  V.require('CobblemonMotion').complete(model,names,G)
+ for _,c in ipairs(model.anims)do
+  if not c.visibility then c.visibility={};for key,value in pairs(defaultVisibility)do c.visibility[key]=value end end
+ end
  assert(model.actions.idle,'no supported idle animation: '..table.concat(model.warnings,'; '))
  model.ctx[1]=model.actions.idle-1
  model.ctx[2]=(model.actions.attack_default or model.actions.idle)-1

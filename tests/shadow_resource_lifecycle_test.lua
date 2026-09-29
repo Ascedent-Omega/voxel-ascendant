@@ -19,6 +19,13 @@ for _,prefix in ipairs({'','gen2/'})do
   Quality={shadowsOff=function()return off end,shadowSizes=function()return {1024,1536,2048}end},
   PixelCanvas={new=function()attempts=attempts+1;if failCanvas then return false,'injected allocation failure'end;return true,resource()end}}
  local shadow=assert(loadfile(prefix..'lib/ShadowMap.lua'))({require=function(n)return assert(modules[n],n)end})
+ if prefix==''then
+  local stable=upvalue(shadow.storeStatic,'stableFit');local vp={}
+  for i=1,16 do vp[i]=i end
+  assert(not stable('room',vp));assert(stable('room',vp))
+  vp[4]=40;assert(not stable('room',vp));assert(stable('room',vp))
+  assert(not stable('other-room',vp),'scene identity must invalidate a stable projection')
+ end
  local allocate=upvalue(shadow.available,'getCanvas')
  assert(allocate(2048));local n=attempts
  for i=1,600 do assert(shadow.available());assert(allocate(2048))end

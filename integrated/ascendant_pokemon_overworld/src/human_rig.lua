@@ -159,7 +159,7 @@ function HumanRig.new(voxel,hands)
   for row=0,3 do
    local r={frames={},meshes={},textures={}}
    for col=0,2 do
-    local source=assert(bounds[row][col]);local frame={left=source.left,right=source.right,top=source.top,bottom=source.bottom}
+    local source=assert(bounds[row][col]);local frame={left=source.left,right=source.right,top=source.top,bottom=source.soleBottom or source.bottom}
     local bottoms=profile.bodyBottoms and profile.bodyBottoms[row]
     if bottoms and type(bottoms[col+1])=='number' then
      frame.bottom=math.min(frame.bottom,row*ch+bottoms[col+1])
@@ -249,7 +249,13 @@ function HumanRig.new(voxel,hands)
     local heightPixels=n.bottom-n.top
     local first=math.max(1,math.floor((n.top-row*a.ch+rig.window[1]*heightPixels)/a.ch*32))
     local last=math.min(31,math.ceil((n.top-row*a.ch+rig.window[4]*heightPixels)/a.ch*32))
-    local cuts={0};for gy=first,last do cuts[#cuts+1]=gy end;cuts[#cuts+1]=32
+    local cuts={0};for gy=first,last do cuts[#cuts+1]=gy end
+    -- Keep the support boundary and sole as real mesh rows. Interpolating
+    -- from the moving torso straight to the transparent canvas edge lifted
+    -- even the planted shoe during a stride.
+    cuts[#cuts+1]=(n.top-row*a.ch+heightPixels*.98)/a.ch*32
+    cuts[#cuts+1]=(n.bottom-row*a.ch)/a.ch*32
+    cuts[#cuts+1]=32;table.sort(cuts)
     for yi=1,#cuts-1 do for gx=0,23 do
      local ya,yb=cuts[yi]/32,cuts[yi+1]/32
      local bi=#template.vertices/4
@@ -323,6 +329,32 @@ function HumanRig.new(voxel,hands)
   return entry.mesh
  end
  local api={metrics=metrics}
+ -- Covered arrival prepares the same directional composites that draw uses.
+ -- One cell per update, with the existing pixel/source limits. A finite
+ -- cursor prevents a large cast from endlessly evicting/rebuilding itself.
+ local prewarmed=setmetatable({}, {__mode='k'})
+ function api:prewarm(source,role,atlas)
+  if closed or not source or not source.texture then return false end
+  local profile=HumanRig.profileFor(hands,role,atlas)
+  if not profile then return false end
+  local texture=source.texture
+  local cursor=prewarmed[texture] or 0
+  if cursor>=12 or cache[texture]==false then return false end
+  serial=serial+1
+  local ok,err=pcall(function()
+   local a=cache[texture]
+   if not a then
+    reserveSource();a=sourceBuilder(texture,source.bounds,profile);cache[texture]=a
+    sourceCount=sourceCount+1;metrics.residentSources=sourceCount
+   end
+   usage[texture]=serial
+   local row,col=math.floor(cursor/3),cursor%3
+   cellTexture(a,texture,row,col,profile[row],profile.protectHands,profile[row].legWindow or profile.legWindow,profile)
+  end)
+  prewarmed[texture]=ok and cursor+1 or 12
+  if not ok then self.error=err end
+  return true
+ end
  function api:prepare(record,originalMesh,source,row,column)
   if closed or not record or not record.humanMotion then return nil end
   local role=record.def and record.def.ascendantRole or record.role

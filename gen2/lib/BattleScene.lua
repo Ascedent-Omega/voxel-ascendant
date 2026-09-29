@@ -738,6 +738,7 @@ local function castShadows(state, arena, terrain, nbMesh, cx, cy, vw, vh,
                            water, nbWater, groundY)
   if not ShadowMap.available() then return end
   local sig = shadowSignature(state, arena, terrain, nbMesh, token)
+  sig=sig..":buriedFlowers:"..tostring(V.require("DeepSnow").buriesFlowers(host))..":snowFeet:"..tostring(groundY)
   if not ShadowMap.stale(sig) then return end
   if not ShadowMap.begin(cx, cy, vw, vh) then return end
 
@@ -826,11 +827,11 @@ function BattleScene.groundY(map, arena)
   -- later map read from lowering the actors into the recess the selector just
   -- rejected.
   if arena and tonumber(arena.anchorHeight) then
-    return tonumber(arena.anchorHeight)
+    return tonumber(arena.anchorHeight) + V.require("DeepSnow").battleLift(map,arena)
   end
   local ok, h = pcall(VoxelScene.groundAt, map,
                       arena.playerCell[1], arena.playerCell[2])
-  return (ok and h) or 0
+  return ((ok and h) or 0) + V.require("DeepSnow").battleLift(map,arena)
 end
 
 -- Where a world point lands in GB frame coordinates under `vp`, or nil when
@@ -1277,6 +1278,7 @@ function BattleScene.render(state, arena, textures, token)
   --  local whiteFill = UiBackplates.arenaWhite()
     --local skyFill = whiteFill and { 1, 1, 1 } or sky
     local skyFill = sky
+    V.require("WeatherCover").prepare({map=host,neighbors=nil})
     if not Voxel3D.beginScene(rw, rh, cx, cy, vw, vh, skyFill, "battle",
         { dynamicLighting=terrariumLighting, weather = skyWeatherMode,
           groundWeather = arenaSky and arenaSky.groundWeather
@@ -1437,12 +1439,14 @@ function BattleScene.render(state, arena, textures, token)
       end
     end
     if arena.terarrium then arena.terarriumService.overlay(arena,groundY) end
+    if not painting and not discs then V.require("DeepSnow").draw({map=host,neighbors=neighbors,snowArena=arena},weatherMode)end
+    local spatialRain = not painting and V.require("WorldWeather").draw({map=host}, weatherMode)
     local canvas = AntiAlias.resolve(Voxel3D.endScene(), pw, ph, "battle")
     if not canvas then return end
     if type(Weather.applyBattle) == "function"
         and (not painting or outdoor) then
       canvas = Weather.applyBattle(canvas, pw, ph, host, Voxel3D.cell,
-        arenaSky and arenaSky.particleWeather or weatherMode)
+        arenaSky and arenaSky.particleWeather or weatherMode, spatialRain)
     end
 
     local vp = Voxel3D.vp

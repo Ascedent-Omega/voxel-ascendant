@@ -510,6 +510,11 @@ local voxelPipeline = {
       weatherGame and weatherGame.overworld
         and weatherGame.overworld.map or nil)
     V.require("WeatherThunder").update(dt, weatherGame, weatherMode)
+    V.require('Halloween').update(dt,weatherGame,level)
+    V.require('CinnabarActivity').update(dt,weatherGame,level)
+    V.require('FountainAudio').update(dt,weatherGame,level)
+    V.require('WorldSeats').update(weatherGame)
+    V.require('ObservationBinoculars').update(dt,weatherGame)
     if WeatherMusicPlayback
         and type(WeatherMusicPlayback.observe) == "function" then
       WeatherMusicPlayback.observe(weatherGame, weatherMode, DayNight.tod())
@@ -536,8 +541,16 @@ local voxelPipeline = {
     voidFill.check()
     local Game = require("src.core.Game")
     local ow = Game and Game.overworld
-    local covered = Game and Game.stack and Game.stack:top() ~= ow
+    local covered = Game and Game.stack and (Game.stack:top() ~= ow or (ow and ow.transitioning))
+    VoxelScene.setPreparationCovered(covered == true)
+    V.require('VoxelFurniture').beginFrame()
+    HorizonWall.beginFrame(covered,not Voxel.ready,MOBILE_RUNTIME)
+    V.require('FrameBudget').observe((love.timer and love.timer.getDelta and love.timer.getDelta())or dt,not covered and Voxel.ready and Voxel.active()
+      and not V.require('LoadingCompanion').status().kind and not (ow and ow.transitioning)
+      and AntiAlias.resolution:get()=='auto')
+    if covered and Voxel.active() then V.require('WeatherFootsteps').prepare() end
     local warpWarm = WarpPrefetch.update(Game, covered)
+    V.require("LoadingCompanion").update(Game)
     local warm = ChunkMesher.preloadSetting:get()
     local configuredVoxel = (tonumber(level) or 0) > 0
     -- A phone map transaction that started while VOXEL was active remains
@@ -561,6 +574,8 @@ local voxelPipeline = {
       -- Warm a single actual actor while a transition/menu covers the world
       -- or its initial mesh is still pending. No pose(), camera probing or
       -- imagined future trainers: draw consumes the same canonical cache.
+      V.require('WeatherCover').beginFrame(covered)
+      if configuredVoxel then V.require('SilphFountains').prepare(ow.map,covered)end
       local programWorked=false
       if configuredVoxel and type(VoxelScene.preparePrograms)=="function" then
         local okProgram,worked=pcall(VoxelScene.preparePrograms,ow)
@@ -577,6 +592,13 @@ local voxelPipeline = {
       updateBoundary("prefetch", "start")
       local okPrefetch, prefetchError = pcall(VoxelScene.prefetch, ow)
       if okPrefetch then
+        if configuredVoxel and Voxel.ready and not programWorked then
+          local okLight,err=pcall(VoxelScene.prepareLighting,ow)
+          if not okLight then
+            updateBoundary('lighting-preload','failed',{error=tostring(err)})
+            V.require('LocalLights').fail(err) -- release the reveal gate through the existing unlit fallback
+          end
+        end
         -- M11 is a separate bounded update lane after M10's core/direct-union
         -- receipt. It never decodes panorama/sky resources from draw().
         if type(VoxelScene.stageMobileScenery) == "function" then
@@ -598,6 +620,7 @@ local voxelPipeline = {
         })
       end
     end
+    local gatePreparing = V.require("GatePrefetch").update(Game, covered)
     if not Voxel.active() then
       if warm then
         local warmCovered = Game and Game.stack and Game.stack:top() ~= ow
@@ -634,9 +657,15 @@ local voxelPipeline = {
     updateBoundary("pump", "start", {
       loading=loading, covered=covered,
     })
+    local workSerial=ChunkMesher.workSerial or 0
     local okPump, pumpError = pcall(
       ChunkMesher.pump, covered, false, loading, warpWarm,
-      not covered and not loading and not priorityWork)
+      not covered and not loading and not priorityWork, gatePreparing)
+    -- Only an executed build slice can change claims after preparation.
+    -- Idle/paused queue polls retain the already validated frame snapshot.
+    if (ChunkMesher.workSerial or 0)~=workSerial then
+      V.require('VoxelFurniture').beginFrame()
+    end
     if okPump then
       updateBoundary("pump", "ready", {
         loading=loading, covered=covered,
@@ -919,12 +948,19 @@ local SETTINGS = {
     .. "with normal weather. RAIN, SNOW, FOG, STORM, daytime-only HEAT and "
     .. "RAINBOW remain direct tests. Rain endings guarantee a rainbow. "
     .. "The same weather remains visible in staged outdoor battles." },
+  { WeatherFootsteps.setting, "Quiet surface-dependent footsteps: timber, stone, grass, snow and rain. Uses the SFX volume; OFF disables these extra steps.", full=true },
+  { V.require('BicycleColors').setting,
+    "Frame paint for Red, Blue and Green's voxel bicycles; garments, tyres and lights keep their original colours.", full=true },
+  { V.require('CalendarEvents').setting,
+    "April flowers, July lanterns and December gifts and snowmen follow your device's local date, with year-round previews. Halloween runs October 1-31: pumpkins, NPC costumes and occasional red eyes with ghost cries in Pokemon Tower. OFF disables events; HALLOWEEN PREVIEW lets you try them any month. Cries follow SFX volume.", full=true },
   { Gen1WeatherMusicOptionUiCard.setting,
     "Play the supplied map-specific Night, Rain, Storm, Winter and Heat "
     .. "arrangements in the nine registered Gen-I areas. Clear daytime, "
     .. "unsupported maps, Battle, victory, jingles, story, Bike and SURF "
     .. "always keep the already resolved game/KASC music.",
     full = true },
+  { V.require("RainStrength").setting, "AUTO follows the weather: normal rain, heavy storms. LIGHT, NORMAL and HEAVY adjust rain density and its sound together; roof shelter remains active.", full=true },
+  { V.require("DeepSnow").setting, "NORMAL keeps a thin coat. DEEP adds ankle-high drifts and footprints. Settled snow bridges small ledges on connected paths for walking both ways. Pokemon and trainers stand on continuous snow in battle. Deep snow buries flowers.", full=true },
   { WeatherTweak.setting,
     "Optional additive weather detail. OFF keeps only canonical VASC weather. "
     .. "Normal RAIN is never overdrawn or changed by this layer. SUBTLE "
@@ -937,10 +973,16 @@ local SETTINGS = {
     .. "distant Kanto panorama outdoors, plus rock walls in caves. Water, "
     .. "coastal openings and connected maps stay real. OFF draws neither "
     .. "the scenery curtain nor the outdoor panorama." },
+  { V.require('SilphWindows').setting,
+    "Real exterior views through supported interior windows (Silph floors 1-11, glass elevator and houses with a matching exterior facade). OFF restores opaque interior walls and skips city geometry. First and third person share the same ceiling and window rules.",full=true },
+  { V.require('CinnabarVolcano').setting,
+    "Voxel scenery: western volcano with an open native surf channel, flowing magma, varied ash coast, occasional ash showers and indoor/outdoor tremors (default). CLASSIC PANORAMA restores the former separate ocean landmark. Vanilla 2D stays unchanged.",full=true },
   { V.require('OutdoorHorizon').setting,
     "Regional woods, rocks and rooftops. Choose VOXEL, the original BITMAP, or OFF. Indoor panoramas remain separate.",full=true },
   { V.require('VisibleNeighborhood').setting,
     "On PC, prepare the current map and all directly connected maps. OFF also prepares the engine's more distant survey maps. Android keeps its existing mobile ring.",full=true },
+  { V.require('WorldResidency').setting,
+    "Memory allowance for recently visited voxel maps and scenery. AUTO uses a conservative desktop/mobile budget; the host does not expose installed or available RAM. Increase on devices with spare memory to keep more areas ready. Active geometry, shared assets and render targets need additional memory.", full=true },
   { ChunkMesher.preloadSetting,
     "Build the current map and connected neighbours into a safe in-memory "
     .. "mesh cache while voxel mode is off. ON makes the first switch and "
@@ -1318,7 +1360,8 @@ local SETTINGS = {
   -- the row away -- the player decides what their hardware can carry, from
   -- inside FULL like anywhere else.
   { AntiAlias.resolution,
-    "Internal resolution of the 3D world and battles. 1080P limits the default "
+    "AUTO 60 adjusts world resolution toward 60 FPS (50–100% of the 1080P limit), without "
+    .. "supersampling. Existing manual choices stay fixed. 1080P limits the "
     .. "GPU workload on large/Retina screens; 720P saves more power. NATIVE "
     .. "uses every display pixel. Menus and text retain display resolution.",
     full = true },
@@ -1350,6 +1393,43 @@ do
   end
 end
 
+-- Both menu and manager changes invalidate the derived coast and roof view.
+do
+ for _,setting in ipairs{V.require('CinnabarVolcano').setting}do
+ for _,method in ipairs{'setIndex','sync'}do
+  local original=setting[method]
+  setting[method]=function(self,...)
+   local before=self:get();local result=original(self,...)
+   if self:get()~=before then VoxelScene.invalidateTerrainHeights() end
+   return result
+  end
+ end
+ end
+end
+
+-- Invalidate only supported interiors. Keep warm outdoor terrain and skylines.
+do
+ local setting=V.require('SilphWindows').setting
+ for _,method in ipairs{'setIndex','sync'}do
+  local original=setting[method]
+  setting[method]=function(self,...)
+   local before=self:get();local result=original(self,...)
+   if self:get()~=before then
+    for n=1,11 do HorizonWall.invalidateMap('SILPH_CO_'..n..'F',true)end
+    HorizonWall.invalidateMap('SILPH_CO_ELEVATOR',true)
+    for id in pairs(V.require('Gen1InteriorPanoramas').profiles)do
+     local game=require('src.core.Game');local d=game.data and game.data.maps and game.data.maps[id]
+     if d and V.require('HouseWindows').source({id=id,def=d})then HorizonWall.invalidateMap(id,true)end
+    end
+    V.require('ShadowMap').invalidate()
+    if self:get()then V.require('LoadingCompanion').windows(require('src.core.Game'))
+    else V.require('LoadingCompanion').clear()end
+   end
+   return result
+  end
+ end
+end
+
 -- Floor UVs are baked into terrain. Menu and manager changes rebuild the
 -- derived mesh without rewriting a tile or the panorama preference.
 V.require("Gen1InteriorFloors").bind(function()
@@ -1365,6 +1445,8 @@ end)
 
 V.require("Gen1Stairs").bind(function()
   ChunkMesher.invalidate()
+  V.require("HorizonWall").invalidate()
+  V.require("CurrentRoom").release()
   V.require("ShadowMap").invalidate()
 end)
 
@@ -1868,6 +1950,9 @@ mod.events:on("mod.options_changed", function(payload)
   if not (payload and payload.mod == mod.id) then return end
   for _, entry in ipairs(SETTINGS) do
     if payload.key == entry[1].key then entry[1]:sync(payload.value) end
+  end
+  if payload.key=="pokemonModelSkin" then
+    V.PokemonModelProvider.selectionChanged(payload.value,payload.game or require("src.core.Game"))
   end
   BattleLayout.syncOption(payload.key, payload.value)
   if payload.key == "battle_controls_y" and (tonumber(payload.value) or 0) > 0
@@ -2567,16 +2652,22 @@ end, POKEMON_UI_OUTER_HOST_PRIORITY)
 -- active and the overworld is actually on top of the state stack.
 FirstPerson.install()
 FreeMove.install()
+V.require('WorldSeats').install()
+V.require('ObservationBinoculars').install()
+V.require('SilphElevator').install()
 -- KASC installs its native follower transport on game.ready. Keep the
 -- camera-to-world input adapter outside that transport, including reloads.
 mod.events:on("game.ready", function()
   V.require("FollowerMovementInput").install()
+  V.require("FollowerPresentation").install()
 end, -12000)
 CamControl.install()
 ShortcutToast.install(require("src.core.Game"), {
   enabled = function() return ShortcutToastSetting:get() ~= false end,
 })
 V.PerformanceOverlay.install(require("src.core.Game"))
+V.require("LoadingCompanion").install(require("src.core.Game"))
+V.require("ContinuePreparation").install(require("src.core.Game"))
 VoxelShortcut.install(cycleVoxel)
 
 -- The BattleLifecycle card above is now the sole state-changing router for
@@ -2696,6 +2787,7 @@ mod.events:on("game.ready", function()
     mod, Game, BattleHud.positionSetting)
   pinEngineFx(Game)
   BattleAnimationCompat.install(Game, mod)
+  V.require("SilphTeleport").install(Game)
   WarpPrefetch.install(Game)
   SpritePacks.restore(Game)
   LocalMusic.restore(Game)

@@ -182,12 +182,12 @@ return function(mod,opts)
     local request=requestKey(path,id,selection)
     local hit=A.cache[request]
     if hit and mod.cache:exists(hit:sub(#logical+1))then return hit end
-    local base=love.image.newImageData(path)
+    local base=require("src.render.Assets").imageData(path)
     local actualSource=sha(base:getString());base:release()
     local atlas=assert(record.pack.atlases[action],'missing authored action '..action)
     assert(actualSource==atlas.source.sha256,'HD source differs from authored template')
     local deps={newImage=love.image.newImageData,sha256=sha,read=function(file)
-      return love.image.newImageData(mod.path..'/'..record.directory..'/'..file)
+      return require('src.render.Assets').imageData(mod.path..'/'..record.directory..'/'..file)
     end}
     local output,receipt=O.build(record.pack,action,partsFor(record,selection),deps,{allowDraft=opts.allowDraft,hair=selection.hair,streak=selection.streak})
     local png=output:encode('png');output:release()
@@ -218,7 +218,7 @@ return function(mod,opts)
     return pcall(function()
       for _,action in ipairs(required)do
        local source=sources[assert(actions[action])]
-       if W.presentation.mode(selection)=='voxel'then W.presentation.resolve(source,id,selection,action)
+       if W.presentation.mode(selection)=='voxel'or W.presentation.mode(selection)=='cobble'then W.presentation.resolve(source,id,selection,action)
        else A.resolve(source,id,selection)end
       end
     end)

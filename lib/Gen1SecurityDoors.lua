@@ -58,7 +58,8 @@ function M.addPanels(map,out)
     if p.edge==side and p.at==at and p.from<=d.from and p.upto>=d.upto then target=p;break end
    end
    if not target then
-    target={edge=side,at=at,from=d.from-8,upto=d.upto+8,openings={}}
+    target={edge=side,at=at,from=d.from-8,upto=d.upto+8,openings={},
+      wallThickness=(side=='east'or side=='south')and 16 or nil}
     out[#out+1]=target
    end
    local kept={}

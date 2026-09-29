@@ -68,6 +68,7 @@ local ELITE_V3 = {
 }
 
 local function image(path)
+  if V.mod.exports and V.mod.exports.humanDlc and not V.mod.exports.humanDlc.has(path) then return nil end
   if cache[path] ~= nil then return cache[path] or nil end
   local assets = V and V.mod and V.mod.assets
   if not (assets and type(assets.image) == "function") then
@@ -136,8 +137,23 @@ local function carrier(screen, side, id, path)
   }
 end
 
+function M.useNativePlayer(screen)
+  local mode=V.mod.options and V.mod.options:get("gen2TrainerArt") or "auto"
+  if mode=="native" or screen.tutorial then return true end
+  if mode=="hd" then return false end
+  local data=screen.data or (screen.game and screen.game.data) or (screen.battle and screen.battle.data)
+  local hud=data and data.gen2MenuGfx and data.gen2MenuGfx.battleHud
+  local path=screen.playerBackPath
+  if not (screen.playerBackImage and type(path)=="string" and hud) then return false end
+  local save=screen.save or (screen.game and screen.game.save) or {}
+  local female=save.player and save.player.gender=="female"
+  local expected=female and hud.playerBackFemale or hud.playerBack
+  return expected~=nil and path~=expected
+end
+
 function M.player(screen)
   if type(screen) ~= "table" then return nil end
+  if M.useNativePlayer(screen) then return nil end
   -- Crystal's native lifecycle calls this showPlayerBack; older VASC builds
   -- exposed showPlayerTrainer. Never paint the player during the foe's intro.
   local visible = screen.showPlayerBack == true

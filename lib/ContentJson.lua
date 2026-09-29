@@ -122,33 +122,37 @@ local function parseString(text, at)
   return fail("unterminated string", at)
 end
 
+local function digit(byte)
+  return byte and byte >= 48 and byte <= 57
+end
+
 local function parseNumber(text, at)
-  -- Lua patterns do not implement non-capturing groups. Validate a bounded
-  -- candidate with the JSON grammar in explicit stages instead.
-  local token
+  -- Scan bytes directly: prepared models contain thousands of numbers. A
+  -- substring and pattern match per digit creates avoidable work at first use.
+  -- Keep the JSON grammar (including leading zero and exponent validation).
   local start = at
-  if text:sub(at, at) == "-" then at = at + 1 end
-  if text:sub(at, at) == "0" then
-    at = at + 1
-    if text:sub(at, at):match("%d") then return fail("leading zero", at) end
-  elseif text:sub(at, at):match("[1-9]") then
-    repeat at = at + 1 until not text:sub(at, at):match("%d")
+  local byte = text:byte(at)
+  if byte == 45 then at = at + 1; byte = text:byte(at) end
+  if byte == 48 then
+    at = at + 1; byte = text:byte(at)
+    if digit(byte) then return fail("leading zero", at) end
+  elseif byte and byte >= 49 and byte <= 57 then
+    repeat at = at + 1; byte = text:byte(at) until not digit(byte)
   else
     return fail("invalid number", at)
   end
-  if text:sub(at, at) == "." then
-    at = at + 1
-    if not text:sub(at, at):match("%d") then return fail("invalid fraction", at) end
-    repeat at = at + 1 until not text:sub(at, at):match("%d")
+  if byte == 46 then
+    at = at + 1; byte = text:byte(at)
+    if not digit(byte) then return fail("invalid fraction", at) end
+    repeat at = at + 1; byte = text:byte(at) until not digit(byte)
   end
-  if text:sub(at, at):match("[eE]") then
-    at = at + 1
-    if text:sub(at, at):match("[+-]") then at = at + 1 end
-    if not text:sub(at, at):match("%d") then return fail("invalid exponent", at) end
-    repeat at = at + 1 until not text:sub(at, at):match("%d")
+  if byte == 101 or byte == 69 then
+    at = at + 1; byte = text:byte(at)
+    if byte == 43 or byte == 45 then at = at + 1; byte = text:byte(at) end
+    if not digit(byte) then return fail("invalid exponent", at) end
+    repeat at = at + 1; byte = text:byte(at) until not digit(byte)
   end
-  token = text:sub(start, at - 1)
-  local value = tonumber(token)
+  local value = tonumber(text:sub(start, at - 1))
   if not value or value ~= value or value == math.huge or value == -math.huge then
     return fail("number outside supported range", start)
   end
@@ -194,14 +198,14 @@ end
 
 parseValue = function(text, at)
   at = skipWhitespace(text, at)
-  local token = text:sub(at, at)
-  if token == '"' then return parseString(text, at) end
-  if token == "{" then return parseObject(text, at) end
-  if token == "[" then return parseArray(text, at) end
-  if text:sub(at, at + 3) == "true" then return true, at + 4 end
-  if text:sub(at, at + 4) == "false" then return false, at + 5 end
-  if text:sub(at, at + 3) == "null" then return ContentJson.null, at + 4 end
-  if token == "-" or token:match("%d") then return parseNumber(text, at) end
+  local byte = text:byte(at)
+  if byte == 34 then return parseString(text, at) end
+  if byte == 123 then return parseObject(text, at) end
+  if byte == 91 then return parseArray(text, at) end
+  if byte == 45 or digit(byte) then return parseNumber(text, at) end
+  if byte == 116 and text:sub(at, at + 3) == "true" then return true, at + 4 end
+  if byte == 102 and text:sub(at, at + 4) == "false" then return false, at + 5 end
+  if byte == 110 and text:sub(at, at + 3) == "null" then return ContentJson.null, at + 4 end
   return fail("unexpected token", at)
 end
 

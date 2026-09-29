@@ -1,0 +1,16 @@
+{
+  "vasc_live": "3.0.54",
+  "vasc_live_commit": "3674574aac208c3027b65b0db91270ffa4a4c04b",
+  "kasc_live": "6.7.28",
+  "retained_local_rc": "3.0.53-rc.19 / 6.7.27-rc.1",
+  "weather": "3.0.53-rc.18.weather.6",
+  "weather_commit": "747c1647",
+  "characters": "ASCENDANT_COBBLE_CHARACTERS 0.2.4",
+  "integration_changes": [
+    "merge live shadow/battle fixes with RC19",
+    "merge weather.6 with retained furniture batches and Gen2 varying precision",
+    "merge 10 character adapters with Hoenn/Mira identity handling",
+    "reuse native glass sampler for isolated rooftop material draws and restore mask afterward"
+  ],
+  "qa": "QA-REPORT.md"
+}

@@ -64,7 +64,12 @@ function C.descriptor()
      local proxy={path=V.mod.path.."/integrated/battle_heroes",exports={},log=V.mod.log,
       renderer=V.require("OverworldBattle"),
       standingTrainers=function()return not external() and settings.trainer_stays:get()==true end}
-     proxy.resolveAsset=function(path)return V.require("SharedCharacterAssets").resolve(V.mod.path,path)end
+     proxy.resolveAsset=function(path)return V.mod.exports.humanDlc.path(V.require("SharedCharacterAssets").resolve(V.mod.path,path))end
+     proxy.assetAvailable=function(path)
+      local full=V.require("SharedCharacterAssets").resolve(V.mod.path,path)
+      local prefix=V.mod.path.."/"
+      return full:sub(1,#prefix)~=prefix or V.mod.exports.humanDlc.has(full:sub(#prefix+1))
+     end
      proxy.readAsset=function(path)
       local prefix=V.mod.path.."/"
       if type(path)=="string" and path:sub(1,#prefix)==prefix then

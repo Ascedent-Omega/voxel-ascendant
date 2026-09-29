@@ -1867,6 +1867,10 @@ function HorizonWall.coastalCadenceStage(mode, edge, along, length)
   return nil
 end
 
+for _,route in ipairs{11,12,15,16,18}do
+ HorizonWall.PROFILES['ROUTE_'..route..'_GATE_2F']={class='metropolis',wall='metropolis',fillerRows=0,sky=true,rooftop=true}
+end
+
 local function isOutdoor(def)
   if def.outdoor ~= nil then return def.outdoor and true or false end
   return def.tileset == "OVERWORLD"
@@ -2141,6 +2145,7 @@ function HorizonWall.edgeClass(map, edge, localAlong)
 end
 
 function HorizonWall.hasSky(map)
+  if V.require('SilphWindows').enabled(map)then return true end
   if not (map and map.def) then return false end
   if map.id=='KA_HOENN_BIRTH_ISLAND'and V.require('KascBirthIsland').matches(map)then return true end
   local profile = HorizonWall.profileFor(map)
@@ -3198,7 +3203,11 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
       local horizontal=panel.edge=="north" or panel.edge=="south"
       local shade=Voxel3D.FACE_SHADE[({north=5,south=6,west=1,east=2})[panel.edge]] or .8
       local placement=placements[panel]
-      local showArt=placement and feature[panel.edge]==panel
+      local glazing=V.require('SilphWindows').perimeter(entry.map,panel)
+      local glass,windowFrame
+      if glazing then glass={family='silph_glass',kind='window_glass',vertices={},indices={},interiorPanel=panel};groups[#groups+1]=glass
+       windowFrame={family='silph_frame',vertices={},indices={},interiorPanel=panel};groups[#groups+1]=windowFrame end
+      local showArt=not glazing and placement and feature[panel.edge]==panel
       local sourceFrom,sourceTo,width,left,right
       if showArt then
         sourceFrom,sourceTo=placement.sourceFrom,placement.sourceTo
@@ -3214,6 +3223,9 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
         wallQuads=wallQuads+1;checkpoint()
       end
       local cuts={panel.from,panel.upto}
+      if glazing then for _,pane in ipairs(V.require('SilphWindows').panelApertures(entry.map,panel,H))do
+       cuts[#cuts+1]=math.max(panel.from,pane.from);cuts[#cuts+1]=math.min(panel.upto,pane.upto)
+      end end
       for x=panel.from+C,panel.upto-1,C do cuts[#cuts+1]=x end
       if showArt then cuts[#cuts+1]=left;cuts[#cuts+1]=right end
       for _,door in ipairs(panel.openings)do cuts[#cuts+1]=door.from;cuts[#cuts+1]=door.upto end
@@ -3230,7 +3242,8 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
             -- Fixed-scale structural finish, with aligned rails on every wall.
             -- Keep the finish inside its own room mask, behind the art.
             -- A face exactly on an east/south boundary samples the next cell.
-            quad(backing,a,b,bottom,H,a/128,b/128,1-bottom/H,0,inset*.5)
+            if glazing then V.require('SilphWindows').panel(quad,backing,glass,windowFrame,panel,a,b,bottom,H,inset*.5,entry.map)
+            else quad(backing,a,b,bottom,H,a/128,b/128,1-bottom/H,0,inset*.5)end
             if low and bottom==0 then
               quad(low,a,b,0,6,a/128,b/128,1,1-6/H,inset*.5)
               if panel.wallThickness then
@@ -3249,6 +3262,33 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
             end
           end
         end
+      end
+      -- Close the volume through each opening, not only with two flat door
+      -- frames. Without these reveals, an oblique view looks along the empty
+      -- 16px shell and reads as two independent panorama walls.
+      if panel.wallThickness then
+        local at,far=panel.at,panel.at+panel.wallThickness
+        local function solid(corners,uv)
+          pushQuad(backing.vertices,backing.indices,corners,uv,shade)
+          pushQuad(wallVerts,wallIndices,corners,uv,shade)
+          wallQuads=wallQuads+1;checkpoint()
+        end
+        for _,door in ipairs(panel.openings)do
+          local a,b,h=door.from,door.upto,door.height
+          for _,edge in ipairs{a,b}do
+            local corners=horizontal and {{edge,0,at},{edge,0,far},{edge,h,far},{edge,h,at}}
+              or {{at,0,edge},{far,0,edge},{far,h,edge},{at,h,edge}}
+            solid(corners,{{at/128,1},{far/128,1},{far/128,1-h/H},{at/128,1-h/H}})
+          end
+          local ceiling=horizontal and {{a,h,at},{b,h,at},{b,h,far},{a,h,far}}
+            or {{at,h,a},{far,h,a},{far,h,b},{at,h,b}}
+          solid(ceiling,{{0,0},{.1,0},{.1,.1},{0,.1}})
+        end
+        -- A solid wall also has a top when the orbit view removes the roof.
+        local a,b=panel.from,panel.upto
+        local cap=horizontal and {{a,H,at},{b,H,at},{b,H,far},{a,H,far}}
+          or {{at,H,a},{far,H,a},{far,H,b},{at,H,b}}
+        solid(cap,{{0,0},{.1,0},{.1,.1},{0,.1}})
       end
       -- Raised corridor-side plaque; follows its parent wall's cutaway.
       -- A small physical depth keeps it distinct from painted wall art.
@@ -3488,12 +3528,16 @@ local function geometryFor(entry, own, rects, cooperativeStep,
   local profile = HorizonWall.profileFor(entry.map)
   local safariForest = HorizonWall.isSafariForest(entry.map)
   local workUnits = 0
+  local clock = love and love.timer and love.timer.getTime
+  local sliceStarted = clock and clock() or 0
   local function checkpoint(cost)
     if not cooperativeStep then return end
     workUnits = workUnits + (cost or 1)
-    if workUnits >= HorizonWall.BUILD_UNITS_PER_SLICE then
+    if workUnits >= HorizonWall.BUILD_UNITS_PER_SLICE
+       or clock and clock() - sliceStarted >= .00075 then
       workUnits = 0
       cooperativeStep()
+      sliceStarted = clock and clock() or 0
     end
   end
   local wallVerts, wallIndices = {}, {}
@@ -4524,8 +4568,9 @@ local function geometryFor(entry, own, rects, cooperativeStep,
 
   local outdoorWater = V.require('Gen1OutdoorScenery').profile(entry.map)
   local carrier = SOUTH_SEA_LAND_FOOTS[entry.map.id]
-  local seaLevel = HorizonWall.SEA_LEVEL
-    + V.require('LedgeElevation').waterBase(entry.map, carrier and carrier.sea)
+  -- Inland skyline jobs do not emit sea. Do not scan their entire water
+  -- collision grid merely to compute a height that will never be consumed.
+  local seaLevel
 
   seaTile = function(x, z, spanX, spanZ)
     spanX, spanZ = spanX or C, spanZ or C
@@ -4534,8 +4579,12 @@ local function geometryFor(entry, own, rects, cooperativeStep,
       key = table.concat({ key, entry.ox + x + spanX,
                           entry.oy + z + spanZ }, ":")
     end
-    if sharedSeaCells[key] then return 0 end
+    if sharedSeaCells[key] then checkpoint(1); return 0 end
     sharedSeaCells[key] = true
+    if seaLevel == nil then
+      seaLevel = HorizonWall.SEA_LEVEL
+        + V.require('LedgeElevation').waterBase(entry.map, carrier and carrier.sea)
+    end
     local y = seaLevel
     local p = { { x, y, z }, { x + spanX, y, z },
                 { x + spanX, y, z + spanZ }, { x, y, z + spanZ } }
@@ -4603,6 +4652,7 @@ local function geometryFor(entry, own, rects, cooperativeStep,
     return water, wall
   end
   for x = alongStart, alongEndX, C do
+    checkpoint(1)
     local gx = entry.ox + x + C / 2
     -- Outside detects a north/south connection; inside prevents one owner
     -- from drawing through a perpendicular neighbour at a union corner.
@@ -4691,6 +4741,7 @@ local function geometryFor(entry, own, rects, cooperativeStep,
     end
   end
   for z = alongStart, alongEndZ, C do
+    checkpoint(1)
     local gz = entry.oy + z + C / 2
     local west = not covered(rects, own, entry.ox - 1, gz)
                  and not covered(rects, own, entry.ox + 1, gz)
@@ -7061,6 +7112,7 @@ local function retainInteriorTexture(g, canvas, class)
 end
 
 local function skylineTexture(class)
+  if class=='silph_glass'or class=='silph_frame'then return V.require('SilphWindows').texture(class=='silph_frame')end
   -- Floor light and glazing share a single retained 128x160 RGBA canvas.
   if class == 'room_breach_frame' or class=='room_breach_roof' then return skylineTexture('room_breach_exterior') end
   if class == "garden_light" then return skylineTexture("garden_prism") end
@@ -7572,7 +7624,7 @@ local lastReady, useSerial = nil, 0
 -- active+neighbour build may coexist briefly. Textures are shared; these are
 -- only the small perimeter meshes, and retaining all three avoids releasing a
 -- known-good seam fallback in the very frame its replacement completes.
-HorizonWall.READY_CACHE_CAP = 3
+HorizonWall.READY_CACHE_CAP = 3 -- minimum; desktop RAM allowance evaluated when trimming
 -- A direction change can leave an in-progress future union behind before its
 -- coroutine reaches the cache. Unlike ready entries, such jobs cannot finish
 -- unless that exact union key is requested again, so retaining them without a
@@ -7695,13 +7747,14 @@ end
 local function stateKey(state, maps, canonical)
   local parts = { tostring(TileRenderer.voidFill or "trees"),
                   HorizonWall.enabled() and "full" or "off",
-                  V.require('OutdoorHorizon').setting:get(),
+                  V.require('OutdoorHorizon').setting:get(), V.require('CinnabarVolcano').setting:get(), tostring(V.require('SilphWindows').enabled(state.map)),
                   V.require('Gen1LavenderTower').setting:get(),
                   tostring(V.require('Gen1OutdoorScenery').ground:get()),
                   tostring(V.require('Gen1OutdoorScenery').trees:get()),
                   tostring(V.require('Gen1PalletVillage').buildings:get()),
                   tostring(V.require('VoxelItems').setting:get()),
-                  canonical and "world" or ("root:" .. tostring(state.map.id)) }
+                  canonical and "world" or ("root:" .. tostring(state.map.id)),
+                  tostring(V.require('SeasonalTrees').winter()) }
   for _, e in ipairs(maps) do
     parts[#parts + 1] = table.concat({ tostring(e.map.id), e.ox, e.oy,
       e.w, e.h, HorizonWall.classFor(e.map),
@@ -7724,10 +7777,10 @@ local function addressOf(state)
   local revision = WorldPlacement.revision and WorldPlacement.revision(state.worldMaps)
   local scenery = V.require('Gen1OutdoorScenery')
   return addressCache.get(state, revision, TileRenderer.voidFill or 'trees',
-    HorizonWall.enabled(), V.require('OutdoorHorizon').setting:get(),
+    HorizonWall.enabled(), V.require('OutdoorHorizon').setting:get(), V.require('CinnabarVolcano').setting:get(), tostring(V.require('SilphWindows').enabled(state.map)),
     V.require('Gen1LavenderTower').setting:get(), scenery.ground:get(),
     scenery.trees:get(), V.require('Gen1PalletVillage').buildings:get(),
-    V.require('VoxelItems').setting:get())
+    V.require('VoxelItems').setting:get(), V.require('SeasonalTrees').winter())
 end
 
 local function rebasedView(entry, baseX, baseY)
@@ -7767,17 +7820,28 @@ local function touch(entry, baseX, baseY)
   return view
 end
 
+local trimmedBudget
+local optionalPreparation
 local function trimReady(keepKey)
-  local count = 0
-  for _ in pairs(readyCaches) do count = count + 1 end
-  while count > HorizonWall.READY_CACHE_CAP do
+  local residency = V.require('WorldResidency')
+  local count, bytes = 0, 0
+  for _, entry in pairs(readyCaches) do
+    entry.bytes = entry.bytes or residency.measure(entry.meshes)
+    count, bytes = count + 1, bytes + entry.bytes
+  end
+  local cap, limit = residency.capacity(), residency.sceneryBudget()
+  trimmedBudget = residency.budget()
+  while count > cap or bytes > limit do
     local oldestKey, oldestUse
     for key, entry in pairs(readyCaches) do
-      if key ~= keepKey and (not oldestUse or entry.used < oldestUse) then
+      if key ~= keepKey and (not optionalPreparation or (key ~= optionalPreparation.keepKey
+            and not (optionalPreparation.keepKeys and optionalPreparation.keepKeys[key])))
+          and (not oldestUse or entry.used < oldestUse) then
         oldestKey, oldestUse = key, entry.used
       end
     end
     if not oldestKey then break end
+    bytes = bytes - readyCaches[oldestKey].bytes
     releaseMeshes(readyCaches[oldestKey].meshes)
     readyCaches[oldestKey] = nil
     count = count - 1
@@ -7789,12 +7853,16 @@ local function newBuildJob(key, maps, worldMaps)
                 resumes = 0 }
   job.co = coroutine.create(function()
     if #maps==1 and V.require('Gen1Rooftops').matches(maps[1].map) then
-      job.meshes=V.require('RooftopPanorama').build(maps[1],function()coroutine.yield('rooftop-world')end,worldMaps);return
+      job.meshes=V.require('RooftopPanorama').build(maps[1],function()coroutine.yield('rooftop-world')end,worldMaps,key);return
+    end
+    if #maps==1 and V.require('SilphWindows').enabled(maps[1].map)then
+      job.meshes=V.require('SilphWindows').build(maps[1],function()coroutine.yield('silph-world')end,worldMaps,job.meshes)
     end
     local outdoor=V.require('OutdoorHorizon')
     local voxelExterior = outdoor.active(maps[1].map,HorizonWall)
     if voxelExterior then
-      job.meshes=outdoor.build(maps,HorizonWall,function()coroutine.yield('voxel-horizon')end,worldMaps)
+      job.meshes={} -- own completed uploads even while the builder is suspended
+      outdoor.build(maps,HorizonWall,function()coroutine.yield('voxel-horizon')end,worldMaps,job.meshes)
     end
     local coastalVertices, coastalIndices = {}, {}
     local storyVertices, storyIndices = {}, {}
@@ -8095,6 +8163,25 @@ local function finishJob(job)
                   animated = job.animated == true,
                   mapIds = mapIdsOf(job.maps) }
   job.co, job.maps, job.meshes = nil, nil, nil
+  if optionalPreparation then
+    local residency=V.require('WorldResidency')
+    local protectedBytes,protectedCount=0,0
+    local keys=optionalPreparation.keepKeys or {[optionalPreparation.keepKey]=true}
+    entry.bytes=residency.measure(meshes)
+    for key in pairs(keys)do
+      local cached=key~=job.key and readyCaches[key]
+      if cached then
+        cached.bytes=cached.bytes or residency.measure(cached.meshes)
+        protectedBytes=protectedBytes+cached.bytes;protectedCount=protectedCount+1
+      end
+    end
+    if entry.bytes+protectedBytes>residency.sceneryBudget()
+        or protectedCount+1>residency.capacity() then
+      releaseMeshes(meshes)
+      optionalPreparation.rejected=true
+      return nil -- not a failed map: its real warp may build it normally later
+    end
+  end
   readyCaches[job.key] = entry
   lastReady = entry
   useSerial = useSerial + 1
@@ -8103,11 +8190,32 @@ local function finishJob(job)
   return entry
 end
 
+local frameRemaining,frameResumes
+function HorizonWall.beginFrame(covered,loading,mobile)
+  -- All update/draw probes share one budget. Previously each probe resumed
+  -- the same build again, so staging a neighbour multiplied foreground work.
+  local hidden=covered or loading
+  -- Phones need guaranteed bounded progress even at 30 Hz. Applying the
+  -- desktop spare-time throttle here would pause required window construction
+  -- for 59 frames out of 60. All callers share this single frame allowance.
+  frameRemaining=mobile and (hidden and .008 or .001)
+    or V.require('BackgroundBudget').allowance(hidden and .008 or .001,hidden)
+  frameResumes=hidden and 128 or mobile and 8 or 1
+end
 local function advanceJob(job)
-  for _ = 1, HorizonWall.BUILD_RESUMES_PER_CALL do
+  if frameResumes and (frameResumes<=0 or frameRemaining<=0)then return nil,false end
+  -- Fine-grained uploads can yield much earlier than the time deadline.
+  -- Spend the covered budget on multiple slices; the cap also bounds jobs
+  -- whose checkpoints do not advance the clock. Stop after any slow step.
+  local limit = frameResumes or HorizonWall.BUILD_RESUMES_PER_CALL
+  for _ = 1, limit do
+    if frameResumes and (frameResumes<=0 or frameRemaining<=0)then break end
     if coroutine.status(job.co) == "dead" then return finishJob(job), true end
     job.resumes = job.resumes + 1
+    if frameResumes then frameResumes=frameResumes-1 end
+    local started=frameRemaining and love.timer.getTime()
     local ok = coroutine.resume(job.co)
+    if started then frameRemaining=frameRemaining-(love.timer.getTime()-started)end
     if not ok then
       job.complete = false
       return finishJob(job), false
@@ -8152,6 +8260,7 @@ function HorizonWall.meshes(state)
     return {}, true, false
   end
   local key, maps, baseX, baseY, _, worldMaps = addressOf(state)
+  if trimmedBudget ~= V.require('WorldResidency').budget() then trimReady(key) end
   local ready = readyCaches[key]
   if ready then
     lastReady = ready
@@ -8179,6 +8288,26 @@ function HorizonWall.meshes(state)
   -- exact canonical key, so an exact cache hit above remains seamless while a
   -- genuinely cold/unrelated key stays behind the atomic 2D/transition cover.
   return {}, false, false
+end
+
+-- Optional scenery must never evict the room currently on screen. When both
+-- cannot coexist within the cache budget, discard the optional allocation and
+-- leave the normal destination build/reveal path available for the actual warp.
+function HorizonWall.prepareOptional(state, visibleState, preparedStates)
+  if not HorizonWall.enabled() then return {},true,false end
+  local visibleKey=addressOf(visibleState)
+  if not readyCaches[visibleKey] then return {},false,false end
+  local previous=optionalPreparation
+  local context={keepKey=visibleKey,keepKeys={[visibleKey]=true}}
+  for _,prepared in ipairs(preparedStates or{})do
+    context.keepKeys[addressOf(prepared)]=true
+  end
+  optionalPreparation=context
+  local ok, meshes, ready, failed=pcall(HorizonWall.meshes,state)
+  optionalPreparation=previous
+  if not ok then error(meshes,0) end
+  if context.rejected then return {},false,true end
+  return meshes,ready,failed
 end
 
 -- Pure address probe for the headless regression suite. HorizonWall is an
@@ -8221,7 +8350,7 @@ end
 -- failures retain it as well.  WorldPlacement is cheap metadata and is reset
 -- globally because a reload may have changed a connection graph rather than
 -- merely a block.
-function HorizonWall.invalidateMap(mapId)
+function HorizonWall.invalidateMap(mapId, preservePlacement)
   if mapId == nil then return false end
   addressCache.clear()
   mapId = tostring(mapId)
@@ -8258,7 +8387,7 @@ function HorizonWall.invalidateMap(mapId)
     end
   end
 
-  if WorldPlacement and type(WorldPlacement.invalidate) == "function" then
+  if not preservePlacement and WorldPlacement and type(WorldPlacement.invalidate) == "function" then
     WorldPlacement.invalidate()
   end
   return changed

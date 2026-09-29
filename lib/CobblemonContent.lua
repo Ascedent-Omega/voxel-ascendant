@@ -31,6 +31,22 @@ if bundledRaw then
   bundled=r.species;bundledComplete=r.complete==true and r.speciesCount==C.speciesCount
  end
 end
+-- Optional packaged binary records are tied to the exact verified JSON index.
+-- No runtime conversion/write is added to the first visible model frame.
+local binaryRecords,binaryDecoder
+if bundledRaw and love.data and love.data.unpack and love.data.decompress then
+ local ok,raw=pcall(V.mod.read,V.mod,'assets/cobblemon-binary/index.json')
+ if ok and type(raw)=='string' and #raw<=512*1024 then
+  local yes,idx=pcall(J.decode,raw)
+  if yes and type(idx)=='table' and idx.schema==1 and idx.sourceIndexHash==sha(bundledRaw)
+      and type(idx.records)=='table' then
+   local loaded,decoder=pcall(V.require,'CobblemonBinary')
+   if loaded and type(decoder)=='table'and type(decoder.decode)=='function'then
+    binaryRecords,binaryDecoder=idx.records,decoder
+   end
+  end
+ end
+end
 complete=complete or bundledComplete
 local downloadable=false;for _,f in ipairs(C.files)do if not f.bundled then downloadable=true end end
 function M.requiresDownload()return downloadable end
@@ -65,14 +81,28 @@ function M.available(dex,variant)
  return hashFor(bundled,dex,variant)~=nil or hashFor(installed,dex,variant)~=nil
 end
 function M.read(path)return read(path)end
-function M.record(dex,variant)
+local metrics
+local function withMetrics(model,hash)
+ if metrics==nil then local ok,m=pcall(V.require,'CobblemonMetrics');metrics=ok and m or false end
+ if metrics then model._preparedMetrics=metrics.get(hash)end
+ return model
+end
+function M.record(dex,variant,checkpoint)
  for _,source in ipairs({bundled,installed})do
   local h=hashFor(source,dex,variant)
   if h then
+   local digest=source==bundled and binaryRecords and binaryRecords[h]
+   if type(digest)=='string'and #digest==64 and not digest:find('[^a-f0-9]')then
+    local ok,blob=pcall(V.mod.read,V.mod,'assets/cobblemon-binary/'..h..'.bin')
+    if ok and type(blob)=='string'and #blob<=8*1024*1024 and sha(blob)==digest then
+     local model,bytes=binaryDecoder.decode(blob,h,J.null,checkpoint)
+     if model then model._decodedResidencyBytes=bytes;return withMetrics(model,h) end
+    end
+   end
    local raw=source==bundled and V.mod:read('assets/cobblemon-prepared/models/'..h..'.json')
      or cache:read(ROOT..'models/'..h..'.json')
    if raw and sha(raw)==h then
-    local ok,m=pcall(J.decode,raw);if ok and type(m)=='table' then return m end
+    local ok,m=pcall(J.decode,raw);if ok and type(m)=='table' then return withMetrics(m,h) end
    end
   end
  end

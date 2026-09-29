@@ -288,7 +288,13 @@ BattleScene._prefetchArena = prefetchArena -- named for the focused suite
 -- otherwise-unused slice work on the destination immediately.
 function BattleScene.prepare(state, arena)
   if not (state and state.map and arena) then return false end
-  if arena.discs then return true end
+  if arena.discs then
+    if arena.diskCourt then
+      local stage=V.require("VoxelBattleStage")
+      stage.mesh();stage.textureFor(arena)
+    end
+    return true
+  end
   prefetchArena(state, arena.map or state.map)
   return true
 end
@@ -895,7 +901,7 @@ end
 
 function BattleScene.presentationLayout(arena, groundY, textures, map, vp)
   local stage = V.require("VoxelBattleStage")
-  local layout = { actorScale={}, target={}, flipX={}, profileObject={},
+  local layout = { actorScale={}, trainerScale={}, target={}, flipX={}, profileObject={},
                    profilePosition={} }
   local baseScale = stage.presentationScale(arena)
   local context = battleLayoutContext(arena, map)
@@ -926,7 +932,12 @@ function BattleScene.presentationLayout(arena, groundY, textures, map, vp)
         role.x,role.y=0,0
       end
       layout[side] = { x + role.x, y - role.y, z }
-      layout.actorScale[side] = role.scale
+      layout.trainerScale[side] = role.scale
+      local speciesScale=1
+      if arena.diskCourt and V.stadium2ForGen1 and not (texture and texture.trainer) then
+        speciesScale=V.require("Stadium").diskSpeciesScale(side)
+      end
+      layout.actorScale[side] = role.scale*speciesScale
       layout.target[side] = role.target
       layout.flipX[side] = role.flipX
       layout.profileObject[side] = role.profileObject
@@ -1424,6 +1435,7 @@ local function castShadows(state, arena, terrain, nbMesh, cx, cy, vw, vh,
   local sig = shadowSignature(state, arena, terrain, nbMesh, token, horizon,
                               backdropIdentity)
   if mapProps then sig=sig..","..table.concat(mapProps.signature,",") end
+  sig=sig..":buriedFlowers:"..tostring(V.require("DeepSnow").buriesFlowers(host))..":snowFeet:"..tostring(groundY)
   if not ShadowMap.stale(sig) then return end
   local staticSig
   if not arena.discs and type(ShadowMap.storeStatic) == "function" then
@@ -1438,7 +1450,7 @@ local function castShadows(state, arena, terrain, nbMesh, cx, cy, vw, vh,
       parts[#parts+1] = tostring(nb.oy)
     end
     if mapProps then parts[#parts+1] = table.concat(mapProps.signature, ",") end
-    staticSig = table.concat(parts, ";")
+    staticSig = table.concat(parts, ";")..":buriedFlowers:"..tostring(V.require("DeepSnow").buriesFlowers(host))
   end
   local casterHeight=host and V.require('VoxelFurniture').shadowHeight({map=host,neighbors=neighbors})or 160
   local begun, reusedStatic = ShadowMap.begin(cx, cy, vw, vh,casterHeight,staticSig)
@@ -1448,7 +1460,7 @@ local function castShadows(state, arena, terrain, nbMesh, cx, cy, vw, vh,
     -- only thing the sun has to see besides the Pokemon themselves. Everything
     -- below this is a map that is not in the shot.
     if arena.discs then
-      V.require("VoxelBattleStage").cast(ShadowMap, arena, groundY or 0)
+      V.require("VoxelBattleStage").cast(ShadowMap, arena, groundY or 0, cards)
     elseif not reusedStatic then
       if mapProps then V.require("BattleMapProps").cast(mapProps,ShadowMap) end
       ShadowMap.draw(terrain, atlasFor(host), nil)
@@ -1656,7 +1668,7 @@ function BattleScene.groundY(map, arena)
   local pz = arena.player and math.floor(arena.player[2] / BattleScene.CELL)
     or math.floor(arena.playerCell[2])
   local ok, h = pcall(VoxelScene.groundAt, map, px, pz)
-  return (ok and h) or 0
+  return ((ok and h) or 0) + V.require("DeepSnow").battleLift(map,arena)
 end
 
 -- Where a world point lands in GB frame coordinates under `vp`, or nil when
@@ -1714,10 +1726,10 @@ function BattleScene.groundWeather(host, mode, nativeGround)
          WeatherTweak.groundAmount(host, mode, nativeGround)
 end
 
-function BattleScene.applyWeather(canvas, w, h, host, cell, mode)
+function BattleScene.applyWeather(canvas, w, h, host, cell, mode, spatialRain)
   local painter = Weather.applyBattle or Weather.apply
   return painter(canvas, w, h, host, cell,
-                 mode or BattleScene.weatherMode(host))
+                 mode or BattleScene.weatherMode(host), spatialRain)
 end
 
 -- ------- the tile clock, while the overworld is not the one drawing
@@ -1991,6 +2003,13 @@ function BattleScene.render(state, arena, textures, token)
     -- pw and ph, and why the HUDs and the depth of field, drawn onto the
     -- folded canvas afterwards, stay the chunky GB art they are.
     local rw, rh = AntiAlias.expand(pw, ph)
+    -- A detached disk court has no host-map roofs. Keep its weather mask off;
+    -- scanning city furniture here stalls battles and covers unrelated disks.
+    if arena.diskCourt then
+      V.require("WeatherCover").prepare(nil,"none")
+    else
+      V.require("WeatherCover").prepare({map=host,neighbors=neighbors},groundWeather)
+    end
     if not Voxel3D.beginScene(rw, rh, cx, cy, vw, vh, sky, "battle", {
       localLights = battleLighting,
       weather = weatherMode,
@@ -2036,7 +2055,7 @@ function BattleScene.render(state, arena, textures, token)
       -- combat clearings.  The old generated platform would sit over it as a
       -- conspicuous pixel oval, so only legacy/plain disc stages draw here.
       if not V.require("VoxelBattleStage").hasAuthoredBackdrop(arena) then
-        V.require("VoxelBattleStage").draw(arena, groundY)
+        V.require("VoxelBattleStage").draw(arena, groundY, cards)
       end
     else
       local surfaceWeather = Voxel3D.weatherGround(true) == true
@@ -2251,9 +2270,11 @@ function BattleScene.render(state, arena, textures, token)
       V.require("LightAtmosphere").draw(state)
       Voxel3D.indoorMist(host,state.dark)
     end
+    if not discs then V.require("DeepSnow").draw({map=host,neighbors=neighbors,snowArena=arena},weatherMode)end
+    local spatialRain = not discs and V.require("WorldWeather").draw({map=host, neighbors=neighbors}, weatherMode)
     local rendered = Voxel3D.endScene()
     rendered = BattleScene.applyWeather(rendered, rw, rh, host,
-                                        Voxel3D.cell, weatherMode)
+                                        Voxel3D.cell, weatherMode, spatialRain)
     local canvas = AntiAlias.resolve(rendered, pw, ph, "battle")
     if not canvas then
       declineReason = "anti-alias-resolve-pending"

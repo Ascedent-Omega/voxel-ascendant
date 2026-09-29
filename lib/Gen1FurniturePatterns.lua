@@ -1,4 +1,5 @@
 -- Exact native Gen1 component masks, reviewed against the original block atlas.
+local V=...
 local function phase(map,x,y,n)
  -- Native furnishings often repeat every four tiles; include the block index
  -- so those regular rows still receive different stable variants.
@@ -11,7 +12,37 @@ local function plant(map,x,y)
  return 'indoor_plant_'..types[phase(map,x,y,#types)+1]
 end
 local function grave(map,x,y)return 'memorial_stone_'..phase(map,x,y,3)end
+local function reportTable(map,x,y)
+ if not (map.id or ''):match('^SILPH_CO_%d+F$')then return false end
+ for dy=-1,1 do for dx=-1,1 do
+  if map:tileAt(x+dx,y+dy)==53 then return true end
+ end end
+ return false
+end
 return {
+ -- Mansion shaft rails are separate from the full-height wall courses.
+ -- Match only the railing art: 0x11 fall-through tiles must remain untouched.
+ {voxelOnly=true,kind='mansion_shaft_rail_horizontal',sets={FACILITY=true},
+  maps={POKEMON_MANSION_1F=true,POKEMON_MANSION_2F=true,POKEMON_MANSION_3F=true,POKEMON_MANSION_B1F=true},tiles={{64},{80}},groundTile=1},
+ {voxelOnly=true,kind='mansion_shaft_rail_corner',sets={FACILITY=true},
+  maps={POKEMON_MANSION_1F=true,POKEMON_MANSION_2F=true,POKEMON_MANSION_3F=true,POKEMON_MANSION_B1F=true},tiles={{65},{81}},groundTile=1},
+ {voxelOnly=true,kind='mansion_shaft_rail_vertical',sets={FACILITY=true},
+  maps={POKEMON_MANSION_1F=true,POKEMON_MANSION_2F=true,POKEMON_MANSION_3F=true,POKEMON_MANSION_B1F=true},tiles={{65}},groundTile=1},
+ {voxelOnly=true,kind='silph_desk_cap',sets={FACILITY=true},maps={SILPH_CO_1F=true},x=12,y=1,tiles={{13,14}},groundTile=1},
+ {voxelOnly=true,kind='silph_desk_side',sets={FACILITY=true},maps={SILPH_CO_1F=true},x=12,tiles={{29,30},{29,30}},groundTile=1},
+ {voxelOnly=true,kind='silph_desk_corner',sets={FACILITY=true},maps={SILPH_CO_1F=true},x=12,y=6,tiles={{29,30},{18,18}},groundTile=1},
+ {voxelOnly=true,kind='silph_desk_run',sets={FACILITY=true},maps={SILPH_CO_1F=true},y=6,tiles={{2},{18}},groundTile=1},
+ {voxelOnly=true,kind='silph_lift_portal',sets={FACILITY=true},tiles={{86,86},{88,88}},groundTile=1,
+  guard=function(map,x,y)
+   if not V.require('SilphWindows').floor(map)then return false end
+   for _,w in ipairs(map.def.warps or{})do if w.destMap=='SILPH_CO_ELEVATOR'and w.x*2==x and w.y*2==y then return true end end
+   return false
+  end},
+ {voxelOnly=true,kind='silph_lift_portal',sets={INTERIOR=true},maps={SILPH_CO_11F=true},tiles={{3,3},{4,4}},groundTile=31,
+  guard=function(map,x,y)
+   for _,w in ipairs(map.def.warps or{})do if w.destMap=='SILPH_CO_ELEVATOR'and w.x*2==x and w.y*2==y then return true end end
+   return false
+  end},
  -- The same FACILITY debris mask is industrial equipment in the power plant
  -- but rubble in the ruined mansion. Never replace its switch-statue masks.
  {kind='mansion_rubble_0',sets={FACILITY=true},maps={POKEMON_MANSION_1F=true,
@@ -160,8 +191,9 @@ return {
  {kind="console_tall",sets={FACILITY=true},complete=true,tiles={{13,14},{29,30},{74,75},{76,77}}},
  {kind="utility_table",sets={FACILITY=true},tiles={{13,2,2,14},{29,53,53,30},{29,53,53,30},{68,69,69,68}}},
  -- These computer tiles are reused as a continuous maze barrier in Rocket.
- {kind="facility_terminal",sets={FACILITY=true},tiles={{9,10},{25,26}},variant=function(map)
-  if map.id=='SILPH_CO_1F'then return 'fountain_rim' end
+ {kind="facility_terminal",sets={FACILITY=true},tiles={{9,10},{25,26}},variant=function(map,x,y)
+  if map.id=='SILPH_CO_10F'then return 'wood_crate'end
+  if map.id=='SILPH_CO_1F'then return V.require('SilphFountains').rimKind(V.require('VoxelItems'),map,x,y) end
   if map.id=='POKEMON_MANSION_1F' or map.id=='POKEMON_MANSION_2F'
     or map.id=='POKEMON_MANSION_3F' or map.id=='POKEMON_MANSION_B1F' then
    return 'mansion_storage_cabinet'
@@ -179,5 +211,14 @@ return {
  {kind="captain_chair",sets={SHIP=true},complete=true,tiles={{84,85},{66,67},{23,24}}},
  {kind="observation_binoculars",sets={GATE=true},maps={ROUTE_11_GATE_2F=true,
   ROUTE_12_GATE_2F=true,ROUTE_15_GATE_2F=true,ROUTE_16_GATE_2F=true,ROUTE_18_GATE_2F=true},
-  tiles={{36,36},{52,52},{57,57}}}
+  tiles={{36,36},{52,52},{57,57}}},
+ -- Extended report desks: every replaced cell owns its former flat artwork.
+ {voxelOnly=true,kind='report_table_leg',sets={FACILITY=true},tiles={{13}},groundTile=1,guard=reportTable},
+ {voxelOnly=true,kind='report_table_top',sets={FACILITY=true},tiles={{2}},groundTile=1,guard=reportTable},
+ {voxelOnly=true,kind='report_table_leg',sets={FACILITY=true},tiles={{14}},groundTile=1,guard=reportTable},
+ {voxelOnly=true,kind='report_table_top',sets={FACILITY=true},tiles={{29}},groundTile=1,guard=reportTable},
+ {voxelOnly=true,kind='report_table_top',sets={FACILITY=true},tiles={{30}},groundTile=1,guard=reportTable},
+ {voxelOnly=true,kind='report_table_top',sets={FACILITY=true},tiles={{53}},groundTile=1,guard=reportTable},
+ {voxelOnly=true,kind='report_table_leg',sets={FACILITY=true},tiles={{68}},groundTile=1,guard=reportTable},
+ {voxelOnly=true,kind='report_table_top',sets={FACILITY=true},tiles={{69}},groundTile=1,guard=reportTable},
 }

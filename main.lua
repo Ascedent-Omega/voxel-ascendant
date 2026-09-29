@@ -5,6 +5,7 @@
 -- intentionally remain at package root.
 
 local mod = ...
+assert(loadstring(assert(mod:read("lib/HumanDlc.lua"))))().install(mod)
 -- Capture failures before the renderer starts; this receipt never changes recovery.
 do
   local source=mod:read("lib/ErrorInbox.lua")
@@ -181,6 +182,15 @@ if generation ~= 1 and generation ~= 2 then
   return
 end
 
+-- Shared entry cover, installed before generation-specific game.ready hooks.
+-- The game-scoped owner prevents duplicate intros when KASC is present.
+do
+  local prefix="integrated/ascendant_startup/"
+  local card=runEntry(mod,prefix.."StartupCard.lua").attach(mod,prefix)
+  runEntry(mod,prefix.."VascPreload.lua").attach(card,function()return mod.exports end)
+  mod.exports.startupCard={apiVersion=1,status=function()return card:status()end}
+end
+
 -- One frozen, internal Overworld Card shared by both generation dispatches.
 -- Prepare metadata before option schemas; boot after the generation exports
 -- and declared provider dependencies, but before content registration closes.
@@ -316,6 +326,9 @@ local GEN2_SHARED_LIGHTING = {
   ["lib/LocalLightGrid.lua"] = "lib/LocalLightGrid.lua",
   ["lib/NativeWindowLights.lua"] = "lib/NativeWindowLights.lua",
   ["lib/LightVisibility.lua"] = "lib/LightVisibility.lua",
+  ["lib/StaticLightField.lua"] = "lib/StaticLightField.lua",
+  ["lib/StaticLightDiskCache.lua"] = "lib/StaticLightDiskCache.lua",
+  ["lib/StaticLightCacheWorker.lua"] = "lib/StaticLightCacheWorker.lua",
 }
 
 -- Cobblemon is a data-only model format shared by both renderers. Resolve
@@ -332,8 +345,13 @@ local GEN2_SHARED_MODEL_DATA = {
   ["lib/CobblemonPack.lua"] = true,
   ["lib/CobblemonSize.lua"] = true,
   ["lib/ContentJson.lua"] = true,
+  ["lib/CobblemonBinary.lua"] = true,
+  ["lib/CobblemonMetrics.lua"] = true,
+  ["lib/CobblemonOverworldSize.lua"] = true,
   ["lib/HdBinaryFetch.lua"] = true,
   ["lib/HdBinaryFetchWorker.lua"] = true,
+  ["lib/HdImageDecode.lua"] = true,
+  ["lib/HdImageDecodeWorker.lua"] = true,
 }
 
 local function privatePath(rel)
@@ -389,6 +407,11 @@ end
 local okSchema, schema = pcall(optionsChunk)
 if not okSchema or type(schema) ~= "table" then
   error("VOXEL_ASCENDANT: Gen2 options did not return a schema: " .. tostring(schema), 0)
+end
+if not mod.exports.humanDlc.available() then
+ for _,spec in ipairs(schema) do
+  if spec.key=="gen2TrainerArt" then spec.choices={{"AUTO / RESPECT OTHER MODS","auto"},{"NATIVE / OTHER MOD","native"}} end
+ end
 end
 for _, spec in ipairs(overworldCard.options.managerSchema(mod)) do schema[#schema+1]=spec end
 if not (mod.options and type(mod.options.define) == "function") then

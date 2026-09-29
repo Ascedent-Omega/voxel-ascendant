@@ -71,6 +71,10 @@ local EPS = 0.01
 local pos = nil
 local lastPx, lastPy = nil, nil
 
+local function retailAisles(map)
+  if map and tostring(map.id):match('^CELADON_MART_[2345]F$')then return V.require('RetailAisles')end
+end
+
 local function adopt(p)
   pos = { x = p.px + 8, z = p.py + 8 }
   lastPx, lastPy = p.px, p.py
@@ -122,9 +126,11 @@ local function blockedCell(state, p, cx, cy)
   if cx == p.cellX and cy == p.cellY then return nil end
   local map = state.map
   if not map:inBounds(cx, cy) then return "bounds" end
+  if V.require("WorldSeats").blocked(state,cx,cy)then return "tile" end
   local snow = V.require("SnowRamps").permission(state, p, cx, cy)
   if snow == true then return nil elseif snow == false then return "tile" end
-  if not map:isWalkableCell(cx, cy) then
+  local retail=retailAisles(map)
+  if not map:isWalkableCell(cx, cy) and not(retail and retail.permission(state,cx,cy))then
     if not (p.surfing and map:isWaterCell(cx, cy)) then return "tile" end
   end
   if pairBlocked(map, p.surfing, p.cellX, p.cellY, cx, cy) then
@@ -385,6 +391,8 @@ function FreeMove.install()
   local update = OverworldState.update
 
   function OverworldState:update(...)
+    local retail=retailAisles(self.map)
+    if retail and retail.reconcile(self)then FreeMove.drop()end
     yieldToNative(self)
     -- Also catch scripts started by this very update before the next draw.
     -- Forward every native return without allocating a per-frame table.

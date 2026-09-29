@@ -168,6 +168,7 @@ local POSES = [====[local function posesOf(state, spriteColors)
           local okStandGround, standGh = pcall(groundAt, state.map,
                                                 groundCellX, groundCellY)
           if okStandGround then gh = standGh end
+          gh = gh + V.require("DeepSnow").battleLift(state.map,arena)
 
           -- Battle trainer placement is static.  Never carry a half-finished
           -- overworld step/ledge-hop lift into the displaced battle pose.

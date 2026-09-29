@@ -80,8 +80,8 @@ end
 -- Build the current map and its connected neighbours quietly while voxel mode
 -- is still off. This is an in-memory, generation-checked cache: map edits and
 -- option changes already invalidate it, and nothing stale survives a restart.
--- Safer than serialising GPU/ROM-derived geometry to disk, while removing the
--- cold-toggle wait in normal play.
+-- GPU objects remain session-owned; validated CPU upload pages may also be
+-- recovered from TerrainDiskCache when a new session needs the same map.
 ChunkMesher.preloadSetting = ModSetting.new("preload", "PRELOAD",
   { true, false }, { "ON", "OFF" })
 
@@ -280,10 +280,11 @@ local UPLOAD_VERTICES = UPLOAD_QUADS * 4
 local unpackArgs = table.unpack or unpack
 local TRIANGLE_CORNERS = { 0, 6, 12, 0, 12, 18 }
 
-local function newAsyncSink(job)
-  local pages, page = {}, {}
-  local indexPieces, indexPage = {}, {}
-  local vertices, indices, quads = 0, 0, 0
+local function newAsyncSink(job, saved)
+  local pages, page = saved and saved.pages or {}, {}
+  local indexPieces, indexPage = saved and saved.indexPieces or {}, {}
+  local quads = saved and saved.quads or 0
+  local vertices, indices = quads * 4, quads * 6
 
   local function appendValues(x, y, z, u, v, shade)
     page[#page + 1] = x
@@ -433,6 +434,11 @@ local function newAsyncSink(job)
                      weatherShade(flat and shade or shade[i + 1], facing))
       end
       finishQuad()
+    end,
+    snapshot = function()
+      sealPage()
+      for _,p in ipairs(pages)do if not p.packed then return nil end end
+      return {pages=pages,indexPieces=indexPieces,quads=quads}
     end,
     finish = function()
       if vertices == 0 then return nil end
@@ -622,8 +628,22 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
   local outdoorProfile = OutdoorScenery and OutdoorScenery.profile and OutdoorScenery.profile(map)
   local floorProfile = InteriorFloors and InteriorFloors.profile
     and InteriorFloors.profile(map)
-  local push = sink.push
-  local pushValues = sink.pushValues
+  local Cover = V.require("WeatherCover")
+  local cover = Cover.begin(map)
+  local function push(c, uv, shade)
+    cover:add(c)
+    return sink.push(c, uv, shade)
+  end
+  local pushValues
+  if sink.pushValues then
+    local q={{},{},{},{}}
+    pushValues=function(x1,y1,z1,u1,v1,x2,y2,z2,u2,v2,x3,y3,z3,u3,v3,x4,y4,z4,u4,v4,...)
+      q[1][1],q[1][2],q[1][3]=x1,y1,z1;q[2][1],q[2][2],q[2][3]=x2,y2,z2
+      q[3][1],q[3][2],q[3][3]=x3,y3,z3;q[4][1],q[4][2],q[4][3]=x4,y4,z4
+      cover:add(q)
+      return sink.pushValues(x1,y1,z1,u1,v1,x2,y2,z2,u2,v2,x3,y3,z3,u3,v3,x4,y4,z4,u4,v4,...)
+    end
+  end
   local waterPush = waterSink and waterSink.push or nil
   local waterPushValues = waterSink and waterSink.pushValues or nil
   local tileset = map.tileset
@@ -972,6 +992,11 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
   -- `to` routes the quad somewhere other than the main sink -- the water
   -- surface is the only caller that ever does (see runGeometry's header).
   local function topQuad(x0, z0, h, tile, shade, to, transform, material)
+    -- Claimed native wall courses used to receive replacement floor all the
+    -- way to the old map edge, creating a shelf outside the inset glazing.
+    -- Apply this to both synthesized and ordinary floor tops; door/stair
+    -- alcoves are explicitly retained by the shell's shared footprint.
+    if h==0 and S.interiorFloorTiles and not S.interiorFloorTiles[keyOf(x0/8,z0/8)] then return end
     local aU, aV, bU, bV, cU, cV, dU, dV = topUV(tile, transform)
     if material then aU,bU,cU,dU=material,material,material,material end
     local tag=wallTag(material,x0/8,z0/8)
@@ -1777,6 +1802,9 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
             end
           end
         end
+        for _,q in ipairs(template) do
+          Budget.tick();cover:add(q,st.mx,base,st.mz,template.compact)
+        end
         group.offsets[#group.offsets + 1] = { st.mx, base, st.mz }
       else
         for _, q in ipairs(template) do
@@ -2252,6 +2280,11 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
             end
           end
         end
+        for qi,q in ipairs(st.quads) do
+          if keepAll or flags[qi] == "\1" then
+            Budget.tick();cover:add(q,mx,base,mz)
+          end
+        end
         group.offsets[#group.offsets + 1] = { mx, base, mz }
       end
     elseif not skipAll then
@@ -2277,6 +2310,7 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
       end
     end
   end
+  cover:publish()
 end
 
 local INSTANCE_FORMAT = {
@@ -2799,16 +2833,102 @@ local function landAux(c, aux)
   if c.stale then c.stale.aux = nil end
 end
 
+-- Hash resolved visual inputs, not only map ID: native cut/tree/door edits,
+-- claimed furniture tiles, border masks, terrain heights and style changes
+-- cannot reuse a stale mesh. Analysis is still needed for collisions and aux;
+-- a disk hit skips the expensive face construction and float/index packing.
+local terrainStructureKeys=setmetatable({},{__mode='k'})
+local function jobCPU(job)
+  return (job.cpuSeconds or 0)+(job.cpuStart and clock()-job.cpuStart or 0)
+end
+local function terrainCacheKey(disk,job,useInstances)
+  if not disk or not disk.key or (disk.available and not disk.available())then return nil end
+  local map=job.map
+  if map.def.generation==2 then return nil end
+  local outdoor=OutdoorScenery and OutdoorScenery.profile and OutdoorScenery.profile(map)
+  -- Script-owned event areas may change materials without changing native
+  -- cells. Keep their established live build until they expose a revision.
+  if type(outdoor)=='string' and outdoor:match('^kasc_')then return nil end
+  local policy=disk.policy and disk.policy(job.id,job.slot,MOBILE_RUNTIME,useInstances)
+  if disk.policy and not policy then return nil end
+  local resolved=Structures.forMap(map)
+  local elevation=elevationFor(map)
+  local checkStart=jobCPU(job)
+  local structures=terrainStructureKeys[resolved]
+  if not structures then
+    structures={}
+    -- Only terrain inputs. Runtime furniture/actors contain callbacks and are
+    -- rendered separately; they must neither enter nor invalidate this cache.
+    for _,name in ipairs{'buildingStamps','coastalEdges','furnitureWater','ground',
+      'hideBareRing','interiorFloorTiles','objectQuads','portalStamps','quayEdges',
+      'roundStamps','runs','shapeAt','skip','tileAt','topTileAt','topUVAt'}do
+      structures[name]=resolved[name]
+    end
+    -- Structures publishes one immutable terrain analysis until invalidation.
+    -- Body/ring requests must not rehash its shared templates a second time.
+    if disk.fingerprint then structures=disk.fingerprint(structures);terrainStructureKeys[resolved]=structures end
+  end
+  local samples={}
+  local directions={up=1,down=2,left=3,right=4}
+  for y=-RING-1,map.def.height*4+RING do
+    for x=-RING-1,map.def.width*4+RING do
+      Budget.tick()
+      local h=type(elevation.atTile)=='function'and elevation:atTile(x,y)
+        or elevation:at(math.floor(x/2),math.floor(y/2))
+      local dir,high,low
+      if elevation.rampAtTile then dir,high,low=elevation:rampAtTile(x,y)end
+      local cx,cy=math.floor(x/2),math.floor(y/2)
+      local flags=0
+      if map.isWalkableCell and map:isWalkableCell(cx,cy)then flags=flags+1 end
+      if map.isWaterCell and map:isWaterCell(cx,cy)then flags=flags+2 end
+      if map.warpAtCell and map:warpAtCell(cx,cy)then flags=flags+4 end
+      samples[#samples+1]=love.data.pack('string','<i4dddBB',map:tileAt(x,y)or -1,h,high or 0,low or 0,directions[dir]or 0,flags)
+    end
+  end
+  local cave=CaveSurfaces and CaveSurfaces.profile and CaveSurfaces.profile(map)
+  -- The runtime profile retains the map/renderer for material queries. Only
+  -- its material selectors belong in the data key; map.def is already below.
+  if cave then cave={id=cave.id,walls=cave.walls,floors=cave.floors,markedFloor=cave.markedFloor}end
+  local key=disk.key(job.id,job.slot,MOBILE_RUNTIME,useInstances,{
+    map=map.def,tileset=map.tileset,structures=structures,masks=job.masks,
+    grades=table.concat(samples),terrainMode=elevation.terrainMode,
+    cave=cave,
+    floor=InteriorFloors and InteriorFloors.profile and InteriorFloors.profile(map),
+    outdoor=outdoor,stone=OutdoorScenery.stone and OutdoorScenery.stone:get(),stairs=Stairs.material and Stairs.material(map),
+  })
+  return key,policy,1000*(jobCPU(job)-checkStart)
+end
 local function buildAsyncTerrain(job, useInstances)
-  local sink = newAsyncSink(job)
-  local waterSink = newAsyncSink(job)
-  local plan = useInstances and {
-    job = job,
-    groups = {},
-    byTemplate = {},
-  } or nil
-  runGeometry(job.map, job.slot == "body", job.masks, sink, waterSink,
-              plan)
+  local okDisk,disk=pcall(V.require,'TerrainDiskCache')
+  local key,policy,checkMs
+  if okDisk then
+    local ok,result,p,ms=pcall(terrainCacheKey,disk,job,useInstances)
+    if ok then key,policy,checkMs=result,p,ms else disk.errors=(disk.errors or 0)+1;disk.lastError=tostring(result)end
+  end
+  local readStart=jobCPU(job)
+  local saved=key and disk.get(key,MOBILE_RUNTIME,useInstances)
+  checkMs=(checkMs or 0)+1000*(jobCPU(job)-readStart)
+  local sink = newAsyncSink(job,saved and saved.land)
+  local waterSink = newAsyncSink(job,saved and saved.water)
+  local plan = useInstances and {job=job,groups={},byTemplate={}} or nil
+  if saved then
+    if plan then for _,group in ipairs(saved.groups)do
+      plan.groups[#plan.groups+1]={sink=newAsyncSink(job,group.mesh),offsets=group.offsets,quads=group.mesh.quads}
+    end end
+  else
+    local buildStart=jobCPU(job)
+    runGeometry(job.map, job.slot == "body", job.masks, sink, waterSink,plan)
+    local buildMs=1000*(jobCPU(job)-buildStart)
+    if key and (not disk.allowStore or disk.allowStore(policy,checkMs,buildMs))then
+      local bundle={mobile=MOBILE_RUNTIME,land=sink.snapshot(),water=waterSink.snapshot(),groups={}}
+      local complete=bundle.land and bundle.water
+      if plan then for _,group in ipairs(plan.groups)do
+        local snap=group.sink.snapshot();complete=complete and snap
+        bundle.groups[#bundle.groups+1]={mesh=snap,offsets=group.offsets}
+      end end
+      if complete then disk.put(key,bundle)end
+    end
+  end
   local mesh = sink.finish()
   local water = waterSink.finish()
   if plan then mesh = finishStampPlan(job, mesh, plan) end
@@ -3076,7 +3196,7 @@ local function visibleIdleSlice()
   return IDLE_SLICE
 end
 
-function ChunkMesher.pump(covered, background, loading, warpPrefetch, survey)
+function ChunkMesher.pump(covered, background, loading, warpPrefetch, survey, gatePreparing)
   if #jobs == 0 then return end
   local function nextJob()
     local firstPriority, firstPriorityRank, firstLive = nil, 0, nil
@@ -3101,6 +3221,15 @@ function ChunkMesher.pump(covered, background, loading, warpPrefetch, survey)
     return firstPriority or firstLive or jobs[1]
   end
   local pick = nextJob()
+  -- Optional future/return-map work can wait for a gate or loading cover.
+  -- At low FPS even the survey slice compounds an already missed frame.
+  -- Never suspend current terrain or a required direct/approached seam.
+  local timer = love and love.timer
+  if not covered and not loading and not background and survey
+      and not pick.urgent and (pick.priority or 0) == 0
+      and timer and timer.getDelta and timer.getDelta() > 1/40 then
+    return
+  end
   -- The first encounter with a cold destination shares its frame with
   -- setMap, Kanto's map-enter handlers and neighbour discovery.  Do not add
   -- any VASC geometry work to that one-off spike.  Remember the deferral on
@@ -3110,20 +3239,34 @@ function ChunkMesher.pump(covered, background, loading, warpPrefetch, survey)
     pick.entryDeferred = true
     return
   end
+  -- A cheap gate interior can spend spare time on the other side. Stay below
+  -- 3ms and fall back to the 1ms survey slice as soon as frame time rises.
+  local gateSlice = gatePreparing and timer and timer.getDelta
+    and timer.getDelta() < 1/80 and 0.003 or SURVEY_SLICE
   local slice = background and BACKGROUND_SLICE
                 or (covered and loading) and COVERED_LOADING_SLICE
                 or (covered and warpPrefetch) and WARP_PREFETCH_SLICE
                 or covered and COVERED_SLICE
                 or loading and LOADING_SLICE
-                or survey and SURVEY_SLICE
+                or survey and gateSlice
                 or (pick.urgent and URGENT_SLICE or visibleIdleSlice())
+  if not covered and not loading and not pick.urgent and (pick.priority or 0)==0 then
+    slice=V.require('BackgroundBudget').allowance(slice,false)
+    if slice<=0 then return end
+  end
   local deadline = clock() + slice
   while pick do
     if not pick.co then
       pick.co = coroutine.create(runJob)
     end
     Budget.begin(pick.co, deadline - clock())
+    pick.cpuStart=clock()
+    -- Receipt for consumers which invalidate derived snapshots after work.
+    -- Queue polling and deferred/paused jobs do not change the scene.
+    ChunkMesher.workSerial=(ChunkMesher.workSerial or 0)+1
     local ok, yielded = coroutine.resume(pick.co, pick)
+    pick.cpuSeconds=(pick.cpuSeconds or 0)+clock()-pick.cpuStart
+    pick.cpuStart=nil
     Budget.finish()
     if not ok then
       finishJob(pick, false, yielded)
@@ -3250,6 +3393,7 @@ function ChunkMesher.grass(map)
 end
 
 function ChunkMesher.flowers(map)
+  if V.require("DeepSnow").buriesFlowers(map) then return nil end
   local c = cache[map.id]
   return c and c.flowers or nil
 end
@@ -3292,23 +3436,15 @@ function ChunkMesher.refresh(mapId)
               body = (c.body ~= nil) or nil }
 end
 
--- Evict everything outside `live` (a set of map ids): far maps' meshes
--- are released -- GPU buffer and LOVE's CPU copy both -- and their
--- Structures analysis dropped. The live set is the current map plus its
--- rendered neighbours, so memory stays bounded by what is on or near the
--- screen instead of growing with every area ever visited.
---
--- The PREVIOUS live set is retained too: warping into a building
--- collapses the set to one small interior, and evicting the town at the
--- door means rebuilding the whole neighbourhood on the way out -- a
--- flat-world flash after every house. One set of history makes the
--- round trip free while staying bounded at two neighbourhoods.
-local prevLive = {}
-
+-- Pin the visible ring and retain recently visited maps within the shared
+-- byte/count budget. Scenery has its own reserved share of the same allowance.
 function ChunkMesher.setLive(live)
+  local residency=V.require("WorldResidency")
+  for id,c in pairs(cache)do residency.record(id,c)end
+  local retained = residency.keep(live)
   for id, c in pairs(cache) do
     if not live[id] then c.requireAux = nil end
-    if not live[id] and not prevLive[id] then
+    if not retained[id] then
       releaseEntry(c)
       cache[id] = nil
       gen[id] = (gen[id] or 0) + 1
@@ -3318,13 +3454,13 @@ function ChunkMesher.setLive(live)
   end
   for i = #jobs, 1, -1 do
     local job = jobs[i]
-    if not live[job.id] and not prevLive[job.id] then
+    if not retained[job.id] then
       releasePartialJob(job)
       jobIndex[jobKey(job.id, job.slot)] = nil
       table.remove(jobs, i)
       invalidateElevation(job.id)
     elseif not live[job.id] then
-      -- Keep one previous neighbourhood warm for a quick door round-trip,
+      -- Keep recent neighbourhoods warm for quick door round-trips,
       -- but it is no longer the destination. An unfinished job used to retain
       -- urgent=true and win pump() over the newly entered map, extending the
       -- covered transition for work the player could no longer see.
@@ -3336,7 +3472,6 @@ function ChunkMesher.setLive(live)
       job.live = true
     end
   end
-  prevLive = live
 end
 
 -- Drop one map's mesh (Cut swapped a block) or all of them (hot reload).
@@ -3344,6 +3479,7 @@ end
 -- in the same breath; in-flight builds of the map are cancelled through
 -- the generation counter.
 function ChunkMesher.invalidate(mapId)
+  if not mapId then V.require("WorldResidency").reset() end
   Structures.invalidate(mapId)
   invalidateElevation(mapId)
   if mapId then

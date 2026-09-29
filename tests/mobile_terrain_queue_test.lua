@@ -29,5 +29,23 @@ for _,mobile in ipairs{true,false}do
   jobs[1].urgent=true;jobs[2].terrainPublished=false;M.pump(false,false,false)
   assert(picked[4]=='current-decoration','explicit urgent ownership changed')
  end
+ -- Slow frames pause only rank-zero survey jobs, never urgent/required work.
+ for i=#jobs,1,-1 do jobs[i]=nil end
+ jobs[1]=job('optional',0,false,false)
+ love.timer.getDelta=function()return .05 end
+ local before=#picked;M.pump(false,false,false,false,true)
+ assert(#picked==before,'optional work ran during slow gameplay')
+ M.pump(true,false,false,false,true)
+ assert(#picked==before+1,'cover did not resume optional work')
+ jobs[1].urgent=true;M.pump(false,false,false,false,true)
+ assert(#picked==before+2,'urgent terrain paused by slow-frame guard')
+ jobs[1].urgent=false;jobs[1].priority=1;M.pump(false,false,false,false,true)
+ assert(#picked==before+3,'direct seam paused by slow-frame guard')
+ jobs[1].priority=0;love.timer.getDelta=function()return 1/120 end
+ M.pump(false,false,false,false,true,true)
+ assert(budget>.0029 and budget<=.0031,'gate did not use spare frame time')
+ love.timer.getDelta=function()return 1/60 end
+ M.pump(false,false,false,false,true,true)
+ assert(budget<=.0011,'gate budget did not shrink with frame headroom')
 end
 print('PASS mobile body-before-aux, direct queue drains, unchanged budget and desktop/urgent priority')

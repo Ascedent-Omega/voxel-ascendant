@@ -34,6 +34,28 @@ function M.validate(pack,allowDraft)
   end
   return true
 end
+-- The same content identity is available before expensive pixel composition.
+function M.cacheKey(pack,action,selection,sha256,opts)
+  opts=opts or{};M.validate(pack,opts.allowDraft)
+  local atlas=assert(pack.atlases[action],'missing authored action')
+  local hashes={M.version,pack.character,action,atlas.source.sha256,atlas.protect.sha256}
+  for _,slot in ipairs(order)do
+    if slot=='eyewear'and((opts.hair and opts.hair~='natural')or(opts.streak and opts.streak~='none'))then
+      local hair,streak=opts.hair or'natural',opts.streak or'none'
+      need(hair=='natural'or hairColors[hair],'unknown hair color');need(streak=='none'or hairColors[streak],'unknown streak color')
+      local head=selection.head or pack.defaults.head
+      local spec=assert(pack.materials.hair[head][action],'missing hair ownership')
+      hashes[#hashes+1]='hair/'..hair..'/'..streak..'/'..spec.sha256
+    end
+    if pack.parts[slot]then
+      local id=selection[slot]or pack.defaults[slot]
+      local part=assert(pack.parts[slot][id],'unknown wardrobe part')
+      local patch=assert(part.atlases[action],'missing wardrobe frames')
+      hashes[#hashes+1]=slot..'/'..id;hashes[#hashes+1]=patch.rgba.sha256;hashes[#hashes+1]=patch.coverage.sha256
+    end
+  end
+  return sha256(table.concat(hashes,'\0'))
+end
 function M.build(pack,action,selection,deps,opts)
   opts=opts or{};M.validate(pack,opts.allowDraft)
   selection=selection or{}

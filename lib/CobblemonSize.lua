@@ -461,6 +461,11 @@ local function positive(x)
 end
 function Size.prepare(model,rig)
  if measured[model] then return measured[model] end
+ local prepared=model._preparedMetrics
+ if prepared then
+  measured[model]={height=prepared.battleHeight,span=prepared.battleSpan}
+  return measured[model]
+ end
  local height,span=0,0
  local clip=model.actions and (model.actions.battle or model.actions.idle)
  local seconds=clip and model.anims and model.anims[clip] and model.anims[clip].seconds or 1

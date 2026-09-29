@@ -138,6 +138,14 @@ function M.sample(model,index,frame,wrap)
  if c.layers then
   for _,layer in ipairs(c.layers)do applyLayer(out,layer,seconds,wrap and layer.loop)end
  else applyLayer(out,c,seconds,wrap)end
+ -- Bedrock posers select mutually exclusive meshes (folded/open wings,
+ -- eyelids, etc.). Collapse hidden parent bones after all animation layers.
+ -- Every sample starts from rest above, so a later visible pose restores it.
+ local hidden={}
+ for i,row in ipairs(out)do
+  hidden[i]=(c.visibility and c.visibility[tostring(i)]==false)or hidden[model.parent[i]]or false
+  if hidden[i]then row[7],row[8],row[9]=0,0,0 end
+ end
  for _,row in ipairs(out)do
   for a=1,3 do
    assert(row[a]==row[a] and math.abs(row[a])<10000 and row[a+3]==row[a+3] and math.abs(row[a+3])<1e8 and row[a+6]==row[a+6] and math.abs(row[a+6])<100,'invalid animation sample')

@@ -3,14 +3,14 @@ local V=...
 local B={}
 -- Preparation is opt-in on the presentation provider; do not call its live
 -- pose API early. Each side is scheduled in a separate covered transition tick.
-function B.prepare(battle,side,arena)
+function B.prepare(battle,side,arena,requestedView)
  if not battle or not V.mod or not V.mod.find then return false end
  local mod=V.mod:find('ascendant_battle_heroes')
  local api=mod and mod.exports or V.mod.exports.battleHeroes
  if not (api and api.schema=='ascendant.battle-heroes/v1'
   and type(api.preparePresentation)=='function') then return false end
- local view
- if arena and arena.terarrium and arena.terarrium.cameraMode=='behind' then
+ local view=requestedView
+ if not view and arena and arena.terarrium and arena.terarrium.cameraMode=='behind' then
   view=side=='player' and 'terarrium-back' or 'terarrium-front'
  end
  return api.preparePresentation(battle,side,view)==true
@@ -206,7 +206,8 @@ local function mapFoot(hero,p,desired,scale,map,arena,eye,layout,vp,settled)
  local Board=V.require('BattleBillboard')
  if arena.discs or arena.portableStage then return desired end
  local height=B.geometryForMap(map)
- local function support(x,z)return Scene.groundAt(map,math.floor(x/16),math.floor(z/16))end
+ local snowLift=V.require("DeepSnow").battleLift(map,arena)
+ local function support(x,z)return Scene.groundAt(map,math.floor(x/16),math.floor(z/16))+snowLift end
  local function open(x,z)return A.openCell(map,math.floor(x/16),math.floor(z/16),arena.surfing==true)end
  local supportCache={}
  local function supported(point)
@@ -303,7 +304,7 @@ local function mapFoot(hero,p,desired,scale,map,arena,eye,layout,vp,settled)
  -- initial search is not latched, and a new arena/anchor searches afresh.
  -- The introduction has no Pokemon bounds yet. Do not freeze that temporary
  -- seat before both combatants have appeared: a large mon can occupy it.
- if same and cache.locked and supported(cache.foot) then
+ if same and cache.locked and supported({cache.foot[1],support(cache.foot[1],cache.foot[3]),cache.foot[3]}) then
   local foot={cache.foot[1],support(cache.foot[1],cache.foot[3]),cache.foot[3]}
   hero.mapFoot={arena=arena,x=p[1],z=p[3],foot=foot,clear=accept(foot)==true,
    locked=true,supportSafe=true,allowsOwnOverlap=relaxed,sideFlank=sideFlank}
@@ -368,9 +369,11 @@ function B.append(cards,textures,layout,eye,map,arena,presentationVP,probe)
  local toward=(e[1]-p[1])*rx+(e[3]-p[3])*rz
  if math.abs(toward)>.001 then sign=toward>0 and 1 or -1 end
  hero.facing=sign==1 and 'player' or 'enemy'
- local scale=layout.actorScale and layout.actorScale[side] or 1
+ local scale=layout.trainerScale and layout.trainerScale[side]
+  or layout.actorScale and layout.actorScale[side] or 1
  local offset=arena and arena.trainerOffsets and arena.trainerOffsets[side]
- local desired=offset and {p[1]+offset[1]*scale,p[2],p[3]+offset[2]*scale}
+ local gapScale=arena.diskCourt and 1 or scale
+ local desired=offset and {p[1]+offset[1]*gapScale,p[2],p[3]+offset[2]*gapScale}
   or B.rearFoot(p,e,eye,scale,side)
  local x,y,z=desired[1],desired[2],desired[3]
  local foot=arena and arena.terarrium and arena.terarriumService.trainerFoot(arena,side,p[2])

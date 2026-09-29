@@ -26,7 +26,8 @@
 -- untouched, so every other path is byte-for-byte what it always was.
 
 local V = ...
-local TiltShift = {}
+-- Reduced intermediates remain opt-in until they show a frame-time win.
+local TiltShift = { optimized = false }
 
 TiltShift.level = 0
 TiltShift.LABELS = { "OFF", "1", "2", "3" }
@@ -60,11 +61,16 @@ local SHADER = [[
     // 9 taps a small step apart: dense enough that even the strongest
     // preset blurs smoothly instead of ghosting into streaks
     vec2 o = dir * (s * spacing);
-    vec4 sum = Texel(tex, tc) * 0.2270270270;
+    // Inside the sharp band all nine taps address exactly the same pixel.
+    // Keep its original sample; only the genuinely blurred rows need taps.
+    vec4 sum = Texel(tex, tc);
+    if (s > 0.0) {
+    sum *= 0.2270270270;
     sum += (Texel(tex, tc + o) + Texel(tex, tc - o)) * 0.1945945946;
     sum += (Texel(tex, tc + 2.0 * o) + Texel(tex, tc - 2.0 * o)) * 0.1216216216;
     sum += (Texel(tex, tc + 3.0 * o) + Texel(tex, tc - 3.0 * o)) * 0.0540540541;
     sum += (Texel(tex, tc + 4.0 * o) + Texel(tex, tc - 4.0 * o)) * 0.0162162162;
+    }
     if (boost > 0.5) {
       float luma = dot(sum.rgb, vec3(0.299, 0.587, 0.114));
       sum.rgb = mix(vec3(luma), sum.rgb, saturation);
@@ -72,6 +78,35 @@ local SHADER = [[
     return sum * color;
   }
 ]]
+
+local COMPOSITE = [[
+ uniform Image blurred;
+ uniform float focusY;
+ uniform float band;
+ uniform float saturation;
+ vec4 effect(vec4 color,Image tex,vec2 tc,vec2 sc) {
+  vec4 sharp=Texel(tex,tc);
+  float luma=dot(sharp.rgb,vec3(.299,.587,.114));
+  sharp.rgb=mix(vec3(luma),sharp.rgb,saturation);
+  float blend=smoothstep(0.0,.06,abs(tc.y-focusY)-band);
+  return mix(sharp,Texel(blurred,tc),blend)*color;
+ }
+]]
+local composite
+local halfA,halfB,output,hw,hh,ow,oh
+local function release(canvas)if canvas and canvas.release then canvas:release()end end
+local function reducedCanvases(w,h)
+ local rw,rh=math.ceil(w/2),math.ceil(h/2)
+ if output and ow==w and oh==h then return halfA,halfB,output end
+ local PixelCanvas=V.require('PixelCanvas')
+ local ok,a=PixelCanvas.new(rw,rh);if not ok then return end
+ local okB,b=PixelCanvas.new(rw,rh);if not okB then release(a);return end
+ local okC,c=PixelCanvas.new(w,h);if not okC then release(a);release(b);return end
+ a:setFilter('linear','linear');b:setFilter('linear','linear');c:setFilter('nearest','nearest')
+ release(halfA);release(halfB);release(output)
+ halfA,halfB,output,hw,hh,ow,oh=a,b,c,rw,rh,w,h
+ return a,b,c
+end
 
 local shader = nil            -- nil = untried, false = unavailable
 local ping, pong, cw, ch = nil, nil, 0, 0
@@ -90,10 +125,11 @@ local function getCanvases(w, h)
     local ok, a = PixelCanvas.new(w, h)
     if not ok then return nil end
     local okB, b = PixelCanvas.new(w, h)
-    if not okB then return nil end
+    if not okB then release(a);return nil end
     -- the gaussian's fractional tap offsets need linear filtering
     a:setFilter("linear", "linear")
     b:setFilter("linear", "linear")
+    release(ping);release(pong)
     ping, pong, cw, ch = a, b, w, h
   end
   return ping, pong
@@ -134,7 +170,13 @@ function TiltShift.apply(canvas)
   local sh = getShader()
   if not sh then return canvas end
   local w, h = canvas:getDimensions()
-  local a, b = getCanvases(w, h)
+  local reduced=TiltShift.optimized and w>=640 and h>=360
+  if reduced and composite==nil then
+    local ok,c=pcall(love.graphics.newShader,COMPOSITE);composite=ok and c or false
+  end
+  reduced=reduced and composite~=false
+  local a,b,result
+  if reduced then a,b,result=reducedCanvases(w,h)else a,b=getCanvases(w,h)end
   if not a then return canvas end
 
   local spacing = math.max(0.75, math.min(3, h * preset.spacing))
@@ -157,23 +199,33 @@ function TiltShift.apply(canvas)
     love.graphics.setCanvas(a)
     pcall(sh.send, sh, "dir", { 1 / w, 0 })
     pcall(sh.send, sh, "boost", 0)
-    love.graphics.draw(canvas)
+    love.graphics.draw(canvas,0,0,0,reduced and hw/w or 1,reduced and hh/h or 1)
     love.graphics.setCanvas(b)
     pcall(sh.send, sh, "dir", { 0, 1 / h })
     pcall(sh.send, sh, "boost", 1)
     love.graphics.draw(a)
+    if reduced then
+      love.graphics.setCanvas(result);love.graphics.setShader(composite)
+      composite:send('blurred',b);composite:send('focusY',TiltShift.FOCUS_Y)
+      composite:send('band',preset.band);composite:send('saturation',preset.saturation)
+      -- Exact full-resolution source in the sharp band, with full-res UI
+      -- still composited later by the engine.
+      love.graphics.draw(canvas)
+    end
   end)
 
   love.graphics.setCanvas()
   love.graphics.setShader()
   love.graphics.setBlendMode(prevBlend or "alpha", prevAlpha)
   canvas:setFilter("nearest", "nearest")
-  return ok and b or canvas
+  return ok and (result or b) or canvas
 end
 
 -- Drop the GPU objects (window resize, hot reload).
 function TiltShift.invalidate()
+  release(ping);release(pong);release(halfA);release(halfB);release(output)
   ping, pong, cw, ch = nil, nil, 0, 0
+  halfA,halfB,output,hw,hh,ow,oh=nil,nil,nil,nil,nil,nil,nil
 end
 
 return TiltShift

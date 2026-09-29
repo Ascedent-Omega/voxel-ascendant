@@ -26,6 +26,7 @@ local function palette()
  return texture
 end
 function H.active(map,horizon)
+ if V.require('SilphWindows').matches(map)then return false end
  local canopy=horizon.classFor and horizon.classFor(map)=='canopy'
  return (horizon.hasSky(map)or canopy) and H.setting:get()~='bitmap'
 end
@@ -48,7 +49,7 @@ end
 function H.landmarks(maps,worldMaps,emit)
  if not V.require('Gen1PalletVillage').buildings:get() or not V.require('VoxelItems').setting:get()then return end
  if not worldMaps then local game=require('src.core.Game');worldMaps=game.data and game.data.maps end
- H.silphLandmark(maps,worldMaps,emit)
+ -- Silph is emitted once by build(), independently of this Lavender policy.
  local stone=V.require('Gen1LavenderTower').setting:get()=='stone'
  local lavender=worldMaps and worldMaps.LAVENDER_TOWN
  local route=worldMaps and worldMaps.ROUTE_10
@@ -177,19 +178,29 @@ function H.shoulders(maps,horizon,emit,yieldStep,depth,corridors)
  corridors=corridors or {}
  local step=16;depth=depth or 48
  local work=0
+ local clock=love and love.timer and love.timer.getTime
+ local started=clock and clock()or 0
  local function checkpoint()
   work=work+1
-  if work>=128 then work=0;if yieldStep then yieldStep()end end
+  if work>=128 or(work%8==0 and clock and clock()-started>=.00075)then
+   work=0;if yieldStep then yieldStep()end;started=clock and clock()or 0
+  end
  end
  local gates=V.require('Gen1ForestLandmarks').gates(maps,horizon)
  local function land(kind)
   return kind and kind~='none'and kind~='open_water'
    and not kind:find('water')and not kind:find('sea')
  end
+ local edgeKinds={}
  local function edgeKind(e,edge,x,z)
   local along=(edge=='north'or edge=='south')and x-e.x0 or z-e.z0
   local len=(edge=='north'or edge=='south')and e.w or e.h
-  return horizon.edgeClass(e.map,edge,math.max(0,math.min(len-1,along)))
+  along=math.max(0,math.min(len-1,along))
+  local edges=edgeKinds[e];if not edges then edges={};edgeKinds[e]=edges end
+  local samples=edges[edge];if not samples then samples={};edges[edge]=samples end
+  local kind=samples[along]
+  if kind==nil then kind=horizon.edgeClass(e.map,edge,along)or false;samples[along]=kind end
+  return kind or nil
  end
  local function clear(x,z)
   for _,e in ipairs(maps)do
@@ -336,6 +347,16 @@ function H.geometry(maps,horizon,emit,yieldStep,worldMaps)
     for tier=0,3 do
      local w=40-tier*8;b(24-w/2,rise+16+tier*(h-12)/4,24-w/2,w,(h-12)/4+5,w,leaf+tier%2,false,false)
     end
+   elseif V.require('SeasonalTrees').winter() and V.require('SeasonalTrees').sheds(profile,x,z)then
+    -- Bare broadleaf silhouettes, with the same stepped wood as nearby props.
+    b(22,rise+h*.55,22,4,h*.35,4,trunk)
+    for arm=0,3 do for step=1,3 do
+     local dx=arm==0 and -1 or arm==1 and 1 or 0
+     local dz=arm==2 and -1 or arm==3 and 1 or 0
+     local y=rise+h*(.38+step*.13)+(arm%2)*3
+     b(23+dx*step*5,y,23+dz*step*5,2,h*.16,2,trunk)
+     b(23+dx*step*5-math.max(dx,0)*5,y,23+dz*step*5-math.max(dz,0)*5,dx~=0 and 7 or 2,2,dz~=0 and 7 or 2,trunk)
+    end end
    else
     cherry=not dark and profile~="volcanic" and V.require("SpringBlossom").selected(profile or "forest",x,z)
     -- Interlocking lobes and lower branches make a dense, irregular canopy.
@@ -404,12 +425,27 @@ end
 -- section's density (forest gate/tower details can share the same cell).
 H.BATCH_CELL = 256
 H.BATCH_BOXES = 256
-H.BUILD_SLICE = .002
-H.BUILD_BOXES_PER_SLICE = 128
-function H.build(maps,horizon,yieldStep,worldMaps)
+H.BUILD_SLICE = .00075
+H.BUILD_BOXES_PER_SLICE = 48
+function H.build(maps,horizon,yieldStep,worldMaps,ownedMeshes)
  if #maps==1 and maps[1].map.id=='KA_MOLTRES_VOLCANO'and V.require('KascVolcano').openSky(maps[1].map)then return {}end
  if H.setting:get()=='off'then return {} end
  local groups,byCell={},{}
+ local tex,out=palette(),ownedMeshes or {}
+ local function upload(a)
+  if not a.vertices then return end
+  if yieldStep then yieldStep()end
+  local mesh=V.require('SceneryMeshUpload').newMesh(a.vertices,a.indices,yieldStep)
+  if not mesh then
+   if not ownedMeshes then for _,part in ipairs(out)do part.mesh:release()end end
+   error('voxel horizon allocation failed',0)
+  end
+  local part={mesh=mesh,texture=tex,ox=0,oy=0,kind='wall',class='voxel_horizon',
+   bounds=a.bounds,windowLight=a.lit==true,seasonalFoliage=a.foliage,springBlossom=a.blossom,castsShadow=false}
+  -- Publish ownership before the next yield, including cancellation midway
+  -- through geometry generation. Retire nested Lua vertex tables promptly.
+  out[#out+1]=part;a.part=part;a.vertices,a.indices=nil,nil
+ end
  local clock=love.timer and love.timer.getTime
  local buildStart=clock and clock() or 0
  local emitted=0
@@ -442,6 +478,7 @@ function H.build(maps,horizon,yieldStep,worldMaps)
     a.vertices[#a.vertices+1]={x+p[1]*w,y+p[2]*h,z+p[3]*d,(c-.5)/#colors,.5,G.FACE_SHADE[face]+((face==3 and not lit)and 2 or 0)}
    end
   end
+  if a.boxes>=H.BATCH_BOXES then upload(a)end
  end
  if not worldMaps then local game=require('src.core.Game');worldMaps=game.data and game.data.maps end
  H.silphLandmark(maps,worldMaps,emit)
@@ -449,20 +486,18 @@ function H.build(maps,horizon,yieldStep,worldMaps)
  V.require('Gen1ForestLandmarks').geometry(maps,horizon,emit,yieldStep)
  H.landmarks(maps,worldMaps,emit)
  V.require('OceanLandmarks').geometry(maps,horizon,emit,yieldStep,worldMaps)
- local tex=palette();local out={}
- local sliceStart=clock and clock() or 0
- local uploads=0
- for _,a in ipairs(groups)do
-  if uploads>=4 or (uploads>0 and clock and clock()-sliceStart>=.002)then
-   if yieldStep then yieldStep()end
-   uploads=0;sliceStart=clock and clock() or 0
+ -- Completed spatial batches were uploaded as soon as they filled. Only
+ -- unfinished edge batches remain; never retain the whole skyline as nested
+ -- Lua vertex tables while several neighboring horizons are being prepared.
+ for _,a in ipairs(groups)do upload(a)end
+ -- Keep the original creation/draw order, including coplanar authored faces.
+ for i,a in ipairs(groups)do out[i]=a.part end
+ local Volcano=V.require('CinnabarVolcano')
+ if Volcano.active()and worldMaps and maps[1]then
+  local root=maps[1];local x,z=Volcano.position(root.map.id,worldMaps)
+  if x and x*x+z*z<6000*6000 then
+   Volcano.meshes(x+(root.ox or 0),z+(root.oy or 0),0,yieldStep,out)
   end
-  local mesh=G.newMesh(a.vertices,a.indices)
-  if not mesh then for _,part in ipairs(out)do part.mesh:release()end;error('voxel horizon allocation failed',0)end
-  uploads=uploads+1
-  out[#out+1]={mesh=mesh,texture=tex,ox=0,oy=0,kind='wall',class='voxel_horizon',
-   bounds=a.bounds,windowLight=a.lit==true,seasonalFoliage=a.foliage,springBlossom=a.blossom,castsShadow=false}
-  a.vertices,a.indices=nil,nil
  end
  return out
 end
@@ -471,14 +506,18 @@ function H.visibility()
 end
 function H.draw(rim,matrix,visible)
  if visible and not visible(rim.bounds,matrix)then return false end
+ if rim.magma then G.magma(true)end
  if rim.windowLight then G.flatten({1,.86,.6},V.require('Gen1PalletVillage').windowLight())end
  -- Match real roofs/crowns without rebuilding geometry or changing windows.
- if G.weatherGround then G.weatherGround(not rim.windowLight)end
+ if G.weatherGround then G.weatherGround(not rim.windowLight and not rim.magma)end
  if G.seasonFoliage then G.seasonFoliage(rim.seasonalFoliage==true,rim.springBlossom==true)end
+ if G.weatherFoliageSnow then G.weatherFoliageSnow(not rim.windowLight and not rim.magma and G.weatherKind==2 and G.weatherAmount or 0)end
  local ok,result=pcall(G.draw,rim.mesh,rim.texture,matrix)
+ if G.weatherFoliageSnow then G.weatherFoliageSnow(0)end
  if G.seasonFoliage then G.seasonFoliage(false)end
  if G.weatherGround then G.weatherGround(false)end
  if rim.windowLight then G.flatten(nil)end
+ if rim.magma then G.magma(false)end
  if not ok then error(result,0)end
  return result~=false
 end

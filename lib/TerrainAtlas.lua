@@ -21,9 +21,9 @@
 -- 2D path animates them by OVERDRAWING the animated cells on top of the
 -- static tile layer each frame, which a single static mesh has no
 -- equivalent of -- the geometry samples one texture and that is that. So
--- animate the texture: rewrite the animated tile's slot in a private copy
--- of the atlas whenever the step advances, and every instance of that tile
--- across the whole mesh moves at once. Which is what the Game Boy does in
+-- prepare immutable atlas textures for the animation phases, then switch
+-- between them as the step advances. Every instance of that tile across
+-- the whole mesh moves at once. Which is what the Game Boy does in
 -- the first place (home/vcopy.asm rewrites the tile's VRAM bytes); the 2D
 -- overdraw is the port's workaround, not the original.
 
@@ -481,6 +481,70 @@ end
 
 TerrainAtlas._animFrame = animFrame   -- named for the suite
 
+-- Keep completed animation phases immutable on the GPU. Updating a texture
+-- that earlier draws still sample can make replacePixels wait for the GPU.
+-- Normal ROM atlases have eight phases. Modded cycles are bounded by both
+-- phase count and bytes; oversized cycles use the same bounded LRU bank.
+local function phaseKey(specs, frame)
+  local steps = {}
+  for i, spec in ipairs(specs) do
+    local n = spec.kind == "hshift" and #spec.offsets or #spec.sequence
+    steps[i] = math.floor(frame / (spec.period or 20)) % n
+  end
+  return table.concat(steps, ":")
+end
+local function phasePlan(specs, capacity)
+  local cycle = 1
+  local function gcd(a,b) while b ~= 0 do a,b=b,a%b end return a end
+  for _,spec in ipairs(specs) do
+    local n = spec.kind == "hshift" and #spec.offsets or #spec.sequence
+    local period = spec.period or 20
+    if period < 1 or period % 1 ~= 0 then return nil end
+    local length = period*n
+    cycle = cycle/gcd(cycle,length)*length
+    if cycle > 4096 then return nil end
+  end
+  local plan,seen = {},{}
+  for frame=0,cycle-1 do
+    local key=phaseKey(specs,frame)
+    if not seen[key] then
+      seen[key]=true;plan[#plan+1]={key=key,frame=frame}
+      if #plan>capacity then return nil end
+    end
+  end
+  return plan
+end
+local function releaseEntry(entry)
+  if not entry then return end
+  for _,image in pairs(entry.frames or {}) do
+    if image.release then pcall(image.release,image) end
+  end
+  if entry.data and entry.data.release then pcall(entry.data.release,entry.data) end
+end
+local function phaseImage(entry, frame)
+  local key=phaseKey(entry.specs,frame)
+  local image=entry.frames[key]
+  entry.clock=entry.clock+1;entry.used[key]=entry.clock
+  if image then return image end
+  for _,spec in ipairs(entry.specs) do
+    local n=spec.kind=="hshift" and #spec.offsets or #spec.sequence
+    patch(entry.data,entry,spec,math.floor(frame/(spec.period or 20))%n)
+  end
+  image=love.graphics.newImage(entry.data)
+  image:setFilter("nearest","nearest")
+  if entry.count>=entry.capacity then
+    local oldest,age
+    for k in pairs(entry.frames) do
+      if not age or entry.used[k]<age then oldest,age=k,entry.used[k] end
+    end
+    local old=entry.frames[oldest]
+    if old.release then pcall(old.release,old) end
+    entry.frames[oldest]=nil;entry.used[oldest]=nil
+  else entry.count=entry.count+1 end
+  entry.frames[key]=image
+  return image
+end
+
 -- false = this can never work and asking again is waste; nil = it did not
 -- work THIS time and might next. The caller latches the first and retries
 -- the second (see attemptFailed).
@@ -489,7 +553,7 @@ local function newEntry(map, base, baked)
   local specs = specsFor(tileset)
   if not specs then return false end        -- nothing on this tileset animates
   if not (love.image and love.image.newImageData
-          and base.replacePixels) then
+          and love.graphics.newImage) then
     return false                            -- no pixel access on this machine
   end
   -- the pixels the atlas texture was built from: our own SGB bake when we
@@ -507,10 +571,10 @@ local function newEntry(map, base, baked)
     -- twice over there and corrupt every still frame of it.
     local data = love.image.newImageData(w, h)
     data:paste(src, 0, 0, 0, 0, w, h)
-    local image = love.graphics.newImage(data)
-    image:setFilter("nearest", "nearest")
-    local e = { base = src, data = data, image = image, specs = specs,
-                perRow = tileset.tilesPerRow or 16, step = nil }
+    local capacity=math.max(1,math.min(16,math.floor(4*1024*1024/(w*h*4))))
+    local e = { base = src, data = data, specs = specs,
+                perRow = tileset.tilesPerRow or 16, frames={}, used={},
+                clock=0, count=0, capacity=capacity, plan=phasePlan(specs,capacity) }
     -- the frame files are raw grayscale; learn what the atlas did to the
     -- tile each one stands in for, so they land on the same colours
     local recolored = baked or (map.renderer and map.renderer.gbcAtlas)
@@ -551,9 +615,8 @@ local function newEntry(map, base, baked)
 end
 
 -- The atlas for this frame: the static one when nothing on this tileset
--- animates (or anything at all goes wrong), else a private copy with the
--- animated slots rewritten to the current step. Repatched only when the
--- step actually changes -- three times a second, ~130 pixels of work.
+-- animates (or anything at all goes wrong), else the cached immutable image
+-- for the current step. Preparation fills the phase bank before reveal.
 function TerrainAtlas.animate(map, colors, base, baked)
   -- RED++ bakes a per-MAP atlas, so its animated copy is per map too and
   -- has to be evicted with the meshes (setLive below); the shared paths key
@@ -584,31 +647,13 @@ function TerrainAtlas.animate(map, colors, base, baked)
   end
   if not entry then return nil end
 
-  local frame = animFrame()
-  -- one number for the whole entry: every spec's own step, folded together,
-  -- so a repatch happens when ANY of them turns over
-  local step = 0
-  for i, spec in ipairs(entry.specs) do
-    local n = spec.kind == "hshift" and #spec.offsets or #spec.sequence
-    step = step + (math.floor(frame / (spec.period or 20)) % n) * (16 ^ i)
+  local ok,image=pcall(phaseImage,entry,animFrame())
+  if not ok then
+    releaseEntry(entry)
+    animated[key]=attemptFailed(key)
+    return nil
   end
-  if step ~= entry.step then
-    entry.step = step
-    local ok = pcall(function()
-      for _, spec in ipairs(entry.specs) do
-        local n = spec.kind == "hshift" and #spec.offsets or #spec.sequence
-        patch(entry.data, entry, spec,
-              math.floor(frame / (spec.period or 20)) % n)
-      end
-      entry.image:replacePixels(entry.data)
-    end)
-    if not ok then
-      -- drop the entry rather than condemning the key: the next frame
-      -- rebuilds and tries again, and attemptFailed gives up eventually
-      animated[key] = attemptFailed(key)
-      return nil
-    end
-  end
+  entry.image=image
   -- Only a frame that got all the way here counts as healthy. Clearing the
   -- budget on a successful BUILD instead would never let it run out: an
   -- entry that builds fine and fails on upload would rebuild every frame,
@@ -637,12 +682,32 @@ end
 
 function TerrainAtlas.prepared(map)
   if not prewarmEligible(map) then return true end
-  return animated[animationKey(map, nil)] ~= nil
+  local entry=animated[animationKey(map,nil)]
+  if entry==nil then return false end
+  if not entry or not entry.plan then return true end
+  for _,phase in ipairs(entry.plan) do
+    if not entry.frames[phase.key] then return false end
+  end
+  return true
 end
 
 function TerrainAtlas.prepare(map)
   if TerrainAtlas.prepared(map) then return true end
-  TerrainAtlas.forMap(map, nil)
+  local key=animationKey(map,nil)
+  local entry=animated[key]
+  if entry==nil then
+    TerrainAtlas.forMap(map,nil)
+  elseif entry and entry.plan then
+    -- At most one texture per preparation call; publication uses the same
+    -- bank that draw consumes, so loading does actual reusable GPU work.
+    for _,phase in ipairs(entry.plan) do
+      if not entry.frames[phase.key] then
+        local ok=pcall(phaseImage,entry,phase.frame)
+        if not ok then releaseEntry(entry);animated[key]=attemptFailed(key) end
+        break
+      end
+    end
+  end
   return TerrainAtlas.prepared(map)
 end
 
@@ -691,12 +756,11 @@ end
 -- per map ever entered, and each pins the engine's own baked ImageData
 -- alive behind it.
 function TerrainAtlas.setLive(live)
+  local retained=V.require("WorldResidency").retained()
   for key, entry in pairs(animated) do
     if entry and entry.mapId
-       and not live[entry.mapId] and not prevLive[entry.mapId] then
-      if entry.image and entry.image.release then
-        pcall(entry.image.release, entry.image)
-      end
+       and not retained[entry.mapId] then
+      releaseEntry(entry)
       animated[key] = nil
     end
   end
@@ -708,9 +772,7 @@ function TerrainAtlas.invalidate()
   cacheData = {}
   attempts = {}
   for _, entry in pairs(animated) do
-    if entry and entry.image and entry.image.release then
-      pcall(entry.image.release, entry.image)
-    end
+    releaseEntry(entry)
   end
   animated = {}
   -- Invalidation is a generation boundary. Keeping ids from the old atlas

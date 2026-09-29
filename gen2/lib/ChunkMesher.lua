@@ -134,9 +134,9 @@ local function weatherFacing(c)
   return math.abs(az * bx - ax * bz) > 0.0001
 end
 
-local function weatherShade(value, facing)
-  if not facing then return value end
-  return value < 0 and value - 2 or value + 2
+local function weatherShade(value, facing, foliage)
+  local flags=(facing and 2 or 0)+(foliage and 4 or 0)
+  return value < 0 and value - flags or value + flags
 end
 
 -- A sink accepts quads (4 corners, 4 uv pairs, flat or per-corner shade)
@@ -158,7 +158,7 @@ local function newTableSink(_expectedQuads)
         local t = uv and uv[i]
         verts[#verts + 1] = { cc[1], cc[2], cc[3],
                               t and t[1] or c.u, t and t[2] or c.v,
-                              weatherShade(flat and shade or shade[i], facing) }
+                              weatherShade(flat and shade or shade[i], facing, c.foliage) }
       end
       Voxel3D.pushQuad(indices, quads)
       quads = quads + 1
@@ -237,7 +237,7 @@ local function newPackedSink(expectedQuads)
         local i = TRI_ORDER[k]
         local t = uv and uv[i]
         append(c[i], t and t[1] or c.u, t and t[2] or c.v,
-               weatherShade(flat and shade or shade[i], facing))
+               weatherShade(flat and shade or shade[i], facing, c.foliage))
       end
       quads = quads + 1
       if quads % PACKED_PAGE_QUADS == 0 then sealPage() end
@@ -338,7 +338,7 @@ local function newFfiSink(expectedQuads)
         buf[base + 2] = cc[3]
         buf[base + 3] = t and t[1] or c.u
         buf[base + 4] = t and t[2] or c.v
-        buf[base + 5] = weatherShade(flat and shade or shade[i], facing)
+        buf[base + 5] = weatherShade(flat and shade or shade[i], facing, c.foliage)
         base = base + 6
       end
       n = n + 6
@@ -426,7 +426,12 @@ end
 -- Omitted, water stays in the terrain mesh exactly as it always did, which
 -- is what the headless geometry() below and the sun's own pass both want.
 local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
-  local push = sink.push
+  local Cover = V.require("WeatherCover")
+  local cover = Cover.begin(map)
+  local function push(c, uv, shade)
+    cover:add(c)
+    return sink.push(c, uv, shade)
+  end
   local waterPush = waterSink and waterSink.push or nil
   local tileset = map.tileset
   -- BODY owns a separate body-only structure analysis.  Reusing FULL's
@@ -1019,9 +1024,14 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
           for qi, q in ipairs(st.quads) do
             if keepAll or flags[qi] == "\1" then
               Budget.tick()
-              group.sink.push({ q[1], q[2], q[3], q[4] }, quadUV(q),
+              group.sink.push({ q[1], q[2], q[3], q[4], foliage=true }, quadUV(q),
                               groundShades(q, q.shade))
             end
+          end
+        end
+        for qi,q in ipairs(st.quads) do
+          if keepAll or flags[qi] == "\1" then
+            Budget.tick();cover:add(q,mx,my,mz)
           end
         end
         group.offsets[#group.offsets + 1] = { mx, my, mz }
@@ -1044,12 +1054,15 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
           ok = keepQuad(x0, z0, x1, z1)
         end
         if ok then
+          sc.foliage=true
           push(sc, quadUV(q), groundShades(sc, q.shade, my))
+          sc.foliage=nil
         end
       end
     end
     if consumeQuads and not stampPlan then roundStamps[si] = nil end
   end
+  cover:publish()
 end
 
 local INSTANCE_FORMAT = {
@@ -1773,6 +1786,7 @@ function ChunkMesher.grass(map)
 end
 
 function ChunkMesher.flowers(map)
+  if V.require("DeepSnow").buriesFlowers(map) then return nil end
   local c = cache[map.id]
   return c and c.flowers or nil
 end

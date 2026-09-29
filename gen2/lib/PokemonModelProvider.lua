@@ -96,6 +96,18 @@ local function builtInStadium2Ready()
   return called and ready == true
 end
 
+function M.selectionChanged(value, game)
+  if not game then return end
+  if value~=M.COBBLEMON and value~=M.STADIUM1 and value~=M.STADIUM2 then return end
+  if generation()==2 then
+    ModSetting.new("stadium3dSprites", "3D POKEMON MODELS", {false,true}, {"OFF","ON"})
+      :setValue(true,game,true)
+  elseif V.BattleSpriteControl and V.BattleSpriteControl.followModelSource then
+    V.BattleSpriteControl.followModelSource(game)
+  end
+end
+M.setting:onChange(function(game,value) M.selectionChanged(value,game) end)
+
 function M.requested() return M.setting:get() end
 function M.mode() return stagedMode() end
 

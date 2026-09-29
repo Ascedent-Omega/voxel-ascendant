@@ -6,7 +6,7 @@ local root=assert(arg[1])
  local g=love.graphics;local meshes=0;local original=g.newMesh
  g.newMesh=function(...)meshes=meshes+1;return original(...)end
  local canvas=g.newCanvas(128,128,{dpiscale=1})
- local map={id='LAVENDER_TOWN',def={width=10,height=9}};local profile={height=48,color={.43,.44,.49}}
+ local map={id='LAVENDER_TOWN',def={width=10,height=9}};local profile={height=48,color={.43,.44,.49},region={-96,-96,416,384},offset={100,200}}
  local vp={1/176,0,0,-.82, 0,0,1/176,-.82, 0,-1/128,0,0, 0,0,0,1}
  g.setCanvas{canvas,depth=true};g.clear(.2,.2,.2,1,0,1)
  assert(M.drawLayers(map,profile,vp));assert(meshes==1)

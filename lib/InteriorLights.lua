@@ -38,7 +38,7 @@ function M.layout(map)
  local profile=H.interiorProfileFor(map)
  if not profile or not profile.nativeRoomPanels then return nil end
  local signature=table.concat(map.def.blocks or {},',')..':'..tostring(profile.shellHeight)..':'..tostring(profile.theme)
-   ..':'..tostring(profile.ceiling and profile.ceiling.enabled)..':'..tostring(profile.ceiling and profile.ceiling.authored)
+   ..':'..tostring(profile.ceiling and profile.ceiling.enabled)..':'..tostring(profile.ceiling and profile.ceiling.authored)..':'..tostring(V.require('SilphWindows').enabled(map))
  local old=cache[map];if old and old.signature==signature then return old end
  local panels=V.require('Gen1InteriorLayout').panelsFor(map,profile)
  local out={signature=signature,profile=profile,panels=panels,portals={},lamps={},blockers={}}
@@ -49,6 +49,26 @@ function M.layout(map)
   if placement and (not feature[p.edge]or placement.width>placements[feature[p.edge]].width)then feature[p.edge]=p end
   -- Preserve native doors. A closed door remains a solid light blocker.
   local doors={};for _,d in ipairs(p.openings or{})do doors[#doors+1]=d end
+  if V.require('SilphWindows').perimeter(map,p)then
+   local W=V.require('SilphWindows')
+   local panes=W.panelApertures and W.panelApertures(map,p,height)or{{from=p.from,upto=p.upto,bottom=10,top=height-5}}
+   local cuts={p.from,p.upto}
+   for _,a in ipairs(panes)do cuts[#cuts+1]=math.max(p.from,a.from);cuts[#cuts+1]=math.min(p.upto,a.upto)end
+   for _,d in ipairs(doors)do cuts[#cuts+1]=d.from;cuts[#cuts+1]=d.upto end
+   table.sort(cuts)
+   for i=1,#cuts-1 do local a,b=cuts[i],cuts[i+1];local mid=(a+b)/2;local pane,door
+    if b>a+.001 then
+    for _,v in ipairs(panes)do if mid>=v.from and mid<v.upto then pane=v;break end end
+    for _,v in ipairs(doors)do if mid>=v.from and mid<v.upto then door=v;break end end
+    if door then block(out.blockers,p,a,b,door.open and (door.height or 24)or 0,height)
+    elseif pane then
+     block(out.blockers,p,a,b,0,pane.bottom);block(out.blockers,p,a,b,pane.top,height)
+     out.portals[#out.portals+1]={position=point(p,(a+b)/2,(pane.bottom+pane.top)/2,.35),
+      normal=normal(p),rect={a,b,pane.bottom,pane.top},axis=horizontal(p)and 3 or 1,facade=true}
+    else block(out.blockers,p,a,b,0,height)end
+    end
+   end
+  else
   table.sort(doors,function(a,b)return a.from<b.from end)
   local cursor=p.from
   for _,d in ipairs(doors)do
@@ -57,10 +77,11 @@ function M.layout(map)
    cursor=d.upto
   end
   block(out.blockers,p,cursor,p.upto,0,height)
+  end
  end
  for _,edge in ipairs({'north','west','east'})do
   local p=feature[edge]
-  if p then
+  if p and not V.require("SilphWindows").perimeter(map,p)then
   local placement=placements[p]
   local function along(u)
    local f=(u-placement.sourceFrom)/(placement.sourceTo-placement.sourceFrom)

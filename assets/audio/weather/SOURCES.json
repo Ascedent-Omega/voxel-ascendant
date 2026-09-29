@@ -1,0 +1,193 @@
+{
+  "generator": "tools/build_weather_audio.py",
+  "seed": 28092026,
+  "license": "Original procedural VASC audio; no external samples.",
+  "sample_rate": 22050,
+  "channels": 2,
+  "files": [
+    {
+      "file": "rain.wav",
+      "seconds": 12.0,
+      "peak": 0.54,
+      "rms": 0.1096913151167535,
+      "loop": true,
+      "sha256": "2f71446c38be4fb2aefb7c5dfbc9ce3dd84ee269ff080113171aa7145c5fc37a"
+    },
+    {
+      "file": "sheltered-rain.wav",
+      "seconds": 12.0,
+      "peak": 0.45999999999999996,
+      "rms": 0.08879517967268342,
+      "loop": true,
+      "sha256": "de912c37887279d7bbf86757b34edd703e7a93b5075a71be744b81958b87b3d5"
+    },
+    {
+      "file": "wind.wav",
+      "seconds": 16.0,
+      "peak": 0.55,
+      "rms": 0.10341915395329897,
+      "loop": true,
+      "sha256": "214d2b9ee3d552e8604f3130fb5c55f1bf53fc9f6184c0ba21424b659281ac83"
+    },
+    {
+      "file": "snow-wind.wav",
+      "seconds": 16.0,
+      "peak": 0.42,
+      "rms": 0.0749954729937379,
+      "loop": true,
+      "sha256": "e031a9f17a29411a1bfbff54aa72513006ec1dc64d44080808e9f1669660b48e"
+    },
+    {
+      "file": "thunder-1.wav",
+      "seconds": 5.349977324263039,
+      "peak": 0.82,
+      "rms": 0.09175208295864168,
+      "loop": false,
+      "sha256": "1bea4e6654b177ca80db6888a407734d21618837e2e739f8f32662bc17621a98"
+    },
+    {
+      "file": "thunder-2.wav",
+      "seconds": 5.9,
+      "peak": 0.8199999999999998,
+      "rms": 0.11036402660665008,
+      "loop": false,
+      "sha256": "01b7b091e0d12f04a9a4a0318cc32bea141b549b1ab4f7546b40fd6871ecbceb"
+    },
+    {
+      "file": "thunder-3.wav",
+      "seconds": 6.449977324263038,
+      "peak": 0.82,
+      "rms": 0.09904752046414277,
+      "loop": false,
+      "sha256": "9d72564c81af3438d3945872f3453b091fca60cc146324cab637bc8d53a41334"
+    },
+    {
+      "file": "snow-1.wav",
+      "seconds": 0.24,
+      "peak": 0.57,
+      "rms": 0.09172818406197916,
+      "loop": false,
+      "sha256": "40f43df3910bc6d2a14b7488796351b7a11e3dbac1e99ae79cb1baef621b803f"
+    },
+    {
+      "file": "snow-2.wav",
+      "seconds": 0.24,
+      "peak": 0.57,
+      "rms": 0.08072967771127167,
+      "loop": false,
+      "sha256": "9d2a48282fd7aa5c1958a0b910566eb4a99a1c11a89a6b65d3a7548ce1c9fc5f"
+    },
+    {
+      "file": "snow-3.wav",
+      "seconds": 0.24,
+      "peak": 0.57,
+      "rms": 0.08918065773238407,
+      "loop": false,
+      "sha256": "ae2c81581bf604120673286ec93f3f71b8d28804f3d4d9fa42eb7f37eade740e"
+    },
+    {
+      "file": "snow-4.wav",
+      "seconds": 0.24,
+      "peak": 0.57,
+      "rms": 0.09061500474365357,
+      "loop": false,
+      "sha256": "2acc37c1f4e42cc66fb821124dc14b43bcd8a246d93a0be6b2e48f02e311394c"
+    },
+    {
+      "file": "splash-1.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.06753054109746263,
+      "loop": false,
+      "sha256": "2b44aa12a16c912b9472f2fe1cdd256321cd75188013074a47021fa5cd14e4a3"
+    },
+    {
+      "file": "splash-2.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.07235581239840069,
+      "loop": false,
+      "sha256": "92d892ee2ecd7731f5ea9a7acb17dafeb1842d9dfcc15620c21fe2e302568bea"
+    },
+    {
+      "file": "splash-3.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.07600752623471158,
+      "loop": false,
+      "sha256": "c2c1c727e9df5f7497932d2543887fb795372e4579968e83d86dd42f25433554"
+    },
+    {
+      "file": "splash-4.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48000000000000004,
+      "rms": 0.05337676112599717,
+      "loop": false,
+      "sha256": "612066c337745c5a981ad3be68a25c7948788e9ad1a95979b49d4b8434d4ddad"
+    },
+    {
+      "file": "damp-1.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.04250998079479572,
+      "loop": false,
+      "sha256": "0ce7432d0e41bee42f8459024e50359b5db05781920c98c8cce5bc02a1bb461e"
+    },
+    {
+      "file": "damp-2.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.05989079592099909,
+      "loop": false,
+      "sha256": "d262b061ca8a68ebe1f357a842ef39b9825223fc8005477a39f501a889f83d20"
+    },
+    {
+      "file": "damp-3.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.062422793991476974,
+      "loop": false,
+      "sha256": "42de58f23c2662550d318b9dd3c746bdab5b855cf18bb8d3cf6a97f8154d77ef"
+    },
+    {
+      "file": "damp-4.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.06338618084620393,
+      "loop": false,
+      "sha256": "303ed5fc02b53dc1ba830345efcca8cb5e209c3ef909784f62908b4394d7f2ab"
+    },
+    {
+      "file": "wetgrass-1.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48000000000000004,
+      "rms": 0.055377177664430434,
+      "loop": false,
+      "sha256": "a2c6069c5be124efacaddfff434735bff9de8211c2eb0d8364e0135daa11da2c"
+    },
+    {
+      "file": "wetgrass-2.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.060606993008362885,
+      "loop": false,
+      "sha256": "8b3314c085f9928d3c6056675260bbc0f33d82018375c34a6f5cb62c2ce4db39"
+    },
+    {
+      "file": "wetgrass-3.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.06929109487636947,
+      "loop": false,
+      "sha256": "7cf8a963776a4da95c30e6d721894d4fbabfed3e8308d96690da2b759af73db1"
+    },
+    {
+      "file": "wetgrass-4.wav",
+      "seconds": 0.19002267573696144,
+      "peak": 0.48,
+      "rms": 0.05931561474012438,
+      "loop": false,
+      "sha256": "91b942ea3e47e4b1826c96e52a50f29491f2c23c59bbad45f0bd5e3177aaf635"
+    }
+  ]
+}

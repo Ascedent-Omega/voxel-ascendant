@@ -3,7 +3,8 @@
 local M={}
 function M.classForWarp(map,warp)
  local d=map and map.def
- if not d or d.generation==2 or (d.tileset~='MANSION' and d.tileset~='LOBBY')then return nil end
+ local silph=d and map.id=='SILPH_CO_11F' and d.tileset=='INTERIOR' and d.width==9 and d.height==9 and warp.destMap=='SILPH_CO_10F'
+ if not d or d.generation==2 or (d.tileset~='MANSION' and d.tileset~='LOBBY' and not silph)then return nil end
  local blocks=map.tileset and map.tileset.blocks
  if not blocks then return nil end
  local function tile(x,y)
@@ -13,6 +14,7 @@ function M.classForWarp(map,warp)
  end
  local x,y=warp.x*2,warp.y*2
  local a,b,c,e=tile(x,y),tile(x+1,y),tile(x,y+1),tile(x+1,y+1)
+ if silph then return a==5 and b==6 and c==21 and e==22 and 'stair_down_w' or nil end
  if a==12 and b==13 and c==28 and e==29 then return 'stair_e' end
  if a==10 and b==11 and c==26 and e==27 then return 'stair_down_w' end
 end

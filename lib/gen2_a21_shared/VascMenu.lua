@@ -38,6 +38,8 @@ local SETTING_HELP_DE = {
   weather = "VASC-Wetter für Außenkarten und Outdoor-Kämpfe. AUTO nutzt "
     .. "kartenübergreifende Vier-Minuten-Fronten und vier Fronten je Saison; "
     .. "direkte Modi dienen Auswahl und Tests.",
+  rainStrength = "AUTO nutzt normalen Regen und kräftige Gewitter. LEICHT, NORMAL und STARK ändern Regendichte und Regengeräusch gemeinsam. Unter Dächern bleibt es geschützt.",
+  snowDepth = "NORMAL zeigt dünnen Belag. TIEF ergänzt knöchelhohe Verwehungen und Fußspuren. Fester Schnee macht kleine Sprungabsätze auf verbundenen Wegen in beide Richtungen begehbar. Pokémon stehen im Kampf auf flachen Schneeflächen.",
   weatherTweak = "Optionale Details über dem VASC-Wetter. Normaler Regen "
     .. "bleibt unberührt. SUBTLE oder FULL ergänzen Sturmblätter, regionale "
     .. "Böen, Schnee-Hagel, Nebel-Gischt, Staub, Asche, seltene Meteore, "
@@ -216,7 +218,7 @@ local SECTION_DEFS = {
         .. "nutzen denselben Outdoor-Zustand, auch in unterstützten Kämpfen.",
     },
     keys = {
-      daytime=true, weather=true, weatherTweak=true,
+      daytime=true, weather=true, weatherTweak=true, snowDepth=true, rainStrength=true,
       sky=true, clouds=true, skyEvents=true,
       scenery=true,
     },

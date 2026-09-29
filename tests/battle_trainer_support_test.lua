@@ -1,6 +1,7 @@
 local occupied=function(x,z)return z<-8 and 24 or -math.huge end
 local ground=function()return 0 end
 local modules={
+ DeepSnow={battleLift=function()return 0 end},
  BattleArena={openCell=function()return true end,visibility=function()return 3 end},
  VoxelScene={groundAt=function(_,x,z)return ground(x*16,z*16)end},
  BattleBillboard={yawToward=function()return 0 end,matrix=function()return{}end},

@@ -27,7 +27,7 @@ end
 function C.mode()
  local opts=V.mod.options
  if opts:get('apo_hd_walking_sprites')==false then return 'native' end
- return C.enabled()and opts:get('apo_human_art_style')=='voxel'and'voxel'or'hd'
+ return V.mod.exports.humanDlc.style(opts:get('apo_human_art_style'))
 end
 function C.canChange(game)
  if not(game and game.overworld and game.stack and game.stack:top()==game.overworld)then return false end
@@ -44,9 +44,9 @@ function C.canChange(game)
  return true
 end
 function C.select(mode,game)
- if mode~='native'and mode~='hd'and mode~='voxel'then return false end
+ if mode~='native'and mode~='hd'and mode~='voxel'and mode~='cobble'then return false end
  if not C.canChange(game)or not settings then return false end
- if mode=='voxel'and not C.enabled()then return false end
+ if mode=='hd'and not V.mod.exports.humanDlc.available()then return false end
  local hd,style=settings.apo_hd_walking_sprites,settings.apo_human_art_style
  if not(hd and style)then return false end
  -- Same persisted option owners as the full settings page.
@@ -56,12 +56,13 @@ function C.select(mode,game)
  return C.mode()==mode
 end
 function C.cycle(game)
- local modes=C.enabled()and{'native','hd','voxel'}or{'native','hd'}
+ local modes={'native','voxel','cobble'}
+ if V.mod.exports.humanDlc.available()then table.insert(modes,2,'hd')end
  local current=C.mode();local at=1
  for i,value in ipairs(modes)do if value==current then at=i end end
  return C.select(modes[at%#modes+1],game)
 end
-function C.label()return({native='2D / ORIGINAL',hd='HD',voxel='VOXEL'})[C.mode()]end
+function C.label()return({native='2D / ORIGINAL',hd='HD',voxel='VOXEL',cobble='COBBLE'})[C.mode()]end
 function C.descriptor()
  return{schema='ascendant.card/v1',id=C.ID,version=C.VERSION,owner='voxel_ascendant',
  requires={},optionalRequires={},consumes={},provides={'ascendant.voxel-characters/v1'},saveNamespace=false,

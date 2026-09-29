@@ -72,7 +72,11 @@ function M.append(state,sources,blockers,glow,focus)
   if not(map and map.tileset)then return end
   local structures=V.require('Structures')
   local S=V.lightingGeneration==2 and structures.lightingForMap(map) or nil
-  if V.lightingGeneration~=2 then S=structures.forMap(map) end
+  -- Lighting is a consumer of the mesher's published analysis. In particular,
+  -- the preload view can include neighbours whose build coroutine is still
+  -- pending. forMap() here would rebuild their entire furniture synchronously,
+  -- bypassing BuildBudget (and racing the already queued terrain analysis).
+  if V.lightingGeneration~=2 then S=structures.peek(map) end
   if not S then return end
   local rects=V.require('GlassMask').rects(map.tileset)
   if #rects==0 then return end

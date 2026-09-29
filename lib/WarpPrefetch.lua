@@ -10,6 +10,7 @@ local ChunkMesher = V.require("ChunkMesher")
 local HorizonWall = V.require("HorizonWall")
 local Voxel = V.require("VoxelState")
 
+local Destinations = V.require("WarpDestinations")
 local WarpPrefetch = {}
 
 local MARKER = "__voxelAscendantWarpPrefetchV1"
@@ -30,8 +31,11 @@ end
 
 local function arm(state, game, mapId)
   -- Loading Map objects may allocate renderer state.  Keep that work out of
-  -- startWarpTo itself: the wrapper records only two references and returns
-  -- immediately to the engine's unmodified transition implementation.
+  -- startWarpTo itself: the wrapper records the destination and region intent,
+  -- then returns to the engine's unmodified transition implementation.
+  -- Areas beyond gates/caves and large indoor complexes warm once on entry; native warp behavior and
+  -- the actual loading-screen release remain owned by TransitionReveal.
+  V.require('RegionPreparation').arm(game,mapId)
   state.pending = { game = game, mapId = mapId }
   state.warmingMap = nil
   state.warmingBodyOnly = nil
@@ -60,6 +64,40 @@ local function advanceHorizon(state, ow, covered)
   end
   local ok, _, ready, failed = pcall(HorizonWall.meshes, target.scene)
   if not ok or ready or failed then state.warmingHorizon = nil end
+end
+
+-- Prepare the nearest real door before the player crosses it. Only a closed
+-- destination (or semantic body) can be requested without inventing connection
+-- masks. No speculative map is made urgent or added to the rendered world.
+local function predict(state, game, ow)
+  if not enabled() or not Voxel.ready or ChunkMesher.hasPriorityWork() then return end
+  local timer = love and love.timer
+  if timer and timer.getDelta and timer.getDelta() > 1/40 then return end
+  local ok, platform = pcall(require, 'src.core.Platform')
+  if ok and platform.detect().mobile then return end
+  local p, map = ow.player, ow.map
+  if not (p and map and map.def and game.data) then return end
+  local x,y = p.cellX, p.cellY
+  if not(x and y) then return end
+  local key=map.id..':'..x..':'..y
+  if state.predictedCell==key then return end
+  state.predictedCell=key
+  local best, distance
+  for _,w in ipairs(map.def.warps or{}) do
+    local id=Destinations.resolve(game, ow, w)
+    local dest=id and game.data.maps[id]
+    if dest and id~=map.id then
+      local d=math.abs(w.x-x)+math.abs(w.y-y)
+      if d<=7 and (not distance or d<distance) then best,distance=id,d end
+    end
+  end
+  if not best then return end
+  local loaded, target=pcall(require('src.world.MapLoader').load,game.data,best)
+  if not loaded or not target then return end
+  local body=HorizonWall.preferBody(target)==true
+  if not body and next(target.def.connections or{}) then return end
+  V.require('WorldResidency').touch(best)
+  ChunkMesher.request(target,body,nil,false,0)
 end
 
 function WarpPrefetch.install(game)
@@ -118,6 +156,7 @@ function WarpPrefetch.update(game, covered)
       state.warmingBodyOnly = nil
     end
   end
+  if not covered then predict(state, game, ow) end
   advanceHorizon(state, ow, covered)
   local pending = state.pending
   if not pending or not covered then return state.warmingMap ~= nil end

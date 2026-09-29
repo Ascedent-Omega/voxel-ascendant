@@ -8,6 +8,25 @@ return function(P,F,patterns)
   P.models[name]=m
   return function(x,y,z,a,h,c,color)m.boxes[#m.boxes+1]={x,y,z,a,h,c,color}end
  end
+ -- Thin, open iron balustrades at the Mansion shaft. The native artwork
+ -- occupied two rows face-on but one column side-on; both meet at the same
+ -- 16px handrail height, without creating a floor over the neighbouring hole.
+ do
+  local b=model('mansion_shaft_rail_horizontal',8,16)
+  b(0,0,12,8,2,4,8)
+  for _,x in ipairs{1,5}do b(x,2,13,1,12,2,7)end
+  b(0,14,11,8,2,4,7);b(0,16,12,8,1,2,2)
+  b=model('mansion_shaft_rail_vertical',8,8)
+  b(4,0,0,4,2,8,8)
+  for _,z in ipairs{1,5}do b(5,2,z,2,12,1,7)end
+  b(4,14,0,4,2,8,7);b(5,16,0,2,1,8,2)
+  b=model('mansion_shaft_rail_corner',8,16)
+  b(4,0,0,4,2,16,8);b(0,0,12,4,2,4,8)
+  for _,z in ipairs{1,5,9}do b(5,2,z,2,12,1,7)end
+  b(4,2,12,4,12,4,7);b(1,2,13,1,12,2,7)
+  b(4,14,0,4,2,11,7);b(0,14,11,8,2,4,7)
+  b(5,16,0,2,1,12,2);b(0,16,12,7,1,2,2)
+ end
  local function legs(b,w,d,h)
   for _,x in ipairs({1,w-3})do for _,z in ipairs({1,d-3})do b(x,0,z,2,h,2,C.walnut)end end
  end
@@ -85,6 +104,61 @@ return function(P,F,patterns)
   b=model(kind,8,8,10);b(0,7,0,8,1,8,C.walnut);b(0,8,0,8,2,8,C.oak)
   if kind~='table_surface'then b(1,0,1,2,7,2,C.walnut)end
  end
+ for _,kind in ipairs{'report_table_top','report_table_leg'}do
+  local b=model(kind,8,8,10)
+  b(0,7,0,8,1,8,C.walnut);b(0,8,0,8,1,8,C.oak);b(0,9,0,8,1,8,2)
+  if kind=='report_table_leg'then b(2,0,2,2,7,2,C.walnut)end
+ end
+ -- Silph reception: one continuous L at a human waist-height datum.
+ for _,kind in ipairs({'silph_desk_run','silph_desk_side','silph_desk_corner','silph_desk_cap'})do
+  local w,d=kind=='silph_desk_run'and 8 or 16,kind=='silph_desk_cap'and 8 or 16
+  local b=model(kind,w,d,16)
+  b(0,0,.5,w,2,d-1,16);b(0,2,0,w,12,d,14)
+  b(0,14,0,w,2,d,2)
+  b(0,3,d-.5,w,1,.5,7);b(0,12,d-.5,w,1,.5,3)
+  if kind=='silph_desk_side'or kind=='silph_desk_cap'then
+   b(w-.5,3,0,.5,1,d,7);b(w-.5,12,0,.5,1,d,3)
+  end
+ end
+ local b=model('silph_lift_portal',16,16)
+ P.models.silph_lift_portal.directBoxes=true
+ -- Recessed two-leaf steel door in a substantial shaft casing. The native
+ -- warp stays in its doorway; no freestanding blue window masquerades as a lift.
+ b(-4,0,-8,24,40,8,16)
+ b(-4,0,0,4,37,3,14);b(16,0,0,4,37,3,14);b(-4,37,0,24,3,3,14)
+ b(-2,0,2,2,33,1,2);b(16,0,2,2,33,1,2);b(-2,33,2,20,2,1,2)
+ for _,x in ipairs{0,8.25}do
+  b(x,1,.4,7.75,31,1,14)
+  b(x+.6,3,1.4,6.55,27,.3,2)
+  for y=5,27,4 do b(x+.6,y,1.7,6.55,.25,.1,14)end
+  b(x+.4,1,1.4,.3,31,.4,3)
+ end
+ b(7.75,0,1, .5,33,.7,3)
+ b(-1,0,0,18,1,6,14)
+ for z=1,5,2 do b(0,1,z,16,.25,.4,3)end
+ b(3,35,3,10,2.5,.5,3)
+ b(5,36,3.5,1,.5,.2,12);b(4.5,35.5,3.5,2,.5,.2,12)
+ b(10,35.5,3.5,1,.5,.2,11);b(9.5,36,3.5,2,.5,.2,11)
+ b(20,12,1,3,7,1,14);b(20.5,13,2,2,5,.5,3)
+ b(21,16,2.5,1,1,.3,12);b(21,14,2.5,1,1,.3,11)
+
+ b=model('silph_glass_cabin',64,64)
+ P.models.silph_glass_cabin.directBoxes=true
+ -- Rear glazing has visible posts, roof/floor rails and an interior handrail.
+ -- Side/rear construction is independent of the outside skyline's ride offset.
+ for _,x in ipairs{0,31,62}do b(x,0,.3,2,40,2,14);b(x+.5,3,2.3,.5,33,.4,2)end
+ b(0,0,.3,64,2,3,14);b(0,37,.3,64,3,3,14)
+ b(2,16,3,44,1.5,1.5,2) -- leave the control panel unobstructed
+ for _,x in ipairs{1,61}do
+  b(x,0,3,2,2,59,14);b(x,37,3,2,3,59,14)
+  b(x,0,60,2,40,2,14)
+  b(x,16,3,1.5,1.5,54,2)
+  for _,z in ipairs{8,48}do b(x,13,z,1,3,1,14)end
+ end
+ -- Guard plates below the glass and a metal floor threshold at the exit.
+ b(47,0,.3,13,40,2,14) -- support the native control panel beside the rear pane
+ b(2,2,1,60,7,1,14);b(16,.15,61,32,.6,3,14)
+ for x=18,46,4 do b(x,.75,61,1,.2,3,3)end
  -- Narrow counter sections butt together; low cabinets leave the clerk visible.
  for _,kind in ipairs({'counter_unit','counter_top'})do
   b=model(kind,8,8,9);b(0,0,0,8,1,8,16);b(0,1,0,8,6,8,C.walnut)
