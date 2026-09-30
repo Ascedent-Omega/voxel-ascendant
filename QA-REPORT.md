@@ -1,3 +1,31 @@
+# VASC 3.0.61-rc.3 — local verification, 2026-09-30
+
+Base: 3.0.61-rc.2 / bd08c92f, retaining its language, cyclist and seat fixes. Isolated LOVE 11.5 QA host with generated Red data and KASC 6.7.33-rc.1. Every native run has its own disposable vasc-*-qa identity. Normal saves and installed mods were not changed.
+
+## Verified
+
+23 tests in artifacts/vasc-video-polish-20260930/regressions-final.json pass. Cover responsive EN/DE binocular help, exact-map shallow stairs, lab order/size/lower bounds, native healing lifecycle, aimed six-second wish timing, reward allowlist, full bag, duplicates, cancelled choice, save boundaries, small-window bounds and rejected-frame allocation isolation; existing terrain/window/seat/battle/weather/mobile ordering tests also pass.
+
+Native logs in the same artifact directory:
+
+- native-final-review4.log: final lab, actual Mother heal, binocular opening, Mew in the real sky, small over-world choice, chosen Ultra Ball, repeated-A protection and save/reload, native Safari menu. Window retains an independent world frame to avoid a black loading view when the menu pauses first-person input.
+- native-final-review3.log: three native first-person Viridian City ↔ Viridian Gym loops; all six transitions pass. This confirms the existing doorway flow, not a new doorway repair.
+- native-comprehensive.log: six native Museum 1F↔2F, Tower 1F↔2F and Rocket B1F↔B2F stair transitions pass. The subsequent old Gym harness approaches its exit sideways and fails; the corrected north-to-south exit is covered by the successful separate three-loop run.
+- native-exact-reviews.log: current Museum, Misty, Casino, bedroom and zoo captures; native animated Cobble Nidoking/Tauros with non-bind animation indices. First intro capture is before Nidoking becomes visible; menu capture proves the actual models, not every historical intro frame.
+- native-ui-completion.log: Mewtwo moved away from overlapping Charmander stars and recaptured; existing CUSTOM SPRITES screen and actual RESCAN callback return correctly.
+
+## Limits
+
+No physical iOS/Android/Switch test and no FPS claim. The user has an iPhone/iPad, but no device was connected in the Mac's USB inventory. The existing mobile world-core omits full semantic sky; the new Mew/constellation events are not accepted for that path. No new 4K raster asset: scientific scrolls reuse the existing source with exact UV crops. No new volcano: explicitly declined because KASC already supplies it.
+
+Silph's unspecified historical annoying sound, the unidentified opening NPC and exact outfit-variant complaint remain unconfirmed observations. Existing fountain attenuation is not presented as a repair of an unidentified sound. The full 37-point audit is docs/VIDEO_FEEDBACK_20260930.md. It distinguishes previously completed work, new candidate changes and external/uncertain acceptance.
+
+## Packaging
+
+Build with tools/build_local_candidate.py against the complete rc.2 ZIP. Verification checks Lua syntax, prepared model hashes, binary models/metrics, terrain asset sources, archive CRC, source equality and runtime/pack file receipts. See deliverables/VASC-3.0.61-rc.3-Local/verification.json after the build. This is a local experimental candidate; nothing pushed or published.
+
+---
+
 # VASC 3.0.60 public release verification
 
 Promoted from the tested 3.0.60-rc.1 archive. Runtime Lua and assets are byte-identical; only release metadata, documentation and receipts change. The candidate report below describes the tests performed before promotion; statements that it was not yet published refer to that historical test stage.

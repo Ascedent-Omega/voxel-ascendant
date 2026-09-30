@@ -24,7 +24,7 @@ local function room(id, tileset, width, height, theme, wallHeight)
 end
 room('KA_BLAINE_GYM_TUNNEL','FACILITY',24,7,'workshop',80)
 M.profiles.KA_BLAINE_GYM_TUNNEL.owner='kasc.blaine-volcano-route/v1'
-room('OAKS_LAB','DOJO',5,6,'lab',72)
+room('OAKS_LAB','DOJO',5,6,'lab',122)
 for _, town in ipairs({'VIRIDIAN','PEWTER','CERULEAN','VERMILION','LAVENDER','CELADON','FUCHSIA','SAFFRON','CINNABAR','MT_MOON','ROCK_TUNNEL'}) do
   room(town..'_POKECENTER','POKECENTER',7,4,'center',72)
 end

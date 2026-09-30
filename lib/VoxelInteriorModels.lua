@@ -269,14 +269,30 @@ return function(P,F)
   b=model('museum_moon',64,32);case(b,64,32)
   sample(b,'moon_stone',6,8,8);sample(b,'old_amber',25,8,8);sample(b,'helix_fossil',42,8,8)
   b=model('museum_shuttle',48,32);case(b,48,32)
-  b(22,8,13,4,4,6,16)
-  for x=7,39 do
-    local radius=math.min(4,math.floor((x-5)/2),math.floor((42-x)/2))
-    b(x,12,16-radius,1,math.max(2,radius),radius*2,4)
+  -- A recognisable orbiter: tapered nose, dark thermal belly, swept delta
+  -- wings, blue cockpit, tall aft fin and three separate engine bells.
+  b(19,8,14,9,3,4,14);b(22,11,15,3,1,2,3)
+  for x=9,41 do
+    local radius=math.min(4.5,(x-7)*.65,(44-x)*.85)
+    b(x,12,16-radius,1,2,radius*2,3)
+    b(x,14,16-radius+.5,1,math.max(1,radius),math.max(1,radius*2-1),4)
+    if x%5==0 and x<34 then b(x,14,16-radius+.45,.2,2,.15,14)end
   end
-  b(33,16,14,5,1,4,8);b(8,16,15,7,6,2,4)
-  for i=0,10 do b(14+i,12,5+i,9,1,1,4);b(14+i,12,26-i,9,1,1,4)end
-  b(7,12,13,3,3,6,3);b(6,13,14,1,1,4,11)
+  for x=10,30 do
+    local span=math.max(0,12-(x-10)*.52)
+    for _,side in ipairs{-1,1}do
+      local z=side<0 and 12-span or 20
+      b(x,12.5,z,1,1.3,span,4)
+      if span>1 then b(x,12.4,side<0 and z or z+span-.7,1,.5,.7,3)end
+    end
+  end
+  for x=10,19 do b(x,18,15.3,1,math.max(1,12-(x-10)*1.1),1.4,4)end
+  b(31,18,13.5,6,1,5,C.navy);b(33,19,14,3,.5,4,7)
+  for _,p in ipairs{{13,13},{13,19},{17,16}}do
+    b(6,p[1],p[2]-1.4,4,2.8,2.8,14)
+    b(5.5,p[1]+.4,p[2]-1,1,2,2,3)
+  end
+  b(10,14,25,6,.4,1,3);b(12,14.4,25,2,.3,1,1)
   b=model('amber_case',16,16);P.models.amber_case.support=6;b(1,0,1,14,6,14,14) -- Amber itself belongs to the collectible entity.
   for _,x in ipairs({1,14})do b(x,7,1,1,13,1,7);b(x,7,14,1,13,1,7)end
   b(1,20,1,14,1,1,7);b(1,20,14,14,1,1,7)

@@ -4508,8 +4508,10 @@ local function renderCommandCanvas(battle, k, logicalW, logicalH)
         g.setLineWidth(focused and 2 or 1)
         g.rectangle("line", x, y, cardW, cardH, 7, 7)
         g.setLineWidth(1)
+        local labelScale = math.min(2.5, (cardW - 16) / math.max(1, textWidth(labels[i])),
+                                   (cardH - 12) / 10)
         drawShadowTextCentered(labels[i], x + cardW * 0.5,
-                               y + cardH * 0.5 - 4, k, 0.82)
+                               y + cardH * 0.5 - 4 * labelScale, k, labelScale)
         commandHits[#commandHits + 1] = {
           action="command", index=i, x=x, y=y, w=cardW, h=cardH,
         }
@@ -6616,31 +6618,34 @@ end
 -- therefore needs an explicit replacement. Keep it compact and independent
 -- of the enemy card so capture/escape messages cannot make the remaining
 -- inventory disappear for a frame.
-function FloatingHud.safariBallCountBounds(battle, shot)
+function FloatingHud.safariCounterLayout(battle, shot)
   if not (battle and type(battle.safari) == "table" and shot
       and tonumber(shot.pw) and tonumber(shot.ph)) then return nil end
-  local _, insetTop = FloatingHud.safeInsets(shot)
-  return {
-    shot.pw * .325, (insetTop or 0) + 4,
-    shot.pw * .35, math.max(24, shot.ph * .075),
-  }
+  local balls = math.max(0, math.floor(tonumber(battle.safari.balls) or 0))
+  local label = (hudLanguage() == "de" and "SAFARI-BÄLLE " or "SAFARI BALLS ") .. balls
+  local left, top, right = FloatingHud.safeInsets(shot)
+  local available = math.max(1, shot.pw - left - right - 16)
+  -- 20–28px ink on ordinary viewports instead of the previous 6–9px.
+  -- Keep the exact painted box as the camera/status exclusion rectangle.
+  local scale = math.min(math.max(1.5, math.min(3.5, shot.ph * .035 / 8)),
+                         available / (textWidth(label) + 20))
+  local w, h = (textWidth(label) + 20) * scale, 20 * scale
+  return {label=label, scale=scale, rect={left + (available - w) * .5 + 8,
+    top + 8, w, h}, paddingY=6 * scale}
+end
+function FloatingHud.safariBallCountBounds(battle, shot)
+  local layout = FloatingHud.safariCounterLayout(battle, shot)
+  return layout and layout.rect or nil
 end
 
 local function drawSafariBallCount(battle, shot)
   if not (battle and type(battle.safari) == "table" and shot) then
     return false
   end
-  local balls = math.max(0, math.floor(tonumber(battle.safari.balls) or 0))
-  local label = (hudLanguage() == "de" and "SAFARI-BÄLLE " or "SAFARI BALLS ")
-    .. tostring(balls)
-  local scale = math.max(0.72, math.min(1.15, uiScale(shot) * 0.48))
-  local paddingX, paddingY = 10 * scale, 5 * scale
-  local w = textWidth(label) * scale + paddingX * 2
-  local h = 8 * scale + paddingY * 2
-  local insetLeft, insetTop, insetRight = FloatingHud.safeInsets(shot)
-  local x = clamp((shot.pw - w) * 0.5,
-                  insetLeft + 4, shot.pw - insetRight - w - 4)
-  local y = insetTop + 5
+  local layout = FloatingHud.safariCounterLayout(battle, shot)
+  if not layout then return false end
+  local label, scale = layout.label, layout.scale
+  local x, y, w, h = unpack(layout.rect)
   g.setColor(0.008, 0.030, 0.046,
              0.94 * FloatingHud.statusGlassStrength())
   g.rectangle("fill", x, y, w, h, 7 * scale, 7 * scale)
@@ -6648,7 +6653,7 @@ local function drawSafariBallCount(battle, shot)
   g.setLineWidth(math.max(1, scale))
   g.rectangle("line", x, y, w, h, 7 * scale, 7 * scale)
   g.setLineWidth(1)
-  drawShadowTextCentered(label, x + w * 0.5, y + paddingY, 1, scale)
+  drawShadowTextCentered(label, x + w * 0.5, y + layout.paddingY, 1, scale)
   return true
 end
 

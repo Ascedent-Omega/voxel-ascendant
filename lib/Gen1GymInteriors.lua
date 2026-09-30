@@ -103,7 +103,16 @@ function M.paint(g, material, W, H, wall)
    local y=H-29+math.floor(math.sin(x*math.pi/24)*3)
    r(c[4],x,y,1,2);r(c[2],x,y+5,1,1)
   end
-  for _,x in ipairs({16,80})do r(c[3],x,36,30,24);r(c[4],x+2,38,26,20);r(c[2],x+4,40,22,1)end
+  -- Framed water-training emblems match the Cobble aquaria, rather than
+  -- leaving two featureless turquoise rectangles on the remaining walls.
+  for _,x in ipairs({16,80})do
+   r(c[3],x,36,30,40);r(c[2],x+2,38,26,36)
+   for y=43,69,8 do for xx=x+4,x+24 do
+    r(c[4],xx,y+math.floor(math.sin((xx-x)*math.pi/12)*2),1,2)
+   end end
+   r(c[3],x+4,73,22,1)
+  end
+  for _,x in ipairs({4,W-9})do r(c[3],x,20,5,H-60);r(c[2],x+1,22,2,H-64)end
  elseif material=='electric_arena' then
   -- Surge's switches stay solely on the native bins/barrier. These closed
   -- wall cabinets have identical neutral faces in every puzzle state.

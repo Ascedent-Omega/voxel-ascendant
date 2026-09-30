@@ -3644,9 +3644,9 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     elseif type(MobileSceneryGate.noteSafeCanvas) == "function" then
       MobileSceneryGate.noteSafeCanvas(state.map, out)
     end
-    return V.require('ObservationBinoculars').hud(out,w,h)
+    return out
   end
-  return V.require('ObservationBinoculars').hud(out,w,h)
+  return out
 end
 
 return VoxelScene

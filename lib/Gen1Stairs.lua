@@ -2,6 +2,17 @@
 -- Collision, warp destinations and the native map remain authoritative.
 local V=...
 local M={}
+-- Explicit visual polish for the three reviewed families. Unknown/custom
+-- rooms retain their compact flights and native collision/warp ownership.
+function M.reviewedFlight(map)
+ local d=map and map.def;local id=map and map.id or ''
+ if not d or d.generation==2 or next(d.connections or{})then return false end
+ if id=='MUSEUM_1F'then return d.tileset=='MUSEUM'and d.width==10 and d.height==4 end
+ if id=='MUSEUM_2F'then return d.tileset=='MUSEUM'and d.width==7 and d.height==4 end
+ if id:match('^POKEMON_TOWER_[1-7]F$')then return d.tileset=='CEMETERY'and d.width==10 and d.height==9 end
+ local floor=tonumber(id:match('^ROCKET_HIDEOUT_B([1-4])F$'))
+ return floor and d.tileset=='FACILITY'and d.width==15 and d.height==(floor==4 and 12 or 14)or false
+end
 M.setting=V.require('ModSetting').new('voxelStairs','STAIRS',{true,false},{'ON','OFF'},true)
 local families={REDS_HOUSE_1=2,REDS_HOUSE_2=2,GATE=2,SHIP=3,
  HOUSE=2,MANSION=2,LOBBY=7,MUSEUM=7,FACILITY=6,INTERIOR=6,
@@ -391,11 +402,15 @@ function M.flight(map,cx,cy,s)
  local east=s.class=='stair_e'or s.class=='stair_down_e'
  -- A floor-change warp needs a readable descent, not a full-storey shaft
  -- squeezed into one tile. Match the retail descent's eight-pixel depth.
- local height=math.min(down and 8 or 16,math.max(4,s.h or 16))
+ local polished=M.reviewedFlight(map)
+ -- Keep the reviewed flights compact. The taller version squeezed a large
+ -- rise into the native one-tile run and looked like a ladder.
+ local height=math.min(polished and (down and 6 or 10)or (down and 8 or 16),math.max(4,s.h or 16))
  local wood=material==-130
  if map.def.tileset=='FACILITY'or map.def.tileset=='INTERIOR'then material=-133 end
  return {store=false,down=down,material=material,trim=wood and material or -134,
-  preferred=(east~=down)and 'west'or 'east',count=4,depth=3,rise=height/4}
+  preferred=(east~=down)and 'west'or 'east',count=polished and 6 or 4,
+  depth=polished and 2 or 3,rise=height/(polished and 6 or 4)}
 end
 function M.buildGeneral(S,map,cx,cy,s)
  local flight=M.flight(map,cx,cy,s)

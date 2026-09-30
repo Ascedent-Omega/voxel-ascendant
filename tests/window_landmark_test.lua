@@ -16,7 +16,8 @@ modules.RooftopWorld={geometry=function()error('cache hit rebuilt city')end,text
 local sourceId,coords
 modules.CinnabarVolcano={active=function()return active end,
  position=function(id)sourceId=id;return -2000,3000 end,
- meshes=function(x,z,y)coords={x,y,z};return{{magma=false},{magma=true}}end}
+ meshes=function(x,z,y,yieldStep,out)coords={x,y,z};out=out or{};
+  out[#out+1]={magma=false};out[#out+1]={magma=true};return out end}
 package.loaded['src.core.Game']={data={maps={CELADON_CITY={tileset='OVERWORLD'},CINNABAR_ISLAND={tileset='OVERWORLD'},SAFFRON_CITY={tileset='OVERWORLD'}},tilesets={OVERWORLD={}}}}
 package.loaded['src.world.Map']={new=function(d)return{def=d}end}
 local W=assert(loadfile('lib/SilphWindows.lua'))(V)

@@ -76,12 +76,47 @@ function M.frame(state,cx,cz)
  camera=rig;V.require('Voxel3D').camera=rig
  return rig,eye[1],eye[3]
 end
+-- Work in presentation pixels, independently of the world's adaptive scale.
+local helpFont,helpFontSize
+function M.helpLayout(w,h,font,zoom)
+ local locale=V.require('SetupLocale')
+ local title=locale.text('BINOCULARS','FERNGLAS')..string.format('  %.1fx',zoom or 1)
+ local hints={locale.text('Up / Down: zoom','Hoch / Runter: Zoom'),
+  locale.text('Left / Right: look around','Links / Rechts: Blick drehen'),
+  locale.text('A / B: close','A / B: Beenden')}
+ local pad=math.max(8,math.floor(math.min(w,h)*.02))
+ local width=math.max(1,w-pad*4);local lines={title}
+ local row=''
+ for _,hint in ipairs(hints)do
+  local joined=row==''and hint or row..'   |   '..hint
+  if row~=''and font:getWidth(joined)>width then lines[#lines+1]=row;row=hint else row=joined end
+ end
+ if row~=''then lines[#lines+1]=row end
+ local wrapped={}
+ for _,line in ipairs(lines)do local _,rows=font:getWrap(line,width)
+  for _,text in ipairs(rows)do wrapped[#wrapped+1]=text end
+ end
+ local lineHeight=math.ceil(font:getHeight()*1.25)
+ local height=#wrapped*lineHeight+pad*2
+ return {x=pad,y=math.max(0,h-height-pad),w=w-pad*2,h=height,
+  pad=pad,lineHeight=lineHeight,lines=wrapped}
+end
 function M.hud(out,w,h)
- if not active then return out end
+ if not active then return V.require('MewSky').hud(out,w,h) end
  local g=love.graphics;g.push('all');g.setCanvas(out)
  V.require('CanvasPresentation').begin2D(g,h)
- g.setColor(0,0,0,.8);g.rectangle('fill',0,h-23,w,23)
- g.setColor(1,1,1,1);g.printf(string.format('FERNGLAS  %.1fx   |   Hoch/Runter: Zoom   Links/Rechts: Blick   A/B: Ende',active.zoom),4,h-18,w-8,'center')
+ local size=math.max(14,math.min(32,math.floor(h*.032)))
+ if helpFontSize~=size then
+  if helpFont then helpFont:release()end
+  helpFont=g.newFont(size);helpFontSize=size
+ end
+ g.setFont(helpFont)
+ local p=M.helpLayout(w,h,helpFont,active.zoom)
+ g.setColor(.035,.055,.08,.94);g.rectangle('fill',p.x,p.y,p.w,p.h,8,8)
+ g.setColor(1,1,1,1)
+ for i,line in ipairs(p.lines)do
+  g.printf(line,p.x+p.pad,p.y+p.pad+(i-1)*p.lineHeight,p.w-p.pad*2,'center')
+ end
  g.pop();return out
 end
 function M.install()

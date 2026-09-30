@@ -3217,6 +3217,9 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
       if glazing then glass={family='silph_glass',kind='window_glass',vertices={},indices={},interiorPanel=panel};groups[#groups+1]=glass
        windowFrame={family='silph_frame',vertices={},indices={},interiorPanel=panel};groups[#groups+1]=windowFrame end
       local showArt=not glazing and placement and feature[panel.edge]==panel
+      local labPosters=V.require('LabPosters')
+      local groupedPosters=labPosters.matches(entry.map)
+      if groupedPosters then showArt=false end
       local sourceFrom,sourceTo,width,left,right
       if showArt then
         sourceFrom,sourceTo=placement.sourceFrom,placement.sourceTo
@@ -3240,6 +3243,12 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
       for _,door in ipairs(panel.openings)do cuts[#cuts+1]=door.from;cuts[#cuts+1]=door.upto end
       table.sort(cuts)
       local inset=(panel.edge=="north" or panel.edge=="west") and .04 or -.04
+      if groupedPosters and not glazing and feature.north==panel then
+        for _,poster in ipairs(labPosters.layout(panel,H))do
+          quad(art,poster.from,poster.upto,poster.bottom,poster.top,
+               poster.u0,poster.u1,poster.v0,poster.v1,inset)
+        end
+      end
       for i=1,#cuts-1 do
         local a,b=cuts[i],cuts[i+1]
         if b>a+1e-9 then

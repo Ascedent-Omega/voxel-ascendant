@@ -517,6 +517,8 @@ local voxelPipeline = {
     V.require('Gen1GlassDoors').update(dt,weatherGame)
     V.require('WorldSeats').update(weatherGame)
     V.require('ObservationBinoculars').update(dt,weatherGame)
+    V.require('HomeMeal').update(dt,weatherGame)
+    V.require('MewSky').update(dt,weatherGame,level)
     if WeatherMusicPlayback
         and type(WeatherMusicPlayback.observe) == "function" then
       WeatherMusicPlayback.observe(weatherGame, weatherMode, DayNight.tod())
@@ -703,6 +705,12 @@ local voxelPipeline = {
       level=ctx and ctx.level,
     })
     local sw, sh = sceneSize(ctx)
+    local wish=V.require('MewSky')
+    local wishFrame=wish.choiceFrame(ctx.state)
+    if wishFrame then
+      V.require('LoadingCompanion').clear()
+      return wishFrame
+    end
     -- With AA on, the whole pass runs into a canvas BIGGER than the window
     -- and is folded back down at the end (see AntiAlias).  Nothing between
     -- these two lines knows: every pass in the frame measures itself in the
@@ -752,7 +760,16 @@ local voxelPipeline = {
       width=sw, height=sh, renderWidth=rw, renderHeight=rh,
     })
     V.require('WorldSceneHold').presented(resolved, ctx.state, sw, sh)
+    wish.keepFrame(resolved,ctx.state)
     return resolved
+  end,
+
+  present = function(canvas)
+    local binoculars=V.require('ObservationBinoculars')
+    if not canvas or not(binoculars.current() or V.require('MewSky').visible or V.require('MewSky').choice)then return canvas end
+    local w,h=canvas:getDimensions()
+    -- Instruction text belongs after world resolution and tilt-shift.
+    return binoculars.hud(canvas,w,h)
   end,
 
   invalidate = function()
@@ -2673,6 +2690,8 @@ FreeMove.install()
 V.require('WorldSeats').install()
 V.require('ObservationLayout').install()
 V.require('ObservationBinoculars').install()
+V.require('HomeMeal').install()
+V.require('MewSky').install()
 V.require('WorldSceneHold').install()
 V.require('CeladonClosedShop').install()
 V.require('SilphElevator').install()

@@ -8,7 +8,7 @@ M.setting=V.require('ModSetting').new('interiorFloors','INDOOR FLOORS',
 local rooms=V.require('Gen1InteriorPanoramas')
 -- Native Gen-1 arena floors: violet stone, dojo boards and laboratory tile.
 -- Reuse the established materials; puzzle graphics keep their original atlas.
-local gymFloors={SAFFRON_GYM={8,'FACILITY',10,9},
+local gymFloors={CERULEAN_GYM={4,'GYM',5,7},SAFFRON_GYM={8,'FACILITY',10,9},
   FUCHSIA_GYM={2,'GYM',5,9},CINNABAR_GYM={6,'FACILITY',10,9}}
 local families={lab=1,home=2,traditional_home=2,coastal_home=3,daycare=2,
   hotel=2,diner=3,center=4,mart=5,workshop=6,museum=7,casino=8,

@@ -1,3 +1,20 @@
+# Current video polish 3.0.61-rc.3 — local video polish candidate
+
+This candidate builds on 3.0.61-rc.2. That base already contains the loading/language fix, Cobble cyclists and older-card seat compatibility; those are retained, not newly implemented here. Public release remains 3.0.60.
+
+- Larger, wrapping English/German binocular instructions, composed after world blur.
+- Larger Safari ball counter and action labels.
+- Compact, shallower Museum/Tower/Rocket flights with unchanged native routes.
+- Three large lab scrolls on one wall in native starter-ball order: Charmander, Squirtle, Bulbasaur. Scrolls lowered, excess wall height reduced, bookcases unchanged. Uses the existing artwork.
+- More recognizable museum orbiter and small Cerulean Gym floor/wall refinements.
+- Temporary dinner plates, soup, cutlery and cups after Mother's native heal.
+- Separate Mewtwo constellation. Rare six-second, world-projected Mew star outline at night; timely A while looking towards it opens a small window over the sky. Choose one Nugget, Elixir or Ultra Ball per appearance. No Master Ball reward. Native interactions retain priority; cancel/full-bag/reload behavior protected.
+- Updates the obsolete window-landmark test stub to the current existing API.
+
+23 regression checks and targeted native desktop interaction/rendering/save-load checks passed. Physical mobile testing remains open; the established mobile world-core does not render the full semantic sky used by these night events. No public release or installed-game update performed. The additional volcano extension is excluded: the existing KASC volcano already covers the user's request.
+
+---
+
 # RC9 checkpoint — 2026-09-29
 
 Completed: Terrarium-equivalent optical zoom with a closer DISCS baseline, complete manual 180-degree input range, fixed semantic HP-card placement, small trainer ground patches, corrected wing-span-driven Charizard shrinkage, cooperative covered model preparation and removal of unrelated DISCS roof-mask building.

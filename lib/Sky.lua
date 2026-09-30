@@ -1209,6 +1209,16 @@ end
 -- body and tail, and a long neck over a shell. Their fixed bearing/elevation
 -- makes them genuine places in Kanto's sky instead of HUD ornaments.
 Sky.CONSTELLATIONS = {
+  -- Original point drawing: long tail, narrow torso and horned Mewtwo head.
+  { id="MEWTWO", az=math.rad(180), el=math.rad(58), color={.85,.73,1},
+    points={{-1,6},{-2,9},{-.2,8},{1.4,9},{2,6},{1,4},{1.5,1},{3,-1},
+      {2,-4},{.6,-3},{0,-.5},{-1,-3},{-2.4,-4},{-3,-2},{-1.4,1},{-1,4},
+      {1.8,0},{4,-.5},{5,-3},{7,-2},{8,1},{6.5,3},{5,2},
+      {-1,3},{-3,1},{-4,2},{2,3},{4,1},{4.8,2}},
+    segments={{1,2},{2,3},{3,4},{4,5},{5,6},{6,7},{7,8},{8,9},
+      {9,10},{10,11},{11,12},{12,13},{13,14},{14,15},{15,16},{16,1},
+      {17,18},{18,19},{19,20},{20,21},{21,22},{22,23},
+      {24,25},{25,26},{27,28},{28,29}} },
   { id="PIKACHU", az=math.rad(-52), el=math.rad(48), color={1,.90,.58},
     points={{-2,0},{-3.4,5},{-1,2.1},{1,2.1},{3.1,5},{2.4,0},
       {1.8,-3.3},{-1.9,-3.3},{-2,0},{3.4,-2.1},{5.5,.3},{3.9,.1},
@@ -1446,6 +1456,7 @@ local function paintAtmosphere(w, h, edge, cell, alpha, ray, context)
               context and context.shadowPolicy or nil,
               context and context.mapId or nil)
   if not opaqueWeather then SkyEvents.paint(eventContext, "front") end
+  if not opaqueWeather then V.require('MewSky').paint(eventContext) end
   if sx then g.setScissor(sx, sy, sw, sh) else g.setScissor() end
 end
 
