@@ -1,6 +1,6 @@
 {
   "id": "VOXEL_ASCENDANT",
-  "version": "3.0.61-rc.2",
+  "version": "3.0.61-rc.3",
   "api": 2,
   "modkit": "1.0.0",
   "local_candidate": true,
@@ -152,8 +152,8 @@
     },
     {
       "path": "QA-REPORT.md",
-      "bytes": 3072,
-      "sha256": "d203dcd54ee8280dec8f8b900d491f238471c8ebadb9a9fb21ff4b0e2a17fc2a"
+      "bytes": 6343,
+      "sha256": "b86c8022acd45636dcc3cd7acbecf6b95632619fa10017f0ac44073170410ad8"
     },
     {
       "path": "README.md",
@@ -162,8 +162,8 @@
     },
     {
       "path": "RELEASE_NOTES.md",
-      "bytes": 1394,
-      "sha256": "ee1477128812bd175c90d014f9a31d286b4ccf560ce53d8ce5c44318e4844dfa"
+      "bytes": 3047,
+      "sha256": "afc454f69ba0c6719b8bdab68ad8808d62cf4db2158ca8b659dc786e5382f1d5"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -382,8 +382,8 @@
     },
     {
       "path": "VIDEO_POLISH_PROGRESS.md",
-      "bytes": 19564,
-      "sha256": "f386467d0a752fa7a32e7fb85d09e9e9a8f9b405c521c70c9f029d6843c30077"
+      "bytes": 21222,
+      "sha256": "9c8ed7ee627c78d082a223b9bb74649e6eeaac9d0ab1f3d3b1a5807c6f1b44fb"
     },
     {
       "path": "WEATHER_SKY_NOTES.md",
@@ -93792,8 +93792,8 @@
     },
     {
       "path": "battle_hud_oras.lua",
-      "bytes": 376824,
-      "sha256": "4af4272504c2504486b65a5e04d76eccdee06793e5471759e660dcee203aa59e"
+      "bytes": 377347,
+      "sha256": "de7a322992a4ceff431f23fa4c9d4cfe67ff9b24d5f35ce6208a789a5a987f36"
     },
     {
       "path": "data/arena_ground.lua",
@@ -94034,6 +94034,11 @@
       "path": "docs/VIDEO_FEEDBACK_2026-09-18.md",
       "bytes": 23480,
       "sha256": "ed1215b52cad44aeb3e3c526156f5804c94fd340732ccc3c87aefb31e6010b11"
+    },
+    {
+      "path": "docs/VIDEO_FEEDBACK_20260930.md",
+      "bytes": 27992,
+      "sha256": "7b2225707696b46224ed23f9a1588f14f462405664d43d75b6d200f054be0ca5"
     },
     {
       "path": "docs/WEATHER_SKY_WEATHER5.md",
@@ -109257,8 +109262,8 @@
     },
     {
       "path": "lib/Gen1GymInteriors.lua",
-      "bytes": 8767,
-      "sha256": "7e50406d494554d12598bbc5eaae9c871ecc4fb11c7cbb1bdccb7ef8de5445bb"
+      "bytes": 9112,
+      "sha256": "696c0f74ab3bcd476f3ec0a5077d4950c5bce62d8ec371bffdb4cbc29c12d89e"
     },
     {
       "path": "lib/Gen1Harbor.lua",
@@ -109272,8 +109277,8 @@
     },
     {
       "path": "lib/Gen1InteriorFloors.lua",
-      "bytes": 4976,
-      "sha256": "e27af3ff88c48e7b2bbca3d373abd008cd29c20345f1dffbdd169d183b679087"
+      "bytes": 5003,
+      "sha256": "6d52655edefb6f7c1c4775bbbcdb7c635e34e969e81d038bcd40c34f6efedbe8"
     },
     {
       "path": "lib/Gen1InteriorLayout.lua",
@@ -109282,8 +109287,8 @@
     },
     {
       "path": "lib/Gen1InteriorPanoramas.lua",
-      "bytes": 9250,
-      "sha256": "be13c7f361f02ca11b3d83011bd815e9b6ab5ea72df76c287575009c18e5b2ac"
+      "bytes": 9251,
+      "sha256": "4a53d495b32037fc73866d15ff149ff87a315f9a0ad481ebc38b54eb96df317c"
     },
     {
       "path": "lib/Gen1InteriorWallClaims.lua",
@@ -109387,8 +109392,8 @@
     },
     {
       "path": "lib/Gen1Stairs.lua",
-      "bytes": 22146,
-      "sha256": "58940cb961e59e19fd36ffd19dababb315907f7d0c96fefcacacf249e2138942"
+      "bytes": 23176,
+      "sha256": "1d0b41c5b5c0342c40dbf656736712eb97658c730b3e43cd8fec45a44a93d93f"
     },
     {
       "path": "lib/Gen1TowerEntrance.lua",
@@ -109561,6 +109566,11 @@
       "sha256": "b236d1224a174619cadff17c289c0367a8f80abd2b16ba95d7ab768f0ec2e34f"
     },
     {
+      "path": "lib/HomeMeal.lua",
+      "bytes": 2062,
+      "sha256": "88bf5f19f22b8b8368c48c951cfa333056267e801c044422ef567bbbccc5d578"
+    },
+    {
       "path": "lib/HorizonAddressCache.lua",
       "bytes": 2441,
       "sha256": "9f4be2abb43341a8f98d51958d985ee4173eb15abd44abc0b05628e088404a0c"
@@ -109572,8 +109582,8 @@
     },
     {
       "path": "lib/HorizonWall.lua",
-      "bytes": 369916,
-      "sha256": "740237fc130f1a385d7c64c60ecaa6ace1270a559bdbe3148f6a92398942d8a0"
+      "bytes": 370351,
+      "sha256": "94990610018f14602cc349069a765a23857f80e4bb718aae234e6c6dbf13559c"
     },
     {
       "path": "lib/HouseWindows.lua",
@@ -109691,6 +109701,11 @@
       "sha256": "333a67b664757187b059ca11aca36d624a720b0a8b4263f1a86b44428802855d"
     },
     {
+      "path": "lib/LabPosters.lua",
+      "bytes": 1165,
+      "sha256": "7794e124907de570f1256b501f12d0a2d15c79d86e1328732f9fb7ee3e3a2091"
+    },
+    {
       "path": "lib/LavenderFog.lua",
       "bytes": 788,
       "sha256": "80210b1408a7db0cb3b3c757682abce91f5436213e31813c0ac7661da3a7ab05"
@@ -109766,6 +109781,11 @@
       "sha256": "2ba758a29ecc421ce96808c04046453a6b3d7ef310a745027bb4a1b7ce08ed1d"
     },
     {
+      "path": "lib/MewSky.lua",
+      "bytes": 9818,
+      "sha256": "fa738a772418dc6ba05eaf8146b49a822ce695ec45a711448f7c5e3cf0bc9194"
+    },
+    {
       "path": "lib/MobileMenuPresentation.lua",
       "bytes": 44190,
       "sha256": "e336e28b8a8099e8cc4410b7f51878c4f77f9f493c7ff61e1a68f9d0e8798d1c"
@@ -109827,8 +109847,8 @@
     },
     {
       "path": "lib/ObservationBinoculars.lua",
-      "bytes": 5861,
-      "sha256": "84c5d873e68503173d449eb2d5b73677278af93ae39df85daad9b7a0b112833b"
+      "bytes": 7297,
+      "sha256": "1aa43c795bf2e5b8230280863251ea3eeaebfed046f869e95b35723d5f01be8a"
     },
     {
       "path": "lib/ObservationLayout.lua",
@@ -110177,8 +110197,8 @@
     },
     {
       "path": "lib/Sky.lua",
-      "bytes": 76973,
-      "sha256": "51ebd66cd54ed14d67c464f8a14359ed61d03f09b8b80e4633892f259b2b13a1"
+      "bytes": 77670,
+      "sha256": "211058da99a1b642fbd7b426237ffc35dd0a418a2025a93f17f9d0f7f86c6fac"
     },
     {
       "path": "lib/SkyBounds.lua",
@@ -110642,8 +110662,8 @@
     },
     {
       "path": "lib/VoxelFurniture.lua",
-      "bytes": 44946,
-      "sha256": "d92ae3c3a693ad8e8341599fadaac9b60139f2937c57315e6cbf6640ee269337"
+      "bytes": 44987,
+      "sha256": "993046766c22d1269895cee708e3a781b147077b3d82123107a0cd3f4d459d14"
     },
     {
       "path": "lib/VoxelGeometryCache.lua",
@@ -110662,8 +110682,8 @@
     },
     {
       "path": "lib/VoxelInteriorModels.lua",
-      "bytes": 14355,
-      "sha256": "a9eb9d9de784fbd643ed2b8c39fddd3d03989d09b1645a6c6ac25ee6f76116ce"
+      "bytes": 15006,
+      "sha256": "fe6060335c7ea18f43ce6712395c2712d80444082c54fa06b19e65fdef9e2137"
     },
     {
       "path": "lib/VoxelInteriorPatterns.lua",
@@ -110687,8 +110707,8 @@
     },
     {
       "path": "lib/VoxelScene.lua",
-      "bytes": 171391,
-      "sha256": "bf1dedc5c0dc99913e12bd0b9f78ed12c162c8c15d46a51debae90ae7c8a566b"
+      "bytes": 171303,
+      "sha256": "c1b7334708bb5fac9f46401f7b5ad6bf2cf1430f1dd6b65d96d3ad01fed62578"
     },
     {
       "path": "lib/VoxelShortcut.lua",
@@ -111102,13 +111122,13 @@
     },
     {
       "path": "main_gen1.lua",
-      "bytes": 156267,
-      "sha256": "16ad68ac2474298ec242f0570168507b1c2f9e7378c74e2a7c8bcb631a99dd7b"
+      "bytes": 157019,
+      "sha256": "26f635a49b5373fca1ff55915a36e2a250d95e48382eca0a4b63596ff68e7dac"
     },
     {
       "path": "manifest.json",
       "bytes": 22826,
-      "sha256": "85aff60a7aebdef49664dc0398740c7b19bde2524f4ee2057cc0e983691be7bb"
+      "sha256": "96c718dec2ab0115a1bc3690dcdb87626179225f07d71321399290773ff708a7"
     },
     {
       "path": "mod.card",
@@ -111117,8 +111137,8 @@
     },
     {
       "path": "runtime-receipt.json",
-      "bytes": 4726676,
-      "sha256": "07bcdef248f91bba754e4bfe8325df8277acec2b84c4a28153723be177ca5855"
+      "bytes": 4727492,
+      "sha256": "c0568ecd8cf2f467c4552cdca3ea970ad58f8bf8e207d60aba7092b0903188ef"
     },
     {
       "path": "scripts/prepare_cobblemon_binary.py",
@@ -113101,6 +113121,11 @@
       "sha256": "0f50133c346a76e8e6a144117707fc7ee52f92a5bf5f773f6b36cf6d18769010"
     },
     {
+      "path": "tests/video_polish_behavior_test.lua",
+      "bytes": 7923,
+      "sha256": "8d57e68e83b6d9891d3342585e48668909a13f596f65d2df221317103b28bf5d"
+    },
+    {
       "path": "tests/video_polish_regression_test.lua",
       "bytes": 5388,
       "sha256": "9de2f3324f38f19d56f0efb8a71bf1a6ca31ed4740947cb1b83ef1e2558233d8"
@@ -113192,8 +113217,8 @@
     },
     {
       "path": "tests/window_landmark_test.lua",
-      "bytes": 2377,
-      "sha256": "7efa1ecb36c1743f6261e90d3c2bfd7e9f00cd960f8d804162063abff015a3ec"
+      "bytes": 2435,
+      "sha256": "caf7cf1c611c6338ce8a9099de38ce19c9941da10000b8941fe5a165f2cd6766"
     },
     {
       "path": "tests/window_room_visibility_test.lua",
@@ -113506,9 +113531,9 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "base_archive_sha256": "41bafa1371c6afb5e0f192fc1b2fd029a19f2a9ff02cd0193f6e873b881713f2",
-  "source_snapshot_sha256": "755759288b1da8aed663252ffe666a6208a07f8113a3aad18597c1997813e2b2",
-  "source_commit": "ab803c97fcd42f5f3ed39f7f8501e419edb41697",
+  "base_archive_sha256": "fe00e4b7a6ab1a3c77e5b7abe2f4af3cadb02b9148aa05f38775291bd695c4ec",
+  "source_snapshot_sha256": "ce4ea5d67f9a7c22117c8a984395076fd89f722ff7e2d34d1b61b8ec6c62ef77",
+  "source_commit": "0a01c70d9bb78e2e16292fe3170e129e769c5940",
   "source_candidate_version": "3.0.60-rc.1",
   "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
 }
