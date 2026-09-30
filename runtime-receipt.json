@@ -1,5 +1,5 @@
 {
-  "file_count": 22704,
+  "file_count": 22705,
   "files": [
     {
       "path": ".modkitromallow",
@@ -148,8 +148,8 @@
     },
     {
       "path": "QA-REPORT.md",
-      "size_bytes": 6343,
-      "sha256": "b86c8022acd45636dcc3cd7acbecf6b95632619fa10017f0ac44073170410ad8"
+      "size_bytes": 8035,
+      "sha256": "57946dbfff8da1b629f7d6a4d4d8d9fe50d46c240b6f678275d7ae142b02dab8"
     },
     {
       "path": "README.md",
@@ -158,8 +158,8 @@
     },
     {
       "path": "RELEASE_NOTES.md",
-      "size_bytes": 3047,
-      "sha256": "afc454f69ba0c6719b8bdab68ad8808d62cf4db2158ca8b659dc786e5382f1d5"
+      "size_bytes": 3645,
+      "sha256": "ea21480e8b7b0b0deccf4510a3ad58219ecaf8ab5f08d18ceb55a2b3ae23a69d"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -378,8 +378,8 @@
     },
     {
       "path": "VIDEO_POLISH_PROGRESS.md",
-      "size_bytes": 21222,
-      "sha256": "9c8ed7ee627c78d082a223b9bb74649e6eeaac9d0ab1f3d3b1a5807c6f1b44fb"
+      "size_bytes": 21820,
+      "sha256": "4e00b390e459c110f640afccc139d7aa33957a9381f4017b94fcc7931a69ee89"
     },
     {
       "path": "WEATHER_SKY_NOTES.md",
@@ -94033,8 +94033,8 @@
     },
     {
       "path": "docs/VIDEO_FEEDBACK_20260930.md",
-      "size_bytes": 27992,
-      "sha256": "7b2225707696b46224ed23f9a1588f14f462405664d43d75b6d200f054be0ca5"
+      "size_bytes": 29751,
+      "sha256": "b20c714e6d5cc53a82e645b85f601446bc6c3804e9038eb3f95ab7bbac67fe6d"
     },
     {
       "path": "docs/WEATHER_SKY_WEATHER5.md",
@@ -109778,8 +109778,8 @@
     },
     {
       "path": "lib/MewSky.lua",
-      "size_bytes": 9818,
-      "sha256": "fa738a772418dc6ba05eaf8146b49a822ce695ec45a711448f7c5e3cf0bc9194"
+      "size_bytes": 9928,
+      "sha256": "ca0ad1c767fafc366e407f4f8b133cb0ac48ede053682aac7280556826323183"
     },
     {
       "path": "lib/MobileMenuPresentation.lua",
@@ -109843,8 +109843,8 @@
     },
     {
       "path": "lib/ObservationBinoculars.lua",
-      "size_bytes": 7297,
-      "sha256": "1aa43c795bf2e5b8230280863251ea3eeaebfed046f869e95b35723d5f01be8a"
+      "size_bytes": 7335,
+      "sha256": "0b8b22925a2c81f399203125ec9cdd89b02a0571ff0b4207a9837349fa847460"
     },
     {
       "path": "lib/ObservationLayout.lua",
@@ -111124,7 +111124,7 @@
     {
       "path": "manifest.json",
       "size_bytes": 22826,
-      "sha256": "96c718dec2ab0115a1bc3690dcdb87626179225f07d71321399290773ff708a7"
+      "sha256": "cc4b9c1159a806225591ebbe340e862961ef31ce250b2f5ce7b75c32c394c44b"
     },
     {
       "path": "mod.card",
@@ -111575,6 +111575,11 @@
       "path": "tests/feedback_settings_test.lua",
       "size_bytes": 3965,
       "sha256": "9085d061903b6fa2722891110cb7c5d3652f96a34c25cc7c567b49b9697da9d5"
+    },
+    {
+      "path": "tests/final_observation_hud_test.lua",
+      "size_bytes": 2687,
+      "sha256": "f10a73859abea35fa6465908dcc7d5fef1984857c8d437869c27d5bd66161815"
     },
     {
       "path": "tests/follower_bootstrap_sprite_test.lua",
@@ -113522,10 +113527,10 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "manifest_sha256": "96c718dec2ab0115a1bc3690dcdb87626179225f07d71321399290773ff708a7",
+  "manifest_sha256": "cc4b9c1159a806225591ebbe340e862961ef31ce250b2f5ce7b75c32c394c44b",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.61-rc.3",
+  "version": "3.0.61-rc.4",
   "local_candidate": false,
   "source_candidate_version": "3.0.60-rc.1",
   "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"

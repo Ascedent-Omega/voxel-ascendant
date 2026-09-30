@@ -1,6 +1,6 @@
 {
   "id": "VOXEL_ASCENDANT",
-  "version": "3.0.61-rc.3",
+  "version": "3.0.61-rc.4",
   "api": 2,
   "modkit": "1.0.0",
   "local_candidate": true,
@@ -152,8 +152,8 @@
     },
     {
       "path": "QA-REPORT.md",
-      "bytes": 6343,
-      "sha256": "b86c8022acd45636dcc3cd7acbecf6b95632619fa10017f0ac44073170410ad8"
+      "bytes": 8035,
+      "sha256": "57946dbfff8da1b629f7d6a4d4d8d9fe50d46c240b6f678275d7ae142b02dab8"
     },
     {
       "path": "README.md",
@@ -162,8 +162,8 @@
     },
     {
       "path": "RELEASE_NOTES.md",
-      "bytes": 3047,
-      "sha256": "afc454f69ba0c6719b8bdab68ad8808d62cf4db2158ca8b659dc786e5382f1d5"
+      "bytes": 3645,
+      "sha256": "ea21480e8b7b0b0deccf4510a3ad58219ecaf8ab5f08d18ceb55a2b3ae23a69d"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -382,8 +382,8 @@
     },
     {
       "path": "VIDEO_POLISH_PROGRESS.md",
-      "bytes": 21222,
-      "sha256": "9c8ed7ee627c78d082a223b9bb74649e6eeaac9d0ab1f3d3b1a5807c6f1b44fb"
+      "bytes": 21820,
+      "sha256": "4e00b390e459c110f640afccc139d7aa33957a9381f4017b94fcc7931a69ee89"
     },
     {
       "path": "WEATHER_SKY_NOTES.md",
@@ -94037,8 +94037,8 @@
     },
     {
       "path": "docs/VIDEO_FEEDBACK_20260930.md",
-      "bytes": 27992,
-      "sha256": "7b2225707696b46224ed23f9a1588f14f462405664d43d75b6d200f054be0ca5"
+      "bytes": 29751,
+      "sha256": "b20c714e6d5cc53a82e645b85f601446bc6c3804e9038eb3f95ab7bbac67fe6d"
     },
     {
       "path": "docs/WEATHER_SKY_WEATHER5.md",
@@ -109782,8 +109782,8 @@
     },
     {
       "path": "lib/MewSky.lua",
-      "bytes": 9818,
-      "sha256": "fa738a772418dc6ba05eaf8146b49a822ce695ec45a711448f7c5e3cf0bc9194"
+      "bytes": 9928,
+      "sha256": "ca0ad1c767fafc366e407f4f8b133cb0ac48ede053682aac7280556826323183"
     },
     {
       "path": "lib/MobileMenuPresentation.lua",
@@ -109847,8 +109847,8 @@
     },
     {
       "path": "lib/ObservationBinoculars.lua",
-      "bytes": 7297,
-      "sha256": "1aa43c795bf2e5b8230280863251ea3eeaebfed046f869e95b35723d5f01be8a"
+      "bytes": 7335,
+      "sha256": "0b8b22925a2c81f399203125ec9cdd89b02a0571ff0b4207a9837349fa847460"
     },
     {
       "path": "lib/ObservationLayout.lua",
@@ -111128,7 +111128,7 @@
     {
       "path": "manifest.json",
       "bytes": 22826,
-      "sha256": "96c718dec2ab0115a1bc3690dcdb87626179225f07d71321399290773ff708a7"
+      "sha256": "cc4b9c1159a806225591ebbe340e862961ef31ce250b2f5ce7b75c32c394c44b"
     },
     {
       "path": "mod.card",
@@ -111137,8 +111137,8 @@
     },
     {
       "path": "runtime-receipt.json",
-      "bytes": 4727492,
-      "sha256": "c0568ecd8cf2f467c4552cdca3ea970ad58f8bf8e207d60aba7092b0903188ef"
+      "bytes": 4727668,
+      "sha256": "1860d7a6cb1d454f397503fa541b80e3f3680f11fe5189a0b394b6681990f788"
     },
     {
       "path": "scripts/prepare_cobblemon_binary.py",
@@ -111584,6 +111584,11 @@
       "path": "tests/feedback_settings_test.lua",
       "bytes": 3965,
       "sha256": "9085d061903b6fa2722891110cb7c5d3652f96a34c25cc7c567b49b9697da9d5"
+    },
+    {
+      "path": "tests/final_observation_hud_test.lua",
+      "bytes": 2687,
+      "sha256": "f10a73859abea35fa6465908dcc7d5fef1984857c8d437869c27d5bd66161815"
     },
     {
       "path": "tests/follower_bootstrap_sprite_test.lua",
@@ -113531,9 +113536,9 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "base_archive_sha256": "fe00e4b7a6ab1a3c77e5b7abe2f4af3cadb02b9148aa05f38775291bd695c4ec",
-  "source_snapshot_sha256": "ce4ea5d67f9a7c22117c8a984395076fd89f722ff7e2d34d1b61b8ec6c62ef77",
-  "source_commit": "0a01c70d9bb78e2e16292fe3170e129e769c5940",
+  "base_archive_sha256": "2eef072790f52b8bfe74bc16f4bdd667e624c57bf7102ea143176b7d3fcbc8e7",
+  "source_snapshot_sha256": "600f70a2375f064a65a9834f70e8e354bce2eff9fc3115c5e38b292b334ee499",
+  "source_commit": "4a3bfdc3d6675071dd853471001cd52ab25f1b10",
   "source_candidate_version": "3.0.60-rc.1",
   "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
 }
