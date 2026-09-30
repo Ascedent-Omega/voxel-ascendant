@@ -1,5 +1,5 @@
 {
-  "file_count": 22688,
+  "file_count": 22699,
   "files": [
     {
       "path": ".modkitromallow",
@@ -28,13 +28,18 @@
     },
     {
       "path": "CHANGELOG.md",
-      "size_bytes": 72741,
-      "sha256": "7e60abf9643d33530f49260cda0824b348b40f0362f412cc6f457348cc26c892"
+      "size_bytes": 73070,
+      "sha256": "e8e17361ca546021e4eb6a2af55527f6ae9fdf2ef08ff2bb166e5d7d62c22909"
     },
     {
       "path": "COBBLEMON_BATTLE_AUDIT_2026-09-25.md",
       "size_bytes": 4364,
       "sha256": "1d85c409932c4643aada2eb979b56890cd5190097be25f51d2306cadd4d26cf7"
+    },
+    {
+      "path": "COBBLE_RIDERS_SEATS_QA.md",
+      "size_bytes": 1795,
+      "sha256": "46248e1cf636121a7a3a3f745dd35c7c0fd001ab24e4e029404a66233606dc7d"
     },
     {
       "path": "COMPANION_SOURCE_CONTRACT.json",
@@ -100188,8 +100193,8 @@
     },
     {
       "path": "integrated/ascendant_pokemon_overworld/src/walking_sprites.lua",
-      "size_bytes": 45162,
-      "sha256": "7380f04cf0b972b0b0f0883019c630044a8300a4311bff5c84c92930601e07d0"
+      "size_bytes": 45986,
+      "sha256": "fe78aefe942ee249943ec0ef6151d035eb49ee5df4842b824491c128667bfa69"
     },
     {
       "path": "integrated/ascendant_startup/IntroScene.lua",
@@ -101100,6 +101105,26 @@
       "path": "integrated/cobble_characters/assets/bike-shop-clerk/model/palette.png",
       "size_bytes": 4792,
       "sha256": "636eed1959564880e2dd49ab0869da232eb710271fc6ef4711eb8c223f5a5b0a"
+    },
+    {
+      "path": "integrated/cobble_characters/assets/biker/cobble/bicycle-blink.png",
+      "size_bytes": 8596,
+      "sha256": "7c802550002d0c37cd5eb242d09147d5633c9ed961621aafc3309b0b49dda58e"
+    },
+    {
+      "path": "integrated/cobble_characters/assets/biker/cobble/bicycle-idle.png",
+      "size_bytes": 4731,
+      "sha256": "73f3898df4bf072180d3be23910b1f79d03836490a85994bdb6b3492bedf72bf"
+    },
+    {
+      "path": "integrated/cobble_characters/assets/biker/cobble/bicycle-preview.png",
+      "size_bytes": 8320,
+      "sha256": "570aea99e1fbcb2122ccd0497f425b6ba81d3bfb916006b4aa1fc0a30fbff0dd"
+    },
+    {
+      "path": "integrated/cobble_characters/assets/biker/cobble/bicycle-walk.png",
+      "size_bytes": 23913,
+      "sha256": "e8f57b8784758756308ba18c09843f7870c13473a45bd575c9dc24a1d9066d75"
     },
     {
       "path": "integrated/cobble_characters/assets/biker/cobble/blink-4x4.png",
@@ -102695,6 +102720,26 @@
       "path": "integrated/cobble_characters/assets/copycat/model/palette.png",
       "size_bytes": 4776,
       "sha256": "4a4134c4839e757ac542c7e025a51b23f85af05cd3ec405e61f683541b98c142"
+    },
+    {
+      "path": "integrated/cobble_characters/assets/cue-ball/cobble/bicycle-blink.png",
+      "size_bytes": 7987,
+      "sha256": "e5a261502a9c34ebbd839fc5e2fb2c7d874d7f0a4540380d7dd9dace23aa9d42"
+    },
+    {
+      "path": "integrated/cobble_characters/assets/cue-ball/cobble/bicycle-idle.png",
+      "size_bytes": 4415,
+      "sha256": "2d52a9cf629194148b0f5e6777e7bf3ee0bd468847061169ec910f89cbf2f5e1"
+    },
+    {
+      "path": "integrated/cobble_characters/assets/cue-ball/cobble/bicycle-preview.png",
+      "size_bytes": 7811,
+      "sha256": "f173ed6aa0e819d0d03db35b15463cb8ceabb0fbfd4a097bbaed5de37b8aa094"
+    },
+    {
+      "path": "integrated/cobble_characters/assets/cue-ball/cobble/bicycle-walk.png",
+      "size_bytes": 22201,
+      "sha256": "f15b0aadf10bb42e67e0c915d47a85a56b14a14b9ad1f8bdbf81f00e305ef706"
     },
     {
       "path": "integrated/cobble_characters/assets/cue-ball/cobble/blink-4x4.png",
@@ -108228,8 +108273,8 @@
     },
     {
       "path": "integrated/cobble_characters/src/catalog.lua",
-      "size_bytes": 122372,
-      "sha256": "a0dbc800898521af685d5ebcc65277cc2e203581d4dcd1d7a68647a72884b778"
+      "size_bytes": 123020,
+      "sha256": "c9090ed680713c1169b652b9abdc40b913db53d4e88eb11a965052efdefc1392"
     },
     {
       "path": "integrated/cobble_characters/src/cube_baker.lua",
@@ -108248,13 +108293,13 @@
     },
     {
       "path": "integrated/cobble_characters/src/integration.lua",
-      "size_bytes": 3072,
-      "sha256": "16c12f47b618c6a29db13e8d326716e7d18d6fa9d488c44aa871c114fc30a05b"
+      "size_bytes": 3122,
+      "sha256": "53984f6df533c260adbd10d492f077a47f98f888784ec77db9fc2c3a8a9db50d"
     },
     {
       "path": "integrated/cobble_characters/src/provider.lua",
-      "size_bytes": 8304,
-      "sha256": "f7b0d61eba874d0da447709c439b1d1b62c579a9d7dc2b06433e5f3921fc97c1"
+      "size_bytes": 8494,
+      "sha256": "8aa6468ec130ffd87c34f5d334f2b98fedf556bf353747f4b509e9467ee83122"
     },
     {
       "path": "integrated/cobble_characters/src/rocky_puppet.lua",
@@ -111059,7 +111104,7 @@
     {
       "path": "manifest.json",
       "size_bytes": 22826,
-      "sha256": "01c71f8d8e9f0e2452f1e1dc6c04ea85655b22bbfe33fc7c24af0102d7c25795"
+      "sha256": "85aff60a7aebdef49664dc0398740c7b19bde2524f4ee2057cc0e983691be7bb"
     },
     {
       "path": "mod.card",
@@ -111315,6 +111360,11 @@
       "path": "tests/cinnabar_volcano_test.lua",
       "size_bytes": 2873,
       "sha256": "956dc0217670a472951b8cd3b8b28981af4fb7b9e7532c2cd2ff41b90d1ffb0e"
+    },
+    {
+      "path": "tests/cobble_rider_actions_test.lua",
+      "size_bytes": 2830,
+      "sha256": "b1125f66b6b2a3b64d1509768ff0ee692195325b98b6295c2cd787323932ec38"
     },
     {
       "path": "tests/cobble_seat_profiles_test.lua",
@@ -113157,6 +113207,11 @@
       "sha256": "f7ab1995161caca49e244fc8df17a60080a1e760df7662d90dc32d8c09e2233c"
     },
     {
+      "path": "tools/bake_cobble_riders.py",
+      "size_bytes": 2343,
+      "sha256": "a3793ac541dc6db5ae1472621084d9c053ae3b215b0505670153345105eab4c8"
+    },
+    {
       "path": "tools/build_card_sole_bounds.py",
       "size_bytes": 1487,
       "sha256": "fbe42e081e0fc6ea7941a82a51d833b0619d5c987122a3fd69770fa5915ae8bc"
@@ -113442,10 +113497,10 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "manifest_sha256": "01c71f8d8e9f0e2452f1e1dc6c04ea85655b22bbfe33fc7c24af0102d7c25795",
+  "manifest_sha256": "85aff60a7aebdef49664dc0398740c7b19bde2524f4ee2057cc0e983691be7bb",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.61-rc.1",
+  "version": "3.0.61-rc.2",
   "local_candidate": false,
   "source_candidate_version": "3.0.60-rc.1",
   "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
