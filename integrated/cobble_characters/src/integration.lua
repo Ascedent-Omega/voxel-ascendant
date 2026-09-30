@@ -31,16 +31,16 @@ function Integration.new(provider,wardrobeArt)
   local id=explicit or byTail[tail]or bySource[filename]or aliases[ctx.role]or ctx.role
   local row=provider:lookup(id)
   if not row or not row.styles[style]then return nil end
-  local def,art=provider:definition(row.id,style,false)
+  local action=ctx.action~='walk'and ctx.action or nil
+  local def,art=provider:definition(row.id,style,false,action)
   if not def then return nil,art end
   if style=='cobble' then
    -- The host owns map identity and seating; artwork/wardrobe variants keep
    -- that source identity even when the provider uses another catalog id.
    def.ascendantSeatSource=row.source
   end
-  local action=ctx.action~='walk'and ctx.action or nil
   local dressed=ctx.selection and ctx.wardrobe and not ctx.wardrobe.plain(ctx.selection)
-  if action or dressed then
+  if (action and def.ascendantCharacterAction~=action) or dressed then
    if style~='cobble'then return nil end -- The host owns existing HD/Voxel outfits/actions.
    if not wardrobeArt then return nil,'wardrobe-provider-unavailable'end
    local derived=wardrobeArt.resolve(row.id,action,ctx.wardrobe,ctx.selection)

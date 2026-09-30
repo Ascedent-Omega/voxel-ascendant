@@ -36,10 +36,12 @@ function Provider:hdProvider()
  local h=self.mod.find and self.mod:find('ASCENDANT_HD_CHARACTERS')
  return h and h.exports and h.exports.humanArt
 end
-function Provider:definition(id, style, animated2D)
+function Provider:definition(id, style, animated2D, action)
   local row,err=self:lookup(id);if not row then return nil,err end
   style=style or "cobble"
   local art=row.styles[style];if not art then return nil,"style_unavailable:"..tostring(style) end
+  local actionArt=not animated2D and action and art.actions and art.actions[action]
+  if actionArt then art=actionArt end
   local hd=style=="hd" and self:hdProvider()
   if style=="hd" and not hd then return nil,"hd_dlc_required" end
   local root=hd and hd.characterRoot or self.mod.path.."/"
@@ -48,6 +50,7 @@ function Provider:definition(id, style, animated2D)
     anchorX=8,anchorY=16,walker=true,trueColor=true,
     cobbleCharacter=row.id,cobbleStyle=style,cobbleAnimated2D=animated2D==true,
     ascendantRole=row.id,ascendantScaleClass=row.scaleClass,ascendantWorldHeight=row.worldHeight}
+  if actionArt then def.ascendantCharacterAction=action end
   if not animated2D then
     def.ascendantAtlasImage=root..(art.presentationAtlas or art.atlas)
     def.ascendantAtlasRelative=art.presentationAtlas or art.atlas

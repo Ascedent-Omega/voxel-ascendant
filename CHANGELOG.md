@@ -1,3 +1,9 @@
+## 3.0.61-rc.2 — Cobble cyclists and seat compatibility
+
+- Bikers and Cue Balls use pre-baked Cobble bicycle poses. Missing optional Card actions no longer abort NPC binding for an entire map.
+- Preserve host-selected seat identity when an older Cobble Card does not publish it.
+- Includes the loading-language fix from rc.1.
+
 ## 3.0.61-rc.1 — Loading-screen language
 
 - Loading messages follow the active English/German boot language, including shared VASC/KASC startup.

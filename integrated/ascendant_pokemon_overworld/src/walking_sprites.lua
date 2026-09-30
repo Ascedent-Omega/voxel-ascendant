@@ -498,9 +498,26 @@ function WalkingSprites:externalArt(entity,atlas,role,action,selection)
  local source=externalSource(self);if not source then return nil end
  local clothes=wardrobe()
  local owned=role=='red'or role=='blue'or role=='green'
- return source.resolve{generation=self.generation,entity=entity,atlas=atlas,role=role,action=action,
+ local context={generation=self.generation,entity=entity,atlas=atlas,role=role,action=action,
   style=self.mod.options:get('human_art_style'),wardrobe=clothes,
   selection=selection or owned and clothes and clothes.get(role),game=self.activeGame}
+ local ok,result=pcall(source.resolve,context)
+ if not ok then
+  self.lastExternalArtError=tostring(result)
+  -- Older optional Cards lack NPC action rigs. Keep map binding alive and
+  -- use the bundled provider's authored action when available.
+  local bundled=self.mod.characterArtSource
+  if bundled and bundled~=source then ok,result=pcall(bundled.resolve,context)end
+  if not ok then return nil end
+ end
+ if result and result.definition and result.definition.cobbleStyle=='cobble'
+     and not result.definition.ascendantSeatSource
+     and type(atlas)=='string'and atlas:match('^assets/characters/npcs/')then
+  -- The host selected this exact NPC source before asking for artwork.
+  -- Retain seat identity for Cards predating the seating metadata contract.
+  result.definition.ascendantSeatSource=atlas
+ end
+ return result
 end
 
 function WalkingSprites:appearance(path,role,action,selection)
