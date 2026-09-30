@@ -1,3 +1,18 @@
+# VASC 3.0.60-rc.1 — Pyro MAP court and Sea Terrarium
+
+Local test candidate based on public VASC 3.0.59. Pair with KASC 6.7.32-rc.1 for the narrower volcanic platform. Replace the existing mod copies; retain saves and settings.
+
+- Blaine's owned volcano MAP battle uses the central Pokéball marking. Both Pokémon stand on the marking; the two trainers stand just outside it. A raised camera shows the surrounding lava.
+- The KASC v3 platform is 14 rather than 18 cells wide; the bridge, leader identity, stairs, quiz and rewards retain their positions and behavior. VASC also recognizes the earlier v1/v2 geometry.
+- Four retained lava fountains animate outside the court during MAP battles. The lava surface now participates in the MAP render. The whole platform is no longer removed by the foreground-obstruction filter.
+- Integrates ODias' supplied Sea Terrarium module unchanged: submerged reef, Pokémon shelves, trainer pillars, one transparent animated water surface, neutral front button and original credits. Both side and behind-Red layouts honor their actor heights; the sea has no closed dome.
+- Sea selection is limited to surfing encounters on Routes 12, 13, 19, 20, 21, Pallet Town, Cinnabar Island and Vermilion City. Land, inland water, interiors and Gen 2 retain their existing scenes. Fishing from land currently retains the existing scene.
+- All public 3.0.59 changes, including Gorochu's Crystal colour fix, remain included. No stats, abilities or battle rules changed.
+
+See PYRO_SEA_QA.md for coverage. This candidate has not been publicly released.
+
+---
+
 # Voxel Ascendant 3.0.56
 
 - Fixes temporary 2D fallbacks during map changes and before battles. Known scene preparation stays behind the loading screen until ready; movement cannot advance an unseen world.

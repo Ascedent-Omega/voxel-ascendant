@@ -19,9 +19,15 @@ function B.profile(map)
     and r.x==22 and r.y==30 and r.width==4 and r.height==4
   local compact=a.version==2 and p.x==16 and p.y==10 and p.width==18 and p.height==12
     and r.x==24 and r.y==22 and r.width==2 and r.height==8
-  if not(legacy or compact)then return end
+  local narrow=a.version==3 and p.x==18 and p.y==10 and p.width==14 and p.height==12
+    and r.x==24 and r.y==22 and r.width==2 and r.height==8
+  if not(legacy or compact or narrow)then return end
  end
  return s.kind
+end
+local battleCourt={x=21,y=14,shape='blaine_center',cam='blaine_lava',adaptive=false,surface='land'}
+function B.battleCourt(map)
+ if B.profile(map)=='arena'and map.def.kaArenaGeometry.version>=2 then return battleCourt end
 end
 local function model(P,name,w,d,height)
  local m={terrain=false,boxes={},step=1,directBoxes=true,frameW=w,
@@ -41,6 +47,8 @@ local function rail(box,x,z,length,along,C)
 end
 local function arena(P,name,map)
  local C=P.decorColors;local m,b=model(P,name,768,576,144)
+ -- A room foundation must never be hidden as one oversized foreground prop.
+ m.sightFoundation=true
  local a=map.def.kaArenaGeometry;local p,r=a.platform,a.bridge
  local x0,z0,x1,z1=p.x*16,p.y*16,(p.x+p.width)*16,(p.y+p.height)*16
  local bx,bz,bw,bd=r.x*16,r.y*16,r.width*16,r.height*16
@@ -56,10 +64,11 @@ local function arena(P,name,map)
  b(x0+16,.12,z0+16,x1-x0-32,.12,2,white);b(x0+16,.12,z1-18,x1-x0-32,.12,2,white)
  b(x0+16,.12,z0+16,2,.12,z1-z0-32,white);b(x1-18,.12,z0+16,2,.12,z1-z0-32,white)
  b(x0+16,.12,cz-1,x1-x0-32,.12,2,white)
- for z=-24,22,2 do for x=-24,22,2 do
+ local radius=a.version>=2 and 36 or 24
+ for z=-radius,radius-2,2 do for x=-radius,radius-2,2 do
   local d=(x+1)^2+(z+1)^2
-  if d>=20^2 and d<=24^2 then b(cx+x,.14,cz+z,2,.12,2,white)
-  elseif d<20^2 then b(cx+x,.13,cz+z,2,.1,2,z<0 and C.clay or C.stone)end
+  if d>=(radius-4)^2 and d<=radius^2 then b(cx+x,.14,cz+z,2,.12,2,white)
+  elseif d<(radius-4)^2 then b(cx+x,.13,cz+z,2,.1,2,z<0 and C.clay or C.stone)end
  end end
  b(cx-6,.26,cz-6,12,.1,12,C.navy);b(cx-3,.38,cz-3,6,.1,6,white)
  rail(b,x0-3,z0-3,x1-x0+6,true,C)
@@ -89,6 +98,18 @@ local function arena(P,name,map)
  -- One retained flowing lava surface, below the platform and native actors.
  local lava,lb=model(P,name..'_lava',768,576,1)
  lb(32,-20,32,704,1,512,11);m.blaineLavaKind=name..'_lava'
+ -- Four retained low-poly jets; only their transforms change during MAP battles.
+ local jet,jb=model(P,name..'_jet',32,32,56)
+ for i=0,10 do
+  local y=i*4;local w=math.max(2,8-i*.5)
+  jb(-w/2,y,-w/2,w,3.5,w,i%3==0 and 1 or 11)
+ end
+ for side=-1,1,2 do for i=1,8 do
+  local x=side*i*2.2;local y=44-i*i*.55
+  jb(x-1.3,y,-1.3,2.6,2.6,2.6,i%2==0 and 1 or 11)
+ end end
+ m.blaineJetKind=name..'_jet'
+ m.blaineJets={{x0-32,z0+44},{x1+32,z0+44},{x0-32,z1-44},{x1+32,z1-44}}
  return m
 end
 local function foot(P,name,map,stairs)
@@ -200,6 +221,7 @@ function B.find(P,map)
  return result
 end
 function B.prepare(P,model)
+ if model and model.blaineJetKind then P.resolveKind(model.blaineJetKind)end
  return not(model and model.blaineLavaKind)or P.resolveKind(model.blaineLavaKind)~=nil
 end
 function B.draw(state,P,G,Mat)
@@ -216,6 +238,28 @@ function B.draw(state,P,G,Mat)
  if mesh then
   G.magma(true);G.draw(mesh,texture,Mat.translationFor(model,0,0,0),0);G.magma(false)
  end
+end
+function B.drawBattleFountains(map)
+ if B.profile(map)~='arena'then return end
+ local P=V.require('VoxelItems');if not P.setting:get()then return end
+ local m=P.models['blaine_arena_v'..map.def.kaArenaGeometry.version]
+ if not(m and m.blaineJetKind)then return end
+ local mesh,texture=P.resolveKind(m.blaineJetKind);if not mesh then return end
+ local G,Mat=V.require('Voxel3D'),V.require('Mat4')
+ local t=love.timer.getTime()
+ G.magma(true)
+ local ok,reason=pcall(function()
+  for i,p in ipairs(m.blaineJets)do
+   local phase=(t*.23+(i-1)*.27)%1
+   local height=math.sin(math.pi*phase)^2
+   if height>.025 then
+    local matrix=Mat.mul(Mat.translate(p[1],-19,p[2]),Mat.scale(.8+height*.2,height,1))
+    G.draw(mesh,texture,matrix,0)
+   end
+  end
+ end)
+ G.magma(false)
+ if not ok then error(reason)end
 end
 local mist={color={.38,.22,.18},density=.009,height=52}
 function B.atmosphere(map)local k=B.profile(map);return k=='foot'or k=='arena'end

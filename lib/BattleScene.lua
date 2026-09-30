@@ -2193,6 +2193,7 @@ local function renderScene(state, arena, textures, token)
     end
     Voxel3D.seams(false)
     V.require("BattleMapProps").draw(mapProps)
+    V.require("BlaineVolcano").draw({map=host},V.require("VoxelItems"),Voxel3D,Mat4)
     Voxel3D.endWorldLayer()
     if battleLighting then
       local lighting=V.require("LocalLights").current()
@@ -2340,6 +2341,7 @@ local function renderScene(state, arena, textures, token)
       arena.terarriumService.overlay(arena,groundY)
     end
     if not discs then
+      V.require("BlaineVolcano").drawBattleFountains(host)
       V.require("LightAtmosphere").draw(state)
       Voxel3D.indoorMist(host,state.dark)
     end

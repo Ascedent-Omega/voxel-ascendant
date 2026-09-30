@@ -2,6 +2,7 @@
 return function(api)
  local G,M=api.Voxel3D,api.Mat4
  local S={};local cache,order={},{};local brandTexture,brandMesh;local lightMesh,lightTexture,lightPixels
+ local water,waterFailed
  local seenBattles=setmetatable({},{__mode='k'})
  local idleBattle,idleSince,lastCursor=nil,nil,nil;local idleAllowed=false;local lastImpact
  local palettes={
@@ -65,10 +66,14 @@ return function(api)
   if not palettes[family]then family='grass'end
   local id=tostring(map and map.id or 'UNKNOWN');local design=api.gymDesign and api.gymDesign(id)
   if design then family=design.family or 'gym' end
+  local sea=api.sea and map and api.sea.appliesTo(map.sceneryKey) and api.sea
+  if sea then design=nil;family='coast' end
   local behind=(cameraMode or S.cameraMode())=='behind'
-  return {gymDesign=design,ballStyle=api.ballStyle and api.ballStyle(map)or'poke',id=id,family=family,theme=gymThemes[id],orientation='horizontal',cameraMode=behind and 'behind' or 'side',seed=hash(id),
+  local setup={seaDesign=sea,gymDesign=design,ballStyle=api.ballStyle and api.ballStyle(map)or'poke',id=id,family=family,theme=gymThemes[id],orientation='horizontal',cameraMode=behind and 'behind' or 'side',seed=hash(id),
    radius=74,actors=behind and {player={0,0,20},enemy={0,0,-20}}or{player={-25,0,0},enemy={25,0,0}},
    trainers=behind and {player={-19,2.4,46},enemy={19,2.4,-40}}or{player={-53,2.4,12},enemy={53,2.4,-12}}}
+  if sea then setup.theme=nil;sea.configureSetup(setup)end
+  return setup
  end
  local function build(setup)
   local verts,indices,colors,colorIds={},{},{},{}
@@ -113,6 +118,7 @@ return function(api)
   ring(76.9,3.72,76.55,3.72,{.89,.57,.38})
   ring(74.1,1.0,73.7,1.0,{.50,.43,.29})
   local shellVerts,shellIndices=verts,indices;verts,indices={},{};collect=true
+  if not setup.seaDesign then
   for i=0,N-1 do local a,b=i*2*math.pi/N,(i+1)*2*math.pi/N
    local n=#verts
    for _,p in ipairs({{0,0,0},{math.cos(a)*74,0,math.sin(a)*74},{math.cos(b)*74,0,math.sin(b)*74}})do
@@ -120,8 +126,9 @@ return function(api)
    end
    indices[#indices+1]=n+1;indices[#indices+1]=n+2;indices[#indices+1]=n+3
   end
+  end -- sea bowl remains open below y=0
   local stoneTones={{.43,.44,.43},{.50,.51,.49},{.57,.57,.53},{.64,.63,.58}}
-  local scenery=setup.gymDesign
+  local scenery=setup.seaDesign or setup.gymDesign
   if scenery then
    scenery.build({box=box,quad=quad},setup)
   else
@@ -478,7 +485,7 @@ return function(api)
    setup.ballStyle=api.ballStyle and api.ballStyle({id=setup.id})or'poke'
    setup._ballBattle=idleBattle
   end
-  local key=setup.id..':'..setup.family..':'..tostring(setup.cameraMode)..':'..setup.ballStyle..':'..(setup.gymDesign and setup.gymDesign.revision or 'legacy')
+  local key=setup.id..':'..setup.family..':'..tostring(setup.cameraMode)..':'..setup.ballStyle..':'..(setup.seaDesign and setup.seaDesign.revision or setup.gymDesign and setup.gymDesign.revision or 'legacy')
   if not cache[key]then
    cache[key]=build(setup);order[#order+1]=key
    if #order>4 then local old=table.remove(order,1);if cache[old].lightmap then cache[old].lightmap:release()end;cache[old].mesh:release();cache[old].shell:release();cache[old].texture:release();cache[old]=nil end
@@ -567,9 +574,20 @@ return function(api)
   if not ok then error(reason)end
  end
  function S.overlay(arena,groundY)
+  if arena.terarrium.seaDesign and not waterFailed then
+   local ok,reason=pcall(function()
+    water=water or api.sea.newWaterRenderer(api)
+    water.draw(arena,groundY,now())
+   end)
+   if not ok then
+    if water then water.release();water=nil end
+    waterFailed=true
+    if api.reportEffectFailure then api.reportEffectFailure('sea-water',reason)end
+   end
+  end
   if api.drawAtmosphere then api.drawAtmosphere(arena,groundY)end
   -- ODias gym designs are compact open bowls, even with a saved dome choice.
-  if not arena.terarrium.gymDesign and api.drawDome then api.drawDome(arena,groundY)end
+  if not arena.terarrium.seaDesign and not arena.terarrium.gymDesign and api.drawDome then api.drawDome(arena,groundY)end
  end
  function S.cast(shadow,arena,groundY)
   if not shadow then return end;local item=get(arena.terarrium)
@@ -598,6 +616,7 @@ return function(api)
   local p=assert(arena.terarrium.trainers[side]);return {arena.mid[1]+p[1],groundY+p[2],arena.mid[2]+p[3]}
  end
  function S.release()
+  if water then water.release();water=nil end;waterFailed=nil
   if api.lighting then api.lighting.release()end
   if api.releaseAtmosphere then api.releaseAtmosphere()end
   if api.releaseBackground then api.releaseBackground()end

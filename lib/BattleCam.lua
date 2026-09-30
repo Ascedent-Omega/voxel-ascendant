@@ -79,6 +79,8 @@ local BattleCam = {}
 -- Named for the LENS, because that is what an author is choosing between
 -- when they look at a shot and decide it wants more room in it.
 BattleCam.RIGS = {
+  -- High open-crater view keeps the central court and surrounding lava visible.
+  blaine_lava={side=155,back=0,height=135,lookX=0,lookY=0,frameH=150},
   disk_court = {
     side=128, back=0, height=80,
     lookX=0, lookY=8, frameH=72,

@@ -7,7 +7,7 @@ parser.add_argument('directory', type=Path)
 parser.add_argument('--compiler', default='glslang')
 args = parser.parse_args()
 failures = []
-for name in ('Dome', 'Background', 'GymAtmosphere'):
+for name in ('Dome', 'Background', 'GymAtmosphere', 'SeaTerrarium'):
     for version in ('1', '3'):
         for backend in ('gl', 'es'):
             stem = f'{name}-{version}-{backend}'
@@ -18,5 +18,5 @@ for name in ('Dome', 'Background', 'GymAtmosphere'):
             if result.returncode:
                 failures.append(stem)
                 print(result.stdout + result.stderr)
-print(f'Terrarium: 24 stages / 12 linked programs; failures: {len(failures)}')
+print(f'Terrarium: 32 stages / 16 linked programs; failures: {len(failures)}')
 raise SystemExit(bool(failures))

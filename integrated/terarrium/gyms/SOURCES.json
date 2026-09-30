@@ -178,5 +178,11 @@
     "sha256": "2b3901e030af9f7655edac851433c13f9bca33d75d05d2f4563c2f1a1b1da47c",
     "author": "Omega Dias / ΩDIAS",
     "revision": "original supplied module"
+  },
+  {
+    "file": "SeaTerrarium.lua",
+    "sha256": "215618cd7188302e222b8607f6426b80ff676878c3cbc0988538f2c37d699f47",
+    "author": "Omega Dias / ΩDIAS",
+    "revision": "kanto-sea-v2-reference-handheld; unchanged module from user-supplied Sea Terrarium.rar"
   }
 ]

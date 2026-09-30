@@ -1,7 +1,7 @@
 {
   "id": "VOXEL_ASCENDANT",
   "name": "Voxel Ascendant",
-  "version": "3.0.59",
+  "version": "3.0.60",
   "github": "Roxas2712/voxel-ascendant",
   "api": 2,
   "entry": "main.lua",

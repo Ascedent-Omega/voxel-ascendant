@@ -1260,7 +1260,8 @@ end
 function VoxelBattleStage.presentationPosition(arena, side, groundY, trainer)
   if arena and arena.terarrium then
     if trainer then local p=arena.terarriumService.trainerFoot(arena,side,groundY or 0);return p[1],p[2],p[3] end
-    local p=arena.terarrium.actors[side];return arena.mid[1]+p[1],groundY or 0,arena.mid[2]+p[3]
+    local p=arena.terarrium.actors[side]
+    return arena.mid[1]+p[1],(groundY or 0)+(arena.terarrium.seaActorHeight and p[2]or 0),arena.mid[2]+p[3]
   end
   local cell = arena and arena[side]
   if not (type(cell) == "table" and finite(cell[1]) and finite(cell[2])) then

@@ -149,6 +149,7 @@ local function filteredMesh(source,boxes,map)
  return assert(V.require('Voxel3D').newMesh(vertices,indices),'Blickfrei mesh creation failed')
 end
 function C.propBounds(prop)
+ if prop.extra and prop.extra.sightFoundation then return nil end
  local saved=prop.mat._voxelStatic and staticBounds[prop.mat]
  if saved and saved.mesh==prop.mesh then return saved.bounds end
  local mesh=prop.mesh;local b=localBounds[mesh]

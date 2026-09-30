@@ -318,7 +318,7 @@ function BattleArena.pollEditorReload()
   return true
 end
 
-local function authoredFor(mapId)
+local function authoredFor(mapId,map)
   -- `~= nil`, not truthiness: `false` is a meaningful entry here (an
   -- authored refusal), so it has to reach the caller rather than read as
   -- "nothing set" and fall through to the data file
@@ -327,6 +327,10 @@ local function authoredFor(mapId)
   if forced ~= nil then return forced end
   local edited = editorAuthored[mapId]
   if edited ~= nil then return edited end
+  if mapId=='KA_BLAINE_VOLCANO_GYM' and map then
+    local court=V.require('BlaineVolcano').battleCourt(map)
+    if court then return court end
+  end
   if authored == nil then
     local ok, list = pcall(V.data, "battle_arenas")
     authored = (ok and type(list) == "table") and list or false
@@ -415,6 +419,9 @@ BattleArena.SHAPES[14] = { id="court_tight_east", w=5, h=2,
 BattleArena.SHAPES[15] = { id="court_tight_west", w=5, h=2,
   enemy={1,1}, player={2.75,1}, axisYaw=-math.pi/2, authoredOnly=true,
   trainerOffsets={player={8,-6},enemy={-8,-6}} }
+BattleArena.SHAPES[16] = {id='blaine_center',w=8,h=4,
+  player={2,1.5},enemy={5,1.5},axisYaw=math.pi/2,authoredOnly=true,
+  trainerOffsets={player={-24,10},enemy={24,10}}}
 BattleArena.SEARCH_SHAPES = { BattleArena.SHAPES[1],
   BattleArena.SHAPES[4], BattleArena.SHAPES[5], BattleArena.SHAPES[2] }
 
@@ -487,7 +494,7 @@ BattleArena.entryList = entryList
 local preparedFloors=setmetatable({},{__mode='k'})
 function BattleArena.prepare(map)
  if not(map and map.id)then return true end
- local pick=authoredFor(map.id)
+ local pick=authoredFor(map.id,map)
  local held=preparedFloors[map]
  if not held or held.pick~=pick or held.revision~=requestRevision then
   held={pick=pick,revision=requestRevision,ids={},failed={}};preparedFloors[map]=held
@@ -666,7 +673,7 @@ function BattleArena.inCameraApron(map, wx, wz)
   local cached=cameraAprons[map]
   if not cached or cached.revision~=requestRevision or cached.id~=map.id or cached.def~=map.def
       or cached.width~=map.widthCells or cached.height~=map.heightCells then
-    local pick=authoredFor(map.id)
+    local pick=authoredFor(map.id,map)
     local apron=type(pick)=="table" and pick.cameraApron
     local valid=not (map.def and (map.def.generation==2 or map.def.outdoor==true))
       and type(apron)=="table" and apron.edge=="south"
@@ -993,7 +1000,7 @@ end
 function BattleArena.review(map, surfing)
   local review = { map=map, surfing=surfing==true, candidates={}, rejected={} }
   if not (map and map.widthCells) then review.reason="missing-map"; return review end
-  local pick = authoredFor(map.id)
+  local pick = authoredFor(map.id,map)
   review.pick = pick
   if pick == false then review.reason="authored-refusal"; return review end
   local entries = entryList(pick)
@@ -1259,7 +1266,7 @@ local function cacheKey(map,x,y,surfing)
 end
 function BattleArena.find(map,x,y,surfing)
   if not resultCache then return findUncached(map,x,y,surfing)end
-  local pick=map and authoredFor(map.id)
+  local pick=map and authoredFor(map.id,map)
   local configuration={pick=pick,x=x,y=y,surfing=surfing,shapes=BattleArena.SHAPES,search=BattleArena.SEARCH_SHAPES,
     step=BattleArena.SAMPLE_STEP,monH=BattleArena.MON_H,clear=BattleArena.CLEAR_EPS,
     radius=BattleArena.CAMERA_RADIUS,edge=BattleArena.CAMERA_EDGE_MARGIN,

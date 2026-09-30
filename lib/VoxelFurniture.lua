@@ -538,6 +538,10 @@ function F.each(state,draw,lightsOnly)
           extra.winterMesh,extra.winterTex=P.resolveKind(model.winterKind)
         end
       end
+      if model and model.sightFoundation then
+        p.drawExtra=p.drawExtra or {};extra=extra or p.drawExtra
+        extra.sightFoundation=true
+      end
       if mesh then
         local base=0
         if decoration then

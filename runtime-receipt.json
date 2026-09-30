@@ -1,5 +1,5 @@
 {
-  "file_count": 22682,
+  "file_count": 22686,
   "files": [
     {
       "path": ".modkitromallow",
@@ -28,8 +28,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "sha256": "c9536ae8bc1a9c0f72c972d120dd1e5dc22856c224dab60090645adcba3da710",
-      "size_bytes": 71011
+      "sha256": "5fa05cf7a6c34cecb2258887279c689df2e06c3945e157210c0e4c51e3ee99e3",
+      "size_bytes": 72593
     },
     {
       "path": "COBBLEMON_BATTLE_AUDIT_2026-09-25.md",
@@ -108,8 +108,8 @@
     },
     {
       "path": "LOCAL_RC.md",
-      "sha256": "61b3279e1b4c9a5b48d3bfce9a3eb48d663967c2cf271c1be60d236ec13b7e95",
-      "size_bytes": 2735
+      "sha256": "85c620714c4c2fdbac52e699a3fac04ecd8a82923f652fce72b35991393eabd3",
+      "size_bytes": 4491
     },
     {
       "path": "MENU_FLOW_AUDIT_2026-09-25.md",
@@ -132,19 +132,24 @@
       "size_bytes": 3930
     },
     {
+      "path": "PYRO_SEA_QA.md",
+      "sha256": "967706d00a3ea1db28110d79fe4f274a769fb211ce16f155b78dd0361d035c52",
+      "size_bytes": 2850
+    },
+    {
       "path": "QA-REPORT.md",
-      "sha256": "3fdc7dac08d12bb3e6fd12e490e57361721e853d011c822323cb06be78338432",
-      "size_bytes": 1927
+      "sha256": "d203dcd54ee8280dec8f8b900d491f238471c8ebadb9a9fb21ff4b0e2a17fc2a",
+      "size_bytes": 3072
     },
     {
       "path": "README.md",
-      "sha256": "039d7abcf28ae6f7f52c7b95569e002d913948bafa0a600820e61bfac00ebd13",
-      "size_bytes": 33525
+      "sha256": "eda1a8cc35bc49e8f0c6f99c84ba1a6311ffd3929c32d143bca77924cbd735be",
+      "size_bytes": 36573
     },
     {
       "path": "RELEASE_NOTES.md",
-      "sha256": "d2eae70c6ab13df8baecc2992d253f966c3690201f93dc00d6839c63bcc1196c",
-      "size_bytes": 1320
+      "sha256": "ee1477128812bd175c90d014f9a31d286b4ccf560ce53d8ce5c44318e4844dfa",
+      "size_bytes": 1394
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -108327,9 +108332,14 @@
       "size_bytes": 4248
     },
     {
+      "path": "integrated/terarrium/SeaTerrarium.lua",
+      "sha256": "215618cd7188302e222b8607f6426b80ff676878c3cbc0988538f2c37d699f47",
+      "size_bytes": 27222
+    },
+    {
       "path": "integrated/terarrium/Terarrium.lua",
-      "sha256": "c552c97fe085d8d85793a585ef074ffaee183f22c5bb8118984a035fb2133382",
-      "size_bytes": 31281
+      "sha256": "ac39764b6ad6d6c55c98abe25cb834d9c7db7b2b920e96c8c8fccb63ca93ea82",
+      "size_bytes": 32123
     },
     {
       "path": "integrated/terarrium/assets/crown-reference.png",
@@ -108453,8 +108463,8 @@
     },
     {
       "path": "integrated/terarrium/gyms/SOURCES.json",
-      "sha256": "9ae48dc07e7c254aaf628d3aec6471c8eece6bc42635523edfebbac579e30865",
-      "size_bytes": 6461
+      "sha256": "688e1c5d95a027c0c36b595ffc01dc9d977eab25842a0ff1b186d386a856e42c",
+      "size_bytes": 6726
     },
     {
       "path": "integrated/terarrium/gyms/SSAnneTerrarium.lua",
@@ -108498,8 +108508,8 @@
     },
     {
       "path": "integrated/terarrium/main.lua",
-      "sha256": "a2e133908ce7c227cff9e46a932173b23edd0dda4fc015420f69cfc79e0e6062",
-      "size_bytes": 3898
+      "sha256": "479ca6348ed751176d09dcd146e3f0eba2adb5f70ab50728ac9f249462f950a5",
+      "size_bytes": 3997
     },
     {
       "path": "integrated/wardrobe/assets/characters/crystal_chars/blue_walk.png",
@@ -108668,8 +108678,8 @@
     },
     {
       "path": "lib/BattleArena.lua",
-      "sha256": "ffc2117028a15565e76064e55dc37ec7230d14a5888ac461283b951388fd6f85",
-      "size_bytes": 56190
+      "sha256": "7bc57dd3d8c0025f1ada57fcc2aee18f6d288f9909d5a6733af85fc3dd59316d",
+      "size_bytes": 56532
     },
     {
       "path": "lib/BattleArenaStyle.lua",
@@ -108683,8 +108693,8 @@
     },
     {
       "path": "lib/BattleCam.lua",
-      "sha256": "e519c1529f07f88f5ea9ab2514cc9a68c5887fac75c4eeae819eaaa5f5280cc0",
-      "size_bytes": 147823
+      "sha256": "667da9b4beea380a649f9ac0dfc740014f6af0e20fa4e97cabe6e834e763b4cb",
+      "size_bytes": 147975
     },
     {
       "path": "lib/BattleDOF.lua",
@@ -108768,8 +108778,8 @@
     },
     {
       "path": "lib/BattleScene.lua",
-      "sha256": "c66c8eb97b2f6a23427f3d81b1a24c724915c41c0919231c06f000c6526c164e",
-      "size_bytes": 116555
+      "sha256": "9a6739df1ade486f4064c1758059dadb33af683769bb1c96f06fa1e8041ab440",
+      "size_bytes": 116699
     },
     {
       "path": "lib/BattleShadowStamp.lua",
@@ -108803,8 +108813,8 @@
     },
     {
       "path": "lib/BlaineVolcano.lua",
-      "sha256": "52960f4ee576283386565a16f42f9af238cd13b5351f6e6f0f344710e4c3cd57",
-      "size_bytes": 9971
+      "sha256": "148a0011819a844193f9a154be0f206707f92fd81c6782a2bf208bdd0d8b2a76",
+      "size_bytes": 11881
     },
     {
       "path": "lib/BoxVoxelFaces.lua",
@@ -109833,8 +109843,8 @@
     },
     {
       "path": "lib/OverworldBattle.lua",
-      "sha256": "adc6f024ebd0a265640a588de850d6dbb15af7580d6ff31146e44e5ba034462b",
-      "size_bytes": 292507
+      "sha256": "11d3cd8031f5b2d565490b1b3f16da1f3949fe77fa5d9b42e8579a8919692a8d",
+      "size_bytes": 292552
     },
     {
       "path": "lib/OverworldPokemonCard.lua",
@@ -110078,8 +110088,8 @@
     },
     {
       "path": "lib/SightClearance.lua",
-      "sha256": "649e00e370b9fdfdc800af504669eb8568ff4eaa112308385ffadaa7ba05f983",
-      "size_bytes": 19004
+      "sha256": "e35ee9239d5a83ee33583e09860d3ab34dfe0b8ed4439c531c42e6a7c824df7f",
+      "size_bytes": 19070
     },
     {
       "path": "lib/SilphCutawayBackground.lua",
@@ -110448,8 +110458,8 @@
     },
     {
       "path": "lib/TerarriumHost.lua",
-      "sha256": "c610491e76850bd3181b49ea55f281c7f6c4bb5a6e1b0e8a03048bc4020ff6e1",
-      "size_bytes": 3096
+      "sha256": "b6e4a16314ca6fafb68dd34eade2a75622caa878d98610f4f37a1112e0c7dc37",
+      "size_bytes": 3398
     },
     {
       "path": "lib/TerrainAtlas.lua",
@@ -110568,8 +110578,8 @@
     },
     {
       "path": "lib/VoxelBattleStage.lua",
-      "sha256": "fed4e40b1f294100136e9016ae36c2c8b444d7c152d804729caf41e03c4728ff",
-      "size_bytes": 61723
+      "sha256": "64560deb82ea1f208e377babed9daa3853e877d4ac8b9162d7468ce1c5da93aa",
+      "size_bytes": 61775
     },
     {
       "path": "lib/VoxelDialogGate.lua",
@@ -110578,8 +110588,8 @@
     },
     {
       "path": "lib/VoxelFurniture.lua",
-      "sha256": "a99ed2bfeef80acf5c10462fe70101dc75899ad7dc4530189ea27e1361d9850b",
-      "size_bytes": 44790
+      "sha256": "d92ae3c3a693ad8e8341599fadaac9b60139f2937c57315e6cbf6640ee269337",
+      "size_bytes": 44946
     },
     {
       "path": "lib/VoxelGeometryCache.lua",
@@ -111043,7 +111053,7 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "6975fa887283ff4a5c9d2f2d11656f0ae096611d395fff3958f439fa86d4fb76",
+      "sha256": "0946808afb493d1712b5d05f16cef940157f0902571a436ac842a11be89b6535",
       "size_bytes": 22822
     },
     {
@@ -111278,8 +111288,8 @@
     },
     {
       "path": "tests/blaine_volcano_test.lua",
-      "sha256": "8d2e24d546f8059510690245b301d309846e6b9ea8835d910014aad62d2f1ab0",
-      "size_bytes": 5619
+      "sha256": "5cb516645c59251776eecd9b1890ca6c302a42977fb54b9ce2b17c9d7eff6476",
+      "size_bytes": 6735
     },
     {
       "path": "tests/calendar_halloween_test.lua",
@@ -112667,6 +112677,11 @@
       "size_bytes": 5362
     },
     {
+      "path": "tests/pyro_sea_native_driver.lua",
+      "sha256": "3b7bbaeef58028d351eff2da617dc2fc164c617b4dba077f34464c61a76d7d5d",
+      "size_bytes": 4994
+    },
+    {
       "path": "tests/rain_strength_scenery_snow_test.lua",
       "sha256": "3ddf4aca3fc2cca60cb464102488ab755e2f73160503629160a2557d54b9485b",
       "size_bytes": 1347
@@ -112740,6 +112755,11 @@
       "path": "tests/scenery_mesh_upload_test.lua",
       "sha256": "98fbd094e257defeab3990de021e1fc232d485572690123f881650f863e5f2ee",
       "size_bytes": 2452
+    },
+    {
+      "path": "tests/sea_terrarium_test.lua",
+      "sha256": "f34b12ee4e897f44747ed4c5ec8eb6177f1108df620dfcfc39b906dd42efb00f",
+      "size_bytes": 5317
     },
     {
       "path": "tests/seasonal_trees_test.lua",
@@ -112958,8 +112978,8 @@
     },
     {
       "path": "tests/terrarium_shader_portability_driver.lua",
-      "sha256": "ff8aee17cea96308a4cf001c3efe6e4950b083a831a526a4665cbdee7bf02386",
-      "size_bytes": 1529
+      "sha256": "6bbbee2b744aab64eeec2b851eb9c3e347c443612c5093f9e9ea8a63bdcf8273",
+      "size_bytes": 1550
     },
     {
       "path": "tests/terrarium_zoom_driver.lua",
@@ -112998,8 +113018,8 @@
     },
     {
       "path": "tests/validate_terrarium_shaders.py",
-      "sha256": "c1a0e4bc643a60eee4d67bda1471985bc054d2f4c2277ecc37a030ebeadb3c33",
-      "size_bytes": 1029
+      "sha256": "bae20ae49198a254231354124fdc391351573b708dd9b5f41799e25d171aa0c7",
+      "size_bytes": 1045
     },
     {
       "path": "tests/validate_voxel_shaders.py",
@@ -113412,11 +113432,11 @@
       "size_bytes": 217
     }
   ],
-  "manifest_sha256": "6975fa887283ff4a5c9d2f2d11656f0ae096611d395fff3958f439fa86d4fb76",
+  "manifest_sha256": "0946808afb493d1712b5d05f16cef940157f0902571a436ac842a11be89b6535",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.59",
+  "version": "3.0.60",
   "local_candidate": false,
-  "source_candidate_version": "3.0.59-rc.1",
-  "source_candidate_sha256": "e38d2ac098263b35e4823542aa753dc3c8bb2fc0c4404afb5ba44b418452aedd"
+  "source_candidate_version": "3.0.60-rc.1",
+  "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
 }

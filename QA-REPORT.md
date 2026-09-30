@@ -1,17 +1,26 @@
-# VASC 3.0.59 public release verification
+# VASC 3.0.60 public release verification
 
-Promoted from the tested 3.0.59-rc.1 archive. Runtime Lua and assets are byte-identical; only release metadata, documentation and receipts change. The candidate report below describes the tests performed before promotion; statements that it was not yet published refer to that historical test stage.
+Promoted from the tested 3.0.60-rc.1 archive. Runtime Lua and assets are byte-identical; only release metadata, documentation and receipts change. The candidate report below describes the tests performed before promotion; statements that it was not yet published refer to that historical test stage.
 
-# VASC 3.0.59-rc.1 verification
+# Pyro MAP / Sea Terrarium verification — local candidates
 
-## Reproduction
+Bases: public VASC 3.0.59 and KASC 6.7.31. Isolated source branches and disposable LOVE identity; installed game, real saves and public release endpoints were not modified.
 
-Native LOVE 11.5 on the existing 0.1.90 host with KASC 6.7.31 runtime, disposable save/identity. Saved KASC Classic style, explicit VASC Crystal battle choice, Gorochu versus Starmie, Gen-3 battle rules and the real backendSplitSpecial67.prepare call. The published code returns no Crystal image even though KASC's direct Crystal provider returns its normal coloured frame. The new focused regression test fails on that published code.
+## Native desktop
 
-## Fix validation
+LOVE 11.5 with the existing 0.1.90 QA host and both candidate sources. Real Blaine trainer battle: MAP provider, blaine_center shape, mid (400,256), Pokémon (376,256)/(424,256). Platform retained in battle furniture and excluded from whole-prop sight removal. Screenshots inspect court, lava and fountain phases. Starts from all four removed edge cells (16/17/32/33 at y=16) load onto safe walkable cells through native map recovery.
 
-The corrected native path returns the selected frame with 1,647 visibly coloured pixels. Real native Transform still detaches the move list and keeps ownership of its transformed sprite. Focused tests cover Crystal/HD front and back, normal/shiny, detached stats, HD preloading, explicit Transform flags, native copied moves, Mega and ghost exclusions. Saved stats remain unchanged.
+Route 20 surfing encounter: side and behind layouts render continuously (60 successful frames each), submerged actors, transparent water, open rim, neutral button, moves menu and attack; portrait touch layout additionally captured. Gorochu remains coloured with the selected HD art. The QA host lacks the user's optional HD human pack, so these screenshots show its fallback trainer artwork.
 
-This reproduces a current software defect, not Dias' exact device session: his installed versions and active rules were not supplied. Optional HD artwork is exercised with a provider fixture. No physical mobile-device check or broad performance benchmark. The initial fixed-run image export failed due to a QA-only absolute-path encode call; corrected export rerun passed.
+## Automated checks
 
-Evidence: artifacts/gorochu-crystal-stats-20260930 in the maintainer workspace (before.log, after2.log, native.lua, gorochu-fixed.png). Public VASC 3.0.58 is retained in full, including the gatehouse/door/visitor fixes. Packaging validates all Lua files, baseline preservation, exact source bytes, CRC and file hashes.
+- KASC route suite: 1,564 checks, including walkability, lava collision/water exclusion, links, leader/party, identity/rewards and music metadata.
+- Sea suite: exact ocean/surf selection, land/Gen2/interior exclusions, both actor depths, trainer heights unchanged, finite geometry, bounded four-entry scene cache, no idle geometry rebuild, no sea dome, optional-water failure latch/release, one cached mesh/program, state restoration and partial-allocation cleanup.
+- Blaine geometry suite: v1/v2/v3 ownership, unobstructed platform/bridge, fixed centre, four jets outside native lanes, stairs and OFF behavior. Blaine Terrarium alias remains intact.
+- Existing Terrarium locations, zoom, light reuse, effect/dome failure, furniture receipts/light descriptors, battle camera continuity, arena request/query caches pass. Differential arena-result suite: 46 scenarios against public 3.0.59; unchanged unrelated maps and collision/height/camera invalidation.
+- Water and existing Terrarium shader variants: 32 stages / 16 linked programs pass Khronos glslang, covering GL/GLES legacy and GLSL3. Native desktop water program compiles and renders.
+- Build receipts separately verify every packaged Lua file, archive CRC, file hashes, complete public-baseline preservation, and VASC prepared-model checksums.
+
+## Limits
+
+No physical iOS/Android device run or mobile FPS claim. Desktop portrait touch preview is a layout check. Fountains reuse cached geometry with at most four draws and no full-scene reflection. Surfing chooses Sea; fishing from land keeps the existing scene. No publication was performed for these candidates.

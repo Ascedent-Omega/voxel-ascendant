@@ -2,7 +2,9 @@
 local V = ...
 local H = {service=nil}
 function H.available() return H.service ~= nil end
-function H.stage(map,cameraMode)
+local seas={ROUTE_19=true,ROUTE_20=true,ROUTE_21=true,PALLET_TOWN=true,
+ CINNABAR_ISLAND=true,VERMILION_CITY=true,ROUTE_12=true,ROUTE_13=true}
+function H.stage(map,cameraMode,surfing)
  if not H.service then return nil end
  local arena=V.require('VoxelBattleStage').arena(map,nil,nil)
  if not arena then return nil end
@@ -11,6 +13,9 @@ function H.stage(map,cameraMode)
   -- Reuse Blaine's authored lava court, lighting and badge. The battle and
   -- arena still own the actual KASC map; this alias is presentation only.
   presentation={id='CINNABAR_GYM',def=map.def}
+ end
+ if surfing and map and seas[map.id] and not(map.def and map.def.generation==2)then
+  presentation={id=map.id,def=map.def,sceneryKey='KANTO_SEA'}
  end
  arena.terarrium=H.service.setup(presentation,cameraMode)
  for _,side in ipairs({'player','enemy'})do

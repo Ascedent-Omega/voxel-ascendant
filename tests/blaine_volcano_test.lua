@@ -92,3 +92,21 @@ assert(not stairs.scripted(f) and B.find(P,f)[1].kind==fp.kind)
 f.def.kaBlaineStairs.points[1]=false;assert(not stairs.scripted(f))
 f.def.kaBlaineStairs=true;assert(not stairs.scripted(f))
 print('PASS scripted stair identity, clear foundation, malformed metadata and cached OFF fallback')
+
+-- v3 narrows only the authored KASC platform; the reviewed battle remains centered.
+a.def.kaArenaGeometry={version=3,kind='suspended-over-lava',platform={x=18,y=10,width=14,height=12},bridge={x=24,y=22,width=2,height=8}}
+assert(B.profile(a)=='arena');local narrow=B.find(P,a)
+local court=assert(B.battleCourt(a));assert(court.x==21 and court.y==14 and court.shape=='blaine_center')
+assert(not B.battleCourt({id=a.id,def={}})and not B.battleCourt(f))
+local nm=P.models[narrow[1].kind];assert(B.prepare(P,nm)and nm.blaineJetKind)
+assert(#P.models[nm.blaineJetKind].boxes==27 and #nm.blaineJets==4)
+for _,q in ipairs(nm.blaineJets)do assert(q[1]<288-16 or q[1]>512+16,'jet intrudes into court')end
+for _,prop in ipairs(narrow)do for _,b in ipairs(P.models[prop.kind].boxes)do
+ if b[2]<32 and b[2]+b[5]>.5 then
+  for _,r in ipairs{{288,160,512,352},{384,352,416,480}}do
+   local x,z=prop.tx*8+b[1],prop.ty*8+b[3]
+   assert(x+b[4]<=r[1]or x>=r[3]or z+b[6]<=r[2]or z>=r[4],'v3 native path obstructed')
+  end
+ end
+end end
+print('PASS v3 compact platform, central court, four retained lava jets outside all native lanes')

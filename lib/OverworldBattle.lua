@@ -2077,7 +2077,7 @@ end
 -- MAP -> Terrarium -> Arena -> Discs -> native sequence.
 function OverworldBattle.portableStageFor(state, mode, camera)
   if mode == "terarrium" then
-    return V.require("TerarriumHost").stage(state.map, camera)
+    return V.require("TerarriumHost").stage(state.map, camera, state.player and state.player.surfing==true)
   end
   local arenaStyle, diskStyle
   if mode == OverworldBattle.ARENA then

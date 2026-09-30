@@ -1,3 +1,36 @@
+# Voxel Ascendant 3.0.60 — Pyro MAP battle and Sea Terrarium
+
+- Pyro/Blaine's volcano MAP battle now places both Pokémon on the central Pokéball marking, with the trainers just outside it. The camera leaves the surrounding lava visible.
+- The suspended platform remains visible during MAP battles, and four cached lava fountains animate outside the court.
+- Adds ODias' Sea Terrarium with a submerged reef, separate Pokémon shelves and trainer pillars, transparent animated water, original credits and both camera perspectives.
+- Sea scenery applies to surfing encounters on Routes 12, 13, 19, 20, 21, Pallet Town, Cinnabar Island and Vermilion City. Land, inland water, interiors, Gen 2 and fishing from land retain their existing scenes.
+- Includes all public 3.0.59 changes, including the Gorochu Crystal colour fix. No changes to Pokémon stats, abilities or battle rules.
+
+**Update together with [KASC 6.7.32](https://github.com/Roxas2712/kanto-ascendant/releases/tag/v6.7.32)** for the narrower platform. Replace the existing mod copies and keep saves/settings.
+
+Promoted from the tested 3.0.60-rc.1 candidate with identical runtime code and assets. Native desktop battles, both Sea cameras, moves/attack rendering, GL/GLES shader validation, Lua syntax, archive CRC and file-hash checks passed. Physical mobile devices were not tested; the portrait touch preview is a layout check.
+
+---
+
+Earlier candidate documentation (historical):
+
+# VASC 3.0.60-rc.1 — Pyro MAP court and Sea Terrarium
+
+Local test candidate based on public VASC 3.0.59. Pair with KASC 6.7.32-rc.1 for the narrower volcanic platform. Replace the existing mod copies; retain saves and settings.
+
+- Blaine's owned volcano MAP battle uses the central Pokéball marking. Both Pokémon stand on the marking; the two trainers stand just outside it. A raised camera shows the surrounding lava.
+- The KASC v3 platform is 14 rather than 18 cells wide; the bridge, leader identity, stairs, quiz and rewards retain their positions and behavior. VASC also recognizes the earlier v1/v2 geometry.
+- Four retained lava fountains animate outside the court during MAP battles. The lava surface now participates in the MAP render. The whole platform is no longer removed by the foreground-obstruction filter.
+- Integrates ODias' supplied Sea Terrarium module unchanged: submerged reef, Pokémon shelves, trainer pillars, one transparent animated water surface, neutral front button and original credits. Both side and behind-Red layouts honor their actor heights; the sea has no closed dome.
+- Sea selection is limited to surfing encounters on Routes 12, 13, 19, 20, 21, Pallet Town, Cinnabar Island and Vermilion City. Land, inland water, interiors and Gen 2 retain their existing scenes. Fishing from land currently retains the existing scene.
+- All public 3.0.59 changes, including Gorochu's Crystal colour fix, remain included. No stats, abilities or battle rules changed.
+
+See PYRO_SEA_QA.md for coverage. This candidate has not been publicly released.
+
+---
+
+Historical notes:
+
 # Voxel Ascendant 3.0.59 — Gorochu Crystal colour fix
 
 Fixes a remaining case where Gorochu stayed monochrome despite selecting **Crystal** battle graphics. KASC's modern battle rules keep a separate battle-only stats table for split Special Attack and Special Defense. VASC mistakenly treated that table as evidence of Transform and skipped the selected sprite.
