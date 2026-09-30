@@ -1,3 +1,7 @@
+## 3.0.61-rc.1 — Loading-screen language
+
+- Loading messages follow the active English/German boot language, including shared VASC/KASC startup.
+
 # VASC 3.0.60-rc.1 — Pyro MAP court and Sea Terrarium
 
 Local test candidate based on public VASC 3.0.59. Pair with KASC 6.7.32-rc.1 for the narrower volcanic platform. Replace the existing mod copies; retain saves and settings.

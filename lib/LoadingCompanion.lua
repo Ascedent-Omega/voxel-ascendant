@@ -100,7 +100,8 @@ function M.draw(game)
   g.setColor(.025,.04,.065,.94);g.rectangle('fill',-132,-69,283,105,9,9)
   g.push();g.translate(-88,0);art(g,now()-pending.started,s.species);g.pop()
   g.setFont(font);g.setColor(.93,.96,1,1)
-  g.print(s.kind=='windows'and 'Fenster laden …'or s.kind=='continue'and 'Spiel vorbereiten …'or 'Gebiet laden …',-47,-24)
+  local text=V.require('SetupLocale').text
+  g.print(s.kind=='windows'and text('Loading windows …','Fenster laden …')or s.kind=='continue'and text('Preparing game …','Spiel vorbereiten …')or text('Loading area …','Gebiet laden …'),-47,-24)
   local dots=math.floor((now()-pending.started)*4)%4
   for i=1,3 do g.setColor(.95,.76,.28,i<=dots and 1 or .25);g.rectangle('fill',-45+(i-1)*11,2,5,5)end
  end)

@@ -3,6 +3,8 @@ love={timer={getTime=function()return t end}}
 package.loaded['src.render.Pipelines']={worldPipeline=function()return active and 'voxel'or 'vanilla'end}
 local ready,failed,enabled=false,false,true
 local modules={SilphWindows={enabled=function()return enabled end},HorizonWall={cacheStatus=function()return{ready=ready,failed=failed}end}}
+local universal
+modules.SetupLocale=assert(loadfile('lib/SetupLocale.lua')){mod={find=function()return universal end}}
 local L=assert(loadfile('lib/LoadingCompanion.lua')){require=function(n)return assert(modules[n],n)end}
 local a,b={id='PALLET_TOWN'},{id='ROUTE_12_GATE_1F'}
 local game={overworld={map=a}}
@@ -21,9 +23,9 @@ L.probe(a,false,'warp');L.windows(game);assert(not L.status().visible,'vanilla r
 print('PASS loading companion: cold/warm, ready immediately, cancel, failure, map change, toggle and vanilla')
 -- The final compositor must cover a native 2D re-blit during Continue, but
 -- must not hide a validation report stacked above preparation.
-local rects={}
+local rects,labels={},{}
 love.graphics=setmetatable({getDimensions=function()return 640,480 end,
- newFont=function()return{}end,rectangle=function(...)rects[#rects+1]={...}end},
+ newFont=function()return{}end,print=function(label)labels[#labels+1]=label end,rectangle=function(...)rects[#rects+1]={...}end},
  {__index=function()return function()end end})
 package.loaded['src.render.Assets']={register=function()end}
 local top={vascContinue=true};game.stack={top=function()return top end}
@@ -53,3 +55,15 @@ end
 assert(L.status().visible and L.status().cover,'alternating arrival probes reset the loading indicator')
 L.probe(a,true,'warp');assert(not L.status().visible,'completed arrival retained loader')
 print('PASS warp/stream share one loading clock and retain native cover ownership')
+
+-- Use the real locale resolver; installed Universal in English is still English.
+for _,case in ipairs{{false,false},{'en',false},{'de',true}}do
+ universal=case[1]and {exports={bootLanguage=case[1],pendingLanguage='de'}}or nil
+ for _,kind in ipairs{'windows','continue','warp','stream'}do
+  L.clear();L.probe(a,false,kind);t=t+1;labels={};L.draw(game)
+  local expected=case[2]and (kind=='windows'and 'Fenster laden …'or kind=='continue'and 'Spiel vorbereiten …'or 'Gebiet laden …')
+    or(kind=='windows'and 'Loading windows …'or kind=='continue'and 'Preparing game …'or 'Loading area …')
+  assert(labels[1]==expected,tostring(labels[1])..' ~= '..expected)
+ end
+end
+print('PASS loading labels: default English, Universal English/German, every wait kind')
