@@ -226,7 +226,7 @@ function M.addExterior(P,model,kind,door,depth,width,silph)
   local m={terrain=true,boxes={},step=1,frameW=model.frameW,frameH=model.frameH,
    depth=model.depth,offsetY=model.offsetY}
   P.models[name]=m
-  local glass={terrain=true,boxes={},step=1,frameW=m.frameW,frameH=m.frameH,
+  local glass={terrain=true,boxes={},step=1,directBoxes=true,frameW=m.frameW,frameH=m.frameH,
    depth=m.depth,offsetY=m.offsetY}
   local glassKind=name..'_glass';P.models[glassKind]=glass
   local function box(x,y,w,h,color,pane)

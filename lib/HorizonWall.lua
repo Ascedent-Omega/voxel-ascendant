@@ -3334,12 +3334,14 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
           -- Fully opaque leaves conceal the retained destination picture.
           -- Leaf count follows the corresponding exterior entrance.
           if door.material=='room_glass_door' then
+            if not V.require('GlassDoorWindows').matches(entry.map,panel,door)then
             local recess={family='room_door_recess',vertices={},indices={},interiorPanel=panel,doorFrame=true,doorView=door.doorView,
               slidingDoor={mapId=entry.map.id,edge=panel.edge,at=panel.at,horizontal=horizontal,
                 center=(door.from+door.upto)/2,width=door.upto-door.from,travel=0,sign=0}}
             groups[#groups+1]=recess
             local reverse=panel.edge=='south'or panel.edge=='west'
             quad(recess,door.from,door.upto,0,door.height,reverse and 1 or 0,reverse and 0 or 1,1,0,-inset*8)
+            end
             -- The two leaves slide behind the existing wall, not across its
             -- artwork. The dark recessed vestibule always seals the opening.
             local span=(door.upto-door.from)/2

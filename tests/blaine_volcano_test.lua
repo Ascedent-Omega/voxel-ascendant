@@ -1,7 +1,16 @@
 local enabled=true
 local colors=setmetatable({},{__index=function()return 4 end})
 local P={models={},decorColors=colors,setting={get=function()return enabled end},resolveKind=function(k)return k end}
-local B=assert(loadfile('lib/BlaineVolcano.lua')){require=function(name)assert(name=='VoxelItems');return P end}
+local stairOn=true
+local stairs=assert(loadfile('lib/Gen1Stairs.lua')){require=function(name)
+ if name=='ModSetting'then return{new=function()return{get=function()return stairOn end}end}end
+ if name=='Gen1InteriorFloors'then return{profile=function()end}end
+ error(name)
+end}
+local B=assert(loadfile('lib/BlaineVolcano.lua')){require=function(name)
+ if name=='Gen1Stairs'then return stairs end
+ assert(name=='VoxelItems');return P
+end}
 local function map(id,t,w,h)
  return{id=id,def={tileset=t,width=w,height=h,kaOwner='kasc.blaine-volcano-route/v1'},
  isWalkableCell=function(_,x,y)return x>=6 and x<26 and y>=13 and y<20 end,tileAt=function()return 25 end}
@@ -27,6 +36,8 @@ for _,field in ipairs{'width','kaOwner','tileset'}do local old=a.def[field];a.de
 a.def.kaArenaGeometry.bridge.width=3;assert(not B.profile(a));a.def.kaArenaGeometry.bridge.width=4
 a.def.generation=2;assert(not B.profile(a));a.def.generation=nil
 local f=map('KA_BLAINE_VOLCANO_FOOT','KA_MOLTRES_VOLCANO_67',16,12)
+local originalWalkable=f.isWalkableCell
+f.isWalkableCell=function(self,x,y)return (x==15 and y==20)or originalWalkable(self,x,y)end
 local fp=B.find(P,f)[1];assert(fp and not fp.keepTerrain)
 assert(B.horizon(f)and not B.horizon(a));enabled=false;assert(not B.horizon(f));enabled=true
 assert(not B.horizon({id=f.id,def={}}),'unowned map claimed by panorama')
@@ -58,3 +69,26 @@ for _,prop in ipairs(compact)do for _,b in ipairs(P.models[prop.kind].boxes)do
 end end
 assert(B.atmosphere(a)and B.mist(a));assert(B.atmosphere(f));assert(not B.atmosphere(t))
 print('PASS compact 3:2 field, retained legacy contract, clear native lanes and bounded volcanic atmosphere')
+
+-- Only the verified scripted entry gets a foundation opening, and OFF must
+-- restore the original intact footing even after the stair model was cached.
+f.def.kaBlaineStairs={owner='kasc.blaine-volcano-route/v1',points={{x=15,y=20,class='stair_down_w'}}}
+assert(stairs.scripted(f) and stairs.material(f)==-133)
+local withStairs=B.find(P,f)[1]
+assert(withStairs.kind~=fp.kind)
+local function coversEntry(model)
+ for _,box in ipairs(model.boxes)do
+  if box[1]<=248 and box[1]+box[4]>=248 and box[3]<=328 and box[3]+box[6]>=328
+   and box[2]<=0 and box[2]+box[5]>=0 then return true end
+ end
+ return false
+end
+assert(not coversEntry(P.models[withStairs.kind]),'foundation blocks descending stairs')
+stairOn=false
+assert(B.find(P,f)[1].kind==fp.kind and coversEntry(P.models[fp.kind]),'OFF keeps an open hole')
+assert(not stairs.material(f));stairOn=true
+f.def.kaBlaineStairs.points[1].x=14
+assert(not stairs.scripted(f) and B.find(P,f)[1].kind==fp.kind)
+f.def.kaBlaineStairs.points[1]=false;assert(not stairs.scripted(f))
+f.def.kaBlaineStairs=true;assert(not stairs.scripted(f))
+print('PASS scripted stair identity, clear foundation, malformed metadata and cached OFF fallback')

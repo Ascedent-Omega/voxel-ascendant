@@ -87,7 +87,10 @@ function M.paint(g,w,h,map,H,eye,vp)
  -- A camera inside the room sees its real ceiling. Never replace that
  -- first/third-person backdrop with an artificial black surround.
  if M.inside(map.def.width*32,map.def.height*32,H,eye,V.require('Gen1RoomBounds').forMap(map))then M.lastPieces=0;return end
- local pieces=M.complement(M.windows(map.def.width*32,map.def.height*32,H,eye,vp,false,V.require('SilphWindows').apertures(map,H)))
+ local apertures={}
+ for _,p in ipairs(V.require('SilphWindows').apertures(map,H))do apertures[#apertures+1]=p end
+ for _,p in ipairs(V.require('GlassDoorWindows').apertures(map))do apertures[#apertures+1]=p end
+ local pieces=M.complement(M.windows(map.def.width*32,map.def.height*32,H,eye,vp,false,apertures))
  g.setShader();g.setDepthMode();g.setColor(0,0,0,1)
  for _,poly in ipairs(pieces)do
   local vertices={};for _,p in ipairs(poly)do vertices[#vertices+1]=(p[1]+1)*w/2;vertices[#vertices+1]=(p[2]+1)*h/2 end

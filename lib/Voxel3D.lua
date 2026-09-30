@@ -3096,6 +3096,10 @@ function Voxel3D.silphWindow(map,H)
     if map then activeShader:send('houseWindowMask',house and V.require('HouseWindows').mask(map)or V.require('SilphWindows').mask(map,H))end
     local value=map and {map.def.width*32,map.def.height*32,house and 12 or 10,house and H-10 or H-5}or {0,0,0,0}
     pcall(activeShader.send,activeShader,"silphWindow",value)
+    local rects,edges
+    if map then rects,edges=V.require('GlassDoorWindows').uniforms(map)end
+    pcall(activeShader.send,activeShader,'glassDoorEdges',edges or {0,0,0,0})
+    if rects then pcall(activeShader.send,activeShader,'glassDoorRects',unpack(rects))end
     pcall(activeShader.send,activeShader,"silphRearOnly",0)
   end
 end

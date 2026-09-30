@@ -59,6 +59,29 @@ function M.npcProfile(world,profile)
  end
  return cached.profile
 end
+-- Runtime visitor indices are allocated by the engine. Bind only her exact
+-- identity on a real chair; floor fallback positions must stay standing.
+local visitorProfiles=setmetatable({},{__mode='k'})
+function M.visitorProfile(world,record)
+ if not enabled(world) or world.map.id~='VIRIDIAN_NICKNAME_HOUSE' then return end
+ local sprite=record and ((record.spriteRef and record.spriteRef[1])or record.sprite)
+ for _,actor in pairs(world.npcs or{})do
+  if actor.sprite==sprite and actor.def and actor.def.name=='KA_HOENN_VISITOR' then
+   local _,row,s=M.chairAt(world,actor.cellX,actor.cellY)
+   if not s then return end
+   local p=visitorProfiles[actor]
+   if not p or p.cellX~=actor.cellX or p.cellY~=actor.cellY or p.index~=actor.def.index then
+    p={generation=1,alwaysSeated=true,mapId=world.map.id,index=actor.def.index,
+     role='hoenn-visitor',path='assets/characters/npcs/hoenn-visitor-kasc-hd-4x3-walk-sheet-v1.png',
+     cellX=actor.cellX,cellY=actor.cellY,px=actor.cellX*16,py=actor.cellY*16,row=row,
+     sign=row==1 and -1 or 1,bendSign=row==1 and -1 or row==3 and 1 or 0,
+     headFade={90,116},headCut={101,121},frontOffset=0,offsetY=-10}
+    visitorProfiles[actor]=p
+   end
+   return p
+  end
+ end
+end
 function M.current(world)
  return active and active.world==world and active.map==world.map and active.player==world.player and active or nil
 end

@@ -1,10 +1,12 @@
-# Voxel Ascendant 3.0.57 — world performance, doors and volcano
+# Voxel Ascendant 3.0.58 — gatehouses, glass exits and volcano fixes
 
-- Reduces repeated overworld preparation, terrain/shadow work, lookups and allocations; retains default visual quality, live actors/weather, menus and controls. Includes battle-world and arena-result reuse. No universal FPS improvement is claimed.
-- Modern public buildings use matching sliding glass doors inside and outside: Gyms/Dojo, Pokémon Centers, Marts, Bike Shop, department store, Silph Co. and route/forest gates. Includes an original sliding sound and retained destination pictures. Exterior glass follows window lighting at night; frames remain shaded.
-- Ordinary houses and other supported entrances use matching single wooden doors in consistent colours, with corrected proportions across adjacent exit tiles.
-- Includes seated-character/style corrections, Your Look fixes, Viridian Center terrain elevation, Pokémon Tower grave fields, rooftop FLY under native requirements, open-lookout rain and upstairs loading indicators.
-- Repairs the Route 13 panorama gap toward Silph Co., the related Lavender east-edge exclusion and retained neighbour terrain after cache eviction. The exact reported Lavender screenshot angle was not reproduced; see QA notes.
-- With KASC 6.7.30, renders Pyro/Blaine's compact volcanic battle platform, approach and monumental overworld-matching volcano. Without KASC, the original story Gym remains.
+- Restores modern gatehouse exteriors: fractional sliding-glass geometry no longer produces empty leaves that reject the entire building model. Checked on Routes 2, 5, 6, 7, 8, 11, 12, 15, 16 and 18.
+- Glass exits in supported window-enabled rooms now continue the same exterior view as adjacent windows, without squeezing a second miniature street scene into the door. Reuses the existing exterior rendering.
+- Selects the authored Cinnabar lava battle terrarium for KASC's verified Blaine volcano arena.
+- Adds native-footprint 3D stairs to the scripted volcano route. Turning STAIRS off retains the original closed foundation.
+- Seats the Hoenn visitor on her actual chair; floor fallback positions remain standing.
+- Rival spectator-duel Pokémon follow the selected follower appearance, with live style switching and restoration when disabled.
 
-Update alongside **KASC 6.7.30**. Replace the existing mod; no new save or option reset is required. Optional resolution reductions remain opt-in. Desktop native tests and package checks passed; physical Android/Windows/Switch performance has not been measured.
+Update together with **KASC 6.7.31**. Replace the existing mods; keep saves and settings. Complete public 3.0.57 baseline and assets retained.
+
+25 targeted suites and native desktop checks passed. Optional HD/MMO replacement is covered by fixtures; the native visual check used Cobblemon. Physical mobile hardware and a broad performance benchmark were not rerun. See the attached QA report for scope and remaining uncertainties.

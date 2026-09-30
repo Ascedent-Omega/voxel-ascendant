@@ -1,5 +1,5 @@
 {
-  "file_count": 22675,
+  "file_count": 22681,
   "files": [
     {
       "path": ".modkitromallow",
@@ -108,8 +108,8 @@
     },
     {
       "path": "LOCAL_RC.md",
-      "sha256": "4d3cc39b5a493478eb8b85d30dbd6bef79e6974f956acd1b310e2e4d5813c7fb",
-      "size_bytes": 987
+      "sha256": "ed0d7bc9cff89e676be9d3dfc6e70f38aef7704f6a14da3fa74618f88a4bc5e8",
+      "size_bytes": 1612
     },
     {
       "path": "MENU_FLOW_AUDIT_2026-09-25.md",
@@ -127,19 +127,24 @@
       "size_bytes": 6558
     },
     {
+      "path": "POSTRELEASE_QA.md",
+      "sha256": "6a55549eaeb991ca41324bc0d3807d77c4985f08d5bbcc8114fc2a18bf200a4d",
+      "size_bytes": 3930
+    },
+    {
       "path": "QA-REPORT.md",
-      "sha256": "e04c010c4db7f729bb3c581c66dfae89025efd14e694006933f381706d681bdd",
-      "size_bytes": 2389
+      "sha256": "9d373734becaad337ff203625f2f850421f9167bf05a147bd8b093c576b3e3b8",
+      "size_bytes": 4274
     },
     {
       "path": "README.md",
-      "sha256": "166368195b46508c0e956546a602c6d8133f41e31eee028aad1d9cbc2df51c73",
-      "size_bytes": 30747
+      "sha256": "0d617f7851f21906c3f85ec16bac99996659b0c07154d146e11960fd21591b55",
+      "size_bytes": 32152
     },
     {
       "path": "RELEASE_NOTES.md",
-      "sha256": "63d29121e5086721acb0ae85b6d0bd81a0b32debd6ebc819f3baa9e7aed71fa7",
-      "size_bytes": 1675
+      "sha256": "3e0130192b2e02231c75847f4d6785deda1b894840584c752b4a0f769ca91ae8",
+      "size_bytes": 1352
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -100068,8 +100073,8 @@
     },
     {
       "path": "integrated/ascendant_pokemon_overworld/src/human_johto_seat.lua",
-      "sha256": "bfe2684daa4da53a69cc287391cf2de42f2433c39969680da02ff395eeb66ed1",
-      "size_bytes": 20437
+      "sha256": "fa8b2e4ee1f4f5b27df1d724cd0a865de3384b05d4cd787c2619e724e829a5f4",
+      "size_bytes": 20717
     },
     {
       "path": "integrated/ascendant_pokemon_overworld/src/human_mother_frames.lua",
@@ -100148,8 +100153,8 @@
     },
     {
       "path": "integrated/ascendant_pokemon_overworld/src/pokemon_world_sprites.lua",
-      "sha256": "5fa7bc2934e039025ed46d7729c1de1fec3f1d672728aad526fcf6268166be15",
-      "size_bytes": 39711
+      "sha256": "ce498cacae3304031a30cd800cb62c43b16afef782ba19c09a4cec6f4f469d73",
+      "size_bytes": 40268
     },
     {
       "path": "integrated/ascendant_pokemon_overworld/src/presentation_policy.lua",
@@ -108798,8 +108803,8 @@
     },
     {
       "path": "lib/BlaineVolcano.lua",
-      "sha256": "a0650e1dbda326a3e3a7a8c4d8ed102dbf613a82542cd02f31c953b4243ee940",
-      "size_bytes": 9525
+      "sha256": "52960f4ee576283386565a16f42f9af238cd13b5351f6e6f0f344710e4c3cd57",
+      "size_bytes": 9971
     },
     {
       "path": "lib/BoxVoxelFaces.lua",
@@ -109173,8 +109178,8 @@
     },
     {
       "path": "lib/Gen1GlassDoors.lua",
-      "sha256": "fb9b5c4d103df4d17d79588a2ac0bdedc08cb736e7be148f4ee072c923a9da85",
-      "size_bytes": 14245
+      "sha256": "eb297c1a46d850af2b82413abe53f174b956e7dea862cf6e07cdf6a4145ee32b",
+      "size_bytes": 14262
     },
     {
       "path": "lib/Gen1GymBallMarkers.lua",
@@ -109318,8 +109323,8 @@
     },
     {
       "path": "lib/Gen1Stairs.lua",
-      "sha256": "a9e1a3f94c466e9ecf6add3fabdf03f86d3a00c12fae4753e3d74abb9a3a692d",
-      "size_bytes": 20564
+      "sha256": "58940cb961e59e19fd36ffd19dababb315907f7d0c96fefcacacf249e2138942",
+      "size_bytes": 22146
     },
     {
       "path": "lib/Gen1TowerEntrance.lua",
@@ -109360,6 +109365,11 @@
       "path": "lib/GeometryDigestWorker.lua",
       "sha256": "b944bfc044779154d139ef3611a18d4d678373b5d8d0d7db2c615395cc575058",
       "size_bytes": 338
+    },
+    {
+      "path": "lib/GlassDoorWindows.lua",
+      "sha256": "086b4cc30c6d3a64e841ef96e6b3cc8d53695c536620fb84ad2af4e12b93acaf",
+      "size_bytes": 1562
     },
     {
       "path": "lib/GlassMask.lua",
@@ -109498,8 +109508,8 @@
     },
     {
       "path": "lib/HorizonWall.lua",
-      "sha256": "5be4fc87ea8f93b931e5a3c04d2a2f89b4339f8a3fed353eb054f75197270dc7",
-      "size_bytes": 369817
+      "sha256": "740237fc130f1a385d7c64c60ecaa6ace1270a559bdbe3148f6a92398942d8a0",
+      "size_bytes": 369916
     },
     {
       "path": "lib/HouseWindows.lua",
@@ -109828,8 +109838,8 @@
     },
     {
       "path": "lib/OverworldPokemonCard.lua",
-      "sha256": "998a290c29df6ffe15c241fdac7bbc93b52890c213088a1e4a6de7910a3589a8",
-      "size_bytes": 13133
+      "sha256": "ef399f3201749018ffb52d1137582ad683477f86508de2a41c1c246c33ee49d5",
+      "size_bytes": 13251
     },
     {
       "path": "lib/OverworldPokemonOptions.lua",
@@ -110073,8 +110083,8 @@
     },
     {
       "path": "lib/SilphCutawayBackground.lua",
-      "sha256": "a8f80a7faf23cd44fedfcdf02854942eb09b22cbb97c3de8cb402af3165cbd10",
-      "size_bytes": 3696
+      "sha256": "7026a8f6feec807ecf478ddf839708d58b0d1da6ebf70c964f504a97dd1a3050",
+      "size_bytes": 3875
     },
     {
       "path": "lib/SilphElevator.lua",
@@ -110093,8 +110103,8 @@
     },
     {
       "path": "lib/SilphWindowVisibility.lua",
-      "sha256": "dfdc566fd8b35ab753f0a3b497e47d6f9ab4b91bc3104e20c8db3ff912ba19e0",
-      "size_bytes": 9907
+      "sha256": "055768156e65a113c10634626a94ce4eca2731329dc3639cfbd8dd85f54391c9",
+      "size_bytes": 11164
     },
     {
       "path": "lib/SilphWindows.lua",
@@ -110438,8 +110448,8 @@
     },
     {
       "path": "lib/TerarriumHost.lua",
-      "sha256": "899c41e1e46dd81d8bcaa05bb0a32f510c6edf36f8b8a8bdf88d0f2495afc903",
-      "size_bytes": 2758
+      "sha256": "c610491e76850bd3181b49ea55f281c7f6c4bb5a6e1b0e8a03048bc4020ff6e1",
+      "size_bytes": 3096
     },
     {
       "path": "lib/TerrainAtlas.lua",
@@ -110553,8 +110563,8 @@
     },
     {
       "path": "lib/Voxel3D.lua",
-      "sha256": "91979b91a2330c5e1b735e75e6a18239128e38e6c742d7aab352ec3dd6698d6a",
-      "size_bytes": 160296
+      "sha256": "b2688788952d3612a3d74c1f6a2d72f0ad3f6708e693ae158655a21ba291acc6",
+      "size_bytes": 160561
     },
     {
       "path": "lib/VoxelBattleStage.lua",
@@ -110743,8 +110753,8 @@
     },
     {
       "path": "lib/WorldSeats.lua",
-      "sha256": "0bd5d9a2687cff2eec0cf3f99804adbecc75b9e9290dccec345b99c6d53261e1",
-      "size_bytes": 8744
+      "sha256": "b4bb43c5a9a7d3157ef88887bc776c35504be27da96a4cd67e07836ed6121f12",
+      "size_bytes": 9964
     },
     {
       "path": "lib/WorldWeather.lua",
@@ -111033,7 +111043,7 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "469cb07bf69e5634429ef137a4a691ce9470f71d8e157c7f3d6004bbf75ba8cd",
+      "sha256": "05a56dc76c5c53089c48ffdc1fac6add143bb789df77ce5a0e19e3537afb45ba",
       "size_bytes": 22822
     },
     {
@@ -111252,14 +111262,19 @@
       "size_bytes": 6322
     },
     {
+      "path": "tests/blaine_terrarium_route_test.lua",
+      "sha256": "e7f0041ef1480e04456e75aa0ecb4d57de6dc21f1b0ef25d277d7d5ca46bca58",
+      "size_bytes": 1041
+    },
+    {
       "path": "tests/blaine_volcano_identity_test.lua",
       "sha256": "15c5042f45c705d0d7238016e5940c3be9957abc95b55b90d94336b89387f117",
       "size_bytes": 1355
     },
     {
       "path": "tests/blaine_volcano_test.lua",
-      "sha256": "5278c0b69e6cf2ffb744b344619ed89385a69370275bc7d44985df4377d3a037",
-      "size_bytes": 3986
+      "sha256": "8d2e24d546f8059510690245b301d309846e6b9ea8835d910014aad62d2f1ab0",
+      "size_bytes": 5619
     },
     {
       "path": "tests/calendar_halloween_test.lua",
@@ -111592,6 +111607,11 @@
       "size_bytes": 2999
     },
     {
+      "path": "tests/glass_door_windows_test.lua",
+      "sha256": "4cf01f4084156538a81e2f0eadf51b45ae61fa2a72d4583cf1b53df22fe6c001",
+      "size_bytes": 1282
+    },
+    {
       "path": "tests/glass_doors_test.lua",
       "sha256": "4f187b573ee402fb2c696c6752006b11a2a9fa103ad97d444e64ce934055e278",
       "size_bytes": 9168
@@ -111635,6 +111655,11 @@
       "path": "tests/hidden_actor_camera_test.lua",
       "sha256": "42cc5c0a59d9c518a76308869dbd83f56d5a1db158f80bfa2d14d5b8d46edef3",
       "size_bytes": 7670
+    },
+    {
+      "path": "tests/hoenn_visitor_seat_test.lua",
+      "sha256": "5dfdac6ad9a54400fa8a6119fe7d9cc534dc48c6a11056e12bd4d980be912ce9",
+      "size_bytes": 2254
     },
     {
       "path": "tests/hoenn_visitor_visuals_test.lua",
@@ -112563,8 +112588,8 @@
     },
     {
       "path": "tests/observation_windows_test.lua",
-      "sha256": "664f8660c3a05792c9a9e457d28f4cb539f6331b0a6181265eedf46e3582bca8",
-      "size_bytes": 7928
+      "sha256": "36bf4b0b355e41404896337c61b1f67431b45294802e89bc1fb714b8e857e019",
+      "size_bytes": 8062
     },
     {
       "path": "tests/opaque_materials_test.lua",
@@ -112665,6 +112690,11 @@
       "path": "tests/retail_aisles_test.lua",
       "sha256": "d55a3ace2c5290ca7f921eeac3c2cfdb2ca02bdd1801440f751ad0d04586899d",
       "size_bytes": 4426
+    },
+    {
+      "path": "tests/rival_follower_style_test.lua",
+      "sha256": "a1ecdfc22effa9c0bccd8541e9d44d23646de261e89ed2447ed82363a1f2b33e",
+      "size_bytes": 1873
     },
     {
       "path": "tests/rooftop_fly_test.lua",
@@ -113377,11 +113407,11 @@
       "size_bytes": 217
     }
   ],
-  "manifest_sha256": "469cb07bf69e5634429ef137a4a691ce9470f71d8e157c7f3d6004bbf75ba8cd",
+  "manifest_sha256": "05a56dc76c5c53089c48ffdc1fac6add143bb789df77ce5a0e19e3537afb45ba",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.57",
+  "version": "3.0.58",
   "local_candidate": false,
-  "source_candidate_version": "3.0.57-rc.15",
-  "source_candidate_sha256": "5b03a55cee07aec475be33dbfe0c0b5acd45b79a913946d5a198f7211c247af3"
+  "source_candidate_version": "3.0.58-rc.1",
+  "source_candidate_sha256": "f5c0c7f15f100e79ce4b66ebe30089c558f86d51fa63bc129c4a5155e3e4b9ac"
 }

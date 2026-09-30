@@ -80,6 +80,11 @@ function M.new(options)
    profile=mod.worldSeats.playerProfile(game,record)
    if profile then actor=world.player end
   end
+  if not actor and options.generation==1 and mod.worldSeats and mod.worldSeats.visitorProfile then
+   local candidate=mod.worldSeats.visitorProfile(world,record)
+   local found=candidate and actorFor(game,record,candidate)
+   if found then profile,actor=candidate,found end
+  end
   for _,candidate in ipairs(profilesByMap[mapId]or{})do
    if actor then break end
    local found=actorFor(game,record,candidate)

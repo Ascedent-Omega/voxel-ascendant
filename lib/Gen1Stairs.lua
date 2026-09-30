@@ -6,9 +6,24 @@ M.setting=V.require('ModSetting').new('voxelStairs','STAIRS',{true,false},{'ON',
 local families={REDS_HOUSE_1=2,REDS_HOUSE_2=2,GATE=2,SHIP=3,
  HOUSE=2,MANSION=2,LOBBY=7,MUSEUM=7,FACILITY=6,INTERIOR=6,
  CEMETERY=8,CAVERN=39,UNDERGROUND=39}
+-- Explicit pins published by KASC's scripted route. They are rendering
+-- metadata, never extra native warps or changes to collision/height policy.
+local scriptedSpecs={CINNABAR_GYM={'FACILITY',10,9,{{3,2,'stair_down_w'}}},KA_BLAINE_GYM_TUNNEL={'FACILITY',24,7,{{45,8,'stair_e'},{5,4,'stair_e'}}},KA_BLAINE_VOLCANO_FOOT={'KA_MOLTRES_VOLCANO_67',16,12,{{15,20,'stair_down_w'}}}}
+function M.scripted(map)
+ local d=map and map.def;local a=d and d.kaBlaineStairs
+ local p=scriptedSpecs[map and map.id]
+ if not(p and d.generation~=2 and type(a)=='table' and a.owner=='kasc.blaine-volcano-route/v1'
+  and d.tileset==p[1]and d.width==p[2]and d.height==p[3])then return nil end
+ if type(a.points)~='table'or #a.points~=#p[4]then return end
+ for i,pin in ipairs(a.points)do local expected=p[4][i]
+  if type(pin)~="table"or pin.x~=expected[1]or pin.y~=expected[2]or pin.class~=expected[3]then return end
+ end
+ return a.points
+end
 function M.material(map)
  local d=map and map.def
  if not d or d.generation==2 or not M.setting:get() then return nil end
+ if M.scripted(map)then return -133 end
  if V.require('Gen1InteriorFloors').profile(map)==54 then return -182 end
  local f=families[d.tileset]
  return f and -128-f
@@ -75,6 +90,19 @@ function M.claim(S,map)
      local k=(cy*2+dy+64)*4096+cx*2+dx+64
      S.shapeAt[k]={class='stair_n',art='stair',h=h,stairBase=base,authored=true}
     end end end
+   end
+  end end
+ end
+ for _,pin in ipairs(M.scripted(map)or{})do
+  for dy=0,1 do for dx=0,1 do
+   local k=(pin.y*2+dy+64)*4096+pin.x*2+dx+64
+   if map.id=='KA_BLAINE_VOLCANO_FOOT'then
+    if S.voxelFurnitureClaims then S.voxelFurnitureClaims[k]=nil end
+    if S.skip then S.skip[k]=nil end
+    if S.ground then S.ground[k]=nil end
+   end
+   if not(S.voxelFurnitureClaims and S.voxelFurnitureClaims[k])then
+    S.shapeAt[k]={class=pin.class,art='stair',h=16,flat=false,authored=true}
    end
   end end
  end
@@ -351,7 +379,8 @@ function M.flight(map,cx,cy,s)
   return {store=false,shelf=true,base=base,material=material,trim=material,count=3,depth=4,rise=height/3}
  end
  if not(s.class=='stair_e'or s.class=='stair_w'or s.class=='stair_down_e'or s.class=='stair_down_w')then return end
- local warp=false;for _,w in ipairs(map.def.warps or{})do if w.x==cx and w.y==cy then warp=true;break end end
+ local scripted=false;for _,p in ipairs(M.scripted(map)or{})do if p.x==cx and p.y==cy and p.class==s.class then scripted=true end end
+ local warp=scripted;for _,w in ipairs(map.def.warps or{})do if w.x==cx and w.y==cy then warp=true;break end end
  if not warp then return end
  for _,w in ipairs(map.def.warps or{})do if w.x==cx and w.y==cy then
   local shaft=M.silphShaft(map,w)

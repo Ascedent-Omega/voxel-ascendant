@@ -145,9 +145,14 @@ local function explicitPokemon(entity)
       or spriteId:upper():find("^FOLLOWER[_%-]") ~= nil)
 end
 
+local function spectator(entity)
+  return entity.kascSpectatorPokemon=='kasc.rival-duel/v1'
+    and type(entity.pokemon)=='table' and type(entity.pokemon.species)=='string'
+    and type(entity.def)=='table' and tostring(entity.def.name):match('^KA_LIFE_DUEL_')~=nil
+end
 local function entityContext(entity)
   if type(entity) ~= "table" then return nil end
-  if entity.isPokemonFollower == true or entity.pikachuFollower == true
+  if spectator(entity) or entity.isPokemonFollower == true or entity.pikachuFollower == true
       or entity.pokepcTrailer == true or entity.wildsFollower == true
       -- KASC's native chain exposes its own marker and live party object;
       -- it deliberately does not use the standalone/Wilds follower flags.
@@ -565,27 +570,28 @@ function PokemonWorldSprites:_restoreEntity(entity, original)
   self.originals[entity] = nil
 end
 
-function PokemonWorldSprites:_bindCity(game, entity)
+function PokemonWorldSprites:_bindCity(game, entity, context)
+  context=context or "city"
   local source = entity.sprite and entity.sprite.def or entity.spriteDef
   if type(source) ~= "table" then return false end
-  local original = self:_captureOriginal(entity, "city")
-  local _, selected, def, record = self:_presentation(game, entity, "city")
+  local original = self:_captureOriginal(entity, context)
+  local _, selected, def, record = self:_presentation(game, entity, context)
   if (selected.id == "stadium2" or selected.id == "cobblemon") or type(record) ~= "table"
       or type(def) ~= "table" then
-    self:_rememberModel(entity, "city")
+    self:_rememberModel(entity, context)
     return false
   end
   local SpriteRenderer = require("src.render.SpriteRenderer")
   local ok, renderer = pcall(SpriteRenderer.new, def, entity.id or "pokemon")
   if not ok or not renderer then
     self.lastError = tostring(renderer or "city_renderer_creation_failed")
-    self:_rememberModel(entity, "city")
+    self:_rememberModel(entity, context)
     return false
   end
   entity.sprite, entity.spriteDef = renderer, def
   original.replacement = renderer
-  self:_rememberModel(entity, "city", def)
-  self:_enforceScale(game, entity, "city", def)
+  self:_rememberModel(entity, context, def)
+  self:_enforceScale(game, entity, context, def)
   return true
 end
 
@@ -611,7 +617,7 @@ function PokemonWorldSprites:apply(game)
           -- `replacement` is then no longer live.  Close the old mutation
           -- before binding again so disabling this feature restores the
           -- newest owner renderer, never the stale one captured on map entry.
-          if original and original.context == "city"
+          if original and (original.context == "city" or spectator(entity))
               and original.replacement ~= nil
               and entity.sprite ~= original.replacement then
             if type(entity.sprite) == "table"
@@ -625,10 +631,10 @@ function PokemonWorldSprites:apply(game)
           -- our city renderer before policy is applied again.  Availability
           -- alone never grants a card ownership over an explicit Stadium
           -- choice.
-          if original and original.context == "city"
+          if original and (original.context == "city" or spectator(entity))
               and original.replacement ~= nil then
             local _, selected, _, record = self:_presentation(game, entity,
-              "city")
+              context)
             if (selected.id == "stadium2" or selected.id == "cobblemon") or type(record) ~= "table" then
               self:_restoreEntity(entity, original)
               original = nil
@@ -640,9 +646,9 @@ function PokemonWorldSprites:apply(game)
             original = nil
           end
           if context and self:enabled(context) then
-            if context == "city" then
+            if context == "city" or spectator(entity) then
               if not original or original.replacement == nil then
-                if self:_bindCity(game, entity) then count = count + 1 end
+                if self:_bindCity(game, entity, context) then count = count + 1 end
               else
                 local liveDef = entity.sprite and entity.sprite.def
                   or entity.spriteDef
@@ -878,6 +884,9 @@ function PokemonWorldSprites:install()
     end
     self.mod.events:on("mod.options_changed", function(ev)
       if not ev or not ev.mod or ev.mod == bridge.mod.id then
+        for entity,original in pairs(bridge.originals)do
+          if spectator(entity)then bridge:_restoreEntity(entity,original)end
+        end
         bridge:refresh(bridge.activeGame)
       end
     end)

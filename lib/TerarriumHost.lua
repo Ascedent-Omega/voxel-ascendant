@@ -6,7 +6,13 @@ function H.stage(map,cameraMode)
  if not H.service then return nil end
  local arena=V.require('VoxelBattleStage').arena(map,nil,nil)
  if not arena then return nil end
- arena.terarrium=H.service.setup(map,cameraMode)
+ local presentation=map
+ if map and map.id=='KA_BLAINE_VOLCANO_GYM' and V.require('BlaineVolcano').profile(map)=='arena' then
+  -- Reuse Blaine's authored lava court, lighting and badge. The battle and
+  -- arena still own the actual KASC map; this alias is presentation only.
+  presentation={id='CINNABAR_GYM',def=map.def}
+ end
+ arena.terarrium=H.service.setup(presentation,cameraMode)
  for _,side in ipairs({'player','enemy'})do
   local p=arena.terarrium.actors[side]
   arena[side]={arena.mid[1]+p[1],arena.mid[2]+p[3]}

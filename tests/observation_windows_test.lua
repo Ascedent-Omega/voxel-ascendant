@@ -46,6 +46,8 @@ print('PASS 11 floor anchors, facade/partition separation, five terraces, native
 local corners={};for i=1,6 do corners[i]={{0,0,0},{1,0,0},{1,1,1},{0,1,1}}end
 modules.Voxel3D={FACE_CORNERS=corners,newMesh=function(v,i)return{vertices=v,indices=i}end}
 modules.VoxelItems={palette={{1,1,1}}}
+modules.SceneryMeshUpload=assert(loadfile('lib/SceneryMeshUpload.lua'))(V)
+modules.GlassDoorWindows={apertures=function()return{}end}
 modules.CinnabarVolcano={active=function()return false end}
 modules.RooftopWorld={texture=function()return{}end,mountains=function()end,geometry=function(e,d,emit)
  for i=1,6000 do emit(i,0,0,1,1,1,1,i%3==0,i%3==1)end

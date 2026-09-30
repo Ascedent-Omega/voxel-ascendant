@@ -88,6 +88,7 @@ function M.new(mod)
         local paint=mod.exports.bicycleColors
         return paint and paint.texture(texture,...)or texture
       end}, worldSeats={
+        visitorProfile=function(...)local seats=mod.exports.worldSeats;return seats and seats.visitorProfile(...)end,
         npcProfile=function(...)local seats=mod.exports.worldSeats;return seats and seats.npcProfile(...)end,
         viewRow=function(...)local seats=mod.exports.worldSeats;return seats and seats.viewRow(...)end,
         playerProfile=function(...)local seats=mod.exports.worldSeats;return seats and seats.playerProfile(...)end,

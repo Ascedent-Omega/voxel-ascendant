@@ -56,6 +56,14 @@ function M.prepare(map,profile,panels)
   local horizontal=p.edge=='north'or p.edge=='south'
   p.axis=horizontal and 3 or 1;p.along=horizontal and 1 or 3
  end
+ for _,a in ipairs(V.require('GlassDoorWindows').apertures(map))do
+  windows[#windows+1]=a
+  for _,p in ipairs(opaque)do if p.edge==a.edge and p.at==a.at then
+   local openings={};for _,o in ipairs(p.openings or{})do openings[#openings+1]=o end
+   openings[#openings+1]={open=true,from=a.from,upto=a.upto,bottom=0,height=a.top}
+   p.openings=openings
+  end end
+ end
  return {windows=windows,opaque=opaque}
 end
 function M.apertures(map,profile,eye,panels,prepared)
@@ -89,7 +97,7 @@ function M.apertures(map,profile,eye,panels,prepared)
   for a=p.from,p.upto-1,8 do
    local b=math.min(a+8,p.upto);local seen=false;local doorway=false
    for _,o in ipairs(p.openings or{})do if (a+b)/2>=o.from and (a+b)/2<o.upto then doorway=true end end
-   if not doorway then
+   if not doorway or p.door then
     for _,along in ipairs{a+.1,(a+b)/2,b-.1}do
      for _,height in ipairs{(p.bottom or 10)+.1,((p.bottom or 10)+(p.top or profile.shellHeight-5))/2,(p.top or profile.shellHeight-5)-.1}do
       local target=horizontal and {along,height,p.at}or{p.at,height,along}
@@ -177,6 +185,8 @@ end
 -- Exact per-fragment window boundary, shared by desktop and mobile shaders.
 -- No stencil canvas or extra scene copy. All coordinates remain world units.
 M.GLSL=[[
+uniform highp vec4 glassDoorRects[4];
+uniform highp vec4 glassDoorEdges;
 uniform highp vec2 houseWindow; // mask enabled, north wall position
 uniform Image houseWindowMask;
 uniform highp float silphRearOnly;
@@ -193,7 +203,23 @@ bool silphCross(highp float ea, highp float pa, highp float eo,
  return y>=silphWindow.z && y<=silphWindow.w && a>=lo && a<=span
   && (houseWindow.x<0.5 || Texel(houseWindowMask,vec2((floor(a)+0.5)/512.0,(row+0.5)/4.0)).r>0.5);
 }
+bool glassDoorCross(highp vec3 p, highp vec4 r, highp float edge) {
+ if(edge<0.5)return false;
+ bool horizontal=edge<2.5;
+ highp float ea=horizontal?eye.z:eye.x, pa=horizontal?p.z:p.x;
+ highp float eo=horizontal?eye.x:eye.z, po=horizontal?p.x:p.z;
+ highp float side=(edge<1.5 || (edge>2.5 && edge<3.5))?-1.0:1.0;
+ highp float delta=pa-ea;
+ if((ea-r.z)*side>0.001 || (pa-r.z)*side<0.0 || abs(delta)<0.0001)return false;
+ highp float t=(r.z-ea)/delta;
+ highp float y=mix(eye.y,p.y,t), a=mix(eo,po,t);
+ return t>=0.0 && t<=1.0 && y>=0.0 && y<=r.w && a>=r.x && a<=r.y;
+}
 bool silphThroughWindow(highp vec3 p) {
+ if(glassDoorCross(p,glassDoorRects[0],glassDoorEdges.x)
+  ||glassDoorCross(p,glassDoorRects[1],glassDoorEdges.y)
+  ||glassDoorCross(p,glassDoorRects[2],glassDoorEdges.z)
+  ||glassDoorCross(p,glassDoorRects[3],glassDoorEdges.w))return true;
  return silphCross(eye.z,p.z,eye.x,p.x,p.y,silphBounds.y,silphBounds.x,silphBounds.z,-1.0,0.0)
   || (silphRearOnly<0.5 && (silphCross(eye.z,p.z,eye.x,p.x,p.y,silphBounds.w,silphBounds.x,silphBounds.z,1.0,1.0)
   || silphCross(eye.x,p.x,eye.z,p.z,p.y,silphBounds.x,silphBounds.y,silphBounds.w,-1.0,2.0)

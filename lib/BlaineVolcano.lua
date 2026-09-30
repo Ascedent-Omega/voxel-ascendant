@@ -91,15 +91,20 @@ local function arena(P,name,map)
  lb(32,-20,32,704,1,512,11);m.blaineLavaKind=name..'_lava'
  return m
 end
-local function foot(P,name,map)
+local function foot(P,name,map,stairs)
  local C=P.decorColors;local m,b=model(P,name,512,384,112)
  -- Neutral mineral ash and cooled basalt continue the Cinnabar coast. The
  -- actual shared cone is retained by the cancellable panorama build below.
- b(-128,-7,-128,768,4,640,C.looseRock1)
+ if stairs then
+  b(-128,-7,-128,768,4,448,C.looseRock1)
+  b(-128,-7,336,768,4,176,C.looseRock1)
+  b(-128,-7,320,368,4,16,C.looseRock1)
+  b(256,-7,320,384,4,16,C.looseRock1)
+ else b(-128,-7,-128,768,4,640,C.looseRock1)end
  for y=0,23 do for x=0,31 do
   local px,pz=x*16,y*16
   if map:isWalkableCell(x,y)then
-   b(px,-3,pz,16,3,16,C.looseRock1)
+   if not(stairs and x==15 and y==20)then b(px,-3,pz,16,3,16,C.looseRock1)end
    if (x*7+y*11)%13==0 then b(px+3,0,pz+5,4,.12,2,3)end
   else
    local hill=x>=8 and x<=21 and y<=11
@@ -116,8 +121,10 @@ local function foot(P,name,map)
  b(220,5,142,8,26,14,3);b(272,3,143,8,30,14,3)
  b(234,0,143,30,40,1,3)
  for z=190,205,5 do b(236,.05,z,26,.12,2,C.looseRock1)end
- b(236,.02,320,26,.1,16,C.navy)
- for z=322,333,3 do b(238,.15,z,22,.12,1,C.silver)end
+ if not stairs then
+  b(236,.02,320,26,.1,16,C.navy)
+  for z=322,333,3 do b(238,.15,z,22,.12,1,C.silver)end
+ end
  return m
 end
 -- A close approach to a mountain needs world-sized relief, not a miniature
@@ -151,9 +158,11 @@ local function tunnel(P,name,map)
 end
 function B.find(P,map)
  local kind=B.profile(map);if not kind then return{}end
+ local stairs=kind=='foot'and map.def.kaBlaineStairs and V.require('Gen1Stairs').setting:get()and V.require('Gen1Stairs').scripted(map)~=nil
  local name='blaine_'..kind..'_v'..(kind=='arena'and map.def.kaArenaGeometry.version or 1)
+ if stairs then name=name..'_stairs'end
  if not P.models[name]then
-  local m=({arena=arena,foot=foot,tunnel=tunnel})[kind](P,name,map)
+  local m=({arena=arena,foot=foot,tunnel=tunnel})[kind](P,name,map,stairs)
   -- Keep the native foundation under the enclosing basalt. Besides grounding
   -- the shell this leaves a real terrain mesh for the atomic scene reveal.
   if kind~='tunnel'then m.groundAt=function(x,z)
