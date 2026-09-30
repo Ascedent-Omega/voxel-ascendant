@@ -170,7 +170,9 @@ function M.hud(out,w,h)
  if choice and(choice.game.stack:top()~=choice or choice.save~=choice.game.save)then choice=nil end
  if not M.visible and not choice then return out end
  local g=love.graphics;g.push('all');g.setCanvas(out)
- V.require('CanvasPresentation').begin2D(g,h)
+ -- Pipelines.present receives the final composite. The iOS world-canvas
+ -- reflection has already been applied; final HUD text stays upright.
+ g.origin()
  local size=math.max(14,math.min(22,math.floor(h*.025)))
  if fontSize~=size then if font then font:release()end;font=g.newFont(size);fontSize=size end
  g.setFont(font)

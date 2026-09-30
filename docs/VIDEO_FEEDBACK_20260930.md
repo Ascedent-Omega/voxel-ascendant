@@ -6,7 +6,7 @@ Das Video zeigt einen älteren Entwicklungsstand. Die ursprüngliche Aufnahme en
 
 Grundlage ist das vollständige automatisch erzeugte englische [Transkript](/Users/maarten/Documents/Recompile/artifacts/vasc-video-feedback-20260930/transcript-en.txt). Einzelbilder bei 11:54, 15:03, 18:25, 37:41 und 39:23 wurden zusätzlich angesehen. Das ist keine vollständige audiovisuelle Sichtung und keine lokale Fehlerreproduktion. Automatische Untertitel erkennen Namen und einzelne Begriffe falsch. Trotz des Videotitels betrifft die Mehrheit der Rückmeldungen Voxel Ascendant. Die genaue gezeigte Paketversion ist nicht sicher bestimmt.
 
-**Aktueller Stand: lokaler VASC 3.0.61-rc.3, auf dem vorhandenen rc.2 aufgebaut.** Radfahrer, Sitz-Kompatibilität und Sprachfix waren bereits in rc.2 enthalten und werden hier nicht erneut als neue Reparaturen gezählt. Öffentliche Basis bleibt 3.0.60. Die Änderungen liegen in [diesem Arbeitsstand](/Users/maarten/Documents/Recompile/.worktrees/vasc-loading-locale-20260930); ZIP, Prüfsummen und Paketprüfung stehen unter `deliverables/VASC-3.0.61-rc.3-Local`.
+**Aktueller Stand: lokaler VASC 3.0.61-rc.4, auf dem vorhandenen rc.2 aufgebaut.** Radfahrer, Sitz-Kompatibilität und Sprachfix waren bereits in rc.2 enthalten und werden hier nicht erneut als neue Reparaturen gezählt. Öffentliche Basis bleibt 3.0.60. Die Änderungen liegen in [diesem Arbeitsstand](/Users/maarten/Documents/Recompile/.worktrees/vasc-loading-locale-20260930); ZIP, Prüfsummen und Paketprüfung stehen unter `deliverables/VASC-3.0.61-rc.4-Local`.
 
 ## In dieser Runde umgesetzt
 
@@ -23,18 +23,18 @@ Grundlage ist das vollständige automatisch erzeugte englische [Transkript](/Use
 
 ## Noch offene Abnahme / unbestimmte Video-Beobachtungen
 
-Ein physisches iPhone/iPad ist laut Nutzer verfügbar, aber im USB-Inventar dieses Mac war kein Testgerät angebunden. Physische mobile Sea-/UI-Abnahme bleibt offen. Desktop-Hochformat und reine iOS-Regressionsnachbildungen ersetzen keinen Gerätebeleg. Der vorhandene mobile Weltkern zeigt keine vollständigen semantischen Himmelsereignisse; Mew und Sternbilder sind für diesen mobilen Pfad noch nicht abgenommen.
+Ein physisches iPhone/iPad ist laut Nutzer verfügbar, aber im USB-Inventar dieses Mac war kein Testgerät angebunden. Physische mobile Sea-/UI-Abnahme bleibt offen. Desktop-Hochformat und reine iOS-Regressionsnachbildungen ersetzen keinen Gerätebeleg. Korrektur nach Quell- und Laufzeitprüfung: Der vorbereitete mobile Himmel zeigt bereits die semantischen Ereignisse. iOS- und Android-Codepfade auf dem Mac bestehen Mew in Hoch-/Querformat, Abbrechen, Belohnung und Speichern/Laden. Dabei entdecktes spiegelverkehrtes iOS-Mew-/Fernglas-HUD in rc.4 korrigiert und visuell erneut geprüft. Das ist keine physische Geräteabnahme.
 
-Die genaue störende Tonquelle nach dem Silph-Aufzug ist weiterhin nicht identifiziert. Bestehende Brunnen-Dämpfung wird daher nicht als neue Behebung dieses Geräuschs ausgegeben. Der konkrete Einleitungs-NPC und die beanstandeten Outfitvarianten bleiben ohne eindeutige Zuordnung. Zum Casino wurde die alte A-Logo-Wand mit dem aktuellen, bereits anders ausgestalteten Raum abgeglichen; kein neuer pauschaler Wandumbau. Das unbestimmte Surfmenü zeigt im Video die Team-/Feld-Auswahl; kein aktueller Funktionsausfall nachgewiesen.
+Die genaue störende Tonquelle nach dem Silph-Aufzug ist weiterhin nicht identifiziert. Bestehende Brunnen-Dämpfung wird daher nicht als neue Behebung dieses Geräuschs ausgegeben. Der Einleitungs-NPC ist der in die Bankgrafik eingebettete Pokémon-Center-Mann: HD-Ersatz vorhanden, Voxel/Cobble zeigt noch die alte Figur. 30 registrierte HD-Outfitrezepte von RED/BLUE/GREEN rendern andere, je Figur eindeutige Pixelbilder; Champion ist ebenfalls verschieden und die echte Auswahl funktioniert. Die komplette Cobble-/Voxel-/2D-Variantenabnahme ist damit nicht behauptet. Zum Casino wurde die alte A-Logo-Wand mit dem aktuellen, bereits anders ausgestalteten Raum abgeglichen; kein neuer pauschaler Wandumbau. Das unbestimmte Surfmenü zeigt im Video die Team-/Feld-Auswahl; kein aktueller Funktionsausfall nachgewiesen.
 
 ## Vollständiger Abgleich aller 37 Punkte
 
-`KANDIDAT` bezeichnet die lokale rc.3 einschließlich ihrer vorhandenen rc.2-Basis; keine Veröffentlichung. `BESTAND` bezeichnet bereits vorhandene Lösungen. `NACHPRÜFEN` bleibt eine unbestimmte Szene oder externe Abnahme und ist kein bestätigter neuer Fehler.
+`KANDIDAT` bezeichnet die lokale rc.4 einschließlich ihrer vorhandenen rc.2-Basis; keine Veröffentlichung. `BESTAND` bezeichnet bereits vorhandene Lösungen. `NACHPRÜFEN` bleibt eine unbestimmte Szene oder externe Abnahme und ist kein bestätigter neuer Fehler.
 
 | ID | Aktueller Status | Ergebnis / noch erforderlicher Schritt |
 |---|---|---|
 | Z30-01 | **AUSGESCHLOSSEN** | Doppelter Pokéball: laut Nutzer andere Mod; keine VASC-Aufgabe. |
-| Z30-02 | BESTAND, nativ geprüft | Die Video-T-Pose betrifft Nidoking. Aktueller Cobble-Nidoking und Tauros laufen mit echten Animationsclips; native Kampfaufnahme bestätigt die normale Pose. Kein neuer pauschaler Figurenfix. |
+| Z30-02 | BESTAND, nativ geprüft | Die Video-T-Pose betrifft Nidoking. Aktueller Cobble-Nidoking und Tauros laufen mit echten Animationsclips; zusätzlich 64 tatsächlich sichtbare Nidoking-Wachstumsframes mit Animationsclip und früher/mittlerer/später Aufnahme geprüft. Kein neuer pauschaler Figurenfix. |
 | Z30-03 | BESTAND, Grundlagen geprüft | Hausquelle, Etagenhöhe und Fensterlagen sowie Pallet-Horizonttests bestehen. Aktuelles Schlafzimmer aufgenommen; die exakte frühere Blickrichtung bleibt nicht vollständig reproduziert. |
 | Z30-04 | ERLEDIGT, vorhandene Auswahl | D/P-/ORAS-WIDE- und FRLG-Taschenstile sind vorhanden; aktueller WIDE-Standardtest besteht. Kein belegter Bedarf für einen erneuten Taschenumbau. |
 | Z30-05 | KANDIDAT | Drei große, tiefer hängende Plakate in Ballreihenfolge; Schiggy sichtbar. Originalbild per UV-Zuschnitt verwendet, kein neuer 4K-Asset behauptet. |
@@ -46,7 +46,7 @@ Die genaue störende Tonquelle nach dem Silph-Aufzug ist weiterhin nicht identif
 | Z30-11 | KANDIDAT, kosmetisch | Trockene Fliesen und Wellenmotive angeglichen; native Aufnahme geprüft. Keine pauschale Zusage, jede optionale NPC-Quelle durch Cobble zu ersetzen. |
 | Z30-12 | KANDIDAT, Nutzerkorrektur | Flachere kompakte Turmtreppen statt langer steiler Läufe. Turm 1F↔2F nativ bestanden; normale Kollisions-/Warp-Regeln erhalten. |
 | Z30-13 | KANDIDAT, nativ geprüft | Responsive EN/DE-Hilfe mit größerer Schrift außerhalb der Welt-Unschärfe. Native Aufnahme und Größenprüfungen bestanden. |
-| Z30-14 | NACHPRÜFEN | Brunnenlautstärke räumlich gedämpft und an SFX-Regler gekoppelt. Das belegt keine Korrektur des nicht identifizierten nervigen Geräuschs nach der Aufzugfahrt. |
+| Z30-14 | HÖRPRÜFUNG OFFEN | Echte Silph-Fahrt: 100 Collision-Tonaufrufe und ein Ankunftsgong bestätigt. Videoeinzelbild liegt während der Fahrt; Liftton deshalb plausibler Kandidat, noch keine sichere Hörzuordnung. Brunnen: Abstand, SFX=0 und Verlassen nativ bestanden. |
 | Z30-15 | KANDIDAT, Nutzerkorrektur | Flachere kompakte Rocket-Treppen; B1F↔B2F nativ bestanden. Keine zusätzliche Raumhöhe. |
 | Z30-16 | BESTAND, aktueller Bildabgleich | Historisches Bild zeigt umlaufende A-Logo-Panels. Aktueller Raum besitzt bereits andere Wandmotive, native Aufnahme geprüft. Die exakte im Ton referenzierte Wand bleibt nicht sicher bestimmt. |
 | Z30-17 | KANDIDAT, nativ geprüft | Safari-Ballzähler und BALL/BAIT/ROCK/RUN-Kartenbeschriftungen vergrößert; tatsächliches natives Safari-Menü aufgenommen. |
@@ -55,11 +55,11 @@ Die genaue störende Tonquelle nach dem Silph-Aufzug ist weiterhin nicht identif
 | Z30-20 | KANDIDAT, nativ geprüft | Eigenes Mewtu-Sternbild mit Abstand zu den Starter-Sternbildern; native Nachtaufnahme geprüft. |
 | Z30-21 | KANDIDAT, Nutzerpräzisierung | Dezente, selten vorbeifliegende Mew-Sternsilhouette statt buntem Atlas-Pokémon. Sechs Sekunden Sichtungsfenster, an echte Himmelsrichtung gebunden. |
 | Z30-22 | KANDIDAT, nativ geprüft | Rechtzeitiges A im Blickfeld öffnet ein kleines Fenster für Nugget/Elixier/Hyperball. Ein Item je Sichtung, kein Masterball; nativer Input und Speichern/Laden geprüft. |
-| Z30-23 | NACHPRÜFEN | Eingebettete Cobble-Figuren deutlich erweitert; der konkrete Einleitungs-NPC ist nicht sicher bestimmt. |
+| Z30-23 | BESTÄTIGTE GRAFIKLÜCKE | Sitzender Center-Mann bei 1:00 ist Teil der Bankgrafik, kein normaler NPC. HD-Ersatz vorhanden; Voxel/Cobble behält aktuell die alte extrahierte Figur. In drei aktuellen Centers geprüft. |
 | Z30-24 | BESTAND, gezielt nachgeprüft | Nidoking/Tauros mit aktueller Cobble-Quelle und gültigen Animationsclips im nativen Kampf aufgenommen. Die exakt historische einzelne Intro-Sekunde wurde nicht lückenlos nachgestellt. |
 | Z30-25 | ERLEDIGT | Your-Look-Führung, Quellenwahl, Verfügbarkeits-/Downloadstatus vorhanden. Eingebettete Cobble-Inhalte benötigen keinen separaten Download. |
 | Z30-26 | BESTAND, nativ geprüft | CUSTOM SPRITES öffnet den registrierten Bildschirm. Native RESCAN-Auswahl ausgeführt und Rückkehr ins Spiel geprüft; nutzt vorhandene Funktion. |
-| Z30-27 | NACHPRÜFEN | Outfitkatalog und Quellenwahl vorhanden. Die frühere Zuordnung zu „Outfits der Mutter“ war nicht belegt; gemeint sind auswählbare Outfits. Nur tatsächlich gleiche Varianten oder unerwartete Quellen vergleichen. |
+| Z30-27 | HD GEPRÜFT, WEITERE STILE OFFEN | Tatsächlicher Katalog: 30 RED/BLUE/GREEN-HD-Rezepte mit Rohpixel-Hashes geprüft; alle verschieden vom Original und je Figur eindeutig. Champion unterscheidet sich und native Auswahl funktioniert. Cobble/Voxel/2D noch separat abnehmen. |
 | Z30-28 | ERLEDIGT, ältere Quelle im KANDIDAT | Aktuelle eingebettete Mutter sitzt korrekt, nativer Bildbeleg vorhanden. 3.0.61-rc.2 ergänzt Sitzquellen-Kompatibilität für eine ältere optionale Cobble-Card. |
 | Z30-29 | ERLEDIGT / Fortschrittslob | Turmmaterialien und Blockersatz bereits verbessert. Keine neue allgemeine Aufgabe aus dem damaligen Fortschrittslob ableiten. |
 | Z30-30 | KEIN AUFTRAG | Fernbild-Caches und nahe Live-Geometrie haben bewusst unterschiedliche Auflösungen. Kein gefordertes Mindestformat und kein aktueller Schärfedefekt belegt; nur bei sichtbarem Problem nacharbeiten. |
@@ -70,6 +70,14 @@ Die genaue störende Tonquelle nach dem Silph-Aufzug ist weiterhin nicht identif
 | Z30-35 | KEIN AUFTRAG | Größen-/Bodenhöhenbehandlung vorhanden. „Lapras ist klein, gefällt mir“ verlangt keine automatische Vergrößerung. |
 | Z30-36 | BESTAND, Quellenwahl geprüft | Gehege aufgenommen; native Tauros-Kampfdarstellung ausdrücklich mit Cobble-Quelle und gültiger Animation geprüft. AUTO kann bewusst eine andere Originalquelle wählen. |
 | Z30-37 | ERLEDIGT / KEIN NEUER AUFTRAG | Neuere Wolken-/Himmelsüberarbeitung integriert, aktueller Regressionstest besteht. Die gelobten Wolken und vermutete spätere Variante begründen keinen weiteren Pflichtumbau. |
+
+## Nachprüfung vom 01.10.2026
+
+- `native-mobile-wish-android.log` und `native-mobile-wish-ios-rc4.log`: vorbereiteter mobiler Himmel und Wunschablauf bestanden; iOS-HUD nach Korrektur aufrecht.
+- `rc4-regressions.log`: fünf gezielte Tests bestanden, einschließlich beider finalen HUDs und vollständiger Wiederherstellung des Grafikzustands.
+- `native-remainders-review4.log`: 30 HD-Outfits und drei Center-Figuren tatsächlich geprüft. Frühere Hilfsläufe mit leerer Freischaltliste werden nicht als Outfitbeleg gewertet.
+- `native-last-remainders.log`: sichtbares Nidoking-Intro, echte Aufzugfahrt mit Tonaufrufzählung und Brunnen-Stopp bestanden. Keine akustische Zuordnung des Videotons behauptet.
+- Schlafzimmer-Fenster weiterhin nur teilweise aussagekräftig: aktuelle Blickaufnahmen werden vom Fernseher verdeckt; exakte Video-Perspektive bleibt offen.
 
 ## Prüfbelege und verbleibende Abnahme
 
@@ -88,7 +96,7 @@ Die folgenden Tabellen bewahren die ursprünglichen Aussagen und Zeitmarken. Ihr
 | ID | Prio / Status | Zeit | Rückmeldung | Abgeleiteter nächster Schritt |
 |---|---|---|---|---|
 | Z30-01 | AUSGESCHLOSSEN | [03:33](https://www.youtube.com/watch?v=n469F1XRCx0&t=213s) | In der Kampfszene sind doppelte Pokébälle zu sehen. | Laut Nutzer Darstellung einer anderen Mod; keine VASC-Aufgabe. |
-| Z30-02 | BESTAND, nativ geprüft | Die Video-T-Pose betrifft Nidoking. Aktueller Cobble-Nidoking und Tauros laufen mit echten Animationsclips; native Kampfaufnahme bestätigt die normale Pose. Kein neuer pauschaler Figurenfix. |
+| Z30-02 | BESTAND, nativ geprüft | Die Video-T-Pose betrifft Nidoking. Aktueller Cobble-Nidoking und Tauros laufen mit echten Animationsclips; zusätzlich 64 tatsächlich sichtbare Nidoking-Wachstumsframes mit Animationsclip und früher/mittlerer/später Aufnahme geprüft. Kein neuer pauschaler Figurenfix. |
 | Z30-03 | BESTAND, Grundlagen geprüft | Hausquelle, Etagenhöhe und Fensterlagen sowie Pallet-Horizonttests bestehen. Aktuelles Schlafzimmer aufgenommen; die exakte frühere Blickrichtung bleibt nicht vollständig reproduziert. |
 | Z30-04 | P2 / TODO | [09:05–09:20](https://www.youtube.com/watch?v=n469F1XRCx0&t=545s) | Die Tasche benötigt noch Nacharbeit und ist für ihn der verbleibende auffällige Menübereich. | Taschenansicht an die übrige Oberfläche angleichen; vorhandene Modern-Bag-/FRLG-/ORAS-Auswahl vorher prüfen. Kein ausdrücklich verlangter kompletter UI-Neuentwurf. |
 | Z30-05 | KANDIDAT | Drei große, tiefer hängende Plakate in Ballreihenfolge; Schiggy sichtbar. Originalbild per UV-Zuschnitt verwendet, kein neuer 4K-Asset behauptet. |

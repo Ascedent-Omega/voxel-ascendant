@@ -104,7 +104,8 @@ end
 function M.hud(out,w,h)
  if not active then return V.require('MewSky').hud(out,w,h) end
  local g=love.graphics;g.push('all');g.setCanvas(out)
- V.require('CanvasPresentation').begin2D(g,h)
+ -- Final presentation pixels already include the iOS world reflection.
+ g.origin()
  local size=math.max(14,math.min(32,math.floor(h*.032)))
  if helpFontSize~=size then
   if helpFont then helpFont:release()end

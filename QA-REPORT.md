@@ -1,3 +1,17 @@
+# VASC 3.0.61-rc.4 — follow-up verification, 2026-10-01
+
+Base: complete local rc.3. Fixes the iOS vertical reflection of final Mew and binocular HUDs: these passes receive the final composite and must not apply the world-canvas transform again. No changes to world orientation or gameplay.
+
+Five focused regression checks pass (rc4-regressions.log), including actual Mew prompt/choice and active binocular rendering plus complete graphics-state restoration. Native iOS policy run passes landscape/portrait, cancel, reward, save/load; screenshots checked upright. Android policy run from unchanged gameplay passes the same interaction checks. These are macOS LOVE runs with platform policy overridden, not physical iOS/GLES/Android devices.
+
+Further review: all 30 registered RED/BLUE/GREEN HD outfit recipes produce unique raw pixels per character and differ from original; Champion selection succeeds. Cobble/Voxel/2D outfit rendering still requires separate acceptance. The intro NPC is the tile-authored Center sitter; HD replacement exists, Voxel/Cobble remains native. Confirmed artwork gap, no new substitute mesh introduced.
+
+Native visible Nidoking grow sampled for 64 frames, with valid animation and early/middle/late captures. Real Silph ride invokes Collision 100 times and arrival PA once. Fountain attenuation, SFX zero and room exit pass. Lift sound is a plausible source of the historical complaint, not verified by listening. Bedroom window captures remain partly obstructed by TV; no claim of matching the exact old angle.
+
+Physical iPhone/iPad acceptance is still open: no attached device found. Local experimental candidate only; no installed mods, normal saves or public release changed. Build verification is deliverables/VASC-3.0.61-rc.4-Local/verification.json.
+
+---
+
 # VASC 3.0.61-rc.3 — local verification, 2026-09-30
 
 Base: 3.0.61-rc.2 / bd08c92f, retaining its language, cyclist and seat fixes. Isolated LOVE 11.5 QA host with generated Red data and KASC 6.7.33-rc.1. Every native run has its own disposable vasc-*-qa identity. Normal saves and installed mods were not changed.
@@ -16,9 +30,9 @@ Native logs in the same artifact directory:
 
 ## Limits
 
-No physical iOS/Android/Switch test and no FPS claim. The user has an iPhone/iPad, but no device was connected in the Mac's USB inventory. The existing mobile world-core omits full semantic sky; the new Mew/constellation events are not accepted for that path. No new 4K raster asset: scientific scrolls reuse the existing source with exact UV crops. No new volcano: explicitly declined because KASC already supplies it.
+No physical iOS/Android/Switch test and no FPS claim. The user has an iPhone/iPad, but no device was connected in the Mac's USB inventory. Superseded by the rc.4 review above: staged mobile scenery already includes semantic sky. No new 4K raster asset: scientific scrolls reuse the existing source with exact UV crops. No new volcano: explicitly declined because KASC already supplies it.
 
-Silph's unspecified historical annoying sound, the unidentified opening NPC and exact outfit-variant complaint remain unconfirmed observations. Existing fountain attenuation is not presented as a repair of an unidentified sound. The full 37-point audit is docs/VIDEO_FEEDBACK_20260930.md. It distinguishes previously completed work, new candidate changes and external/uncertain acceptance.
+Historical rc.3 uncertainties were narrowed by the rc.4 follow-up above. Existing fountain attenuation is not presented as a repair of an unidentified sound. The full 37-point audit is docs/VIDEO_FEEDBACK_20260930.md. It distinguishes previously completed work, new candidate changes and external/uncertain acceptance.
 
 ## Packaging
 

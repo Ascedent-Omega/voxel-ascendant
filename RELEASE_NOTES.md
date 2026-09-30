@@ -1,3 +1,9 @@
+# Voxel Ascendant 3.0.61-rc.4 — local follow-up
+
+Fixes vertically mirrored Mew choice/prompt and binocular help on the iOS final composite. Focused regressions and native iOS policy landscape/portrait wish flow pass. Prepared mobile sky already existed; physical device acceptance remains open. Review identifies the old Center sitter in Voxel/Cobble, verifies 30 distinct HD outfit recipes and visible animated Nidoking send-out, and narrows the Silph sound to the lift's 100 Collision triggers pending listening. Full evidence and limitations: QA-REPORT.md and docs/VIDEO_FEEDBACK_20260930.md. No public release.
+
+---
+
 # Voxel Ascendant 3.0.61-rc.3 — local video polish candidate
 
 This candidate builds on 3.0.61-rc.2. That base already contains the loading/language fix, Cobble cyclists and older-card seat compatibility; those are retained, not newly implemented here. Public release remains 3.0.60.
@@ -11,7 +17,7 @@ This candidate builds on 3.0.61-rc.2. That base already contains the loading/lan
 - Separate Mewtwo constellation. Rare six-second, world-projected Mew star outline at night; timely A while looking towards it opens a small window over the sky. Choose one Nugget, Elixir or Ultra Ball per appearance. No Master Ball reward. Native interactions retain priority; cancel/full-bag/reload behavior protected.
 - Updates the obsolete window-landmark test stub to the current existing API.
 
-23 regression checks and targeted native desktop interaction/rendering/save-load checks passed. Physical mobile testing remains open; the established mobile world-core does not render the full semantic sky used by these night events. No public release or installed-game update performed. The additional volcano extension is excluded: the existing KASC volcano already covers the user's request.
+23 regression checks and targeted native desktop interaction/rendering/save-load checks passed. Physical mobile testing remains open; the follow-up rc.4 review confirms staged mobile sky is already available. No public release or installed-game update performed. The additional volcano extension is excluded: the existing KASC volcano already covers the user's request.
 
 ---
 
