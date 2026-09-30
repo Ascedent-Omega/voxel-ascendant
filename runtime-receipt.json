@@ -1,5 +1,5 @@
 {
-  "file_count": 22681,
+  "file_count": 22682,
   "files": [
     {
       "path": ".modkitromallow",
@@ -108,8 +108,8 @@
     },
     {
       "path": "LOCAL_RC.md",
-      "sha256": "ed0d7bc9cff89e676be9d3dfc6e70f38aef7704f6a14da3fa74618f88a4bc5e8",
-      "size_bytes": 1612
+      "sha256": "61b3279e1b4c9a5b48d3bfce9a3eb48d663967c2cf271c1be60d236ec13b7e95",
+      "size_bytes": 2735
     },
     {
       "path": "MENU_FLOW_AUDIT_2026-09-25.md",
@@ -133,18 +133,18 @@
     },
     {
       "path": "QA-REPORT.md",
-      "sha256": "9d373734becaad337ff203625f2f850421f9167bf05a147bd8b093c576b3e3b8",
-      "size_bytes": 4274
+      "sha256": "3fdc7dac08d12bb3e6fd12e490e57361721e853d011c822323cb06be78338432",
+      "size_bytes": 1927
     },
     {
       "path": "README.md",
-      "sha256": "0d617f7851f21906c3f85ec16bac99996659b0c07154d146e11960fd21591b55",
-      "size_bytes": 32152
+      "sha256": "039d7abcf28ae6f7f52c7b95569e002d913948bafa0a600820e61bfac00ebd13",
+      "size_bytes": 33525
     },
     {
       "path": "RELEASE_NOTES.md",
-      "sha256": "3e0130192b2e02231c75847f4d6785deda1b894840584c752b4a0f769ca91ae8",
-      "size_bytes": 1352
+      "sha256": "d2eae70c6ab13df8baecc2992d253f966c3690201f93dc00d6839c63bcc1196c",
+      "size_bytes": 1320
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -108783,8 +108783,8 @@
     },
     {
       "path": "lib/BattleSpriteControl.lua",
-      "sha256": "78144e2c38370886c2efa220d5d3bd099c44ee1557682a9562f7da7ea6a1119b",
-      "size_bytes": 15732
+      "sha256": "55857d5ca74e290d82640dcd05cea3a4b28a941eeb86e1402e42f4830dcf6a3f",
+      "size_bytes": 16007
     },
     {
       "path": "lib/BattleSpriteSize.lua",
@@ -111043,7 +111043,7 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "05a56dc76c5c53089c48ffdc1fac6add143bb789df77ce5a0e19e3537afb45ba",
+      "sha256": "6975fa887283ff4a5c9d2f2d11656f0ae096611d395fff3958f439fa86d4fb76",
       "size_bytes": 22822
     },
     {
@@ -111240,6 +111240,11 @@
       "path": "tests/battle_shadow_stamp_test.lua",
       "sha256": "bb77e400613097517080bf125ab68a68bee2196fe56ac303d97f71b87657e2e9",
       "size_bytes": 1860
+    },
+    {
+      "path": "tests/battle_stat_copy_style_test.lua",
+      "sha256": "4f039075d5b6ddee18648f177f1d18a221bdbbe431ec8a0d680aa3f6d43845a4",
+      "size_bytes": 2546
     },
     {
       "path": "tests/battle_timeout_reason_test.lua",
@@ -113407,11 +113412,11 @@
       "size_bytes": 217
     }
   ],
-  "manifest_sha256": "05a56dc76c5c53089c48ffdc1fac6add143bb789df77ce5a0e19e3537afb45ba",
+  "manifest_sha256": "6975fa887283ff4a5c9d2f2d11656f0ae096611d395fff3958f439fa86d4fb76",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.58",
+  "version": "3.0.59",
   "local_candidate": false,
-  "source_candidate_version": "3.0.58-rc.1",
-  "source_candidate_sha256": "f5c0c7f15f100e79ce4b66ebe30089c558f86d51fa63bc129c4a5155e3e4b9ac"
+  "source_candidate_version": "3.0.59-rc.1",
+  "source_candidate_sha256": "e38d2ac098263b35e4823542aa753dc3c8bb2fc0c4404afb5ba44b418452aedd"
 }

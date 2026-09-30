@@ -1,12 +1,11 @@
-# Voxel Ascendant 3.0.58 — gatehouses, glass exits and volcano fixes
+# Voxel Ascendant 3.0.59 — Gorochu Crystal colour fix
 
-- Restores modern gatehouse exteriors: fractional sliding-glass geometry no longer produces empty leaves that reject the entire building model. Checked on Routes 2, 5, 6, 7, 8, 11, 12, 15, 16 and 18.
-- Glass exits in supported window-enabled rooms now continue the same exterior view as adjacent windows, without squeezing a second miniature street scene into the door. Reuses the existing exterior rendering.
-- Selects the authored Cinnabar lava battle terrarium for KASC's verified Blaine volcano arena.
-- Adds native-footprint 3D stairs to the scripted volcano route. Turning STAIRS off retains the original closed foundation.
-- Seats the Hoenn visitor on her actual chair; floor fallback positions remain standing.
-- Rival spectator-duel Pokémon follow the selected follower appearance, with live style switching and restoration when disabled.
+Fixes a remaining case where Gorochu stayed monochrome despite selecting **Crystal** battle graphics. KASC's modern battle rules keep a separate battle-only stats table for split Special Attack and Special Defense. VASC mistakenly treated that table as evidence of Transform and skipped the selected sprite.
 
-Update together with **KASC 6.7.31**. Replace the existing mods; keep saves and settings. Complete public 3.0.57 baseline and assets retained.
+- Crystal and HD selections now survive ordinary battle-stat copies, including HD preloading.
+- Native Transform, explicit transformation flags, Mega and ghost presentation retain their existing ownership.
+- Pokémon stats, abilities, battle rules and saves are unchanged. All VASC 3.0.58 gatehouse, door, volcano and visitor fixes remain included.
 
-25 targeted suites and native desktop checks passed. Optional HD/MMO replacement is covered by fixtures; the native visual check used Cobblemon. Physical mobile hardware and a broad performance benchmark were not rerun. See the attached QA report for scope and remaining uncertainties.
+**Only update VASC. KASC 6.7.31 remains the companion version.** Keep saves and settings; replace the existing mod rather than enabling a second copy.
+
+The failure was reproduced in native LOVE with Gorochu versus Starmie and KASC's real split-Special preparation. The corrected path returns the coloured sprite; native Transform still works. Focused Crystal/HD front/back and normal/shiny tests, settings regressions, 1,340 Lua syntax checks, archive CRC and file receipts passed. No new physical mobile-device test was performed. Runtime and assets are unchanged from the tested 3.0.59-rc.1 candidate.

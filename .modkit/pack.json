@@ -1,6 +1,6 @@
 {
   "id": "VOXEL_ASCENDANT",
-  "version": "3.0.58",
+  "version": "3.0.59",
   "api": 2,
   "modkit": "1.0.0",
   "local_candidate": false,
@@ -112,8 +112,8 @@
     },
     {
       "path": "LOCAL_RC.md",
-      "sha256": "ed0d7bc9cff89e676be9d3dfc6e70f38aef7704f6a14da3fa74618f88a4bc5e8",
-      "bytes": 1612
+      "sha256": "61b3279e1b4c9a5b48d3bfce9a3eb48d663967c2cf271c1be60d236ec13b7e95",
+      "bytes": 2735
     },
     {
       "path": "MENU_FLOW_AUDIT_2026-09-25.md",
@@ -137,18 +137,18 @@
     },
     {
       "path": "QA-REPORT.md",
-      "sha256": "9d373734becaad337ff203625f2f850421f9167bf05a147bd8b093c576b3e3b8",
-      "bytes": 4274
+      "sha256": "3fdc7dac08d12bb3e6fd12e490e57361721e853d011c822323cb06be78338432",
+      "bytes": 1927
     },
     {
       "path": "README.md",
-      "sha256": "0d617f7851f21906c3f85ec16bac99996659b0c07154d146e11960fd21591b55",
-      "bytes": 32152
+      "sha256": "039d7abcf28ae6f7f52c7b95569e002d913948bafa0a600820e61bfac00ebd13",
+      "bytes": 33525
     },
     {
       "path": "RELEASE_NOTES.md",
-      "sha256": "3e0130192b2e02231c75847f4d6785deda1b894840584c752b4a0f769ca91ae8",
-      "bytes": 1352
+      "sha256": "d2eae70c6ab13df8baecc2992d253f966c3690201f93dc00d6839c63bcc1196c",
+      "bytes": 1320
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -108787,8 +108787,8 @@
     },
     {
       "path": "lib/BattleSpriteControl.lua",
-      "sha256": "78144e2c38370886c2efa220d5d3bd099c44ee1557682a9562f7da7ea6a1119b",
-      "bytes": 15732
+      "sha256": "55857d5ca74e290d82640dcd05cea3a4b28a941eeb86e1402e42f4830dcf6a3f",
+      "bytes": 16007
     },
     {
       "path": "lib/BattleSpriteSize.lua",
@@ -111047,7 +111047,7 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "05a56dc76c5c53089c48ffdc1fac6add143bb789df77ce5a0e19e3537afb45ba",
+      "sha256": "6975fa887283ff4a5c9d2f2d11656f0ae096611d395fff3958f439fa86d4fb76",
       "bytes": 22822
     },
     {
@@ -111057,8 +111057,8 @@
     },
     {
       "path": "runtime-receipt.json",
-      "sha256": "1cb7d6e1a587ea702f2e4e52238639c7246b95c728808ae136ce5266ea175c0d",
-      "bytes": 4723320
+      "sha256": "fd92d245bf544d5244dea0e7d7033e8a2e66893f4b07e431974d612beaf99d93",
+      "bytes": 4723497
     },
     {
       "path": "scripts/prepare_cobblemon_binary.py",
@@ -111249,6 +111249,11 @@
       "path": "tests/battle_shadow_stamp_test.lua",
       "sha256": "bb77e400613097517080bf125ab68a68bee2196fe56ac303d97f71b87657e2e9",
       "bytes": 1860
+    },
+    {
+      "path": "tests/battle_stat_copy_style_test.lua",
+      "sha256": "4f039075d5b6ddee18648f177f1d18a221bdbbe431ec8a0d680aa3f6d43845a4",
+      "bytes": 2546
     },
     {
       "path": "tests/battle_timeout_reason_test.lua",
@@ -113416,9 +113421,9 @@
       "bytes": 217
     }
   ],
-  "base_archive_sha256": "6ff97ecad3340fb52b6af5bf640706964877bb14d120fa6ab12a19c3f63912cd",
-  "source_snapshot_sha256": "ef1ed6b529775753dd43789f44a9f6869cef98573cf7ae9f376832256031dc10",
-  "source_commit": "2167e818abeb1df52e81090114f15b169a547ee0",
-  "source_candidate_version": "3.0.58-rc.1",
-  "source_candidate_sha256": "f5c0c7f15f100e79ce4b66ebe30089c558f86d51fa63bc129c4a5155e3e4b9ac"
+  "base_archive_sha256": "c2bda85b2d6a80c82a689fed0ac66de5a53001a552fc9187b62277a47fc3f95a",
+  "source_snapshot_sha256": "ea0a60a83b16cca724acb2990712f81782c9d9fd7218c9b6e3481153aa0c24f8",
+  "source_commit": "8bef135accb9dce18b68b1d7587c8005f646cabd",
+  "source_candidate_version": "3.0.59-rc.1",
+  "source_candidate_sha256": "e38d2ac098263b35e4823542aa753dc3c8bb2fc0c4404afb5ba44b418452aedd"
 }

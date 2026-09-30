@@ -1,3 +1,19 @@
+# Promoted to public VASC 3.0.59
+
+The tested 3.0.59-rc.1 candidate was promoted without runtime code or asset changes. Earlier candidate history follows.
+
+# VASC 3.0.59-rc.1 — Gorochu Crystal selection
+
+Local candidate based on the complete public VASC 3.0.58. Use with existing KASC 6.7.31; KASC does not require another update for this fix.
+
+KASC's modern battle rules legitimately detach battle-only stats from the saved Pokémon to split Special Attack and Special Defense. VASC treated every detached stats table as Transform and discarded an explicit Crystal or HD appearance. With a saved Classic preference underneath, Gorochu consequently remained monochrome despite the visible Crystal battle choice.
+
+The appearance guard now recognises native Transform through its copied move list and retains explicit transformation, Mega and ghost guards. Normal stat copies no longer suppress the selected graphics or HD preloading. No species stats, abilities, battle rules, or saved Pokémon are changed.
+
+Not automatically installed or published. Replace the existing VASC mod only; keep KASC, saves and options.
+
+---
+
 # Promoted to public VASC 3.0.58
 
 The tested 3.0.58-rc.1 candidate was promoted without runtime code or asset changes. Earlier candidate history follows.

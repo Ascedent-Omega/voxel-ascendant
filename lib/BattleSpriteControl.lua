@@ -94,9 +94,16 @@ local function crystalMotion(b,mon,view)
     end
   end
 end
+-- Detached stats also belong to ordinary split-Special and stat-swap
+-- mechanics. Native Transform copies the move list; that is its identity
+-- signal, shared by KASC's battle identity owner. Keep Mega's own renderer.
+local function ownsAppearance(actor,mon)
+  return actor.transformed or actor.preTransform or actor._ascMegaProfile
+    or (type(actor.curMoves)=="table" and actor.curMoves~=mon.moves)
+end
 local function imageFor(b,side,view,choice)
   local actor=b[side];local mon=actor and actor.mon
-  if not mon or actor.transformed or actor.preTransform or (actor.curStats and actor.curStats~=mon.stats) or (side=="enemy" and (b.ghost or b.ghostReal)) then return nil end
+  if not mon or ownsAppearance(actor,mon) or (side=="enemy" and (b.ghost or b.ghostReal)) then return nil end
   local s=state(b)
   local key=side..":"..view..":"..choice
   local old=s.cache[key]
@@ -175,8 +182,7 @@ end
 function M.prepare(b,side,view)
   if M.choice(b)~="hd" then return false end
   local actor=b[side];local mon=actor and actor.mon
-  if not mon or actor.transformed or actor.preTransform
-      or (actor.curStats and actor.curStats~=mon.stats)
+  if not mon or ownsAppearance(actor,mon)
       or (side=="enemy" and (b.ghost or b.ghostReal)) then return false end
   local presentation,status=V.require("HdPokemonPresentation").create(b.game,mon,view)
   return presentation~=nil,status
