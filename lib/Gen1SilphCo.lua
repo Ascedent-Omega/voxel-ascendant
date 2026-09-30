@@ -31,7 +31,7 @@ function T.occludes(map,level,eye,focus)
  local b=focus[2]+(eye[2]-focus[2])*hi
  return math.max(a,b)>34 and math.min(a,b)<T.height
 end
-function T.geometry(emit,doors)
+function T.geometry(emit,doors,sliding)
  local function b(x,y,z,w,h,d,c,lit)
   assert(x>=0 and z>=0 and x+w<=T.width and z+d<=T.depth and y+h<=T.height,'Silph footprint')
   emit(x,y,z,w,h,d,c,lit==true)
@@ -85,7 +85,9 @@ function T.geometry(emit,doors)
  -- Human-scale canopy and sliding glass entrance, aligned to the native warp.
  b(door-12,26,182,24,4,10,'navy');b(door-10,28,180,20,2,12,'silver')
  b(door-10,2,184,2,24,2,'trim');b(door+8,2,184,2,24,2,'trim')
- b(door-8,4,186,16,20,2,'glass',true);b(door-1,4,188,2,20,2,'silver')
+ if not sliding then
+  b(door-8,4,186,16,20,2,'glass',true);b(door-1,4,188,2,20,2,'silver')
+ else b(door-8,2,186,16,22,1,'navy')end
 end
 function T.create(P,kind,doors,light)
  local C=P.decorColors
@@ -101,7 +103,10 @@ function T.create(P,kind,doors,light)
  T.geometry(function(x,y,z,w,h,d,c,lit)
   local target=lit and glass or m
   target.boxes[#target.boxes+1]={x,y,z,w,h,d,assert(indices[c])}
- end,doors)
+ end,doors,true)
+ for _,door in ipairs(doors or{})do
+  if door.side=='south'then V.require('Gen1GlassDoors').addExterior(P,m,kind,door,T.depth,T.width,true)end
+ end
  -- Prepared once alongside the full building: no shader changes or scene
  -- rebuild while the player walks behind the tower. Keep the lobby/door and
  -- a closed low roof, while shadows continue to use the complete building.

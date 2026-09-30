@@ -95,9 +95,12 @@ function F.paint(g,w,h,theme,source)
  local dado=g.newQuad(0,y,sw,sh-y,sw,sh)
  g.draw(source,dado,0,h*base,0,w/sw,h*(1-base)/(sh-y));dado:release()
 end
-function F.door(g,w,h)
+function F.door(g,w,h,color)
  local function rect(c,x,y,r,b)
-  g.setColor(c[1],c[2],c[3],1);g.rectangle('fill',x*w,y*h,r*w,b*h)
+  if color and c[1]~= .88 and c[1]~= .23 then
+   local shade=c[1]/.55;g.setColor(color[1]/255*shade,color[2]/255*shade,color[3]/255*shade,1)
+  else g.setColor(c[1],c[2],c[3],1)end
+  g.rectangle('fill',x*w,y*h,r*w,b*h)
  end
  rect({.32,.19,.09},0,0,1,1)
  rect({.55,.35,.17},.045,.025,.91,.95)
@@ -109,6 +112,37 @@ function F.door(g,w,h)
  end
  rect({.23,.17,.09},.78,.51,.065,.085)
  rect({.88,.69,.28},.76,.54,.15,.018)
+ g.setColor(1,1,1,1)
+end
+-- One sliding leaf: mirror its UVs for the other half. Opaque tinted
+-- glass gives reflections without exposing the destination's unbuilt room.
+function F.glassDoor(g,w,h)
+ local function rect(c,x,y,a,b)
+  g.setColor(c[1],c[2],c[3],1);g.rectangle('fill',x*w,y*h,a*w,b*h)
+ end
+ rect({.13,.23,.29},0,0,1,1)
+ rect({.65,.74,.78},.035,.015,.93,.97)
+ rect({.25,.48,.57},.09,.045,.82,.86)
+ rect({.32,.58,.65},.12,.055,.76,.64)
+ rect({.21,.39,.47},.12,.70,.76,.19)
+ -- Stepped diagonal reflections remain legible at native pixel scale.
+ for i=0,7 do
+  rect({.49,.71,.75},.12+i*.075,.09+i*.037,.16,.045)
+  rect({.39,.63,.69},.12+i*.075,.19+i*.037,.09,.03)
+ end
+ rect({.70,.82,.83},.09,.57,.82,.037)
+ rect({.42,.60,.65},.09,.607,.82,.015)
+ rect({.84,.90,.89},.07,.025,.027,.92)
+ rect({.16,.25,.30},.90,.035,.045,.92)
+ rect({.36,.46,.51},.075,.925,.84,.032)
+ rect({.82,.89,.89},.075,.925,.84,.008)
+ rect({.75,.85,.86},.80,.47,.035,.055)
+ g.setColor(1,1,1,1)
+end
+function F.doorRecess(g,w,h)
+ g.setColor(.035,.065,.085,1);g.rectangle('fill',0,0,w,h)
+ g.setColor(.10,.16,.19,1);g.rectangle('fill',w*.08,h*.92,w*.84,h*.08)
+ g.setColor(.28,.36,.39,1);g.rectangle('fill',0,h*.985,w,h*.015)
  g.setColor(1,1,1,1)
 end
 function F.securityDoor(g,w,h)

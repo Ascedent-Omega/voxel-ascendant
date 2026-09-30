@@ -1108,23 +1108,24 @@ vec4 effect(EFFECT_PREC vec4 color, Image tex, EFFECT_PREC vec2 tc,
   // whenever the camera pans, which strobes. Anchored to the surface,
   // panning moves nothing and only the waves do.
   float parity = mod(col.x + col.y, 2.0);
-  vec3 refl = base;
-  if (skyOn > 0.5) {
-    refl = bodyAt(r, skyAt(r, parity), parity);
-  }
-#ifndef WATER_SKY_ONLY
-  if (rays > 0.5) {
-    vec4 hit = march(surf, r);
-    refl = mix(refl, hit.rgb, hit.a);
-  }
-#endif
-
   // Schlick, floored and softened (see FRESNEL_* in Water.lua): the angle
   // still decides, a grazing camera still gets a mirror, and a steep one
   // still gets a pond rather than a flat sticker.
   float ct = clamp(dot(-view, n), 0.0, 1.0);
   float f = fresnelFloor
             + (fresnelCeil - fresnelFloor) * pow(1.0 - ct, fresnelPower);
+
+  vec3 refl = base;
+  if (skyOn > 0.5) {
+    refl = bodyAt(r, skyAt(r, parity), parity);
+  }
+#ifndef WATER_SKY_ONLY
+  if (rays > 0.5 && f > 0.0) {
+    vec4 hit = march(surf, r);
+    refl = mix(refl, hit.rgb, hit.a);
+  }
+#endif
+
   vec3 rgb = mix(base, refl, clamp(f, 0.0, 1.0));
 
 #ifdef VOXEL_GRID
@@ -1304,6 +1305,10 @@ Water._waveTime = waveTime
 --
 -- Returns false when the pass cannot run, in which case the caller draws the
 -- water mesh through the ordinary scene shader instead.
+local waterUniforms=V.require("UniformMemo").new()
+local identity={1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1}
+local sunTexel,faceShade={0,0},{0,0,0,0}
+local white,forward={1,1,1},{0,0,-1}
 function Water.begin(ctx)
   if not (ctx and ctx.reflect and ctx.depth) then return false end
   local level = Water.level()
@@ -1315,14 +1320,15 @@ function Water.begin(ctx)
 
   love.graphics.setShader(sh)
   love.graphics.setColor(1, 1, 1, 1)
-  local function send(name, ...)
-    pcall(sh.send, sh, name, ...)
+  local function send(name,value,matrix)
+    if matrix then waterUniforms.send(sh,name,matrix,value)
+    else waterUniforms.send(sh,name,value)end
   end
 
   send("vp", "row", ctx.vp)
   send("eye", ctx.eye)
   send("curve", ctx.curve)
-  send("screen", { ctx.screen[1], ctx.screen[2] })
+  send("screen", ctx.screen)
   send("cell", math.max(1, ctx.cell or 1))
   -- how much of the view one screen pixel is worth: what sets the relief
   -- march's stride, so a sample is always about a pixel of surface
@@ -1337,20 +1343,21 @@ function Water.begin(ctx)
   -- light map may remain valid while the option is off, but it must not shade
   -- the lake until the player turns the pass back on.
   local map = V.require("Shadows").enabled() and ShadowMap.active()
-  send("sunVP", "row", map and ShadowMap.uvVP or Mat4.identity())
+  send("sunVP", "row", map and ShadowMap.uvVP or identity)
   local tex = ShadowMap.texture()
   if tex then send("sunMap", tex) end
   local Voxel3D = V.require("Voxel3D")
   send("sunDark", map and Voxel3D.SHADOW_ALPHA or 0)
   send("sunBias", ShadowMap.bias)
   local texel = 1 / ShadowMap.res
-  send("sunTexel", { texel, texel })
-  send("dayTint", Voxel3D.tint or { 1, 1, 1 })
+  sunTexel[1],sunTexel[2]=texel,texel
+  send("sunTexel",sunTexel)
+  send("dayTint", Voxel3D.tint or white)
   V.require("LocalLights").send(sh, Voxel3D.localLightsActive)
 
   send("rays", level >= 2 and 1 or 0)
   -- the horizon lean, and the direction it leans toward (see Water.lean)
-  send("lookFlat", ctx.lookFlat or { 0, 0, -1 })
+  send("lookFlat", ctx.lookFlat or forward)
   send("lean", Water.lean(ctx.descent))
   send("leanElev", Water.LEAN_ELEV)
   local waveHeight, waveSlope = Water.waveUniforms(ctx.maritime)
@@ -1361,7 +1368,8 @@ function Water.begin(ctx)
   -- the columns' side faces wear the MESH's own direction shading, sent in
   -- rather than restated, so a wave crest is lit like every other voxel
   local fs = Voxel3D.FACE_SHADE
-  send("faceShade", { fs[1], fs[2], fs[5], fs[6] })   -- east, west, south, north
+  faceShade[1],faceShade[2],faceShade[3],faceShade[4]=fs[1],fs[2],fs[5],fs[6]
+  send("faceShade",faceShade) -- east, west, south, north
   send("fresnelFloor", Water.FRESNEL_FLOOR)
   send("fresnelCeil", Water.FRESNEL_CEIL)
   send("fresnelPower", Water.FRESNEL_POWER)
@@ -1477,6 +1485,7 @@ end
 -- Drop the compiled shaders (window resize, hot reload): they are GPU
 -- objects on a context that may not exist any more.
 function Water.invalidate()
+  waterUniforms.clear()
   for k, sh in pairs(shaders) do
     if sh and sh.release then pcall(sh.release, sh) end
     shaders[k] = nil

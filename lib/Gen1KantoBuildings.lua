@@ -15,21 +15,31 @@ function M.theme(id)
 end
 function M.doors(map,x,y,w,h)
  local out,seen={},{}
- local function add(side,at,width,dest)
+ local function add(side,at,width,dest,destWarp)
   local k=side..':'..at
-  if not seen[k]then seen[k]=true;out[#out+1]={side=side,at=at,width=width or 14,dest=dest}end
+  if not seen[k]then seen[k]=true;out[#out+1]={side=side,at=at,width=width or 14,dest=dest,destWarp=destWarp}end
  end
  for _,warp in ipairs(map.def.warps or{})do
   local a,b=warp.x*16+8-x*8,warp.y*16+8-y*8
   if a>=0 and a<w*8 then
-   if b>=h*8-16 and b<h*8+1 then add('south',a,14,warp.destMap)
-   elseif b>=-16 and b<=8 then add('north',a,14,warp.destMap)end
+   if b>=h*8-16 and b<h*8+1 then add('south',a,14,warp.destMap,warp.destWarp)
+   elseif b>=-16 and b<=8 then add('north',a,14,warp.destMap,warp.destWarp)end
   end
  end
  for _,d in ipairs(gates.forBuilding(map,x,y,w,h))do
-  if d.side=='west' or d.side=='east' then add(d.side,d.z+d.width/2,d.width-2)end
+  if d.side=='west' or d.side=='east' then add(d.side,d.z+d.width/2,d.width-2,d.dest,d.destWarp)end
  end
- return out
+ table.sort(out,function(a,b)return a.side<b.side or a.side==b.side and a.at<b.at end)
+ local joined={}
+ for _,door in ipairs(out)do
+  local prev=joined[#joined]
+  if prev and prev.side==door.side and prev.dest==door.dest
+    and math.abs((prev.at+prev.width/2+2)-(door.at-door.width/2))<.01 then
+   local left=prev.at-prev.width/2;local right=door.at+door.width/2
+   prev.at=(left+right)/2;prev.width=right-left
+  else joined[#joined+1]=door end
+ end
+ return joined
 end
 function M.register(P,F)
  local C=P.decorColors
@@ -182,7 +192,8 @@ function M.register(P,F)
     else f(w-5+bz,by,at+bx,bd,bh,bw,c)end
    end
    db(-half-1,1,0,door.width+2,23,2,4);db(-half,2,2,door.width,20,1,C.navy)
-   db(1-half,5,3,door.width-2,15,1,7,true);db(-1,3,4,2,18,1,4)
+   local sliding=V.require('Gen1GlassDoors').addExterior(P,a,kind,door,d,w)
+   if not sliding then V.require('Gen1DoorStyles').exterior(P,db,door.dest,door.width,20)end
    db(-half-1,0,0,door.width+2,1,8,14);db(-half-3,24,0,door.width+6,2,5,accent)
    -- Wall lanterns are part of the independently emissive window mesh.
    for _,lx in ipairs({-half-4,half+2})do

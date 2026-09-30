@@ -194,10 +194,9 @@ end
 -- nothing in it.
 
 local function overworld()
-  local ok, ow = pcall(function()
-    return require("src.core.Game").overworld
-  end)
-  if not ok or not ow or not ow.map then return nil end
+  local ok, game = pcall(require,"src.core.Game")
+  local ow=ok and game.overworld
+  if not ow or not ow.map then return nil end
   return ow
 end
 
@@ -232,13 +231,13 @@ end
 -- Read the canonical per-cell shape, rather than TileShape.at for whichever
 -- 8px half the point happens to occupy: the high half of the same ledge cell
 -- may resolve to ordinary ground while the collision cell remains the lip.
-local function collisionClass(map, cx, cy)
-  local ok, class = pcall(function()
-    local TileShape = V.require("TileShape")
-    local shapes = TileShape.forMap(map)
-    local shape = shapes and shapes[map:cellTile(cx, cy)]
-    return shape and shape.class
-  end)
+local function readCollisionClass(map,cx,cy)
+  local shapes=V.require("TileShape").forMap(map)
+  local shape=shapes and shapes[map:cellTile(cx,cy)]
+  return shape and shape.class
+end
+local function collisionClass(map,cx,cy)
+  local ok,class=pcall(readCollisionClass,map,cx,cy)
   return ok and class or nil
 end
 
@@ -256,29 +255,35 @@ ThirdPerson._collisionClass = collisionClass -- named for the suite
 --   ON the ground that the height field does not describe: house walls,
 --   trees, signs, counters. Held to CLEAR above that cell's ground so the
 --   short furniture of the world is passed over rather than bumped into.
-local function occupied(ow, wx, y, wz)
-  local map, cx, cy = cellAt(ow, wx, wz)
-  if not map then return true end
-  local VoxelScene = V.require("VoxelScene")
-  local okG, gh = pcall(VoxelScene.groundAt, map, cx, cy)
-  gh = (okG and gh) or 0
-  if y < gh + ThirdPerson.PAD then return true end
-  local okW, walkable = pcall(function() return map:isWalkableCell(cx, cy) end)
-  -- Water is unwalkable to a trainer on foot, but it is a transparent ground
-  -- surface, never a wall or prop.  The 3RD boom used the land-passability bit
-  -- as geometry and therefore collapsed into the rider's head as soon as SURF
-  -- put water behind the player, making 3RD look like 1ST.  Preserve the real
-  -- height-field test above and exempt only cells the map itself identifies as
-  -- water; buildings, trees and every other unwalkable prop remain blocking.
-  local okWater, water = pcall(function()
-    return type(map.isWaterCell) == "function" and map:isWaterCell(cx, cy)
-  end)
-  if okW and not walkable and not (okWater and water == true)
-     and collisionClass(map, cx, cy) ~= "ledge"
-     and y < gh + ThirdPerson.CLEAR then
-    return true
+local function readCellFacts(map,cx,cy)
+  local ok,gh=pcall(V.require("VoxelScene").groundAt,map,cx,cy)
+  local okW,walkable=pcall(map.isWalkableCell,map,cx,cy)
+  local okWater,water=pcall(map.isWaterCell,map,cx,cy)
+  return ok and gh or 0,okW and not walkable
+    and not(okWater and water==true) and collisionClass(map,cx,cy)~="ledge"
+end
+local function cellFacts(map,cx,cy)
+ local ground,solid=readCellFacts(map,cx,cy)
+ return {ground=ground,solid=solid,cx=cx,cy=cy}
+end
+local function occupied(ow,wx,y,wz,cells,points)
+  local map,cx,cy=cellAt(ow,wx,wz)
+  if points then
+   local i=points.count+1;points.count=i
+   local p=points[i]or{};points[i]=p
+   p.wx,p.wz,p.map,p.cx,p.cy=wx,wz,map,cx,cy
   end
-  return false
+  if not map then return true end
+  local facts
+  if cells then
+    local held=cells[map]
+    if not held then held={};cells[map]=held end
+    local key=cx+cy*map.widthCells
+    facts=held[key]
+    if not facts then facts=cellFacts(map,cx,cy);held[key]=facts end
+  else facts=cellFacts(map,cx,cy)end
+  return y<facts.ground+ThirdPerson.PAD
+    or facts.solid and y<facts.ground+ThirdPerson.CLEAR or false
 end
 
 ThirdPerson._occupied = occupied       -- named for the suite
@@ -289,11 +294,46 @@ ThirdPerson._occupied = occupied       -- named for the suite
 -- position rather than the sampling grid's, and walking toward a wall
 -- draws the camera in smoothly instead of in four-pixel jerks. PAD comes
 -- off whatever survives.
+-- Retain an exact proof of the previous ray, not an assumption that a map
+-- stayed unchanged. Every touched cell is revalidated, including live mod
+-- collision and heights; topology is resolved again at each sampled point.
+local lastReach
+ThirdPerson.reachCacheHits=0
+local function reusableReach(ow,pivot,bx,by,bz,want)
+ local c=lastReach
+ if not c or c.ow~=ow or c.px~=pivot[1]or c.py~=pivot[2]or c.pz~=pivot[3]
+     or c.bx~=bx or c.by~=by or c.bz~=bz or c.want~=want
+     or c.pad~=ThirdPerson.PAD or c.clear~=ThirdPerson.CLEAR
+     or c.step~=ThirdPerson.STEP or c.refine~=ThirdPerson.REFINE then return nil end
+ for i=1,c.points.count do
+  local p=c.points[i]
+  local map,x,y=cellAt(ow,p.wx,p.wz)
+  if map~=p.map or x~=p.cx or y~=p.cy then return nil end
+ end
+ for map,cells in pairs(c.cells)do for _,facts in pairs(cells)do
+  local ground,solid=readCellFacts(map,facts.cx,facts.cy)
+  if ground~=facts.ground or solid~=facts.solid then return nil end
+ end end
+ ThirdPerson.reachCacheHits=ThirdPerson.reachCacheHits+1
+ return c.result
+end
 function ThirdPerson.reach(ow, pivot, bx, by, bz, want)
   if not ow or want <= 0 then return math.max(0, want) end
+  local reused=reusableReach(ow,pivot,bx,by,bz,want)
+  if reused~=nil then return reused end
+  local cells,points={},lastReach and lastReach.points or{}
+  local oldCount=points.count or 0;points.count=0
+  local function retain(result)
+   for i=points.count+1,oldCount do points[i].map=nil end
+   local c=lastReach or{};lastReach=c
+   c.ow,c.px,c.py,c.pz,c.bx,c.by,c.bz,c.want=ow,pivot[1],pivot[2],pivot[3],bx,by,bz,want
+   c.pad,c.clear,c.step,c.refine=ThirdPerson.PAD,ThirdPerson.CLEAR,ThirdPerson.STEP,ThirdPerson.REFINE
+   c.cells,c.points,c.result=cells,points,result
+   return result
+  end
   local function clear(t)
     return not occupied(ow, pivot[1] + bx * t, pivot[2] + by * t,
-                        pivot[3] + bz * t)
+                        pivot[3] + bz * t,cells,points)
   end
   local lo = 0
   local steps = math.ceil(want / ThirdPerson.STEP)
@@ -307,12 +347,12 @@ function ThirdPerson.reach(ow, pivot, bx, by, bz, want)
       break
     end
   end
-  if not hi then return want end
+  if not hi then return retain(want) end
   for _ = 1, ThirdPerson.REFINE do
     local mid = (lo + hi) / 2
     if clear(mid) then lo = mid else hi = mid end
   end
-  return math.max(0, lo - ThirdPerson.PAD)
+  return retain(math.max(0, lo - ThirdPerson.PAD))
 end
 
 -- ------- the tick
@@ -359,6 +399,7 @@ function ThirdPerson.update(dt, blend)
     ThirdPerson.len = math.min(ThirdPerson.want,
                                ThirdPerson.len + ThirdPerson.RETURN * dt)
   end
+  if target==0 and ThirdPerson.out==0 then lastReach=nil end
 end
 
 -- The boom's full length right now, before the world has its say: BOOM at

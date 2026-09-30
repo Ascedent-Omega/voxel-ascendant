@@ -286,6 +286,9 @@ local function find(map,buildingsOnly)
   if (map.id or ''):match('^KA_MOLTRES_VOLCANO')then
    for _,p in ipairs(V.require('KascVolcano').find(P,map))do result[#result+1]=p end
   end
+  if (map.id or ''):match('^KA_BLAINE_')then
+   for _,p in ipairs(V.require('BlaineVolcano').find(P,map))do result[#result+1]=p end
+  end
   if habitat then
    for _,p in ipairs(V.require('KascHabitatScenery').find(P,map))do result[#result+1]=p end
   end
@@ -299,6 +302,9 @@ local function find(map,buildingsOnly)
     result[#result+1]=p
   end
   for _,p in ipairs(V.require('Gen1SafariGates').find(P,map))do result[#result+1]=p end
+  for _,p in ipairs(V.require('Gen1TowerGraveyard').find(P,map,function(x,y)return used[key(x,y)]end))do
+    result[#result+1]=p
+  end
   V.require('ObservationLayout').apply(P,result,map)
   V.require('KantoSeatGeometry').orient(result,map,P)
   found[map]=result;return result
@@ -344,6 +350,7 @@ function F.claim(S,map,peekTerrain)
     local model=P.models[p.kind]
     p.claimed=F.enabled(p) and P.resolveKind(p.kind)~=nil
       and (not (model and model.glassKind) or P.resolveKind(model.glassKind)~=nil)
+    if p.claimed then p.claimed=V.require("Gen1GlassDoors").prepareExterior(P,model)and V.require("BlaineVolcano").prepare(P,model)end
     if p.claimed and model and model.cutawayKind then
       local low=P.models[model.cutawayKind]
       p.claimed=P.resolveKind(model.cutawayKind)~=nil
@@ -872,6 +879,8 @@ function F.drawOpaque(state)
 end
 -- Decorative layers retain their original cast ordering after solid scenery.
 function F.drawDetails(state)
+  V.require("BlaineVolcano").draw(state,P,G,M)
+  V.require("Gen1GlassDoors").drawExterior(state,F,P,G,M)
   V.require('SpringBlossom').draw()
   V.require('Halloween').drawProps(state)
   V.require('CalendarDecor').draw(state)

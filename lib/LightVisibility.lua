@@ -103,6 +103,7 @@ function M.prepare(frame,lights,blank)
   atlas=g.newCanvas(width,height,{dpiscale=1});atlasW,atlasH=width,height
   atlas:setFilter('linear','linear')
  end
+ V.require('RasterResources').changing(atlas)
  local copied,rendered=0,0
  g.push('all')
  local ok,err=pcall(function()

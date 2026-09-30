@@ -138,14 +138,14 @@ function C.draw(rim,matrix)
  if rim.windowLight and light<=0 then return end
  -- A baked direction field must not acquire the world's quadratic bend.
  -- All other palette, clock and weather presentation stays on the world path.
- if shader then pcall(shader.send,shader,'curve',{0,0,0})end
+ if shader then G.setWorldCurve({0,0,0})end
  if rim.windowLight then G.flatten({1,.86,.6},light)end
  G.rooftopMaterials(rim.materialMask)
  G.weatherGround(not rim.windowLight)
  local ok,err=pcall(G.draw,rim.mesh,rim.texture,matrix)
  G.rooftopMaterials(nil);G.weatherGround(false)
  if rim.windowLight then G.flatten(nil)end
- if shader then pcall(shader.send,shader,'curve',{G.curveX or 0,G.curveZ or 0,G.curveK or 0})end
+ if shader then G.setWorldCurve({G.curveX or 0,G.curveZ or 0,G.curveK or 0})end
  if not ok then error(err,0)end
 end
 return C

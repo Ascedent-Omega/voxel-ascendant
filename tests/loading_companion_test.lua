@@ -45,3 +45,11 @@ top={};rects={};L.draw(game);assert(rects[1][2]~=0,'warp cover hid error/report'
 L.probe(a,true,'warp');rects={};L.draw(game);assert(#rects==0,'warm arrival got artificial delay')
 active=false;L.probe(a,false,'warp');rects={};L.draw(game);assert(#rects==0,'vanilla got cover')
 print('PASS warp final cover: immediate, long wait, report visibility, immediate release and vanilla')
+
+active=true;L.clear();t=10
+for i=1,30 do
+ t=10+i/60;L.probe(a,false,'warp');L.probe(a,false,'stream')
+end
+assert(L.status().visible and L.status().cover,'alternating arrival probes reset the loading indicator')
+L.probe(a,true,'warp');assert(not L.status().visible,'completed arrival retained loader')
+print('PASS warp/stream share one loading clock and retain native cover ownership')

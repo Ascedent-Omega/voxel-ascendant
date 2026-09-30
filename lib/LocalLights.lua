@@ -145,7 +145,7 @@ local function wallField(map)
  for y=0,h-1 do for x=0,w-1 do
    data:setPixel(x,y,torches.wallCell(map,x,y) and 1 or 0,0,0,1)
  end end
- local texture=love.graphics.newImage(data);data:release()
+ local texture=V.require("RasterResources").seal(love.graphics.newImage(data));data:release()
  texture:setFilter('nearest','nearest');texture:setWrap('clamp','clamp')
  hit={texture=texture,size={w*16,h*16}};wallFields[map]=hit
  return hit
@@ -153,7 +153,7 @@ end
 local function emptyWall()
  if not blankWall then
    local data=love.image.newImageData(1,1)
-   blankWall=love.graphics.newImage(data);data:release()
+   blankWall=V.require("RasterResources").seal(love.graphics.newImage(data));data:release()
  end
  return blankWall
 end
@@ -214,6 +214,7 @@ function M.prepare(state, outdoor, focus, dark, weather, battle, props)
     for _,b in ipairs(interior.blockers)do buildings[#buildings+1]=b end
   end
   local volcanic=(state.map.id or ''):match('^KA_MOLTRES_VOLCANO')and V.require('KascVolcano').profile(state.map)
+    or (state.map.id or ''):match('^KA_BLAINE_')and V.require('BlaineVolcano').atmosphere(state.map)
   if outdoor and not volcanic and V.require('DayNight').windowLight and V.require('DayNight').windowLight()<=0 then
     M.assign(sources,buildings,focus,battle)
     return frame

@@ -1907,6 +1907,10 @@ function HorizonWall.classFor(map)
   -- extension maps fail-safe without maintaining an ID allowlist, and prevents
   -- an outdoor/location/room profile collision from opening a real cavern.
   if id:match('^KA_MOLTRES_VOLCANO')and V.require('KascVolcano').profile(map)then return V.require('KascVolcano').openSky(map)and'mountain'or'cave'end
+  if id:match('^KA_BLAINE_')then
+   local kind=V.require('BlaineVolcano').profile(map)
+   if kind=='arena'then return 'cave'elseif kind=='foot'then return 'mountain'end
+  end
   if CAVE_TILESETS[tileset] then return "cave" end
   if def.runtimeAuthority=='KASC_6_7_STARTER_HABITAT_V2_3'and V.require('KascHabitatScenery').profile(map)=='FIRE'then return 'cave'end
   if not isOutdoor(def) and nativeInteriorProfile(map) then
@@ -2072,6 +2076,7 @@ end
 -- transition.  It never participates in texture scaling; panelUV receives the
 -- canonical coordinate separately.
 function HorizonWall.panelProfile(map, edge, localAlong, sampleSpan)
+  if map and map.id=='KA_BLAINE_VOLCANO_FOOT'and V.require('BlaineVolcano').horizon(map)then return 'none',0,{ground='none'}end
   if map and map.id=='KA_MOLTRES_VOLCANO'and V.require('KascVolcano').openSky(map)then return 'none',0,{ground='none'}end
   if map and map.id=='KA_HEVO_RAYQUAZA_CHAMBER'and V.require('KascSkySanctum').matches(map)then return 'none',0,{ground='none'}end
   local def = map and map.def or {}
@@ -2188,13 +2193,14 @@ local function covered(rects, own, x, z)
   return false
 end
 
+local QUAD_INDICES={1,2,3,1,3,4}
 local function pushQuad(verts, indices, corners, uv, shade)
   local base = #verts
   for i = 1, 4 do
     local p, t = corners[i], uv[i]
     verts[#verts + 1] = { p[1], p[2], p[3], t[1], t[2], shade }
   end
-  for _, i in ipairs({ 1, 2, 3, 1, 3, 4 }) do indices[#indices + 1] = base + i end
+  for _, i in ipairs(QUAD_INDICES) do indices[#indices + 1] = base + i end
 end
 
 -- Render-only Cerulean pool architecture in the closed north apron. It never
@@ -3149,12 +3155,15 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
   local groupsByFamily, groups = {}, {}
   local wallQuads, doorQuads, ceilingQuads = 0, 0, 0
   local work = 0
+  local clock=love and love.timer and love.timer.getTime
+  local started=clock and clock()or 0
   local function checkpoint()
     if not cooperativeStep then return end
     work = work + 1
-    if work >= HorizonWall.BUILD_UNITS_PER_SLICE then
+    if work >= HorizonWall.BUILD_UNITS_PER_SLICE or clock and clock()-started>=.00075 then
       work = 0
       cooperativeStep()
+      started=clock and clock()or 0
     end
   end
   local function groupFor(family)
@@ -3322,12 +3331,31 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
           quad(frame,math.max(panel.from,door.from-2),door.from,0,door.height+2,0,0,.01,.01,inset*2)
           quad(frame,door.upto,math.min(panel.upto,door.upto+2),0,door.height+2,0,0,.01,.01,inset*2)
           quad(frame,door.from,door.upto,door.height,door.height+2,0,0,.01,.01,inset*2)
-          -- Fully opaque doors conceal the unrendered destination. Two-cell
-          -- entrances use two leaves, retaining human-scale proportions.
-          if not door.open then
+          -- Fully opaque leaves conceal the retained destination picture.
+          -- Leaf count follows the corresponding exterior entrance.
+          if door.material=='room_glass_door' then
+            local recess={family='room_door_recess',vertices={},indices={},interiorPanel=panel,doorFrame=true,doorView=door.doorView,
+              slidingDoor={mapId=entry.map.id,edge=panel.edge,at=panel.at,horizontal=horizontal,
+                center=(door.from+door.upto)/2,width=door.upto-door.from,travel=0,sign=0}}
+            groups[#groups+1]=recess
+            local reverse=panel.edge=='south'or panel.edge=='west'
+            quad(recess,door.from,door.upto,0,door.height,reverse and 1 or 0,reverse and 0 or 1,1,0,-inset*8)
+            -- The two leaves slide behind the existing wall, not across its
+            -- artwork. The dark recessed vestibule always seals the opening.
+            local span=(door.upto-door.from)/2
+            for leaf=1,2 do
+              local a=door.from+(leaf-1)*span
+              local group={family='room_glass_door',vertices={},indices={},interiorPanel=panel,
+                slidingDoor={mapId=entry.map.id,edge=panel.edge,at=panel.at,horizontal=horizontal,
+                  center=(door.from+door.upto)/2,width=door.upto-door.from,travel=span,
+                  sign=leaf==1 and -1 or 1}}
+              groups[#groups+1]=group
+              quad(group,a,a+span,0,door.height,leaf==1 and 0 or 1,leaf==1 and 1 or 0,1,0,-inset*4)
+            end
+          elseif not door.open then
           local leafGroup={family=door.material or "room_door",vertices={},indices={},interiorPanel=panel,doorFrame=true}
           groups[#groups+1]=leafGroup
-          local leaves=not door.material and (door.upto-door.from)>24 and 2 or 1
+          local leaves=not door.singleLeaf and not door.material and (door.upto-door.from)>24 and 2 or 1
           local span=(door.upto-door.from)/leaves
           for leaf=1,leaves do
             local a=door.from+(leaf-1)*span
@@ -5952,14 +5980,6 @@ local function geometryFor(entry, own, rects, cooperativeStep,
   local foregroundQuads = treeCount * HorizonWall.FOREGROUND_TREE_QUADS
                           + canopyFillerQuads + ruralTerminalQuads
 
-  local exitDoor = Gen1GymInteriors.exitDoor(entry.map)
-  if exitDoor then
-    local group=wallGroup(exitDoor.family)
-    local offset=#group.vertices
-    for _,v in ipairs(exitDoor.vertices)do group.vertices[#group.vertices+1]=v end
-    for _,i in ipairs(exitDoor.indices)do group.indices[#group.indices+1]=offset+i end
-    checkpoint(1)
-  end
   local waterScenery = HorizonWall.waterArenaScenery(entry.map, entry.w)
   if waterScenery then
     local group = wallGroup("water_arena")
@@ -6026,6 +6046,9 @@ local function geometryFor(entry, own, rects, cooperativeStep,
   table.sort(editorFamilies)
   for _, family in ipairs(editorFamilies) do
     wallGroups[#wallGroups + 1] = wallGroupsByFamily[family]
+  end
+  for _,group in ipairs(V.require('Gen1GymDoors').geometry(entry.map,HorizonWall.BELT)or{})do
+    wallGroups[#wallGroups+1]=group
   end
   table.sort(decorationGroups, function(a, b)
     local rankA = a.kind == "overlay" and 0 or 1
@@ -7072,7 +7095,7 @@ end
 
 local function isRetainedInterior(class)
   if class == "interior_ceiling" or GymSkylights.isFamily(class) then return true end
-  return CavePanoramas.families[class] or (class=="room_door" or class=="room_security_door" or class=="room_breach_exterior" or class=="room_sign") or (type(class)=="string" and class:sub(1,12)=="room_finish:")
+  return CavePanoramas.families[class] or (class=="room_door" or (type(class)=="string" and class:match("^room_wood_door:")) or class=="room_glass_door" or class=="room_door_recess" or class=="room_security_door" or class=="room_breach_exterior" or class=="room_sign") or (type(class)=="string" and class:sub(1,12)=="room_finish:")
     or ARCHITECTURAL_MATERIALS[class] or class == "water_fish"
     or class == "water_glass" or class == "water_aquarium"
     or class == "garden_prism" or class == "electric_harbor"
@@ -7099,6 +7122,7 @@ local function retainInteriorTexture(g, canvas, class)
   local ok = pcall(function()
     data = canvas:newImageData()
     image = g.newImage(data, {mipmaps=false, linear=false})
+    V.require("OpaqueMaterials").texture(image,data)
     image:setFilter("nearest", "nearest")
     if canvas.getWrap then image:setWrap(canvas:getWrap()) end
   end)
@@ -7129,7 +7153,7 @@ local function skylineTexture(class)
   if textureFailures[key] then return nil end
   local directional = hasDirectionalPanorama(class)
   local g = love.graphics
-  local W = CavePanoramas.families[class] and CavePanoramas.textureW or (roomFinish or (class=="room_door" or class=="room_security_door" or class=="room_breach_exterior" or class=="room_sign")) and 128 or class == "regional" and HorizonWall.REGIONAL_STRIP_W
+  local W = CavePanoramas.families[class] and CavePanoramas.textureW or (roomFinish or (class=="room_door" or (type(class)=="string" and class:match("^room_wood_door:")) or class=="room_glass_door" or class=="room_door_recess" or class=="room_security_door" or class=="room_breach_exterior" or class=="room_sign")) and 128 or class == "regional" and HorizonWall.REGIONAL_STRIP_W
             or (class == "electric_harbor" or class == "dojo_courtyard") and 256
             or class == "water_fish" and 384
             or class == "water_glass" and 128
@@ -7144,7 +7168,7 @@ local function skylineTexture(class)
             or hasWorldForestStrip(class) and HorizonWall.FOREST_STRIP_W
             or directional and HorizonWall.STRIP_W
             or HorizonWall.DIRECTION_W
-  local H = CavePanoramas.families[class] and CavePanoramas.sourceH or (roomFinish or (class=="room_door" or class=="room_security_door" or class=="room_breach_exterior" or class=="room_sign")) and 256 or class == "regional" and HorizonWall.REGIONAL_TEXTURE_H
+  local H = CavePanoramas.families[class] and CavePanoramas.sourceH or (roomFinish or (class=="room_door" or (type(class)=="string" and class:match("^room_wood_door:")) or class=="room_glass_door" or class=="room_door_recess" or class=="room_security_door" or class=="room_breach_exterior" or class=="room_sign")) and 256 or class == "regional" and HorizonWall.REGIONAL_TEXTURE_H
             or (class == "electric_harbor" or class == "dojo_courtyard") and 128
             or (class == "water_fish" or class == "water_glass") and 64
             or class == "water_aquarium" and 128
@@ -7236,11 +7260,13 @@ local function skylineTexture(class)
       end) then
         pokecenterRoomSkyline(g, W, H)
       end
-    elseif (class=="room_door" or class=="room_security_door" or class=="room_breach_exterior" or class=="room_sign") then
+    elseif (class=="room_door" or (type(class)=="string" and class:match("^room_wood_door:")) or class=="room_glass_door" or class=="room_door_recess" or class=="room_security_door" or class=="room_breach_exterior" or class=="room_sign") then
       if class=="room_sign" then V.require("Gen1InteriorFinish").sign(g,W,H)
       elseif class=="room_breach_exterior" then V.require("Gen1BreachExterior").paint(g,W,H)
+      elseif class=="room_glass_door" then V.require("Gen1InteriorFinish").glassDoor(g,W,H)
+      elseif class=="room_door_recess" then V.require("Gen1InteriorFinish").doorRecess(g,W,H)
       elseif class=="room_security_door" then V.require("Gen1InteriorFinish").securityDoor(g,W,H)
-      else V.require("Gen1InteriorFinish").door(g,W,H) end
+      else local variant=class:match("^room_wood_door:(.+)$");V.require("Gen1InteriorFinish").door(g,W,H,variant and V.require("Gen1DoorStyles").colors[variant]) end
     elseif roomFinish then
       V.require("Gen1InteriorFinish").paint(g,W,H,roomFinish,
         assert(editorPanoramaTexture("editor:kanto_"..roomFinish)))
@@ -7271,6 +7297,7 @@ local function skylineTexture(class)
   end
   canvas = retainInteriorTexture(g, canvas, class)
   if not canvas then textureFailures[key] = true return nil end
+  V.require("RasterResources").seal(canvas)
   textures[key] = canvas
   return canvas
 end
@@ -7367,6 +7394,7 @@ local function groundTexture(class)
   end
   canvas = retainInteriorTexture(g, canvas, class)
   if not canvas then textureFailures[key] = true return nil end
+  V.require("RasterResources").seal(canvas)
   textures[key] = canvas
   return canvas
 end
@@ -7437,6 +7465,7 @@ local function foregroundTreeTexture(class)
     if canvas.release then pcall(canvas.release, canvas) end
     return nil
   end
+  V.require("RasterResources").seal(canvas)
   textures[key] = canvas
   return canvas
 end
@@ -7479,6 +7508,7 @@ local function route8MidgroundTexture()
     textureFailures[key] = true
     return nil
   end
+  V.require("RasterResources").seal(canvas)
   textures[key] = canvas
   return canvas
 end
@@ -7520,6 +7550,7 @@ local function forestGateFacadeTexture()
     textureFailures[key] = true
     return nil
   end
+  V.require("RasterResources").seal(canvas)
   textures[key] = canvas
   return canvas
 end
@@ -7539,7 +7570,7 @@ function HorizonWall.prewarm(map)
     local wallFamily = profile.wallAsset
       and ("editor:" .. profile.wallAsset) or "interior_shell"
     if not skylineTexture(wallFamily) then return false end
-    if profile.nativeRoomPanels and (not skylineTexture("room_finish:"..(profile.theme or "home")) or not skylineTexture("room_door")) then return false end
+    if profile.nativeRoomPanels and (not skylineTexture("room_finish:"..(profile.theme or "home")) or not skylineTexture("room_door") or not skylineTexture("room_glass_door") or not skylineTexture("room_door_recess")) then return false end
     if tostring(map.id):match('^CELADON_MANSION_[123]F$') and not skylineTexture("room_sign") then return false end
     if profile.nativeRoomPanels and #V.require("Gen1SecurityDoors").forMap(map)>0
         and not skylineTexture("room_security_door") then return false end
@@ -7559,7 +7590,7 @@ function HorizonWall.prewarm(map)
     return true
   end
   local families, wantsForeground, missingAsset = {}, false, false
-  if Gen1GymInteriors.exitDoor(map) then families.room_door=true end
+  if Gen1GymInteriors.exitDoor(map) then families.room_glass_door=true;families.room_door_recess=true end
   local id = tostring(map.id or map.def and map.def.id or "")
   local rules = HorizonWall.EDGE_PROFILES[id]
   local function includeKind(kind, placement)
@@ -7858,6 +7889,10 @@ local function newBuildJob(key, maps, worldMaps)
     if #maps==1 and V.require('SilphWindows').enabled(maps[1].map)then
       job.meshes=V.require('SilphWindows').build(maps[1],function()coroutine.yield('silph-world')end,worldMaps,job.meshes)
     end
+    if #maps==1 and maps[1].map.id=='KA_BLAINE_VOLCANO_FOOT'and V.require('BlaineVolcano').horizon(maps[1].map)then
+      V.require('BlaineVolcano').buildHorizon(maps[1],function()coroutine.yield('blaine-volcano')end,job.meshes)
+      return
+    end
     local outdoor=V.require('OutdoorHorizon')
     local voxelExterior = outdoor.active(maps[1].map,HorizonWall)
     if voxelExterior then
@@ -7881,8 +7916,20 @@ local function newBuildJob(key, maps, worldMaps)
       -- allocate unrelated later parts for a result that can never publish.
       error("horizon mesh allocation failed", 0)
     end
+    local function upload(vertices,indices,immutable)
+      local visibility=V.require('PropVisibility')
+      local bounds=immutable and visibility.bounds(vertices,
+        {check=function()coroutine.yield('scenery-bounds')end})or nil
+      local mesh=V.require('SceneryMeshUpload').newMesh(vertices,indices,
+        function()coroutine.yield('scenery-upload')end)
+      -- No yield after allocation until addPart publishes ownership in job.
+      if mesh and immutable then
+        V.require('RasterResources').seal(mesh);visibility.remember(mesh,bounds)
+      end
+      return mesh
+    end
     local function addPart(kind, className, vertices, indices, texture, ox, oy,
-                           animation, shape, castsShadow, interiorPanel)
+                           animation, shape, castsShadow, interiorPanel, slidingDoor, doorView)
       if #vertices == 0 then return end
       if animation and animation.frames > 1 and animation.fps then
         local part = {
@@ -7898,7 +7945,7 @@ local function newBuildJob(key, maps, worldMaps)
           coroutine.yield("before-animation-mesh")
           local frameVertices = frame == 0 and vertices
                                 or animationVertices(vertices, animation, frame)
-          local mesh = texture and Voxel3D.newMesh(frameVertices, indices) or nil
+          local mesh = texture and upload(frameVertices, indices,true) or nil
           if not mesh then failBuild() end
           part.animationMeshes[#part.animationMeshes + 1] = mesh
         end
@@ -7906,21 +7953,21 @@ local function newBuildJob(key, maps, worldMaps)
         return
       end
       coroutine.yield("before-mesh")
-      local mesh = texture and Voxel3D.newMesh(vertices, indices) or nil
+      local mesh = texture and upload(vertices, indices,className~="water_fish"and className~="garden_light") or nil
       if not mesh then failBuild() end
       job.meshes[#job.meshes + 1] = {
         mesh = mesh, texture = texture, ox = ox or 0, oy = oy or 0,
         aquariumBase = className=="water_fish" and vertices or nil,
         prismBase = className=="garden_light" and vertices or nil,
         class = className, kind = kind, shape = shape,
-        interiorPanel = interiorPanel,
+        interiorPanel = interiorPanel, slidingDoor = slidingDoor, doorView = doorView,
         castsShadow = castsShadow == true,
       }
     end
     local function addAtlasPart(kind, className, vertices, indices, textureMap)
       if #vertices == 0 then return end
       coroutine.yield("before-mesh")
-      local mesh = Voxel3D.newMesh(vertices, indices)
+      local mesh = upload(vertices, indices,className~="water_fish"and className~="garden_light")
       if not mesh then failBuild() end
       job.meshes[#job.meshes + 1] = {
         mesh = mesh, textureMap = textureMap, ox = 0, oy = 0,
@@ -8045,7 +8092,8 @@ local function newBuildJob(key, maps, worldMaps)
         coroutine.yield("textures-ready")
 
         for groupIndex, group in ipairs(built.wallGroups or {}) do
-          local texture = wallTextures[groupIndex]
+          if group.slidingDoor then V.require('Gen1GlassDoors').prepareAudio()end
+          local texture = group.doorView and V.require("Gen1GlassDoors").texture(group.doorView) or wallTextures[groupIndex]
           if group.kind == "overlay" or group.kind == "prop" then
             -- Optional imported cut-outs may fail image decode or a dimension
             -- check independently.  Never discard the complete base horizon
@@ -8057,7 +8105,7 @@ local function newBuildJob(key, maps, worldMaps)
             end
           else
             addPart(group.kind or "wall", group.family, group.vertices, group.indices,
-                    texture, built.ox, built.oy, nil, nil, nil, group.interiorPanel)
+                    texture, built.ox, built.oy, nil, nil, nil, group.interiorPanel, group.slidingDoor, group.doorView)
           end
         end
         addPart("ground", built.class, built.groundVertices,
@@ -8225,6 +8273,21 @@ local function advanceJob(job)
   return nil, false
 end
 
+function HorizonWall.ready(state)
+  if not HorizonWall.enabled() then return true end
+  return readyCaches[addressOf(state)]~=nil
+end
+
+-- Borrow the current allocation without starting/resuming a build. A ready
+-- key may have been evicted and rebuilt since a mobile scene was staged;
+-- readiness alone does not validate handles retained from that old entry.
+function HorizonWall.cachedMeshes(state)
+  if not HorizonWall.enabled() or not (state and state.map) then return {} end
+  local key, _, baseX, baseY = addressOf(state)
+  local entry = readyCaches[key]
+  if entry then return touch(entry, baseX, baseY) end
+end
+
 function HorizonWall.buildStatus()
   local ready, pending = 0, 0
   for _ in pairs(readyCaches) do ready = ready + 1 end
@@ -8351,6 +8414,7 @@ end
 -- globally because a reload may have changed a connection graph rather than
 -- merely a block.
 function HorizonWall.invalidateMap(mapId, preservePlacement)
+  HorizonWall.cacheRevision=(HorizonWall.cacheRevision or 0)+1
   if mapId == nil then return false end
   addressCache.clear()
   mapId = tostring(mapId)
@@ -8394,6 +8458,7 @@ function HorizonWall.invalidateMap(mapId, preservePlacement)
 end
 
 function HorizonWall.invalidate()
+  HorizonWall.cacheRevision=(HorizonWall.cacheRevision or 0)+1
   addressCache.clear()
   for _, entry in pairs(readyCaches) do releaseMeshes(entry.meshes) end
   for _, job in pairs(pendingJobs) do releaseMeshes(job.meshes) end

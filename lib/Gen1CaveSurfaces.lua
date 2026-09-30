@@ -40,7 +40,7 @@ function M.texture(prepare)
  if source then source:release()end
  if data then data:release()end
  if not ok then if result then result:release()end;failed=true;return nil end
- atlas=result;return atlas
+ atlas=V.require("RasterResources").seal(result);return atlas
 end
 function M.profile(map)
  if map and map.def and map.def.tileset=='KA_MOLTRES_VOLCANO_67'and map.def.kaOwner=='kasc.hoenn-moltres-volcano/v4'then return nil end

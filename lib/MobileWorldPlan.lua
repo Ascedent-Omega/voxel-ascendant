@@ -56,4 +56,24 @@ function P.covers(rich, terrain)
   return true
 end
 
+-- Plans retain placement/scenery, not ownership of cached BODY allocations.
+-- Rebind by map identity and offset after meshing or battle cache retirement.
+function P.refresh(rich, terrain)
+  if rich.state.map ~= terrain.state.map then return false end
+  local indices = {}
+  for i, nb in ipairs(rich.state.neighbors or {}) do
+    for j, current in ipairs(terrain.state.neighbors or {}) do
+      if nb.map == current.map and nb.ox == current.ox and nb.oy == current.oy then
+        indices[i] = j
+        break
+      end
+    end
+    if not indices[i] then return false end
+  end
+  for i, j in ipairs(indices) do
+    rich.meshes[i], rich.waters[i] = terrain.meshes[j], terrain.waters[j]
+  end
+  return true
+end
+
 return P

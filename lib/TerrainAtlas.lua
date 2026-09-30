@@ -39,6 +39,7 @@ local MOBILE_RUNTIME = CanvasPresentation.OS == "iOS"
   or CanvasPresentation.OS == "Android"
 
 local TerrainAtlas = {}
+local OpaqueMaterials=V.require("OpaqueMaterials")
 
 local cache = {}
 local cacheData = {}    -- the pixels behind the atlases we baked ourselves
@@ -144,6 +145,8 @@ local function staticAtlas(map, colors)
     end
     local image = love.graphics.newImage(out)
     image:setFilter("nearest", "nearest")
+    V.require("RasterResources").seal(image)
+    OpaqueMaterials.texture(image,out)
     data = out
     return image
   end)
@@ -532,6 +535,8 @@ local function phaseImage(entry, frame)
   end
   image=love.graphics.newImage(entry.data)
   image:setFilter("nearest","nearest")
+  V.require("RasterResources").seal(image)
+    OpaqueMaterials.texture(image,entry.data)
   if entry.count>=entry.capacity then
     local oldest,age
     for k in pairs(entry.frames) do
@@ -742,6 +747,8 @@ function TerrainAtlas.forSprite(path, colors)
     end
     local image = love.graphics.newImage(out)
     image:setFilter("nearest", "nearest")
+    V.require("RasterResources").seal(image)
+    OpaqueMaterials.texture(image,out)
     return image
   end)
   cache[key] = ok and img or false
@@ -768,6 +775,7 @@ function TerrainAtlas.setLive(live)
 end
 
 function TerrainAtlas.invalidate()
+  TerrainAtlas.cacheRevision=(TerrainAtlas.cacheRevision or 0)+1
   cache = {}
   cacheData = {}
   attempts = {}

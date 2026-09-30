@@ -2924,7 +2924,7 @@ local function vascPatch(self)
           seatProfile,seatLook,seatSettled=humanJohtoSeat:pose(self.activeGame,record,seatDialogue,seatNow)
           if seatProfile then
             row,activeColumn=seatProfile.row,0
-            if seatProfile.contact or seatProfile.mapId=='GAME_CORNER' then
+            if seatProfile.contact or seatProfile.mapId=='GAME_CORNER' or record.externalHumanSources then
               -- Fixed furniture owns the pose; a one-frame authored sitting
               -- portrait (Mom) cannot be fed into the 3x4 contact rig.
               activeSource=cardSource;actingSource=nil;actingBreath=nil;humanBreath=nil

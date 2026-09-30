@@ -79,10 +79,9 @@ function M.register(P,F)
   local door=lab and 40 or 24
   b(door-9,2,front,2,18,2,4);b(door+7,2,front,2,18,2,4)
   b(door-9,20,front,18,2,3,4)
-  b(door-7,2,front,14,18,1,lab and C.navy or C.walnut)
-  b(door-5,4,front+1,10,6,1,lab and 10 or C.oak)
-  g(door-5,12,front+1,10,6,1,7)
-  b(door+4,10,front+2,1,2,1,11)
+  V.require('Gen1DoorStyles').exterior(P,function(x,y,z,bw,bh,bd,c)
+   b(door+x,y,front+z-2,bw,bh,bd,c)
+  end,lab and 'OAKS_LAB'or blue and 'BLUES_HOUSE'or 'REDS_HOUSE_1F',14,18)
   b(door-8,0,front,16,1,8,14)
   if lab then
    window(9,9,front,16,11);window(61,9,front,20,11)

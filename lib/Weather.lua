@@ -272,6 +272,7 @@ end
 
 function Weather.skyState(map)
   if map and map.id=='KA_MOLTRES_VOLCANO'and V.require('KascVolcano').openSky(map)then return 'volcanic',false end
+  if map and map.id=='KA_BLAINE_VOLCANO_FOOT'and V.require('BlaineVolcano').atmosphere(map)then return 'volcanic',false end
   if skyProvider and Weather.isOutdoor(map) then
     local ok, supplied = pcall(skyProvider, map)
     if ok then
@@ -757,14 +758,15 @@ end
 
 -- Paint into and return the canvas supplied by VoxelScene. Failure is a
 -- visual fallback only: the already-finished world canvas remains valid.
-local function apply(canvas, w, h, map, cell, resolvedMode, battle, spatialRain)
+local function apply(canvas, w, h, map, cell, resolvedMode, battle, spatialRain, bound)
   -- Regional rain/snow continue across Lavender's border; its local haunted
   -- air is independently depth-tested by IndoorMist.
-  local volcanic=map and (map.id or ''):match('^KA_MOLTRES_VOLCANO')and V.require('KascVolcano').profile(map)
+  local volcanic=map and ((map.id or ''):match('^KA_MOLTRES_VOLCANO')and V.require('KascVolcano').profile(map)
+    or (map.id or ''):match('^KA_BLAINE_')and V.require('BlaineVolcano').atmosphere(map))
   local mode = volcanic and 'volcanic'or resolvedMode or Weather.mode(map)
   local activity=not battle and V.require('CinnabarActivity') or nil
   local ash=activity and activity.ashAmount(map) or 0
-  local rainbow = not battle and SkyEvents.rainbowProgress(mapId(map)) or nil
+  local rainbow = not battle and not volcanic and SkyEvents.rainbowProgress(mapId(map)) or nil
   if not canvas then return canvas, false end
   local autumnGust, autumnAmount
   if mode == "clear" or mode == "rain" then
@@ -787,7 +789,7 @@ local function apply(canvas, w, h, map, cell, resolvedMode, battle, spatialRain)
     g.push("all")
     pushed = true
     g.origin()
-    g.setCanvas(canvas)
+    if not bound then g.setCanvas(canvas)end
     if CanvasPresentation and CanvasPresentation.begin2D then
       CanvasPresentation.begin2D(g, h)
     end
@@ -831,12 +833,12 @@ local function apply(canvas, w, h, map, cell, resolvedMode, battle, spatialRain)
     if rainbow and (mode == "clear" or mode == "off") then
       paintRainbowReflections(g, w, h, rainbow, map)
     end
-    g.setCanvas()
+    if not bound then g.setCanvas()end
     g.pop()
     pushed = false
   end)
   if not ok then
-    pcall(g.setCanvas)
+    if not bound then pcall(g.setCanvas)end
     if pushed then pcall(g.pop) end
   end
   if ok and mode == "storm" and flash > 0 and thunderHook
@@ -848,7 +850,7 @@ local function apply(canvas, w, h, map, cell, resolvedMode, battle, spatialRain)
 end
 
 
-function Weather.apply(canvas, w, h, map, cell, resolvedMode, spatialRain)
+function Weather.apply(canvas, w, h, map, cell, resolvedMode, spatialRain, bound)
   local mode = resolvedMode or Weather.mode(map)
   local changed = Weather._performanceMode ~= mode
   if changed and PerformanceDiagnostics
@@ -857,7 +859,7 @@ function Weather.apply(canvas, w, h, map, cell, resolvedMode, spatialRain)
       mapId=map and map.id, source="gen1-weather-pass",
     })
   end
-  local out, painted = apply(canvas, w, h, map, cell, mode, false, spatialRain)
+  local out, painted = apply(canvas, w, h, map, cell, mode, false, spatialRain,bound)
   Weather._performanceMode = mode
   if PerformanceDiagnostics then
     if changed and type(PerformanceDiagnostics.endLoad) == "function" then
@@ -876,9 +878,9 @@ function Weather.apply(canvas, w, h, map, cell, resolvedMode, spatialRain)
   return out
 end
 
-function Weather.applyBattle(canvas, w, h, map, cell, resolvedMode, spatialRain)
+function Weather.applyBattle(canvas, w, h, map, cell, resolvedMode, spatialRain, bound)
   local mode = resolvedMode or Weather.mode(map)
-  local out, painted = apply(canvas, w, h, map, cell, mode, true, spatialRain)
+  local out, painted = apply(canvas, w, h, map, cell, mode, true, spatialRain, bound)
   if PerformanceDiagnostics
       and type(PerformanceDiagnostics.reportWeather) == "function" then
     PerformanceDiagnostics.reportWeather({

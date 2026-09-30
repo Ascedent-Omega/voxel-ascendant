@@ -84,8 +84,8 @@ end
 
 -- Stand a `w` x `h` card with its feet centred on world (x, y, z).
 function BattleBillboard.matrix(x, y, z, w, h, yaw)
-  return Mat4.mul(Mat4.mul(Mat4.translate(x, y, z), Mat4.rotateY(yaw)),
-                  Mat4.scale(w, h, 1))
+  local c,s=math.cos(yaw),math.sin(yaw)
+  return {c*w,0,s,x, 0,h,0,y, -s*w,0,c,z, 0,0,0,1}
 end
 
 -- The world size a pic of `pw` x `ph` texture pixels stands at.

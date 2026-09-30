@@ -397,7 +397,8 @@ end
 -- pixel collage: the ARENA frame declines and the ordinary battle remains.
 VoxelBattleStage.BACKDROP_W = 1280
 VoxelBattleStage.BACKDROP_H = 800
-VoxelBattleStage.BACKDROP_CACHE = 8
+local backdropOS=love and love.system and love.system.getOS and love.system.getOS()
+VoxelBattleStage.BACKDROP_CACHE = (backdropOS=="iOS" or backdropOS=="Android") and 2 or 8
 
 local AUTHORED_BACKDROPS = {
   nugget_bridge = {
@@ -620,10 +621,8 @@ local function validWindow(region, width, height)
   return true
 end
 
-local function authoredSpec(arena)
-  local style = arena and arena.arenaStyle
-  local spec = style and (REVIEWED_BACKDROPS[style.mapId]
-                          or AUTHORED_BACKDROPS[style.id])
+local validatedSpecs=setmetatable({},{__mode="k"})
+local function validateSpec(spec)
   if not (spec and spec.camera == "3X" and type(spec.outdoor) == "boolean"
           and type(spec.path) == "string" and spec.path ~= ""
           and (spec.frlgPath == nil
@@ -673,6 +672,14 @@ local function authoredSpec(arena)
     return nil
   end
   return spec
+end
+
+local function authoredSpec(arena)
+  local style=arena and arena.arenaStyle
+  local spec=style and (REVIEWED_BACKDROPS[style.mapId] or AUTHORED_BACKDROPS[style.id])
+  if not spec then return nil end
+  if validatedSpecs[spec]==nil then validatedSpecs[spec]=validateSpec(spec) or false end
+  return validatedSpecs[spec] or nil
 end
 
 local function authoredPath(arena, spec)
@@ -1409,7 +1416,7 @@ local function build()
     {  1, 0,  1, 1, 1, s },
     { -1, 0,  1, 0, 1, s },
   }
-  return Voxel3D.newMesh(verts, { 1, 2, 3, 1, 3, 4 })
+  return Voxel3D.newMesh(verts, { 1, 2, 3, 1, 3, 4 },true)
 end
 
 function VoxelBattleStage.mesh()
@@ -1418,6 +1425,7 @@ function VoxelBattleStage.mesh()
 end
 
 function VoxelBattleStage.invalidate()
+  validatedSpecs=setmetatable({},{__mode="k"})
   local host=V.require("TerarriumHost")
   if host.service then host.service.release() end
   if texture and texture.release then pcall(texture.release, texture) end
@@ -1530,6 +1538,7 @@ function VoxelBattleStage.draw(arena, groundY, cards)
   local m = VoxelBattleStage.mesh()
   local tex = VoxelBattleStage.textureFor(arena)
   if not (m and tex) then return end
+  V.require("RasterResources").seal(tex)
   Voxel3D.seams(false)
   Voxel3D.glass(false)
   each(arena, groundY, function(matrix) Voxel3D.draw(m, tex, matrix) end, cards)

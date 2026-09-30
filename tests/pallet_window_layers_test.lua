@@ -1,6 +1,6 @@
 local P={models={},decorColors={}}
 local colors=0;setmetatable(P.decorColors,{__index=function(t,k)colors=colors+1;rawset(t,k,colors+50);return colors+50 end})
-local modules={ModSetting={new=function()return {get=function()return true end}end},VoxelWinterDetails={roof=function()return 'winter'end}}
+local modules={Gen1DoorStyles=assert(loadfile('lib/Gen1DoorStyles.lua'))(),ModSetting={new=function()return {get=function()return true end}end},VoxelWinterDetails={roof=function()return 'winter'end}}
 local V={require=function(n)return assert(modules[n],n)end,data=function()return {buildings={OVERWORLD={}}}end}
 local Village=assert(loadfile('lib/Gen1PalletVillage.lua'))(V)
 Village.register(P,{patterns={}})

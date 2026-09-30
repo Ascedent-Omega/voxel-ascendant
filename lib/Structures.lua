@@ -1102,7 +1102,8 @@ local function pixels(tileset)
   local path = tileset.image
   if atlasData[path] == nil then
     local ok, data = pcall(Assets.imageData, path)
-    atlasData[path] = (ok and data and data.getPixel) and data or false
+    atlasData[path] = (ok and data and data.getPixel)
+      and V.require("TilesetPixels").decode(data,Budget) or false
   end
   return atlasData[path] or nil
 end
@@ -1812,6 +1813,32 @@ function Structures.forMap(map)
   V.require('VoxelFurniture').prepareTerrainDecoration(S,map)
   cache[map.id] = S
   return S
+end
+
+function Structures.forBuild(map)
+  local held=cache[map.id]
+  if held and held.buildDataReleased then cache[map.id]=nil end
+  return Structures.forMap(map)
+end
+function Structures.releaseBuildData(map)
+  local S=map and cache[map.id]
+  if not S or S.buildDataReleased then return end
+  local heights={}
+  for _,q in ipairs(S.objectQuads or{})do
+    Budget.tick()
+    local x0,z0,x1,z1,h=math.huge,math.huge,-math.huge,-math.huge,0
+    for i=1,4 do local p=q[i]
+      x0,z0=math.min(x0,p[1]),math.min(z0,p[3])
+      x1,z1,h=math.max(x1,p[1]),math.max(z1,p[3]),math.max(h,p[2])
+    end
+    if h>1 then for z=math.floor(z0/4),math.floor(z1/4)do
+      local row=heights[z]or{};heights[z]=row
+      for x=math.floor(x0/4),math.floor(x1/4)do row[x]=math.max(row[x]or 0,h)end
+    end end
+  end
+  S.objectHeights=heights
+  S.objectQuads,S.flowerQuads,S.figures,S.grassGroups,S.grassQuads=nil,nil,nil,nil,nil
+  S.buildDataReleased=true
 end
 
 -- ---- round scenery: outline-hulled voxel balls ----

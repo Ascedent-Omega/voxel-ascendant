@@ -162,6 +162,7 @@ function VoxelScene.preparePrograms(state)
   if skyCold and outdoor then Sky.prepareProgram();return true end
   if Water.prepareProgram and Water.prepareProgram(VoxelGrid.enabled()) then return true end
   if Water.level()==2 and V.require('WaterReflection').prepareProgram() then return true end
+  if Voxel3D.prepareOpaqueProgram and Voxel3D.prepareOpaqueProgram()then return true end
   if V.require('StaticLightField').prepareProgram()then return true end
   return V.require('IndoorMist').prepareProgram(state.map,state.dark)
 end
@@ -742,25 +743,16 @@ local function billboardPull()
   return VoxelScene.pull(math.max(leanAngle(), 0.05))
 end
 
--- An authored FIGURE's card -- a person the tileset draws INTO a piece of
--- furniture, cut out by the profile's mask (Structures.buildFigures). It is
--- a sprite, so it gets the sprite treatment: the mesh arrives in its own
--- local space with its feet on y = 0, and this stands it at its drawn
--- position and tips it back by exactly the camera's pitch -- the same
--- pivot-at-the-feet lean billboardMatrix gives a character, so the man on
--- the Pokemon Center couch reads face-on at every tilt like the NPCs
--- around him. No cell centring: unlike a character he is not standing on a
--- cell, he is standing where he was drawn, which may straddle two.
---
--- First person turns him at the eye like the walkers (see billboardMatrix)
--- -- about his own middle, because unlike a character card his local space
--- starts at x = 0 rather than being anchored by a -8 shift, and a yaw about
--- his edge would swing him off his seat. The width rode in on the record
--- for exactly this (ChunkMesher.buildFigureMeshes).
+-- Tile-authored figures use their own local pixel coordinates and furniture
+-- anchor. Ordinary cards follow the camera; the Center sitter belongs to its
+-- fixed couch and keeps that orientation in every view and art style.
 local function figureMatrix(f, offX, offZ)
   local b = FirstPerson.cardBlend()
   local wx, wz = f.wx + (offX or 0), f.wz + (offZ or 0)
   local m = Mat4.translate(wx, f.y, wz)
+  -- This actor belongs to a fixed couch. Turning or leaning its card with
+  -- the camera rotates the sitter through the cushion and backrest.
+  if f.hdActor == 'pokecenter_seated_man' then return m end
   if b > 0 and f.w and f.w > 0 then
     local half = f.w / 2
     m = Mat4.mul(m, Mat4.translate(half, 0, 0))
@@ -1408,6 +1400,7 @@ local function mobileCorePrefetch(state)
     and MobileSceneryGate.allow(map)
   local visiblePlan = richPlan and MobileWorldPlan.covers(bodyPlan, richPlan)
     and (richActive or MobileWorldPlan.covers(richPlan, bodyPlan))
+    and MobileWorldPlan.refresh(richPlan, bodyPlan)
     and richPlan or bodyPlan
   if not ring.semantic and mobileCoreTrace.presented == true
       and #visiblePlan.state.neighbors == 0 then
@@ -1559,7 +1552,7 @@ end
 -- the destination's build: the map swaps behind the fade, and waiting
 -- for the first visible frame to request meshes would show the flat
 -- fallback while the first slices run.
-function VoxelScene.prefetch(state)
+local function prefetchScene(state)
   if MOBILE_RUNTIME then return mobileCorePrefetch(state) end
   state=V.require('VisibleNeighborhood').apply(state)
   local Voxel = V.require("VoxelState")
@@ -1778,7 +1771,53 @@ function VoxelScene.prefetch(state)
   -- The first four values are BattleScene's established, sparse/index-aligned
   -- contract. The fifth is overworld-private and safe for old Lua callers to
   -- ignore.
+  plan.warmComplete=complete and #plan.state.neighbors==#(state.neighbors or{})
   return terrain, nbMesh, water, nbWater, plan
+end
+
+
+-- Geometry can publish or retire between update and draw; those revisions
+-- invalidate the receipt before a released/stale mesh can be reused.
+local prefetchCache=V.require('ScenePrefetchCache').new()
+local prefetchFrame
+function VoxelScene.beginFrame()
+  prefetchFrame=(prefetchFrame or 0)+1
+end
+local function prefetchOptions()
+  return ChunkMesher.cacheRevision,ChunkMesher.workSerial,HorizonWall.cacheRevision,
+    TerrainAtlas.cacheRevision,V.require('VoxelState').level,preparingCovered,
+    V.require('WorldResidency').setting:get(),V.require('VisibleNeighborhood').setting:get(),
+    HorizonWall.enabled(),require('src.render.TileRenderer').voidFill
+end
+local function warmPlanReady(state)
+  if not V.require('VoxelState').ready or ChunkMesher.pending()>0 then return false end
+  if not V.require('VoxelPropBatch').prepared(state.map)then return false end
+  local result=prefetchCache.peek();local plan=result and result[5]
+  return plan and plan.warmComplete
+    and (plan.horizonFallback or HorizonWall.ready(plan.state))
+end
+function VoxelScene.prefetch(state)
+  -- Mobile's reveal/scenery transaction keeps its independently tested lane.
+  if MOBILE_RUNTIME then return prefetchScene(state) end
+  local cached=prefetchCache.get(state,prefetchFrame,prefetchOptions())
+  if not cached and warmPlanReady(state)then
+    cached=prefetchCache.reuse(state,prefetchFrame,prefetchOptions())
+  end
+  if cached then return unpack(cached,1,5) end
+  local result={prefetchScene(state)}
+  prefetchCache.store(state,prefetchFrame,result,prefetchOptions())
+  return unpack(result,1,5)
+end
+function VoxelScene.needsWarmPrefetch(state)
+  if MOBILE_RUNTIME or not warmPlanReady(state)then return true end
+  if prefetchCache.matches(state,true,prefetchOptions())then
+    prefetchCache.warmSkips=prefetchCache.warmSkips+1
+    return false
+  end
+  return true
+end
+function VoxelScene.prefetchCacheStatus()
+  return {builds=prefetchCache.builds,hits=prefetchCache.hits,warmSkips=prefetchCache.warmSkips,reuses=prefetchCache.reuses}
 end
 
 mobileGateStatus = function(map)
@@ -2654,7 +2693,7 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
   ShadowMap.draw(terrain, atlasFor(state.map), nil)
   for i, nb in ipairs(state.neighbors or {}) do
     ShadowMap.draw(nbMesh[i], atlasFor(nb.map),
-                   Mat4.translate(nb.ox, 0, nb.oy))
+                   Mat4.translationFor(nb,nb.ox, 0, nb.oy))
   end
   if policy.casters == "world" then
     -- The water surface is a receiver, but the legacy full-world pass also
@@ -2662,7 +2701,7 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
     ShadowMap.draw(water, atlasFor(state.map), nil)
     for i, nb in ipairs(state.neighbors or {}) do
       ShadowMap.draw(nbWater and nbWater[i], atlasFor(nb.map),
-                     Mat4.translate(nb.ox, 0, nb.oy))
+                     Mat4.translationFor(nb,nb.ox, 0, nb.oy))
     end
   end
   -- Ground-standing editor models live in HorizonWall's retained decoration
@@ -2673,7 +2712,7 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
     if rim.castsShadow then
       local caster = rim.animationMeshes and rim.animationMeshes[1] or rim.mesh
       ShadowMap.draw(caster, rim.texture,
-                     Mat4.translate(rim.ox or 0, 0, rim.oy or 0))
+                     Mat4.translationFor(rim,rim.ox or 0, 0, rim.oy or 0))
     end
   end
   -- flower billboards live outside the terrain mesh (they draw after the
@@ -2684,10 +2723,10 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
   -- of starting a bias-width away.
   if policy.casters == "objects" then ShadowMap.sprites(true) end
   ShadowMap.draw(ChunkMesher.flowers(state.map), atlasFor(state.map),
-                 ShadowMap.snug(nil))
+                 ShadowMap.snugStatic(nil))
   for _, nb in ipairs(state.neighbors or {}) do
     ShadowMap.draw(ChunkMesher.flowers(nb.map), atlasFor(nb.map),
-                   ShadowMap.snug(Mat4.translate(nb.ox, 0, nb.oy)))
+                   ShadowMap.snugStatic(Mat4.translationFor(nb,nb.ox, 0, nb.oy)))
   end
   -- From here down it is the CAST, marked as such in the map (see
   -- ShadowMap.sprites) so water can decline them: everything the world casts
@@ -2810,7 +2849,6 @@ end
 
 -- Render the world once into the active window-resolution scene canvas.
 renderWorld = function(state, w, h, vw, vh, paletteFor)
-  if not MOBILE_RUNTIME then state=V.require('VisibleNeighborhood').apply(state)end
   -- With nothing cached at all (the first frame of a fresh toggle),
   -- return nil: the engine keeps the 2D path for the frame and
   -- Voxel.ready holds the camera tween at flat, so the switch waits
@@ -3053,11 +3091,10 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     -- canvas for this frame instead of drawing released GPU objects.
     horizon = {}
     if mobileScenery and sceneryEnabled then
-      local status = type(HorizonWall.cacheStatus) == "function"
-                     and HorizonWall.cacheStatus(drawState) or nil
+      local current = HorizonWall.cachedMeshes(drawState)
       local valid = mobileSceneryHorizonMap == state.map
                     and mobileSceneryHorizon ~= nil
-                    and (status == nil or status.ready == true)
+                    and current ~= nil
       if not valid then
         mobileSceneryHorizon = nil
         if type(MobileSceneryGate.restage) == "function" then
@@ -3066,7 +3103,8 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
         return type(MobileSceneryGate.lastSafeCanvas) == "function"
                and MobileSceneryGate.lastSafeCanvas(state.map) or nil
       end
-      horizon = mobileSceneryHorizon
+      horizon = current
+      mobileSceneryHorizon = current
     end
   else
     horizon = plan.horizonFallback and {} or HorizonWall.meshes(drawState)
@@ -3189,7 +3227,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   end
   for i, nb in ipairs(drawState.neighbors or {}) do
     Voxel3D.draw(drawMesh[i], atlasFor(nb.map),
-                 Mat4.translate(nb.ox, 0, nb.oy))
+                 Mat4.translationFor(nb,nb.ox, 0, nb.oy))
   end
   Voxel3D.caveWalls(0)
   V.require("SnowRamps").draw(state)
@@ -3237,36 +3275,44 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
         setCutaway()
       end
       if rim.class=='rooftop_baked'then
-        V.require('RooftopCache').draw(rim,Mat4.translate(rim.ox,0,rim.oy))
+        V.require('RooftopCache').draw(rim,Mat4.translationFor(rim,rim.ox,0,rim.oy))
       elseif rim.class=='silph_exterior'then
         Voxel3D.roomVisibility(nil);Voxel3D.drawTint(DayNight.tint(true))
         Voxel3D.silphWindow(state.map,HorizonWall.interiorProfileFor(state.map).shellHeight)
         if rim.bakedWindow then
-          V.require('RooftopCache').draw(rim,Mat4.translate(rim.ox,0,rim.oy))
+          V.require('RooftopCache').draw(rim,Mat4.translationFor(rim,rim.ox,0,rim.oy))
         else
-        outdoorHorizon.draw(rim,Mat4.translate(rim.ox,V.require('SilphElevator').offset(state.map),rim.oy),horizonVisible)
+        outdoorHorizon.draw(rim,Mat4.translationFor(rim,rim.ox,V.require('SilphElevator').offset(state.map),rim.oy),horizonVisible)
         end
         Voxel3D.silphWindow(nil)
         Voxel3D.drawTint()
         Voxel3D.roomVisibility(roomView,true)
       elseif rim.class=='voxel_horizon'then
-        outdoorHorizon.draw(rim,Mat4.translate(rim.ox,0,rim.oy),horizonVisible)
+        outdoorHorizon.draw(rim,Mat4.translationFor(rim,rim.ox,0,rim.oy),horizonVisible)
       elseif rim.class=='room_breach_exterior' or rim.class=='room_breach_roof' then
         V.require('Gen1BreachExterior').draw(Voxel3D,rim,
-          Mat4.translate(rim.ox,0,rim.oy),DayNight,love.graphics)
+          Mat4.translationFor(rim,rim.ox,0,rim.oy),DayNight,love.graphics)
       elseif V.require('GymSkylights').isFamily(rim.class) then
         V.require('GymSkylights').draw(Voxel3D,rim,state.map,DayNight,skyWeatherMode,
-          Mat4.translate(rim.ox,0,rim.oy))
+          Mat4.translationFor(rim,rim.ox,0,rim.oy))
+      elseif rim.doorView then
+        local doors=V.require('Gen1GlassDoors')
+        if doors.viewVisible(rim.slidingDoor)then
+          doors.drawView(Voxel3D,rim.mesh,rimTexture,Mat4.translationFor(rim,rim.ox,0,rim.oy),true)
+        end
+      elseif rim.slidingDoor then
+        local dx,dz=V.require('Gen1GlassDoors').offset(rim.slidingDoor)
+        Voxel3D.draw(rim.mesh,rimTexture,Mat4.translationFor(rim,rim.ox+dx,0,rim.oy+dz))
       elseif HorizonWall.architecturalRoom(state.map) then
         ArenaScenery.draw(Voxel3D, rim, rimTexture,
-          Mat4.translate(rim.ox, 0, rim.oy), {
+          Mat4.translationFor(rim,rim.ox, 0, rim.oy), {
             outdoor=false, surfaces=false,
             prismLight=ArenaScenery.prismLight(DayNight,skyWeatherMode),
             prismClock=DayNight,
           })
       else
       Voxel3D.draw(rim.mesh, rimTexture,
-                   Mat4.translate(rim.ox, 0, rim.oy))
+                   Mat4.translationFor(rim,rim.ox, 0, rim.oy))
       end
       if unmaskedCeiling then Voxel3D.roomVisibility(roomView,true) end
     end
@@ -3327,7 +3373,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     maritimeWater = maritimeWater or maritime(nb.map)
     if drawWater and drawWater[i] then
       waterDraws[#waterDraws + 1] = { drawWater[i], atlasFor(nb.map),
-                                      Mat4.translate(nb.ox, 0, nb.oy) }
+                                      Mat4.translationFor(nb,nb.ox, 0, nb.oy) }
     end
   end
   -- Directional horizon water (currently Cinnabar's whole free southern
@@ -3337,7 +3383,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   for _, rim in ipairs(horizon) do
     if rim.kind == "water" then
       waterDraws[#waterDraws + 1] = {
-        rim.mesh, rim.texture, Mat4.translate(rim.ox, 0, rim.oy),
+        rim.mesh, rim.texture, Mat4.translationFor(rim,rim.ox, 0, rim.oy),
       }
     end
   end
@@ -3384,7 +3430,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     Voxel3D.draw(ChunkMesher.grass(state.map), atlasFor(state.map), nil, pull)
     for _, nb in ipairs(drawState.neighbors or {}) do
       Voxel3D.draw(ChunkMesher.grass(nb.map), atlasFor(nb.map),
-                   Mat4.translate(nb.ox, 0, nb.oy), pull)
+                   Mat4.translationFor(nb,nb.ox, 0, nb.oy), pull)
     end
     if type(Voxel3D.weatherGrass) == "function" then
       Voxel3D.weatherGrass(false)
@@ -3408,11 +3454,11 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- flowers are snugged casters too, so they read their own shadowing
   -- through the same snugged transform the sun stored them with
   Voxel3D.draw(ChunkMesher.flowers(state.map), atlasFor(state.map), nil,
-               fpull, ShadowMap.snug(nil))
+               fpull, ShadowMap.snugStatic(nil))
   for _, nb in ipairs(drawState.neighbors or {}) do
     Voxel3D.draw(ChunkMesher.flowers(nb.map), atlasFor(nb.map),
-                 Mat4.translate(nb.ox, 0, nb.oy), fpull,
-                 ShadowMap.snug(Mat4.translate(nb.ox, 0, nb.oy)))
+                 Mat4.translationFor(nb,nb.ox, 0, nb.oy), fpull,
+                 ShadowMap.snugStatic(Mat4.translationFor(nb,nb.ox, 0, nb.oy)))
   end
 
   -- Transparent panes are drawn after opaque actors/furniture, depth-tested
@@ -3420,7 +3466,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   for _,rim in ipairs(horizon)do
     if rim.kind=='window_glass'and cutawayRimVisible(rim,indoorCutaway)then
       setCutaway();Voxel3D.roomVisibility(roomView,true)
-      V.require('SilphWindows').drawPane(Voxel3D,rim,Mat4.translate(rim.ox,0,rim.oy))
+      V.require('SilphWindows').drawPane(Voxel3D,rim,Mat4.translationFor(rim,rim.ox,0,rim.oy))
     end
   end
   Voxel3D.roomVisibility(roomView)
@@ -3523,6 +3569,11 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     local WallDecals = V.require("WallDecals")
     WallDecals.drawState(drawState)
   end
+  do
+    local target=Voxel3D.canvas()
+    Weather.apply(target,w,h,state.map,Voxel3D.cell,weatherMode,spatialRain,true)
+    WeatherTweak.apply(target,w,h,state.map,Voxel3D.cell,weatherMode,false,true)
+  end
   local endOK, out = true, nil
   if mobileScenery then
     endOK, out = pcall(Voxel3D.endScene)
@@ -3554,16 +3605,9 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   mobileDiagnostic("checkpoint", "gen1-world-scene-canvas-ready", {
     caller="VoxelScene.render", context="world", width=w, height=h,
   })
-  -- Mobile validates the completed core canvas before decorating it, but the
-  -- canonical weather painters draw in-place and do not allocate a second
-  -- full-frame target.  Apply them before publishing the safe receipt: once
-  -- the voxel canvas replaces the 2-D fallback there is no engine weather
-  -- layer underneath it (the real-device symptom was weather music with a
-  -- permanently clear picture).
+  -- Weather was drawn inside the owned scene binding. Publish a safe mobile
+  -- receipt only after the complete scene, including weather, has closed.
   if MOBILE_RUNTIME then
-    out = Weather.apply(out, w, h, state.map, Voxel3D.cell, weatherMode, spatialRain)
-    out = WeatherTweak.apply(
-      out, w, h, state.map, Voxel3D.cell, weatherMode, false)
     -- Only an actual completed canvas opens direct-map streaming.  Merely
     -- having BODY/atlas in the cache is insufficient because update and render
     -- both call prefetch in the first publication frame.
@@ -3602,8 +3646,6 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
     end
     return V.require('ObservationBinoculars').hud(out,w,h)
   end
-  out = Weather.apply(out, w, h, state.map, Voxel3D.cell, weatherMode, spatialRain)
-  out=WeatherTweak.apply(out,w,h,state.map,Voxel3D.cell,weatherMode,false)
   return V.require('ObservationBinoculars').hud(out,w,h)
 end
 

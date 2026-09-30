@@ -1,6 +1,7 @@
 -- A sparse 4px height field from the same quads that build the terrain.
 -- Published atomically after meshing; no GPU readback, per-frame mesh scan,
 -- collision changes, or invented roof rectangles.
+local resources=...
 local M={CELL=4,MAX_CELLS=196608}
 local fields=setmetatable({},{__mode='k'})
 local props=setmetatable({},{__mode='k'})
@@ -160,6 +161,7 @@ local function build(maps)
   end
  end
  local replacement=love.graphics.newImage(data);data:release()
+ if resources then resources.seal(replacement)end
  if job and coroutine.running()==job.co then job.data=nil end
  replacement:setFilter('nearest','nearest')
  if image then image:release()end

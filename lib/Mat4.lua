@@ -41,6 +41,17 @@ function Mat4.translate(x, y, z)
            0, 0, 0, 1 }
 end
 
+-- Immutable translation for a retained neighbour/rim record. A changed offset
+-- gets a new matrix so pending reflection draws keep their original transform.
+local translations=setmetatable({},{__mode='k'})
+function Mat4.translationFor(owner,x,y,z)
+  local m=translations[owner]
+  if not m or m[4]~=x or m[8]~=y or m[12]~=z then
+    m=Mat4.translate(x,y,z);translations[owner]=m
+  end
+  return m
+end
+
 function Mat4.scale(x, y, z)
   return { x, 0, 0, 0,
            0, y, 0, 0,

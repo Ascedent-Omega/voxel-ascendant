@@ -9,19 +9,21 @@ local Seat=assert(loadfile('integrated/ascendant_pokemon_overworld/src/human_joh
 local api=Seat.new{mod={},voxel=voxel,profiles={byGeneration={[1]={}}},generation=1}
 local count=0
 local specs=assert(loadfile("lib/KantoSeatGeometry.lua")){}.specs
+for _,columns in ipairs{1,3}do
+local textureWidth=165*columns
 for kind,desc in pairs(specs)do
 local support,front,back,backTop=desc[2],desc[3],desc[4],desc[5]
 for _,height in ipairs{16.875,21.6}do for worldRow=0,3 do for view=0,3 do
  local bounds={};for row=0,3 do bounds[row]={[0]={left=45,right=120,top=row*225+15,bottom=row*225+215}}end
- local source={texture={getDimensions=function()return 495,900 end},bounds=bounds}
+ local source={columns=columns,texture={getDimensions=function()return textureWidth,900 end},bounds=bounds}
  local profile={mapId='KANTO_CHAIR',contact={height=support,front=front,back=back,backTop=backTop},row=view,worldRow=worldRow,index=0,
   sign=view==1 and -1 or 1,bendSign=view==1 and -1 or view==3 and 1 or 0,
   legDepth=view==2 and -1 or view==0 and 1 or 0,headFade={90,116}}
  local unit=height/200
- local v={{8-37.5*unit,0,0,45/495,(view*225+215)/900,1},
- {8+37.5*unit,0,0,120/495,(view*225+215)/900,1},
- {8+37.5*unit,height,0,120/495,(view*225+15)/900,1},
- {8-37.5*unit,height,0,45/495,(view*225+15)/900,1}}
+ local v={{8-37.5*unit,0,0,45/textureWidth,(view*225+215)/900,1},
+ {8+37.5*unit,0,0,120/textureWidth,(view*225+215)/900,1},
+ {8+37.5*unit,height,0,120/textureWidth,(view*225+15)/900,1},
+ {8-37.5*unit,height,0,45/textureWidth,(view*225+15)/900,1}}
  local original={getVertexCount=function()return 4 end,getVertex=function(_,i)return unpack(v[i])end}
  local record={}
  local mesh=api:prepare(record,original,source,profile,height,0)
@@ -59,6 +61,7 @@ for _,height in ipairs{16.875,21.6}do for worldRow=0,3 do for view=0,3 do
   count=count+1
  end end
 end end end
+end
 end
 api:clear()
 print('PASS seated contact planes: '..count..' height/facing/view/yaw/pitch combinations')

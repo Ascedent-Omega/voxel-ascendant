@@ -8,10 +8,16 @@ local function voxel()return require('src.render.Pipelines').worldPipeline()=='v
 function M.clear()pending=nil end
 function M.probe(map,ready,kind)
  if ready or not voxel()then M.clear();return end
- if not pending or pending.map~=map or pending.kind~=kind then
+ -- Warp readiness and the renderer's streaming cover can both report the
+ -- same cold arrival each frame. They share one wait, not two debounce clocks.
+ local arrival=kind=='warp' or kind=='stream'
+ local sameArrival=pending and pending.map==map and arrival
+  and (pending.kind=='warp' or pending.kind=='stream')
+ if not pending or pending.map~=map or (pending.kind~=kind and not sameArrival) then
   local hash=0;for i=1,#(map.id or '')do hash=hash+(map.id or ''):byte(i)end
   pending={map=map,kind=kind,started=now(),species=hash%2==0 and 'pikachu'or 'eevee'}
  end
+ if sameArrival and kind=='warp'then pending.kind='warp'end
  pending.touched=now()
 end
 function M.windows(game)

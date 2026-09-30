@@ -39,6 +39,15 @@
 local V = ...
 
 local BattleArena = {}
+local queryReaders={}
+local geometryScope
+local QueryCache=V.require('ArenaQueryCache')
+local resultCache=QueryCache and QueryCache.new and QueryCache.new(queryReaders)
+local function query(kind,...)
+  if resultCache then return resultCache.read(kind,...)end
+  return queryReaders[kind](...)
+end
+
 
 -- ------- the authored spot
 --
@@ -82,6 +91,10 @@ local overrides = {}
 local requestMapIds = setmetatable({}, { __mode = "k" })
 local nextRequestMapId = 0
 local requestRevision = 0
+local function placementRevision(name,field)
+  local ok,module=pcall(V.require,name)
+  return ok and type(module)=='table'and module[field]or 0
+end
 
 function BattleArena.requestKey(map, cellX, cellY, surfing)
   if type(map) ~= "table" then return nil end
@@ -91,10 +104,22 @@ function BattleArena.requestKey(map, cellX, cellY, surfing)
     serial = nextRequestMapId
     requestMapIds[map] = serial
   end
+  -- The one-shot encounter preflight can outlive a terrain refresh. A Cut,
+  -- reload or newly published scenery must not consume the old placement
+  -- merely because the same player and map objects are still in use.
+  local ok,elevation=pcall(V.require,'LedgeElevation')
+  local terrainMode
+  if ok and elevation and type(elevation.mode)=='function'then
+    local modeOK,value=pcall(elevation.mode)
+    if modeOK then terrainMode=value end
+  end
   return table.concat({ tostring(map.id or ""), tostring(serial),
-    tostring(math.floor(tonumber(cellX) or -1)),
-    tostring(math.floor(tonumber(cellY) or -1)),
-    surfing and "water" or "land", tostring(requestRevision) }, "\0")
+    tostring(tonumber(cellX) or -1), tostring(tonumber(cellY) or -1),
+    surfing and "water" or "land", tostring(requestRevision),
+    tostring(map.widthCells),tostring(map.heightCells),
+    tostring(map.def),tostring(map.tileset),tostring(terrainMode),
+    tostring(placementRevision('ChunkMesher','cacheRevision')),
+    tostring(placementRevision('HorizonWall','cacheRevision')) }, "\0")
 end
 
 -- Optional native-editor output.  It is a per-map overlay, not a replacement
@@ -420,7 +445,7 @@ BattleArena.SEARCH_SHAPES = { BattleArena.SHAPES[1],
 -- camera is fine and stays: it is far enough forward to project low and wide
 -- across the bottom of the frame, where it reads as a field rather than as
 -- something in the way.
-local function openCell(map, cx, cy, surfing)
+local function rawOpenCell(map, cx, cy, surfing)
   if not map:inBounds(cx, cy) then return false end
   if map:warpAtCell(cx, cy) then return false end
   if map:isWarpTileCell(cx, cy) then return false end
@@ -428,6 +453,11 @@ local function openCell(map, cx, cy, surfing)
   if map:isWalkableCell(cx, cy) then return true end
   return (surfing and map:isWaterCell(cx, cy)) or false
 end
+local function openCell(map,cx,cy,surfing)
+  if not(resultCache and resultCache.recording)then return rawOpenCell(map,cx,cy,surfing)end
+  return query('open',map,cx,cy,surfing)
+end
+
 
 BattleArena.openCell = openCell
 
@@ -452,28 +482,50 @@ end
 
 BattleArena.entryList = entryList
 
+-- Warm reviewed foreign floors while a loading transition covers the world.
+-- MapLoader owns residency and eviction; do not retain extra map/renderers here.
+local preparedFloors=setmetatable({},{__mode='k'})
+function BattleArena.prepare(map)
+ if not(map and map.id)then return true end
+ local pick=authoredFor(map.id)
+ local held=preparedFloors[map]
+ if not held or held.pick~=pick or held.revision~=requestRevision then
+  held={pick=pick,revision=requestRevision,ids={},failed={}};preparedFloors[map]=held
+  local seen={}
+  for _,entry in ipairs(entryList(pick))do
+   if entry.map and entry.map~=map.id and not seen[entry.map]then
+    seen[entry.map]=true;held.ids[#held.ids+1]=entry.map
+   end
+  end
+ end
+ if #held.ids==0 then return true end
+ local Loader=require('src.world.MapLoader');local Game=require('src.core.Game')
+ for _,id in ipairs(held.ids)do
+  if not held.failed[id]and not Loader.cached(id)then
+   local ok,value=pcall(Loader.load,Game.data,id)
+   if not ok or not value then held.failed[id]=true;BattleArena.lastPrepareError=tostring(value)end
+   return false -- at most one foreign decode/upload in this preparation call
+  end
+ end
+ return true
+end
+
 -- Memoize only cells touched by a candidate footprint during this request.
 -- Authored courts and bounded local searches do not need a full-map scan.
 -- Nothing survives the request, so live collision/furniture edits are observed
 -- on the next search without a separate invalidation contract.
 local function openGrid(map, surfing, compact, surface)
-  local furniture
-  if compact then
-    local ok, value = pcall(V.require, "VoxelFurniture")
-    if ok and type(value) == "table" then furniture = value end
-  end
   local w, h = map.widthCells, map.heightCells
   local grid = setmetatable({}, { __index = function(cells, index)
     local cx, cy = index % w, math.floor(index / w)
     local free = openCell(map, cx, cy, surfing)
     if free and surface then
-      local water = map.isWaterCell and map:isWaterCell(cx, cy) or false
+      local water = query('water',map,cx,cy)
       free = (surface == 'water' and water) or (surface == 'land' and not water)
     end
     if free and compact then
       -- Walkable seats and pedestal decks are not spare battle aisles.
-      free = furniture and type(furniture.supportAt) == "function"
-        and furniture.supportAt(map, cx * CELL, cy * CELL, true) == nil
+      free = query('support',map,cx,cy)
     end
     free = not not free
     cells[index] = free
@@ -531,20 +583,14 @@ function BattleArena.routeAnchorInBounds(map, arena)
   if not (arena and type(map.inBounds) == "function") then return false end
   if arena.map and arena.map ~= map then return false end
   for _, cell in ipairs({ arena.enemyCell, arena.playerCell }) do
-    if not (cell and map:inBounds(cell[1], cell[2])) then return false end
+    if not (cell and query('bounds',map,cell[1],cell[2])) then return false end
   end
-  local hasCamera, BattleCam = pcall(V.require, "BattleCam")
-  local ok, rig = false, nil
-  if hasCamera and type(BattleCam) == "table"
-      and type(BattleCam.rig) == "function" then
-    ok, rig = pcall(BattleCam.rig, arena, 0, true)
-  end
-  if not (ok and rig and rig.eye) then
+  local ok,x,y,z=query('camera',arena,0)
+  if not ok then
     -- Synthetic/headless map fixtures may not carry a camera implementation;
     -- the two real route footing anchors above still fail closed on bounds.
     return true
   end
-  local x, z = rig.eye[1], rig.eye[3]
   return type(x) == "number" and type(z) == "number"
     and x >= 0 and z >= 0
     and x < map.widthCells * CELL and z < map.heightCells * CELL
@@ -671,7 +717,7 @@ local function sampleCell(map,cx,cy)
   return cell
 end
 
-local function groundAt(map, wx, wz)
+local function rawGroundAt(map, wx, wz)
   local cx, cy = math.floor(wx / CELL), math.floor(wz / CELL)
   if not map:inBounds(cx, cy) then
     -- off the map the border ring is drawn, and on most outdoor maps that
@@ -692,9 +738,14 @@ local function groundAt(map, wx, wz)
   return h
 end
 
+local function groundAt(map,wx,wz)
+  if not(resultCache and resultCache.recording)then return rawGroundAt(map,wx,wz)end
+  return query('ground',map,math.floor(wx/CELL),math.floor(wz/CELL))
+end
+
 -- Footing uses the terrain surface. Camera rays additionally see the tops
 -- of grass, flowers and collision columns; those are not another floor.
-local function heightAt(map, wx, wz)
+local function rawHeightAt(map, wx, wz)
   local cx, cy = math.floor(wx / CELL), math.floor(wz / CELL)
   if not map:inBounds(cx, cy) then
     return BattleArena.inCameraApron(map,wx,wz) and 0 or BattleArena.BORDER_H
@@ -724,6 +775,13 @@ local function heightAt(map, wx, wz)
   end
   if sample then sample.height=h end
   return h
+end
+
+local function heightAt(map,wx,wz)
+  if not(resultCache and resultCache.recording)then return rawHeightAt(map,wx,wz)end
+  local cx,cy=math.floor(wx/CELL),math.floor(wz/CELL)
+  if query('bounds',map,cx,cy)then return query('height',map,cx,cy)end
+  return query('outsideHeight',map,wx,wz)
 end
 
 -- Whether the segment from `eye` to (tx, ty, tz) clears the terrain.
@@ -775,14 +833,14 @@ function BattleArena.cameraClear(map, eye, edgeMargin)
   local margin = tonumber(edgeMargin)
   if margin == nil then margin = BattleArena.CAMERA_EDGE_MARGIN end
   margin = math.max(0, margin)
-  if BattleArena.inCameraApron(map,wx,wz) then
+  if query('apron',map,wx,wz) then
     return heightAt(map,wx,wz)+3<(eye[2] or 0)
   end
   if wx < margin or wz < margin
       or wx >= map.widthCells * CELL - margin
       or wz >= map.heightCells * CELL - margin then return false end
   local cx, cy = math.floor(wx / CELL), math.floor(wz / CELL)
-  if not map:inBounds(cx, cy) then return false end
+  if not query('bounds',map,cx,cy)then return false end
   return heightAt(map, wx, wz) + 3 < (eye[2] or 0)
 end
 
@@ -831,9 +889,17 @@ function BattleArena.clearance(map, arena)
   local eh = groundAt(map, arena.enemy[1], arena.enemy[2])
   local ph = groundAt(map, arena.player[1], arena.player[2])
   local groundY = tonumber(arena.anchorHeight) or (eh + ph) / 2
-  local ok, rig = pcall(BattleCam.rig, arena, groundY, true)
-  if not (ok and rig and rig.eye) then return true end
-  local eye = rig.eye
+  local recording=resultCache and resultCache.recording
+  local eye
+  if recording then
+    local ok,x,y,z=query('camera',arena,groundY,true)
+    if not ok then return true end
+    eye={x,y,z}
+  else
+    local ok,rig=pcall(BattleCam.rig,arena,groundY,true)
+    if not(ok and rig and rig.eye)then return true end
+    eye=rig.eye
+  end
   if not BattleArena.cameraClear(map, eye,
                                  BattleArena.CAMERA_EDGE_MARGIN) then
     return false,"camera-obstruction"
@@ -842,8 +908,12 @@ function BattleArena.clearance(map, arena)
     if BattleArena.visibility(map, eye, mark, groundY) < 3 then return false,"pokemon-visibility" end
   end
   if arena.trainerOffsets then
-    local H=V.require("BattleHeroesBridge")
-    local geometry=H.geometryForMap(map)
+    local H=V.require('BattleHeroesBridge')
+    local geometry=geometryScope and geometryScope[map]
+    if not geometry then
+      geometry=H.geometryForMap(map)
+      if geometryScope then geometryScope[map]=geometry end
+    end
     -- Reserve the full body as well as the foot. The live card/HUD check
     -- still validates actual art, user sizing and manual camera changes.
     for _,side in ipairs({"player","enemy"}) do
@@ -853,11 +923,17 @@ function BattleArena.clearance(map, arena)
         for _,dz in ipairs({-6,0,6}) do
           if not openCell(map,math.floor((x+dx)/CELL),math.floor((z+dz)/CELL),arena.surfing==true) then return false,"trainer-footprint" end
           if math.abs(groundAt(map,x+dx,z+dz)-groundY)>.5 then return false,"trainer-height" end
-          if geometry(x+dx,z+dz)>groundY+.5 then return false,"trainer-geometry" end
+          local obstacle
+          if recording then obstacle=query('geometry',map,x+dx,z+dz)
+          else obstacle=geometry(x+dx,z+dz)end
+          if obstacle>groundY+.5 then return false,"trainer-geometry" end
         end
         if BattleArena.visibility(map,eye,{x+dx,z},groundY,27)<3 then return false,"trainer-visibility" end
         for _,rise in ipairs({1,13.5,27}) do
-          if not H.geometryClear(geometry,eye,{x+dx,groundY+rise,z}) then return false,"trainer-geometry-ray" end
+          local clear
+          if recording then clear=query('geometryRay',map,eye,{x+dx,groundY+rise,z})
+          else clear=H.geometryClear(geometry,eye,{x+dx,groundY+rise,z})end
+          if not clear then return false,"trainer-geometry-ray" end
         end
       end
     end
@@ -865,7 +941,7 @@ function BattleArena.clearance(map, arena)
   return true
 end
 
-local function compactInterior(map)
+local function rawCompactInterior(map)
   -- A low, close camera is also valid in enclosed forest/cave aisles.
   -- Candidate footprints, height and visibility still pass the same checks.
   local tileset=map and map.def and map.def.tileset
@@ -875,6 +951,8 @@ local function compactInterior(map)
     and type(rooms.profileFor) == "function"
     and rooms.profileFor(map) ~= nil
 end
+
+local function compactInterior(map)return query('compact',map)end
 
 -- Promote an otherwise safe placement to the short physical rig when the
 -- telephoto eye has no collision-backed room. Ships and narrow courts in
@@ -928,16 +1006,12 @@ function BattleArena.review(map, surfing)
     end
     local host = map
     if shape and entry.map and entry.map ~= map.id then
-      local ok, other = pcall(function()
-        local Game = require("src.core.Game")
-        return require("src.world.MapLoader").load(Game.data, entry.map)
-      end)
-      host = ok and other or nil
+      host = query('foreign',entry.map)
     end
     local reason
     if not shape or not host or not finiteInteger(entry.x) or not finiteInteger(entry.y) then
       reason = "invalid-court"
-    elseif entry.terrain and entry.terrain ~= V.require("LedgeElevation").mode() then
+    elseif entry.terrain and entry.terrain ~= query('terrain') then
       reason = "terrain-mode"
     elseif entry.surface and entry.surface ~= (surfing and "water" or "land") then
       reason = "surface"
@@ -1008,7 +1082,8 @@ function BattleArena.assign(review, fromX, fromY)
   return best
 end
 
-function BattleArena.find(map, fromX, fromY, surfing)
+local function findUncached(map, fromX, fromY, surfing)
+  local searchGrids={} -- one collision snapshot per find, including fallback
   local review=BattleArena.withVisibilitySamples(BattleArena.review,map,surfing)
   local pick=review.pick
   if not (map and map.widthCells) or pick==false then return nil,review end
@@ -1036,7 +1111,7 @@ function BattleArena.find(map, fromX, fromY, surfing)
     local localPick = BattleArena.search(map, fromX, fromY, surfing, true, {
       height = originHeight, maxDistance = BattleArena.MAX_ANCHOR_DISTANCE,
       roomy = urban and true or false, wideOnly = urban and true or false,
-    })
+    },searchGrids)
     if localPick then
       localPick.map = map
       localPick.anchorSource = "local-height"
@@ -1049,17 +1124,18 @@ function BattleArena.find(map, fromX, fromY, surfing)
   -- placements when a map mod blocks one. Let the caller use its 3D fallback.
   if type(pick)=='table' and pick.fixed then return nil,review end
 
-  local found = BattleArena.search(map, fromX, fromY, surfing, true, {
+  local found
+  if not adaptive then found = BattleArena.search(map, fromX, fromY, surfing, true, {
     height = originHeight, maxDistance = BattleArena.MAX_ANCHOR_DISTANCE,
     roomy = urban and true or false, wideOnly = urban and true or false,
-  })
+  },searchGrids) end
   -- Exhaust the existing placements before adding a shorter indoor camera.
   -- A nearer compact candidate must not displace an already working arena.
   if not found and compactInterior(map) then
     found = BattleArena.search(map, fromX, fromY, surfing, true, {
       height = originHeight, maxDistance = BattleArena.MAX_ANCHOR_DISTANCE,
       compact = true,
-    })
+    },searchGrids)
   end
   if found then found.map = map end
   return found,review
@@ -1079,75 +1155,136 @@ end
 -- in. Two passes rather than one score: a clear arena on the far side of a
 -- route beats an obstructed one underfoot, because being able to see the
 -- fight is the point, but an obstructed one still beats no battle at all.
-function BattleArena.search(map, fromX, fromY, surfing, wantClear, options)
+function BattleArena.search(map, fromX, fromY, surfing, wantClear, options, grids)
   options = type(options) == "table" and options or nil
-  local grid, gw, gh = openGrid(map, surfing, options and options.compact)
+  local key=options and options.compact and "compact" or "normal"
+  local held=grids and grids[key]
+  if not held then
+    held={openGrid(map,surfing,options and options.compact)}
+    if grids then grids[key]=held end
+  end
+  local grid,gw,gh=held[1],held[2],held[3]
   local passes = wantClear and { true } or { true, false }
   local shapes = options and options.wideOnly
     and { BattleArena.SEARCH_SHAPES[1] } or BattleArena.SEARCH_SHAPES
-  for _, shape in ipairs(shapes) do
-    for _, needClear in ipairs(passes) do
-      local best, bestD = nil, nil
-      local minX, maxX, minY, maxY = 0, gw - shape.w, 0, gh - shape.h
-      local radius = options and options.maxDistance
-      if radius then
-        radius = math.abs(radius)
-        minX = math.max(minX, math.ceil(fromX - (shape.w - 1) / 2 - radius))
-        maxX = math.min(maxX, math.floor(fromX - (shape.w - 1) / 2 + radius))
-        minY = math.max(minY, math.ceil(fromY - (shape.h - 1) / 2 - radius))
-        maxY = math.min(maxY, math.floor(fromY - (shape.h - 1) / 2 + radius))
+  for _,shape in ipairs(shapes)do
+    local candidates={}
+    local minX,maxX,minY,maxY=0,gw-shape.w,0,gh-shape.h
+    local radius=options and options.maxDistance
+    if radius then
+      radius=math.abs(radius)
+      minX=math.max(minX,math.ceil(fromX-(shape.w-1)/2-radius))
+      maxX=math.min(maxX,math.floor(fromX-(shape.w-1)/2+radius))
+      minY=math.max(minY,math.ceil(fromY-(shape.h-1)/2-radius))
+      maxY=math.min(maxY,math.floor(fromY-(shape.h-1)/2+radius))
+    end
+    for y=minY,maxY do for x=minX,maxX do
+      local dx,dy=x+(shape.w-1)/2-fromX,y+(shape.h-1)/2-fromY
+      local d=dx*dx+dy*dy
+      if (not radius or d<=radius*radius) and fits(grid,gw,x,y,shape.w,shape.h)
+        and (not(options and options.roomy) or x>0 and y>0
+          and x+shape.w<gw and y+shape.h<gh and fits(grid,gw,x-1,y-1,shape.w+2,shape.h+2))then
+        candidates[#candidates+1]={x=x,y=y,d=d,order=#candidates+1}
       end
-      for y = minY, maxY do
-        for x = minX, maxX do
-          local mx = x + (shape.w - 1) / 2
-          local my = y + (shape.h - 1) / 2
-          local dx, dy = mx - fromX, my - fromY
-          local d = dx * dx + dy * dy
-          if (not radius or d <= radius * radius)
-             and fits(grid, gw, x, y, shape.w, shape.h) then
-            local allowed = not options
-            if options then
-              allowed = true
-              if options.maxDistance
-                 and d > options.maxDistance * options.maxDistance then
-                allowed = false
-              end
-              if allowed and options.roomy then
-                if x <= 0 or y <= 0 or x + shape.w >= gw
-                   or y + shape.h >= gh
-                   or not fits(grid, gw, x - 1, y - 1,
-                               shape.w + 2, shape.h + 2) then
-                  allowed = false
-                end
-              end
-            end
-            if allowed and (not bestD or d < bestD) then
-              local cand = place(shape, x, y)
-              if not BattleArena.keepRouteAnchorInBounds(map, cand) then
-                allowed = false
-              end
-              if options and options.height ~= nil then
-                local eh = groundAt(map, cand.enemy[1], cand.enemy[2])
-                local ph = groundAt(map, cand.player[1], cand.player[2])
-                if math.abs(eh - options.height) > 0.01
-                   or math.abs(ph - options.height) > 0.01 then
-                  allowed = false
-                end
-              end
-              local clear = allowed and (not needClear
-                            or BattleArena.keepAnchorSafe(map, cand,
-                              options and options.compact))
-              if allowed and clear then
-                best, bestD = cand, d
-              end
-            end
-          end
+    end end
+    -- Preserve row-major tie-breaking exactly. The first valid nearest court
+    -- is the same answer as the exhaustive best-so-far search.
+    table.sort(candidates,function(a,b)return a.d<b.d or a.d==b.d and a.order<b.order end)
+    for _,needClear in ipairs(passes)do
+      for _,at in ipairs(candidates)do
+        local cand=place(shape,at.x,at.y)
+        local allowed=BattleArena.keepRouteAnchorInBounds(map,cand)
+        if allowed and options and options.height~=nil then
+          local eh=groundAt(map,cand.enemy[1],cand.enemy[2])
+          local ph=groundAt(map,cand.player[1],cand.player[2])
+          allowed=math.abs(eh-options.height)<=.01 and math.abs(ph-options.height)<=.01
+        end
+        if allowed and (not needClear or BattleArena.keepAnchorSafe(map,cand,options and options.compact))then
+          return cand
         end
       end
-      if best then return best end
     end
   end
   return nil
+end
+
+queryReaders.open=rawOpenCell
+queryReaders.water=function(map,x,y)return not not(map.isWaterCell and map:isWaterCell(x,y))end
+queryReaders.support=function(map,x,y)
+  local ok,f=pcall(V.require,'VoxelFurniture')
+  return ok and type(f)=='table' and type(f.supportAt)=='function'
+    and f.supportAt(map,x*CELL,y*CELL,true)==nil or false
+end
+queryReaders.bounds=function(map,x,y)return map:inBounds(x,y)end
+queryReaders.ground=function(map,x,y)return rawGroundAt(map,x*CELL,y*CELL)end
+queryReaders.height=function(map,x,y)return rawHeightAt(map,x*CELL,y*CELL)end
+queryReaders.outsideHeight=rawHeightAt
+queryReaders.apron=function(map,x,y)return BattleArena.inCameraApron(map,x,y)end
+queryReaders.compact=rawCompactInterior
+queryReaders.terrain=function()return V.require('LedgeElevation').mode()end
+queryReaders.camera=function(arena,ground,strict)
+  local ok,cam
+  if strict then ok,cam=true,V.require('BattleCam')
+  else ok,cam=pcall(V.require,'BattleCam')end
+  if not ok or type(cam)~='table' or type(cam.rig)~='function'then return false end
+  local valid,rig=pcall(cam.rig,arena,ground,true)
+  if not(valid and rig and rig.eye)then return false end
+  return true,rig.eye[1],rig.eye[2],rig.eye[3]
+end
+queryReaders.foreign=function(id)
+  local ok,map=pcall(function()
+    return require('src.world.MapLoader').load(require('src.core.Game').data,id)
+  end)
+  return ok and map or nil
+end
+-- Geometry factories remain live. Reuse only within one synchronous query
+-- validation/solve, not across edits or calls to find.
+local function geometryFor(map)
+  local held=geometryScope and geometryScope[map]
+  if not held then
+    held=V.require('BattleHeroesBridge').geometryForMap(map)
+    if geometryScope then geometryScope[map]=held end
+  end
+  return held
+end
+queryReaders.geometry=function(map,x,z)return geometryFor(map)(x,z)end
+queryReaders.geometryRay=function(map,eye,point)
+  return V.require('BattleHeroesBridge').geometryClear(geometryFor(map),eye,point)
+end
+local nativeSeams={}
+local function cacheKey(map,x,y,surfing)
+  if type(map)~='table'then return nil end
+  for key,fn in pairs(nativeSeams)do if BattleArena[key]~=fn then return nil end end
+  return BattleArena.requestKey(map,x,y,surfing)
+end
+function BattleArena.find(map,x,y,surfing)
+  if not resultCache then return findUncached(map,x,y,surfing)end
+  local pick=map and authoredFor(map.id)
+  local configuration={pick=pick,x=x,y=y,surfing=surfing,shapes=BattleArena.SHAPES,search=BattleArena.SEARCH_SHAPES,
+    step=BattleArena.SAMPLE_STEP,monH=BattleArena.MON_H,clear=BattleArena.CLEAR_EPS,
+    radius=BattleArena.CAMERA_RADIUS,edge=BattleArena.CAMERA_EDGE_MARGIN,
+    distance=BattleArena.MAX_ANCHOR_DISTANCE,solid=BattleArena.SOLID_H,
+    border=BattleArena.BORDER_H,decor=BattleArena.DECOR_H}
+  local key=cacheKey(map,x,y,surfing)
+  local priorGeometry,priorSamples=geometryScope,visibilitySamples
+  geometryScope={};visibilitySamples=nil
+  local function done(ok,...)
+    geometryScope,visibilitySamples=priorGeometry,priorSamples
+    if not ok then error((...),0)end
+    return ...
+  end
+  return done(pcall(resultCache.run,key,configuration,findUncached,map,x,y,surfing))
+end
+function BattleArena.resultCacheStatus()
+  return resultCache and {hits=resultCache.hits,misses=resultCache.misses,rejected=resultCache.rejected}
+    or {hits=0,misses=0,rejected=0}
+end
+function BattleArena.setResultCacheEnabled(enabled)
+  if resultCache then resultCache.enabled=enabled~=false;resultCache.clear()end
+end
+for key,fn in pairs(BattleArena)do
+  if type(fn)=='function'and key~='find'and key~='resultCacheStatus'
+      and key~='setResultCacheEnabled'then nativeSeams[key]=fn end
 end
 
 return BattleArena

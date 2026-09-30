@@ -1,4 +1,6 @@
 local V={require=function(n)
+ if n=='Gen1DoorStyles'then return assert(loadfile('lib/Gen1DoorStyles.lua'))()end
+ if n=='Gen1GlassDoors'then return{interior=function()return false end,wooden=function()return false end}end
  if n=='Gen1RoomBounds'then return assert(loadfile('lib/Gen1RoomBounds.lua'))()end
  if n=='Gen1SecurityDoors'then return{addPanels=function()end}end
  if n=='Gen1Stairs'then return{perimeterShaft=function()end,classForWarp=function()end}end

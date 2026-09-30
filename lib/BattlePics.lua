@@ -80,16 +80,21 @@
 -- The silhouette is untouched, so the mon still cuts cleanly against the
 -- world; only its insides stop being see-through.
 --
--- Read back off the GPU rather than off the asset, deliberately. What comes
--- back is the pic the engine actually decided to draw -- species palette,
--- forced-mono rebuild, shiny recolour, a mod's replacement art -- so this
--- needs to know nothing about how any of that was arrived at. Once per pic
--- per session, cached on the image itself.
+-- Native uploads carry their exact already-palettized CPU bytes, captured
+-- during synchronous battle calls. Bounds/fill topology can then be shared by
+-- source path with an exact alpha proof, without a GPU stall. Unknown images
+-- and mutable canvases retain the readback path: no species/path guess may
+-- override the artwork the engine or a companion actually decided to draw.
 
 -- the mod namespace (see main.lua): V.require loads a sibling module
 local V = ...
 
-local BattlePics = {}
+local BattlePics = {readbacks=0,cpuReads=0,topologyBuilds=0,topologyHits=0}
+local Sources = V.require and V.require("BattleImageSources")
+function BattlePics.capture(fn,...)
+  if Sources and Sources.capture then return Sources.capture(fn,...) end
+  return fn(...)
+end
 
 -- Cached by the image the engine handed over, one table per bottom rule --
 -- the same pic answers differently sealed and unsealed, and a single table
@@ -104,6 +109,18 @@ local function newCache()
 end
 local cache = newCache()
 local boundsCache = setmetatable({}, { __mode = "k" })
+local function release(resource)
+  if resource and resource.release then pcall(resource.release,resource)end
+end
+local function rememberImageBounds(img,x0,y0,x1,y1)
+  -- filled() already treats Image contents as stable until invalidate().
+  -- Do not extend that promise to grow-in or reusable Canvas producers.
+  if not(img and img.typeOf and img:typeOf('Image'))then return end
+  local slot=boundsCache[img]
+  if not slot then slot=setmetatable({},{__mode='k'});boundsCache[img]=slot end
+  local result=x0 and{x0,y0,x1,y1}or false
+  slot[img],slot[false]=result,result
+end
 
 -- What an enclosed hole is filled with when the pic itself offers nothing
 -- better. White, because white is what the battle field was: this restores the
@@ -133,7 +150,19 @@ local CUT = 0.5
 -- so a Pidgey came out giant and the mon beside it did not, which is what
 -- makes this read as a sprite bug rather than a scale one. See the engine's
 -- own src/render/PixelCanvas.lua, which exists for exactly this reason.
+local scratch,scratchW,scratchH
+local sourceShape
 local function readBack(img)
+  if Sources and Sources.get then
+    local receipt=Sources.get(img)
+    if receipt then
+      local ok,data=pcall(love.image.newImageData,receipt.w,receipt.h,'rgba8',receipt.bytes)
+      if ok and data then
+        BattlePics.cpuReads=BattlePics.cpuReads+1
+        return data,receipt
+      end
+    end
+  end
   local w, h = img:getDimensions()
   if w <= 0 or h <= 0 then return nil end
   local g = love.graphics
@@ -144,7 +173,12 @@ local function readBack(img)
   -- bounds. Restore the complete state on failures as well as success.
   g.push("all")
   local ok = pcall(function()
-    canvas = g.newCanvas(w, h, { dpiscale = 1 })
+    if not scratch or scratchW~=w or scratchH~=h then
+      local fresh=g.newCanvas(w,h,{dpiscale=1})
+      if scratch and scratch.release then pcall(scratch.release,scratch)end
+      scratch,scratchW,scratchH=fresh,w,h
+    end
+    canvas=scratch
     g.setCanvas(canvas)
     g.origin()
     g.setShader()
@@ -158,9 +192,14 @@ local function readBack(img)
     g.draw(img, 0, 0)
     g.setCanvas()
     data = canvas:newImageData()
+    BattlePics.readbacks=BattlePics.readbacks+1
   end)
   g.pop()
-  if canvas and canvas.release then pcall(canvas.release, canvas) end
+  -- Scratch stays resident; failure must not retain a broken target.
+  if not ok and scratch then
+    if scratch.release then pcall(scratch.release,scratch)end
+    scratch,scratchW,scratchH=nil,nil,nil
+  end
   return ok and data or nil
 end
 
@@ -207,21 +246,29 @@ function BattlePics.inkBounds(img, identity, transient)
     boundsCache[img] = slot
   end
   local key = identity or false
-  local hit = slot and slot[key] or nil
+  local hit
+  if slot then hit=slot[key]end
   if hit ~= nil then
     if hit == false then return nil end
     return hit[1], hit[2], hit[3], hit[4]
   end
   local result = false
+  local data
   local ok = pcall(function()
-    local data = readBack(img)
+    local receipt
+    data,receipt = readBack(img)
     if not data then return end
     local w, h = data:getDimensions()
-    local x0, y0, x1, y1 = inkBounds(data, w, h)
+    local x0,y0,x1,y1
+    if receipt then
+      local shape=sourceShape(data,receipt)
+      x0,y0,x1,y1=shape[1],shape[2],shape[3],shape[4]
+    else x0,y0,x1,y1=inkBounds(data,w,h)end
     if x0 then result = { x0, y0, x1, y1 } end
   end)
+  release(data)
   if not ok then result = false end
-  if slot then slot[key] = result end
+  if slot and ok and data then slot[key] = result end
   if result == false then return nil end
   return result[1], result[2], result[3], result[4]
 end
@@ -330,6 +377,52 @@ local function markOutside(data, w, h, x0, y0, x1, y1, sealBottom)
   return outside
 end
 
+-- Palette-independent shape cache, keyed by source path AND exact alpha
+-- classification at upload. A replaced file or a producer changing the alpha
+-- cannot inherit a previous mask. Old live Images retain their own receipt.
+local shapePaths,shapeOrder={},{}
+local SHAPE_LIMIT=64
+sourceShape=function(data,receipt,sealBottom)
+  if not receipt then return nil end
+  local shape=receipt.shape
+  if not shape then
+    local bits={}
+    for i=4,#receipt.bytes,4 do bits[#bits+1]=receipt.bytes:byte(i)>127 and '1' or '0' end
+    local signature=table.concat(bits)
+    shape=shapePaths[receipt.path]
+    if not shape or shape.w~=receipt.w or shape.h~=receipt.h or shape.signature~=signature then
+      shape={w=receipt.w,h=receipt.h,signature=signature}
+      if not shapePaths[receipt.path] then
+        shapeOrder[#shapeOrder+1]=receipt.path
+        if #shapeOrder>SHAPE_LIMIT then shapePaths[table.remove(shapeOrder,1)]=nil end
+      end
+      shapePaths[receipt.path]=shape
+    end
+    receipt.shape=shape
+  end
+  if not shape.bounds then shape.bounds={inkBounds(data,receipt.w,receipt.h)}end
+  if sealBottom==nil then return shape.bounds end
+  local result=shape[sealBottom]
+  if result and (sealBottom or result.drain==BattlePics.DRAIN)then
+    BattlePics.topologyHits=BattlePics.topologyHits+1;return result
+  end
+  local w,h=receipt.w,receipt.h
+  local x0,y0,x1,y1=shape.bounds[1],shape.bounds[2],shape.bounds[3],shape.bounds[4]
+  result={x0,y0,x1,y1,fill={},drain=BattlePics.DRAIN}
+  if x0 then
+    local outside=markOutside(data,w,h,x0,y0,x1,y1,sealBottom)
+    for y=y0,y1 do for x=x0,x1 do
+      local key=y*w+x
+      if not outside[key] and receipt.bytes:byte(key*4+4)<=127 then
+        result.fill[#result.fill+1]=key
+      end
+    end end
+  end
+  shape[sealBottom]=result
+  BattlePics.topologyBuilds=BattlePics.topologyBuilds+1
+  return result
+end
+
 -- The pic with its enclosed holes filled, or the pic itself when that could
 -- not be done (no pixel access, a driver that refused the readback). Never
 -- nil for a non-nil argument: a caller must always have something to draw.
@@ -344,14 +437,18 @@ function BattlePics.filled(img, sealBottom)
   local hit = slot[img]
   if hit ~= nil then return hit or img end
 
-  local made = nil
+  local made,data,allocated,receipt
   local ok = pcall(function()
-    local data = readBack(img)
+    data,receipt = readBack(img)
     if not data then return end
     local w, h = data:getDimensions()
-    local x0, y0, x1, y1 = inkBounds(data, w, h)
+    local shape=sourceShape(data,receipt,sealBottom)
+    local x0,y0,x1,y1
+    if shape then x0,y0,x1,y1=shape[1],shape[2],shape[3],shape[4]
+    else x0,y0,x1,y1=inkBounds(data,w,h)end
+    rememberImageBounds(img,x0,y0,x1,y1)
     if not x0 then return end          -- a pic with nothing drawn in it
-    local outside = markOutside(data, w, h, x0, y0, x1, y1, sealBottom)
+    local outside = not shape and markOutside(data, w, h, x0, y0, x1, y1, sealBottom)
     local fill = BattlePics.FILL
     local pr, pg, pb = paperColor(data, x0, y0, x1, y1)
     local fr = pr or fill[1]
@@ -360,6 +457,11 @@ function BattlePics.filled(img, sealBottom)
     local changed = false
     -- only inside the box: everything beyond it is frame the artist never
     -- reached, and filling that would put the mon in a white rectangle
+    if shape then
+      for _,key in ipairs(shape.fill)do
+        data:setPixel(key%w,math.floor(key/w),fr,fg,fb,fill[4]);changed=true
+      end
+    else
     for y = y0, y1 do
       local row = y * w
       for x = x0, x1 do
@@ -372,18 +474,27 @@ function BattlePics.filled(img, sealBottom)
         end
       end
     end
+    end
     -- nothing enclosed: hand the original back rather than a copy of it
     if not changed then return end
     local out = love.graphics.newImage(data)
+    allocated=out
     out:setFilter("nearest", "nearest")
+    rememberImageBounds(out,x0,y0,x1,y1)
     made = out
   end)
+  release(data)
+  if not ok then release(allocated);made=nil end
 
   slot[img] = (ok and made) or false
   return made or img
 end
 
 function BattlePics.invalidate()
+  if Sources and Sources.invalidate then Sources.invalidate()end
+  shapePaths,shapeOrder={},{}
+  if scratch and scratch.release then pcall(scratch.release,scratch)end
+  scratch,scratchW,scratchH=nil,nil,nil
   cache = newCache()
   boundsCache = setmetatable({}, { __mode = "k" })
 end

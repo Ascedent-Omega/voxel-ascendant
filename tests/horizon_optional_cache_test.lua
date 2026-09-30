@@ -50,3 +50,20 @@ context.keepKeys['next-room']=true
 assert(not finish(job('too-far',1)),'region count/byte limit bypassed')
 assert(cache.house and cache['next-room']and released['too-far']==1,'region warming evicted nearer room')
 print('PASS multi-room optional scenery: previously warmed region protected at byte/count limit')
+
+-- Readiness for the same address cannot authorize an obsolete allocation.
+H.enabled=function()return true end
+up(H.cachedMeshes,'addressOf',true,function()return'borrowed',{},0,0 end)
+local state={map={id='ROUTE_5'}}
+assert(H.cachedMeshes(state)==nil,'cold passive lookup started a build')
+local before=H.buildStatus()
+local old,new={id='old'},{id='new'}
+cache.borrowed={meshes={{mesh=old}}}
+local borrowed=assert(H.cachedMeshes(state))
+assert(borrowed[1].mesh==old)
+cache.borrowed=nil;old.released=true
+assert(H.cachedMeshes(state)==nil,'evicted mesh was returned')
+cache.borrowed={meshes={{mesh=new}}}
+assert(H.cachedMeshes(state)[1].mesh==new,'rebuilt address returned released mesh')
+assert(H.buildStatus().pending==before.pending,'passive lookup queued work')
+print('PASS passive horizon borrowing: cold/evicted misses and current allocation after same-key rebuild')

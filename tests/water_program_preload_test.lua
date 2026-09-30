@@ -7,7 +7,7 @@ for _,rejectGrid in ipairs{false,true}do
   if rejectGrid and source:find('#define VOXEL_GRID 1',1,true)then error('unsupported derivatives')end
   return {source=source}
  end}}
- local modules={ModSetting={new=function()return{get=function()return mode end}end},
+ local modules={UniformMemo=assert(loadfile("lib/UniformMemo.lua"))(),ModSetting={new=function()return{get=function()return mode end}end},
   Sky={MOON_CRATERS={},CRATER_FRAC=1},DayNight={},ShadowMap={},Mat4={},
   Gen1OutdoorScenery={waterGLSL=''},LocalLights={supported=false}}
  local W=assert(loadfile('lib/Water.lua'))({require=function(n)return assert(modules[n],n)end})

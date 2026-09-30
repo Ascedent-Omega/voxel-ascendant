@@ -44,6 +44,8 @@ function M.materialFor(map)
    and (def.tileset=='KA_HABITAT_STONE'or def.tileset=='KA_HABITAT_MYSTIC')then return 'cave_rock_tunnel'end
  if def.tileset=='KA_MOLTRES_VOLCANO_67'and def.kaOwner=='kasc.hoenn-moltres-volcano/v4'
   and(map.id=='KA_MOLTRES_VOLCANO_BASE'or map.id=='KA_MOLTRES_VOLCANO_ASCENT')then return 'cave_diglett'end
+ if map.id=='KA_BLAINE_VOLCANO_GYM'and def.tileset=='KA_BLAINE_VOLCANO_ARENA'
+  and def.kaOwner=='kasc.blaine-volcano-route/v1'and def.width==24 and def.height==18 then return 'cave_diglett'end
  if def.tileset~='CAVERN' then return nil end
  local id=map.id or def.id
  return M.maps[id] or M.extensionMaps[id]

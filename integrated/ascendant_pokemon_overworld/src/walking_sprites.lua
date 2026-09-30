@@ -598,7 +598,7 @@ function WalkingSprites:_bind(entity, atlas, role, identityOwner, action)
   end
   local def = clone(source)
   if def.ascendantExternalCharacterSource then
-   for _,key in ipairs({'ascendantExternalCharacterSource','ascendantHumanCards','ascendantHumanFieldHands','cobbleCharacter','cobbleStyle','cobbleAnimated2D','cobbleWardrobeKey','ascendantPokemonBlinkSourceExact','ascendantPokemonBlinkSheet'})do def[key]=nil end
+   for _,key in ipairs({'ascendantExternalCharacterSource','ascendantSeatSource','ascendantHumanCards','ascendantHumanFieldHands','cobbleCharacter','cobbleStyle','cobbleAnimated2D','cobbleWardrobeKey','ascendantPokemonBlinkSourceExact','ascendantPokemonBlinkSheet'})do def[key]=nil end
   end
   def.image = fullRuntime
   def.frames, def.walker, def.trueColor = 6, true, true

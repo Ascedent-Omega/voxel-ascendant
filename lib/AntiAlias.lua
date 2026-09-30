@@ -78,10 +78,13 @@ AntiAlias.setting = ModSetting.new(AntiAlias.KEY, AntiAlias.LABEL,
 -- 3-D workload at a predictable 1080p-class size, with native resolution an
 -- explicit quality choice. HUD/text are composited at display resolution.
 AntiAlias.resolution = ModSetting.new("sceneResolution", "3D RESOLUTION",
-  {"auto", "balanced", "native", "economy"}, {"AUTO 60", "1080P", "NATIVE", "720P"}, "auto")
+  {"auto", "balanced", "native", "economy", "scale75", "scale50"},
+  {"AUTO 60", "1080P", "NATIVE", "720P", "75%", "50%"}, "auto")
 local function desktopFactor(w,h)
   local choice = AntiAlias.resolution:get()
   if choice == "native" then return 1 end
+  if choice == "scale75" then return .75 end
+  if choice == "scale50" then return .5 end
   local edge,short = choice == "economy" and 1280 or 1920,
     choice == "economy" and 720 or 1080
   local capped=math.min(1,edge/math.max(1,w,h),short/math.max(1,math.min(w,h)))
@@ -97,7 +100,9 @@ end
 -- What the row ASKS for. The scale in force is `factor()`, which is this
 -- clamped to what the driver will actually allocate.
 local function wanted()
-  local n = AntiAlias.resolution:get()=='auto'and 0 or AntiAlias.samples()
+  local resolution = AntiAlias.resolution:get()
+  local n = (resolution=="auto" or resolution=="scale75" or resolution=="scale50")
+    and 0 or AntiAlias.samples()
   if n <= 1 then return 1 end
   return math.sqrt(n)
 end
@@ -237,7 +242,10 @@ function AntiAlias.resolve(canvas, w, h, slot)
   local prevBlend, prevAlpha = love.graphics.getBlendMode()
   -- the scene canvas filters nearest for its usual 1:1 blit; the taps want
   -- linear, put back below so every other pass finds what it expects
-  pcall(canvas.setFilter, canvas, "linear", "linear")
+  local resolution=AntiAlias.resolution:get()
+  local filter=(not folding and (resolution=="scale75" or resolution=="scale50"))
+    and "nearest" or "linear"
+  pcall(canvas.setFilter, canvas, filter, filter)
   love.graphics.setColor(1, 1, 1, 1)
   -- replace, not alpha-blend: this is an image-processing copy, and the alpha
   -- the shader worked out has to land as itself rather than be composited

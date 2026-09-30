@@ -4,6 +4,7 @@
 -- doors, hidden barriers, teleport pads and spin arrows keep their owners.
 local M = {}
 M.profiles = {
+  FIGHTING_DOJO={tileset='DOJO',width=5,height=6,material='dojo_arena',theme='dojo'},
   PEWTER_GYM={tileset='GYM',width=5,height=7,material='quarry_arena',theme='rock_gallery'},
   CERULEAN_GYM={tileset='GYM',width=5,height=7,material='water_arena',theme='swimming_hall'},
   VERMILION_GYM={tileset='GYM',width=5,height=9,material='electric_arena',theme='electrical_training'},
@@ -34,28 +35,22 @@ local colors = {
  earth_arena={{.59,.52,.40},{.76,.67,.51},{.32,.28,.22},{.62,.40,.22}},
 }
 function M.supports(material) return colors[material] ~= nil end
--- Cinnabar uses the arena enclosure, not Gen1InteriorLayout's room panels.
--- Place the two exit leaves at the real southern warp cells. The distant
--- arena backdrop and its windows remain independent of this human-scale door.
+-- Gyms have their own enclosure renderer. Describe only the paired native
+-- town exit; quiz doors, teleporters and the KASC volcano route are excluded.
 function M.exitDoor(map)
- local d=map and map.def
- if not d or map.id~='CINNABAR_GYM' or d.generation==2
-     or d.tileset~='FACILITY' or d.width~=10 or d.height~=9
-     or next(d.connections or{})~=nil then return nil end
+ local d=map and map.def;local p=d and M.profiles[map.id]
+ if not p or d.generation==2 or d.tileset~=p.tileset or d.width~=p.width
+     or d.height~=p.height or next(d.connections or{})~=nil then return nil end
+ local city=map.id=='CINNABAR_GYM'and 'CINNABAR_ISLAND'or map.id=='FIGHTING_DOJO'and 'SAFFRON_CITY'or map.id:gsub('_GYM$','_CITY')
  local exits={}
  for _,w in ipairs(d.warps or{})do
-  if w.y==17 and (w.x==16 or w.x==17) and w.destMap=='LAST_MAP' then exits[w.x]=true end
+  if w.y==d.height*2-1 and type(w.x)=='number' and w.x>=0 and w.x<d.width*2
+      and (w.destMap=='LAST_MAP'or w.destMap==city)then exits[#exits+1]=w end
  end
- if not (exits[16] and exits[17])then return nil end
- local g={vertices={},indices={},family='room_door'}
- for x=16,17 do
-  local a,b,z=x*16,(x+1)*16,288-.125
-  local n=#g.vertices
-  for _,v in ipairs({{b,0,z,0,1,1},{a,0,z,1,1,1},
-    {a,24,z,1,0,1},{b,24,z,0,0,1}})do g.vertices[#g.vertices+1]=v end
-  for _,i in ipairs({1,2,3,1,3,4})do g.indices[#g.indices+1]=n+i end
- end
- return g
+ table.sort(exits,function(a,b)return a.x<b.x end)
+ if #exits~=2 or exits[2].x~=exits[1].x+1 then return nil end
+ return {from=exits[1].x*16,upto=(exits[2].x+1)*16,at=d.height*32,
+   city=city,warp=exits[1],material=p.material}
 end
 function M.paint(g, material, W, H, wall)
  local c=assert(colors[material], 'unreviewed Gen1 gym material')

@@ -68,7 +68,7 @@ local function pathFor(b,mon,view,choice)
       local a=ok and h and h.exports and h.exports.crystalAnimation
       if a and a.staticFrameOne then
         local shiny=V.require("Gen2CrystalFronts").isShiny(mon)
-        local yes,path,tc=pcall(a.staticFrameOne,{data=b.data,species=mon.species,mon=mon,kind="battle"},view,shiny and "shiny" or "normal")
+        local yes,path,tc=pcall(a.staticFrameOne,{data=b.data,species=mon.species,mon=mon,kind="battle",forceStyle=true},view,shiny and "shiny" or "normal")
         if yes and path then return path,tc end
       end
     end

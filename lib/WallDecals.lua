@@ -20,12 +20,24 @@ local WallDecals = {
 local meshes = {}
 local images = {}
 local EPSILON = 0.04
+local providerIds={}
+local recordsCache=setmetatable({},{__mode="k"})
+local matrices=setmetatable({},{__mode="k"})
+local function providersChanged()
+  providerIds={}
+  for id in pairs(WallDecals.providers)do providerIds[#providerIds+1]=id end
+  table.sort(providerIds)
+  recordsCache=setmetatable({},{__mode="k"})
+end
 
 local function release(value)
   if value and value.release then pcall(value.release, value) end
 end
 
-function WallDecals.invalidate()
+function WallDecals.invalidate(map)
+  if map then recordsCache[map]=nil;return end
+  recordsCache=setmetatable({},{__mode="k"})
+  matrices=setmetatable({},{__mode="k"})
   for _, mesh in pairs(meshes) do release(mesh) end
   meshes, images = {}, {}
 end
@@ -105,12 +117,14 @@ function WallDecals.register(id, provider)
     return false, "provider must be a function or expose records(map)"
   end
   WallDecals.providers[id] = provider
+  providersChanged()
   return true
 end
 
 function WallDecals.unregister(id)
   local existed = WallDecals.providers[id] ~= nil
   WallDecals.providers[id] = nil
+  providersChanged()
   return existed
 end
 
@@ -121,23 +135,35 @@ local function append(out, records)
   end
 end
 
+local EMPTY={}
 local function recordsFor(map)
-  local out = {}
-  local def = map and (map.def or map)
-  append(out, def and def.wallDecals)
-
-  local ids = {}
-  for id in pairs(WallDecals.providers) do ids[#ids + 1] = id end
-  table.sort(ids)
-  for _, id in ipairs(ids) do
-    local provider = WallDecals.providers[id]
-    local ok, records
-    if type(provider) == "function" then
-      ok, records = pcall(provider, map)
+  local def=map and (map.def or map)
+  local native=def and def.wallDecals
+  if #providerIds==0 and not(native and #native>0)then return EMPTY end
+  local held=recordsCache[map]
+  if not held or held.def~=def then
+    held={def=def,out={},providers={}};recordsCache[map]=held
+  end
+  local out=held.out
+  for i=#out,1,-1 do out[i]=nil end
+  append(out,native)
+  for _,id in ipairs(providerIds)do
+    local provider=WallDecals.providers[id]
+    -- Legacy callbacks are explicitly live. Opt-in revisions permit caching
+    -- companion data without freezing dynamic decals or swallowing edits.
+    local revision
+    if type(provider)=="table" then revision=provider.revision end
+    local cached=revision~=nil and held.providers[id]
+    if cached and cached.revision==revision then append(out,cached.records)
     else
-      ok, records = pcall(provider.records, provider, map)
+      local ok,records
+      if type(provider)=="function" then ok,records=pcall(provider,map)
+      else ok,records=pcall(provider.records,provider,map)end
+      if ok then
+        append(out,records)
+        if revision~=nil then held.providers[id]={revision=revision,records=records}end
+      end
     end
-    if ok then append(out, records) end
   end
   return out
 end
@@ -149,11 +175,13 @@ function WallDecals.draw(map, offsetX, offsetZ)
           and type(Voxel3D.seams) == "function") then
     return 0
   end
+  local records=recordsFor(map)
+  if #records==0 then return 0 end
   local ok, count = pcall(function()
     local drawn = 0
     Voxel3D.glass(false)
     Voxel3D.seams(false)
-    for _, decal in ipairs(recordsFor(map)) do
+    for _, decal in ipairs(records) do
       local cellX, cellY = tonumber(decal.cellX), tonumber(decal.cellY)
       if decal.image and cellX and cellY then
         local face = decal.face
@@ -172,7 +200,10 @@ function WallDecals.draw(map, offsetX, offsetZ)
           end
           local y = (tonumber(decal.elevation) or 0)
                     - (tonumber(decal.faceOffsetY) or 0)
-          Voxel3D.draw(mesh, image, Mat4.translate(x, y, z))
+          local matrix=matrices[decal]
+          if not matrix then matrix=Mat4.translate(x,y,z);matrices[decal]=matrix
+          else matrix[4],matrix[8],matrix[12]=x,y,z end
+          Voxel3D.draw(mesh,image,matrix)
           drawn = drawn + 1
         end
       end

@@ -29,3 +29,15 @@ map.def.warps={}
 local ordinary=C.plan(map,{},4,4,{})
 assert(ordinary.maskNorth==0 and ordinary.maskH==8,'mask extension survived removal of shaft')
 print('PASS shaft-only visibility extension, bounded exterior and no-shaft fallback')
+
+mods.HorizonWall.isOutdoorMap=function()return false end
+mods.HorizonWall.arenaViewFor=function()return nil end
+mods.HorizonWall.classFor=function()return 'cave'end
+local authored=true;local items=true
+mods.BlaineVolcano={profile=function()return authored and 'arena'or nil end}
+mods.VoxelItems={setting={get=function()return items end}}
+map.id='KA_BLAINE_VOLCANO_GYM'
+assert(not C.enabled(map),'suspended arena still uses cave flood mask')
+items=false;assert(C.enabled(map),'native fallback lost room mask');items=true
+authored=false;assert(C.enabled(map),'unrecognised map bypassed room mask')
+print('PASS exact suspended-arena visibility and native/unsupported fallback')

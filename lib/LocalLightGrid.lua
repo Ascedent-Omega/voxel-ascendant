@@ -171,7 +171,7 @@ local function stagedLayout(sources,limit,nextKey,map)
  end
 end
 local function image(data)
- local t=love.graphics.newImage(data);t:setFilter('nearest','nearest');t:setWrap('clamp','clamp');return t
+ local t=V.require("RasterResources").seal(love.graphics.newImage(data));t:setFilter('nearest','nearest');t:setWrap('clamp','clamp');return t
 end
 local function sameVector(a,b)
  if a==b then return true end
@@ -292,7 +292,7 @@ function M.prepare(frame,lights,blank)
    local n=l.normal;data:setPixel(3,i-1,n[1]*.5+.5,n[2]*.5+.5,n[3]*.5+.5,
     (not l.kind or l.kind=='window') and l.owner and l.owner.lo and 1 or 0)
   end
-  if texture then texture:replacePixels(data)else texture=image(data)end
+  if texture then V.require("RasterResources").changing(texture);texture:replacePixels(data)else texture=image(data)end
   data:release();colors=colorKey
  end
  if not visibility then visibility=assert((loadstring or load)(assert(V.mod:read('lib/LightVisibility.lua')),'@grid/LightVisibility.lua'))(V)end

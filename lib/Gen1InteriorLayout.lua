@@ -370,7 +370,11 @@ function M.panelsFor(map, profile)
         local breach=p.edge=='north' and V.require('Gen1BreachExterior').opening(map,warp)
         p.openings[#p.openings+1]={from=along,upto=math.min(along+16,p.upto),
           height=warp.destMap=='SILPH_CO_ELEVATOR' and 36 or breach and 28 or nil,
-          open=warp.destMap=='SILPH_CO_ELEVATOR' or breach or nil,breach=breach or nil}
+          open=warp.destMap=='SILPH_CO_ELEVATOR' or breach or nil,breach=breach or nil,
+          material=V.require('Gen1GlassDoors').interior(map,warp.destMap)and 'room_glass_door'
+            or V.require('Gen1DoorStyles').material(map.id),
+          singleLeaf=V.require('Gen1GlassDoors').wooden(map,warp.destMap)or nil,
+          doorView=V.require('Gen1GlassDoors').interior(map,warp.destMap)and V.require('Gen1GlassDoors').outViewKey(map,warp)or nil}
       end
     end
     -- These wall tiles contain a readable native sign, not just a blank
@@ -396,6 +400,16 @@ function M.panelsFor(map, profile)
       if last and last.height==door.height and last.open==door.open and last.material==door.material and door.from<=last.upto then
         last.upto=math.max(last.upto,door.upto)
       else merged[#merged+1]=door end
+    end
+    -- Adjacent native exit tiles form one warp aperture, not an extra-wide
+    -- wooden slab. This is presentation geometry only; native warps and
+    -- collision remain untouched. Keep the leaf at exterior door proportions.
+    for _,door in ipairs(merged)do
+      if door.singleLeaf and not door.open and not door.breach then
+        local center=(door.from+door.upto)/2
+        local width=math.min(door.upto-door.from,door.height*2/3)
+        door.from,door.upto=center-width/2,center+width/2
+      end
     end
     p.openings=merged
     if (profile.theme=="home" or profile.theme=="coastal_home" or profile.theme=="traditional_home")

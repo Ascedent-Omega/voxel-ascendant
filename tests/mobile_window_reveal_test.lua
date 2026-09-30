@@ -1,6 +1,6 @@
 for _,osName in ipairs{'Android','iOS'} do
  local windows=true;local map={id='SILPH_CO_2F'}
- local modules={Gen1Rooftops=assert(loadfile('lib/Gen1Rooftops.lua'))(),SilphFountains={prepared=function()return true end},CanvasPresentation={OS=osName},VoxelState={ready=true},Mat4={identity=function()return{}end},
+ local modules={ScenePrefetchCache=assert(loadfile("lib/ScenePrefetchCache.lua"))(),Gen1Rooftops=assert(loadfile('lib/Gen1Rooftops.lua'))(),SilphFountains={prepared=function()return true end},CanvasPresentation={OS=osName},VoxelState={ready=true},Mat4={identity=function()return{}end},
   SilphWindows={enabled=function()return windows end},HorizonWall={enabled=function()return true end}}
  local V={mod={}}
  function V.require(n)

@@ -83,18 +83,15 @@ local MAX_SLICE_DEPTH = 8
 -- an open landscape, not a locally framed slice.
 local MAX_SLICE_PASSAGE = 4
 
--- Audited outdoor bodies without an authored stair transition stay on one
--- local plane in WORLD. They may still receive a non-zero global map datum
--- from a connected route; only invented within-town terraces are suppressed.
--- Viridian is the guard case: its one-way ledge art is gameplay collision,
--- not evidence that the pond, houses and streets occupy separate storeys.
+-- Explicit exceptions to WORLD's native ledge interpretation. Viridian uses
+-- its real contours in WORLD: flattening the town left the Center's retaining
+-- lip and walkable stair openings without their upper terrace.
 local WORLD_LEVEL_MAPS = {
-  VIRIDIAN_CITY = true,
   -- Celadon has no traversable internal storey transition. Its decorative
   -- hedge/one-way ledge motifs were being integrated into a six-pixel basin;
   -- wandering trainers then inherited the low walkable cells and vanished
   -- behind the surrounding terrain. Keep the complete city body on its one
-  -- authored course in LOCAL and WORLD, just like audited Viridian.
+  -- authored course in LOCAL and WORLD.
   CELADON_CITY = true,
 }
 
@@ -284,7 +281,8 @@ local function build(map, data, buildMode)
     return readonlySnapshot(width, height, step, {}, nil, 0, nil, buildMode)
   end
   if (buildMode == "world" or buildMode == "local")
-     and WORLD_LEVEL_MAPS[map.id] then
+     and (WORLD_LEVEL_MAPS[map.id]
+       or (buildMode == "local" and LOCAL_CITY_COURSES[map.id])) then
     return readonlySnapshot(width, height, step, {}, nil, 0, nil, buildMode)
   end
 

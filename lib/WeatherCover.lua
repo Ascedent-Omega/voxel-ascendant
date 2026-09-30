@@ -1,2 +1,2 @@
 local V=...
-return assert((loadstring or load)(assert(V.mod:read("shared/WeatherCover.lua")),"@shared/WeatherCover.lua"))()
+return assert((loadstring or load)(assert(V.mod:read("shared/WeatherCover.lua")),"@shared/WeatherCover.lua"))(V.require("RasterResources"))

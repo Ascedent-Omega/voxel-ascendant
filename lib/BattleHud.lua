@@ -252,6 +252,7 @@ end
 -- The tint always pushes toward WHITE, away from the black ink that is about
 -- to land on it, so the contrast is guaranteed rather than hoped for -- and
 -- it is the whole of what makes a fixed ink colour workable over any ground.
+local panelQuad
 function BattleHud.panel(rect, box, world, sourceFlipAxis)
   if not (frost and box and box.scale and box.scale > 0) then return false end
   local fx, fy, fw, fh = mapper(world)(rect, box)
@@ -265,7 +266,9 @@ function BattleHud.panel(rect, box, world, sourceFlipAxis)
     fy = frostH - fy - fh
   end
   local ok = pcall(function()
-    local quad = love.graphics.newQuad(fx, fy, fw, fh, frostW, frostH)
+    if panelQuad then panelQuad:setViewport(fx,fy,fw,fh,frostW,frostH)
+    else panelQuad=love.graphics.newQuad(fx,fy,fw,fh,frostW,frostH) end
+    local quad=panelQuad
     love.graphics.setColor(1, 1, 1, BattleHud.frostAlpha())
     love.graphics.draw(frost, quad, rect[1], rect[2], 0,
                        rect[3] / fw, rect[4] / fh)

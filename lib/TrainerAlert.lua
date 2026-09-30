@@ -2,7 +2,7 @@
 -- owns its sixty-frame hold, sound, walk-up and battle callback.
 local V=...
 local M={}
-function M.draw(ctx,project,scale)
+function M.draw(ctx,project,scale,pixelScaleX,pixelScaleY)
   local world=ctx.state
   local emote=world and world.emote
   local npc=emote and emote.npc
@@ -14,6 +14,7 @@ function M.draw(ctx,project,scale)
   local ground=V.require('VoxelScene').fieldEffectGround(world,npc.px+8,npc.py+16)
   local x,y=G.project(npc.px+8,ground+29,npc.py+16)
   if not x then return ctx.drawFx(project,scale) end
+  x,y=x*(pixelScaleX or 1),y*(pixelScaleY or 1)
   local bubble=emote.bubble
   emote.bubble=false
   local ok,err=pcall(ctx.drawFx,project,scale)

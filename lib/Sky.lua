@@ -59,6 +59,7 @@ local SkyEvents = V.require("SkyEvents")
 local PaletteFX = require("src.render.PaletteFX")
 
 local Sky = {}
+local SkyBounds = V.require('SkyBounds')
 
 local okPresentation, CanvasPresentation = pcall(V.require,
   "CanvasPresentation")
@@ -697,11 +698,16 @@ local function paintDisc(body, edge, cell, w, h)
   if by - r * cell > edge then return end     -- wholly below the horizon point
   local sx, sy, sw, sh = g.getScissor()
   g.setScissor(0, 0, math.ceil(w), math.floor(edge))
-  discCells(r, body.moon, shades, twilight, function(dx, dy, c)
-    g.setColor(c[1] / 255, c[2] / 255, c[3] / 255, 1)
-    g.rectangle("fill", bx + dx * cell - cell / 2,
-                by + dy * cell - cell / 2, cell, cell)
-  end)
+  local baked=Sky.discImage(body.moon,twilight,r,1)
+  if baked then
+    g.setColor(1,1,1,1)
+    g.draw(baked,bx-(r+.5)*cell,by-(r+.5)*cell,0,cell,cell)
+  else
+    discCells(r,body.moon,shades,twilight,function(dx,dy,c)
+      g.setColor(c[1]/255,c[2]/255,c[3]/255,1)
+      g.rectangle("fill",bx+dx*cell-cell/2,by+dy*cell-cell/2,cell,cell)
+    end)
+  end
   if sx then g.setScissor(sx, sy, sw, sh) else g.setScissor() end
   g.setColor(1, 1, 1, 1)
 end
@@ -1453,12 +1459,12 @@ end
 -- projected through the eye's own matrix like any geometry, stable under
 -- every head motion. Rebaked only when the palette or the twilight state
 -- moves the colours.
-local discBake = { key = nil, img = nil }
+local discBakes,discOrder={},{}
 
 Sky.DISC_BAKE_R = 9          -- bake radius, in cells
 Sky.DISC_BAKE_PX = 8         -- texture pixels per cell
 
-function Sky.discImage(moon, twilight)
+function Sky.discImage(moon, twilight, radius, pixels)
   if not (love.graphics and love.graphics.newCanvas) then return nil end
   local shades = Sky.discShades(moon)
   local key = (moon and "m" or "s") .. (twilight and "t" or "-")
@@ -1466,27 +1472,39 @@ function Sky.discImage(moon, twilight)
     local c = shades[i]
     key = key .. ":" .. c[1] .. "," .. c[2] .. "," .. c[3]
   end
-  if discBake.key == key and discBake.img then return discBake.img end
-  local r, px = Sky.DISC_BAKE_R, Sky.DISC_BAKE_PX
+  local r,px=radius or Sky.DISC_BAKE_R,pixels or Sky.DISC_BAKE_PX
+  key=key..":"..r..":"..px
+  if discBakes[key]then return discBakes[key]end
   local size = (2 * r + 1) * px
-  local ok, canvas = pcall(love.graphics.newCanvas, size, size)
+  local ok, canvas = pcall(love.graphics.newCanvas, size, size,{dpiscale=1})
   if not (ok and canvas) then return nil end
   pcall(canvas.setFilter, canvas, "nearest", "nearest")
   local g = love.graphics
+  local pushed=false
   local done = pcall(function()
-    g.push("all")
+    g.push("all");pushed=true
     g.origin()
     g.setCanvas(canvas)
+    g.setShader();g.setScissor();g.setDepthMode()
     g.clear(0, 0, 0, 0)
     g.setBlendMode("alpha")
     discCells(r, moon, shades, twilight, function(dx, dy, c)
       g.setColor(c[1] / 255, c[2] / 255, c[3] / 255, 1)
       g.rectangle("fill", (dx + r) * px, (dy + r) * px, px, px)
     end)
-    g.pop()
+    g.pop();pushed=false
   end)
-  if not done then return nil end
-  discBake.key, discBake.img = key, canvas
+  if not done then
+    if pushed then pcall(g.pop)end
+    if canvas.release then pcall(canvas.release,canvas)end
+    return nil
+  end
+  discBakes[key]=canvas;discOrder[#discOrder+1]=key
+  if #discOrder>4 then
+    local old=table.remove(discOrder,1);local img=discBakes[old]
+    if img and img.release then pcall(img.release,img)end
+    discBakes[old]=nil
+  end
   return canvas
 end
 
@@ -1670,10 +1688,12 @@ function Sky.paint(w, h, sky, horizonY, cell, body, top, axis, ray, context)
     if sent then
       g.setShader(sh)
       g.setColor(1, 1, 1, 1)
-      -- tilted or rayed, the sky's reach is not a row: the full frame
-      -- goes through the shader and the discard is the boundary
+      -- The ray horizon is a half-plane even when the camera rolls. Restrict
+      -- rows conservatively; the original shader still owns the exact edge.
       local rectH = (axis or ray) and h or math.min(h, math.ceil(edge))
-      g.rectangle("fill", 0, 0, w, rectH)
+      local rectY=0
+      if ray and Sky.boundsEnabled~=false then rectY,rectH=SkyBounds.rows(h,ray)end
+      if rectH>0 then g.rectangle("fill", 0, rectY, w, rectH)end
       g.setShader()
     else
       sh = nil
@@ -1713,10 +1733,8 @@ function Sky.invalidate()
   shader = nil
   if cache.ramp and cache.ramp.release then pcall(cache.ramp.release, cache.ramp) end
   cache.ramp, cache.rampFor = nil, nil
-  if discBake.img and discBake.img.release then
-    pcall(discBake.img.release, discBake.img)
-  end
-  discBake.key, discBake.img = nil, nil
+  for _,img in pairs(discBakes)do if img.release then pcall(img.release,img)end end
+  discBakes,discOrder={},{}
   Sky.invalidateCloudAsset()
   V.require("SkyStyle").invalidate()
   V.require("WorldWeather").invalidate()

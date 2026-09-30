@@ -438,7 +438,7 @@ local PAINTER = {
   stormLeaves=paintStormLeaves,
 }
 
-function WeatherTweak.apply(canvas, w, h, map, cell, baseMode, battle)
+function WeatherTweak.apply(canvas, w, h, map, cell, baseMode, battle, bound)
   if not canvas or not WeatherTweak.enabled() then return canvas end
   -- Normal VASC rain is sacrosanct: do not even inspect LOVE on this path.
   if baseMode == "rain" then return canvas end
@@ -465,7 +465,7 @@ function WeatherTweak.apply(canvas, w, h, map, cell, baseMode, battle)
     g.push("all")
     pushed = true
     g.origin()
-    g.setCanvas(canvas)
+    if not bound then g.setCanvas(canvas)end
     if CanvasPresentation and CanvasPresentation.begin2D then
       CanvasPresentation.begin2D(g, h)
     end
@@ -473,13 +473,17 @@ function WeatherTweak.apply(canvas, w, h, map, cell, baseMode, battle)
     if g.setDepthMode then g.setDepthMode("always", false) end
     if g.setBlendMode then g.setBlendMode("alpha") end
     painter(g, w, h, cell, event)
-    if previousCanvas then g.setCanvas(previousCanvas) else g.setCanvas() end
+    if not bound then
+      if previousCanvas then g.setCanvas(previousCanvas) else g.setCanvas() end
+    end
     g.pop()
     pushed = false
   end)
   if not ok then
-    if previousCanvas then pcall(g.setCanvas, previousCanvas)
-    else pcall(g.setCanvas) end
+    if not bound then
+      if previousCanvas then pcall(g.setCanvas, previousCanvas)
+      else pcall(g.setCanvas) end
+    end
     if pushed then pcall(g.pop) end
   end
   return canvas

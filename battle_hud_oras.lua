@@ -11,6 +11,14 @@
 -- the card follows the reference through camera movement while collision
 -- safety continues to use the animated silhouette.
 
+local hudQuad
+local function viewportQuad(x,y,w,h,tw,th)
+  if hudQuad then hudQuad:setViewport(x,y,w,h,tw,th)
+  else hudQuad=love.graphics.newQuad(x,y,w,h,tw,th) end
+  return hudQuad
+end
+
+
 return function(mod, Bundle)
 Bundle = type(Bundle) == "table" and Bundle or {}
 local INTEGRATED_KASC = mod.id == "kanto_ascendant"
@@ -5600,7 +5608,7 @@ local function renderPartyCanvas(menu, battle, k, logicalW, logicalH)
         -- appear to spin in place rather than sit cleanly in the list.
         local phase = math.floor(partyFrame / ticks)
         local frame = crystal and i == selected and phase % 2 == 1 and 3 or 0
-        local quad = g.newQuad(0, frame * frameH, iw, frameH, iw, ih)
+        local quad = viewportQuad(0, frame * frameH, iw, frameH, iw, ih)
         local baseScale = iconTarget / math.max(1, math.max(iw, frameH))
         local iconPulse = i == selected
           and (0.96 + 0.04 * math.sin(partyFrame * 0.12)) or 1

@@ -24,12 +24,22 @@ function M.new(options)
   local name=tostring(path or ''):gsub('\\','/'):match('([^/]+)%.png$')or''
   return name:gsub('%-variant%-.+$',''):gsub('(%-sheet%-v%d+)%-.+$','%1')
  end
+ local function cobbleSource(def)
+  return def and def.cobbleStyle=='cobble'
+    and def.ascendantExternalCharacterSource=='ascendant.character-art-source/v1'
+    and type(def.ascendantSeatSource)=='string'
+ end
  local function admittedSource(def,profile)
   local path=tostring(def and def.ascendantAtlasImage or ''):gsub('\\','/')
+  if cobbleSource(def) then
+   -- Cobble atlases have different filenames. Match their catalogued source,
+   -- retaining the exact actor, role, spawn and movement checks below.
+   path=def.ascendantSeatSource:gsub('\\','/')
+  end
   if options.generation==1 and def.voxelSpriteDemo then
    return path:find('/assets/characters/voxel-npcs/',1,true) and atlasFamily(path)==atlasFamily(profile.path)
   end
-  return (path:find('/assets/characters/npcs/',1,true)or path:sub(1,24)=='assets/characters/npcs/')
+  return (path:find('/assets/characters/npcs/',1,true)or path:find('assets/characters/npcs/',1,true)==1)
    and atlasFamily(path)==atlasFamily(profile.path)
  end
  local function enabled()
@@ -53,7 +63,7 @@ function M.new(options)
   end
   local def=found and found.sprite and found.sprite.def
   if not def or found.def==nil or found.def.index~=profile.index
-   or def.ascendantRole~=profile.role
+   or (not cobbleSource(def) and def.ascendantRole~=profile.role)
    or not admittedSource(def,profile)
    or def.ascendantCharacterAction~=nil
    or found.cellX~=profile.cellX or found.cellY~=profile.cellY
@@ -121,8 +131,11 @@ function M.new(options)
  local function build(record,original,source,profile,visibleHeight)
   local n=original:getVertexCount();assert(n==4 or n==16,'unsupported seated card mesh')
   local imageWidth,imageHeight=source.texture:getDimensions()
-  assert(imageWidth%3==0 and imageHeight%4==0,'seated atlas layout')
-  local cellWidth,cellHeight=imageWidth/3,imageHeight/4
+  -- Native sheets contain three poses per facing; external idle clips can
+  -- contain one. Both supply four rows and the same per-cell bounds contract.
+  local columns=source.columns or 3
+  assert(columns>=1 and columns%1==0 and imageWidth%columns==0 and imageHeight%4==0,'seated atlas layout')
+  local cellWidth,cellHeight=imageWidth/columns,imageHeight/4
   local vertices,indices,base={},{},{}
   local hipY,anatomicalReach,poseScale
   local casino=profile.contact or profile.mapId=='GAME_CORNER'

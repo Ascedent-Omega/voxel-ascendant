@@ -5,6 +5,13 @@ local M = {}
 local mesh,texture,failed
 local PATH="assets/characters/pokecenter-seated-man-hd-v1.png"
 function M.enabled()
+  local exports=V.mod and V.mod.exports
+  local style=exports and exports.humanDlc
+  local options=V.mod and V.mod.options
+  -- The walking switch also enables VOXEL/COBBLE. Only the resolved HD
+  -- selection may replace this tile-authored person with smooth artwork.
+  if not (style and options
+      and style.style(options:get('apo_human_art_style'))=='hd') then return false end
   local api=V.mod and V.mod.exports and V.mod.exports.overworldPokemon
   local walkers=api and api.walkingSprites
   if not (walkers and type(walkers.enabled)=="function") then return false end

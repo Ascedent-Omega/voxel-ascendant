@@ -233,6 +233,8 @@ end
 -- headless suite. The asynchronous sink below pages vertices and packs its
 -- index data, so no route-sized LOVE table conversion can stop a frame.
 
+local MeshVisibility=V.require("PropVisibility")
+local OpaqueMaterials=V.require("OpaqueMaterials")
 local function newTableSink()
   local verts, indices, quads = {}, {}, 0
   return {
@@ -251,7 +253,7 @@ local function newTableSink()
       return verts, indices, quads
     end,
     finish = function()
-      return Voxel3D.newMesh(verts, indices)
+      return MeshVisibility.remember(Voxel3D.newMesh(verts, indices,true),MeshVisibility.bounds(verts,Budget))
     end,
   }
 end
@@ -285,8 +287,33 @@ local function newAsyncSink(job, saved)
   local indexPieces, indexPage = saved and saved.indexPieces or {}, {}
   local quads = saved and saved.quads or 0
   local vertices, indices = quads * 4, quads * 6
+  local bounds=MeshVisibility.empty()
+  local atlas=job.map and job.map.renderer and job.map.renderer.image
+  local aw,ah;if atlas and atlas.getDimensions then aw,ah=atlas:getDimensions()end
+  local material=OpaqueMaterials.collector(aw,ah)
+  local u0,v0,u1,v1=math.huge,math.huge,-math.huge,-math.huge
+
+  local function retainMesh(mesh)
+    V.require("RasterResources").seal(mesh)
+    if saved and not material then bounds=MeshVisibility.staticMeshBounds(mesh,Budget)end
+    if saved and material then
+      -- The existing bounds recovery already visits this immutable vertex
+      -- buffer. Recover opacity cells in that same budgeted walk on disk hits.
+      local step=MOBILE_RUNTIME and 6 or 4
+      bounds=MeshVisibility.staticMeshBounds(mesh,Budget,function(i,u,v)
+        u0,v0,u1,v1=math.min(u0,u),math.min(v0,v),math.max(u1,u),math.max(v1,v)
+        if i%step==0 then
+          OpaqueMaterials.quad(material,u0,v0,u1,v1)
+          u0,v0,u1,v1=math.huge,math.huge,-math.huge,-math.huge
+        end
+      end)
+    end
+    return OpaqueMaterials.remember(MeshVisibility.remember(mesh,bounds),material)
+  end
 
   local function appendValues(x, y, z, u, v, shade)
+    MeshVisibility.include(bounds,x,y,z)
+    if material then u0,v0,u1,v1=math.min(u0,u),math.min(v0,v),math.max(u1,u),math.max(v1,v)end
     page[#page + 1] = x
     page[#page + 1] = y
     page[#page + 1] = z
@@ -379,6 +406,10 @@ local function newAsyncSink(job, saved)
   end
 
   local function finishQuad()
+    if material then
+      OpaqueMaterials.quad(material,u0,v0,u1,v1)
+      u0,v0,u1,v1=math.huge,math.huge,-math.huge,-math.huge
+    end
     if not MOBILE_RUNTIME then
       local base = quads * 4
       indexPage[#indexPage + 1] = base
@@ -551,7 +582,7 @@ local function newAsyncSink(job, saved)
           triangles=indices / 3, indexFormat="none",
         })
         Budget.check()
-        return mesh
+        return retainMesh(mesh)
       end
 
       -- Unlike the old Lua index table this is a compact native byte stream.
@@ -586,7 +617,7 @@ local function newAsyncSink(job, saved)
         indices=indices, indexFormat="uint32",
       })
       Budget.check()
-      return mesh
+      return retainMesh(mesh)
     end,
   }
 end
@@ -647,7 +678,7 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
   local waterPush = waterSink and waterSink.push or nil
   local waterPushValues = waterSink and waterSink.pushValues or nil
   local tileset = map.tileset
-  local S = Structures.forMap(map)
+  local S = Structures.forBuild(map)
   local elevation = elevationFor(map)
   local flatTerrain = elevation and elevation.terrainMode == "flat"
   -- FLAT removes navigational elevation, not the map's visual language. A
@@ -2410,6 +2441,7 @@ local function instanceSource(job, offsets)
     Budget.check()
     first = last + 1
   end
+  V.require("RasterResources").seal(source)
   return source, count
 end
 
@@ -2420,9 +2452,14 @@ end
 -- larger expanded forest after an out-of-memory signal would be unsafe.
 local function finishStampPlan(job, base, plan)
   local instances = {}
+  local bounds=MeshVisibility.empty()
+  local bounded=not base or MeshVisibility.union(bounds,MeshVisibility.known(base))
   for _, group in ipairs(plan.groups) do
     local mesh = group.sink.finish()
     if not mesh then error("empty instanced stamp variant", 0) end
+    for _,offset in ipairs(group.offsets)do
+      bounded=MeshVisibility.union(bounds,MeshVisibility.known(mesh),offset[1],offset[2],offset[3]) and bounded
+    end
     local source, count = instanceSource(job, group.offsets)
     if type(mesh.attachAttribute) ~= "function" then
       instancingUnsupported("per-instance attributes are unavailable")
@@ -2435,6 +2472,7 @@ local function finishStampPlan(job, base, plan)
                                       "InstanceOffset", source,
                                       "perinstance")
     if not attached then instancingUnsupported(attachErr) end
+    V.require("RasterResources").depend(mesh,source)
     mobileDiagnostic("checkpoint", "instance-attribute-ready", {
       caller="Mesh.attachAttribute", context="mesh-instancing",
       attribute="InstanceOffset", count=count,
@@ -2450,7 +2488,7 @@ local function finishStampPlan(job, base, plan)
     group.offsets = nil
     Budget.check()
   end
-  return meshBundle(base, instances)
+  return MeshVisibility.remember(meshBundle(base, instances),bounded and bounds or nil)
 end
 
 -- The raw geometry for `map`: (vertex list, triangle index list, quad
@@ -2626,7 +2664,7 @@ end
 
 local function buildGrassMesh(map, job, elevation)
   elevation = elevation or elevationFor(map)
-  local S = Structures.forMap(map)
+  local S = Structures.forBuild(map)
   local groups = S.grassGroups
   -- Compatibility with an analysis made by an older hot-loaded build and
   -- with lightweight fixtures which still provide the historical flat list.
@@ -2661,7 +2699,7 @@ end
 -- tufts.
 local function buildFlowerMesh(map, job, elevation)
   elevation = elevation or elevationFor(map)
-  return quadsMesh(Structures.forMap(map).flowerQuads, job, elevation)
+  return quadsMesh(Structures.forBuild(map).flowerQuads, job, elevation)
 end
 
 -- Authored FIGURES (a person drawn into furniture) as one mesh each, in
@@ -2678,7 +2716,7 @@ end
 local function buildFigureMeshes(map, job, elevation)
   elevation = elevation or elevationFor(map)
   local out = {}
-  for _, f in ipairs(Structures.forMap(map).figures or {}) do
+  for _, f in ipairs(Structures.forBuild(map).figures or {}) do
     Budget.check()
     local mesh = quadsMesh(f.quads, job)
     if mesh then
@@ -2709,6 +2747,7 @@ end
 
 -- Replace a cached slot, releasing whatever mesh it held.
 local function swapSlot(c, slot, mesh)
+  ChunkMesher.cacheRevision=(ChunkMesher.cacheRevision or 0)+1
   local old = c[slot]
   if old and old ~= mesh and old.release then pcall(old.release, old) end
   c[slot] = mesh
@@ -2734,6 +2773,7 @@ local function waterSlot(slot)
 end
 
 local function releaseEntry(c)
+  ChunkMesher.cacheRevision=(ChunkMesher.cacheRevision or 0)+1
   for _, slot in ipairs({ "full", "body", "fullWater", "bodyWater",
                           "grass", "flowers" }) do
     local mesh = c[slot]
@@ -2806,8 +2846,37 @@ local function auxComplete(c)
          and c.figures ~= nil
 end
 
+local function auxiliaryStamp(map,elevation)
+  if map.def.runtimeAuthority then return nil end
+  local S=Structures.forBuild(map)
+  local groups=S.grassGroups
+  if not groups then return nil end
+  if OutdoorScenery and OutdoorScenery.grassGroups then groups=OutdoorScenery.grassGroups(map,groups)end
+  if WalkableGrades.grassGroups then groups=WalkableGrades.grassGroups(map,elevation,S,groups)end
+  local supports={}
+  for _,group in ipairs(groups)do
+    local p=group.placements or{}
+    for at=1,#p,2 do Budget.tick()
+      supports[#supports+1]=group.elevationBases and group.elevationBases[at]
+        or elevationAtWorld(elevation,p[at]+.001,p[at+1]+.001)
+    end
+  end
+  for _,q in ipairs(S.flowerQuads or{})do Budget.tick();supports[#supports+1]=baseForWorldQuad(elevation,q)end
+  for _,f in ipairs(S.figures or{})do
+    local w=0
+    for _,q in ipairs(f.quads)do for i=1,4 do w=math.max(w,q[i][1])end end
+    supports[#supports+1]=elevationAtWorld(elevation,f.wx+w/2,f.wz)
+  end
+  return V.require("TerrainDiskCache").fingerprint({grass=groups,flowers=S.flowerQuads,figures=S.figures,supports=supports})
+end
 local function buildAux(job, map)
   local elevation = elevationFor(map)
+  local okStamp,stamp=pcall(auxiliaryStamp,map,elevation)
+  if not okStamp then stamp=nil end
+  local previous=cache[map.id]
+  if stamp and auxComplete(previous) and previous.auxiliaryStamp==stamp then
+    return {retained=true,stamp=stamp}
+  end
   local function attempt(fn)
     local keep = #(job.partialMeshes or {})
     local ok, result = pcall(fn, map, job, elevation)
@@ -2818,6 +2887,7 @@ local function buildAux(job, map)
   local okF, flowers = attempt(buildFlowerMesh)
   local okX, figures = attempt(buildFigureMeshes)
   return {
+    stamp=stamp,
     grass = (okG and grass) or false,
     flowers = (okF and flowers) or false,
     figures = (okX and figures) or false,
@@ -2825,6 +2895,12 @@ local function buildAux(job, map)
 end
 
 local function landAux(c, aux)
+  c.auxiliaryStamp=aux.stamp
+  if aux.retained then
+    c.requireAux=nil
+    if c.stale then c.stale.aux=nil end
+    return
+  end
   swapSlot(c, "grass", aux.grass)
   swapSlot(c, "flowers", aux.flowers)
   releaseFigures(c.figures)
@@ -2851,7 +2927,7 @@ local function terrainCacheKey(disk,job,useInstances)
   if type(outdoor)=='string' and outdoor:match('^kasc_')then return nil end
   local policy=disk.policy and disk.policy(job.id,job.slot,MOBILE_RUNTIME,useInstances)
   if disk.policy and not policy then return nil end
-  local resolved=Structures.forMap(map)
+  local resolved=Structures.forBuild(map)
   local elevation=elevationFor(map)
   local checkStart=jobCPU(job)
   local structures=terrainStructureKeys[resolved]
@@ -2957,7 +3033,7 @@ end
 -- A build only lands if the map's generation still matches the one the
 -- job was queued under -- invalidate/evict bump it to cancel in-flight
 -- work whose inputs went stale.
-local function runJob(job)
+local function buildQueuedJob(job)
   local map = job.map
   local c = entry(job.id)
   if job.auxOnly then
@@ -2971,6 +3047,7 @@ local function runJob(job)
     return
   end
 
+  local geometryStamp=V.require("MapGeometryStamp").forMap(map)
   local mesh, water = buildJobTerrain(job)
   -- The current map is one visual answer: terrain without its tall grass is a
   -- conspicuous pop on Route 1. A neighbour may expose terrain first and warm
@@ -2986,6 +3063,7 @@ local function runJob(job)
     releasePartialJob(job)
     return
   end
+  c.geometryStamp=geometryStamp
   swapSlot(c, job.slot, mesh or false)
   swapSlot(c, waterSlot(job.slot), water or false)
   if aux then landAux(c, aux) end
@@ -3030,6 +3108,14 @@ local function runJob(job)
       c.stale = nil
     end
   end
+end
+
+local function runJob(job)
+  buildQueuedJob(job)
+  local c=cache[job.id]
+  if (gen[job.id]or 0)~=job.gen or not auxComplete(c) or c.stale then return end
+  for _,other in ipairs(jobs)do if other~=job and other.id==job.id then return end end
+  Structures.releaseBuildData(job.map)
 end
 
 -- Queue a build unless the slot is already cached or queued. Returns the
@@ -3196,7 +3282,7 @@ local function visibleIdleSlice()
   return IDLE_SLICE
 end
 
-function ChunkMesher.pump(covered, background, loading, warpPrefetch, survey, gatePreparing)
+function ChunkMesher.pump(covered, background, loading, warpPrefetch, survey, gatePreparing, visibleBattle)
   if #jobs == 0 then return end
   local function nextJob()
     local firstPriority, firstPriorityRank, firstLive = nil, 0, nil
@@ -3243,7 +3329,8 @@ function ChunkMesher.pump(covered, background, loading, warpPrefetch, survey, ga
   -- 3ms and fall back to the 1ms survey slice as soon as frame time rises.
   local gateSlice = gatePreparing and timer and timer.getDelta
     and timer.getDelta() < 1/80 and 0.003 or SURVEY_SLICE
-  local slice = background and BACKGROUND_SLICE
+  local slice = visibleBattle and visibleIdleSlice()
+                or background and BACKGROUND_SLICE
                 or (covered and loading) and COVERED_LOADING_SLICE
                 or (covered and warpPrefetch) and WARP_PREFETCH_SLICE
                 or covered and COVERED_SLICE
@@ -3412,12 +3499,14 @@ end
 -- the mesh outright, and until the async rebuild landed the scene fell
 -- to the flat 2D path, a whole-world blink for a one-block edit.
 function ChunkMesher.refresh(mapId)
+  ChunkMesher.cacheRevision=(ChunkMesher.cacheRevision or 0)+1
   if not mapId then return ChunkMesher.invalidate() end
   local c = cache[mapId]
   -- nothing drawable cached: the plain drop costs nothing visible
   if not (c and (c.full or c.body)) then
     return ChunkMesher.invalidate(mapId)
   end
+  c.geometryStamp=nil
   invalidateElevation(mapId)
   Structures.invalidate(mapId)
   gen[mapId] = (gen[mapId] or 0) + 1
@@ -3434,6 +3523,16 @@ function ChunkMesher.refresh(mapId)
   c.stale = { aux = true,
               full = (c.full ~= nil) or nil,
               body = (c.body ~= nil) or nil }
+end
+
+-- Return true only when a native reload has exactly the published inputs.
+function ChunkMesher.reload(map)
+  local c=map and cache[map.id]
+  local stamp=c and not c.stale and c.geometryStamp
+    and V.require("MapGeometryStamp").forMap(map)
+  if stamp and stamp==c.geometryStamp then return true end
+  if map and map.id then ChunkMesher.refresh(map.id)end
+  return false
 end
 
 -- Pin the visible ring and retain recently visited maps within the shared
@@ -3479,6 +3578,7 @@ end
 -- in the same breath; in-flight builds of the map are cancelled through
 -- the generation counter.
 function ChunkMesher.invalidate(mapId)
+  ChunkMesher.cacheRevision=(ChunkMesher.cacheRevision or 0)+1
   if not mapId then V.require("WorldResidency").reset() end
   Structures.invalidate(mapId)
   invalidateElevation(mapId)

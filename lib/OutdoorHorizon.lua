@@ -22,7 +22,7 @@ local function palette()
  if texture then return texture end
  local d=love.image.newImageData(#colors,1)
  for i,c in ipairs(colors)do d:setPixel(i-1,0,c[1]/255,c[2]/255,c[3]/255,1)end
- texture=love.graphics.newImage(d);texture:setFilter('nearest','nearest');d:release()
+ texture=V.require('RasterResources').seal(love.graphics.newImage(d));texture:setFilter('nearest','nearest');d:release()
  return texture
 end
 function H.active(map,horizon)
@@ -174,6 +174,34 @@ local function inCorridor(corridors,x,z,w,d)
  end
  return false
 end
+-- A coast owns its perpendicular strip, not the diagonal extension of a
+-- neighbour's land edge. Route 14's east sea must not cut Route 13's north
+-- woodland. Direct water strips still veto overlapping land, and an isolated
+-- coastal corner retains both original edge policies.
+local function landKind(kind)
+ return kind and kind~='none'and kind~='open_water'
+  and not kind:find('water')and not kind:find('sea')
+end
+local function coastAllows(maps,x,z,w,d,depth,edgeKind)
+ local alignedLand,cornerWater=false,false
+ local cx,cz=x+w/2,z+d/2
+ for _,e in ipairs(maps)do
+  if x+w>e.x0-depth and x<e.x1+depth and z+d>e.z0-depth and z<e.z1+depth then
+   local overlapX=x<e.x1 and x+w>e.x0
+   local overlapZ=z<e.z1 and z+d>e.z0
+   local insideX=x>=e.x0 and x+w<=e.x1
+   local insideZ=z>=e.z0 and z+d<=e.z1
+   local north=z<e.z0 and not landKind(edgeKind(e,'north',cx,cz))
+   local south=z+d>e.z1 and not landKind(edgeKind(e,'south',cx,cz))
+   local west=x<e.x0 and not landKind(edgeKind(e,'west',cx,cz))
+   local east=x+w>e.x1 and not landKind(edgeKind(e,'east',cx,cz))
+   if (overlapX and(north or south))or(overlapZ and(west or east))then return false end
+   if (insideX and(z<e.z0 or z+d>e.z1))or(insideZ and(x<e.x0 or x+w>e.x1))then alignedLand=true end
+   if north or south or west or east then cornerWater=true end
+  end
+ end
+ return alignedLand or not cornerWater
+end
 function H.shoulders(maps,horizon,emit,yieldStep,depth,corridors)
  corridors=corridors or {}
  local step=16;depth=depth or 48
@@ -205,15 +233,8 @@ function H.shoulders(maps,horizon,emit,yieldStep,depth,corridors)
  local function clear(x,z)
   for _,e in ipairs(maps)do
    if x<e.x1 and x+step>e.x0 and z<e.z1 and z+step>e.z0 then return false end
-   -- A land corner adjoining a coast must not extend across the open sea.
-   if x>=e.x0-depth and x<e.x1+depth and z>=e.z0-depth and z<e.z1+depth then
-    local cx,cz=x+step/2,z+step/2
-    if z<e.z0 and not land(edgeKind(e,'north',cx,cz))then return false end
-    if z>=e.z1 and not land(edgeKind(e,'south',cx,cz))then return false end
-    if x<e.x0 and not land(edgeKind(e,'west',cx,cz))then return false end
-    if x>=e.x1 and not land(edgeKind(e,'east',cx,cz))then return false end
-   end
   end
+  if not coastAllows(maps,x,z,step,step,depth,edgeKind)then return false end
   for _,g in ipairs(gates)do
    if x<g.x1+8 and x+step>g.x0-8 and z<g.z1 and z+step>g.z0 then return false end
   end
@@ -286,20 +307,14 @@ function H.geometry(maps,horizon,emit,yieldStep,worldMaps)
   return kind and kind~='none' and kind~='open_water'
    and not kind:find('water') and not kind:find('sea')
  end
+ local function edgeKind(e,edge,x,z)
+  local horizontal=edge=='north'or edge=='south'
+  local along=horizontal and x-e.x0 or z-e.z0
+  local len=horizontal and e.w or e.h
+  return horizon.edgeClass(e.map,edge,math.max(0,math.min(len-1,along)))
+ end
  local function landCorner(x,z)
-  for _,e in ipairs(maps)do
-   if x+48>e.x0-208 and x<e.x1+208 and z+48>e.z0-208 and z<e.z1+208 then
-    local cx,cz=x+24,z+24
-    local function allows(edge,along,len)
-     return land(horizon.edgeClass(e.map,edge,math.max(0,math.min(len-1,along))))
-    end
-    if z<e.z0 and not allows('north',cx-e.x0,e.w)then return false end
-    if z+48>e.z1 and not allows('south',cx-e.x0,e.w)then return false end
-    if x<e.x0 and not allows('west',cz-e.z0,e.h)then return false end
-    if x+48>e.x1 and not allows('east',cz-e.z0,e.h)then return false end
-   end
-  end
-  return true
+  return coastAllows(maps,x,z,48,48,H.SHOULDER_DEPTH,edgeKind)
  end
  local occupied={}
  local function object(x,z,kind,seed,row,profile,edge)
@@ -436,6 +451,7 @@ function H.build(maps,horizon,yieldStep,worldMaps,ownedMeshes)
   if not a.vertices then return end
   if yieldStep then yieldStep()end
   local mesh=V.require('SceneryMeshUpload').newMesh(a.vertices,a.indices,yieldStep)
+  if mesh then V.require('RasterResources').seal(mesh)end
   if not mesh then
    if not ownedMeshes then for _,part in ipairs(out)do part.mesh:release()end end
    error('voxel horizon allocation failed',0)

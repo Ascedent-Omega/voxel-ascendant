@@ -110,7 +110,7 @@ local function surface(t,a)
 end
 -- The broad cone is an irregular basalt surface. Lava is its own continuous
 -- ribbon over that same surface, so it follows the slope without box stairs.
-function M.meshes(ox,oz,oy,yieldStep,ownedMeshes)
+function M.meshes(ox,oz,oy,yieldStep,ownedMeshes,view)
  local clock=love and love.timer and love.timer.getTime
  local started=clock and clock()or 0
  local work=0
@@ -121,11 +121,26 @@ function M.meshes(ox,oz,oy,yieldStep,ownedMeshes)
    yieldStep();work=0;started=clock and clock()or 0
   end
   local n=#g.vertices
-  for _,p in ipairs{a,b,c,d}do g.vertices[#g.vertices+1]={p[1]+ox,p[2]+(oy or 0),p[3]+oz,color<0 and color or (color-.5)/#names,.5,shade or 1}end
+  local points={a,b,c,d}
+  if view and view.opening then
+   local q=view.opening
+   local lo,hi={math.huge,math.huge,math.huge},{-math.huge,-math.huge,-math.huge}
+   for _,p in ipairs(points)do
+    local x,y,z=view.transform(p[1],p[2],p[3])
+    for axis,v in ipairs{x,y,z}do lo[axis]=math.min(lo[axis],v);hi[axis]=math.max(hi[axis],v)end
+   end
+   if lo[1]<q[4]and hi[1]>q[1]and lo[2]<q[5]and hi[2]>q[2]and lo[3]<q[6]and hi[3]>q[3]then return end
+  end
+  for _,p in ipairs(points)do
+   local x,y,z=p[1],p[2],p[3]
+   if view then x,y,z=view.transform(x,y,z)end
+   g.vertices[#g.vertices+1]={x+ox,y+(oy or 0),z+oz,color<0 and color or (color-.5)/#names,.5,shade or 1}
+  end
   for _,i in ipairs{1,2,3,1,3,4}do g.indices[#g.indices+1]=n+i end
  end
  local rock,lava=groups[1],groups[2]
  local indices={basalt=1,rock=2,ash=3,sand=4,magma=5,bark=6,leaf=7,leafTop=8}
+ if not(view and view.coneOnly)then
  M.geometry(function(x,y,z,w,h,d,c)
   for face,corners in ipairs(V.require('Voxel3D').FACE_CORNERS)do
    local points={}
@@ -146,6 +161,7 @@ function M.meshes(ox,oz,oy,yieldStep,ownedMeshes)
      {endX,ground(endX,z+depth),z+depth},{endX,ground(endX,z),z},-183,1)
    end
   end
+ end
  end
  for ring=0,31 do for sector=0,63 do
   local a,b=sector/64*math.pi*2,(sector+1)/64*math.pi*2
@@ -192,13 +208,17 @@ function M.meshes(ox,oz,oy,yieldStep,ownedMeshes)
    for at=first,math.min(first+6143,#g.vertices)do vertices[#vertices+1]=g.vertices[at]end
    local indexFirst=(first-1)/4*6+1
    for at=indexFirst,indexFirst+#vertices/4*6-1 do indices[#indices+1]=g.indices[at]-first+1 end
+   local bounds={math.huge,math.huge,math.huge,-math.huge,-math.huge,-math.huge}
+   for _,v in ipairs(vertices)do for axis=1,3 do
+    bounds[axis]=math.min(bounds[axis],v[axis]);bounds[axis+3]=math.max(bounds[axis+3],v[axis])
+   end end
    local mesh=V.require('SceneryMeshUpload').newMesh(vertices,indices,yieldStep)
    if not mesh then
     if not ownedMeshes then for _,part in ipairs(out)do part.mesh:release()end end
     error('volcano mesh',0)
    end
    out[#out+1]={mesh=mesh,texture=tex,ox=0,oy=0,kind='wall',class='voxel_horizon',
-    magma=i==2,castsShadow=false,bounds={ox-1300,(oy or 0)-48,oz-270,ox+80,(oy or 0)+M.HEIGHT,oz+560}}
+    magma=i==2,castsShadow=false,bounds=bounds}
    if yieldStep then yieldStep()end
   end
  end

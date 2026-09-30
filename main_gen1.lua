@@ -471,6 +471,7 @@ local voxelPipeline = {
   -- pump slice -- so stepping out of a door lands on terrain that is
   -- already there instead of a flat flash.
   update = function(dt, level)
+    VoxelScene.beginFrame()
     if mobileDiagnostic("recoveryMode") == true then return end
     mobileDiagnostic("observeOption", (tonumber(level) or 0) > 0,
       "gen1-pipeline-update", { level=level })
@@ -513,6 +514,7 @@ local voxelPipeline = {
     V.require('Halloween').update(dt,weatherGame,level)
     V.require('CinnabarActivity').update(dt,weatherGame,level)
     V.require('FountainAudio').update(dt,weatherGame,level)
+    V.require('Gen1GlassDoors').update(dt,weatherGame)
     V.require('WorldSeats').update(weatherGame)
     V.require('ObservationBinoculars').update(dt,weatherGame)
     if WeatherMusicPlayback
@@ -541,7 +543,10 @@ local voxelPipeline = {
     voidFill.check()
     local Game = require("src.core.Game")
     local ow = Game and Game.overworld
-    local covered = Game and Game.stack and (Game.stack:top() ~= ow or (ow and ow.transitioning))
+    local battleActive = OverworldBattle.sceneActive()
+    local battleVisible = OverworldBattle.shot() ~= nil
+    local covered = not battleVisible and Game and Game.stack
+      and (Game.stack:top() ~= ow or (ow and ow.transitioning))
     VoxelScene.setPreparationCovered(covered == true)
     V.require('VoxelFurniture').beginFrame()
     HorizonWall.beginFrame(covered,not Voxel.ready,MOBILE_RUNTIME)
@@ -549,6 +554,11 @@ local voxelPipeline = {
       and not V.require('LoadingCompanion').status().kind and not (ow and ow.transitioning)
       and AntiAlias.resolution:get()=='auto')
     if covered and Voxel.active() then V.require('WeatherFootsteps').prepare() end
+    if covered and ow and ow.map and not battleActive and OverworldBattle.setting:get()~=false
+        and (ow.transitioning or not Voxel.ready)then
+      local ok,reason=pcall(V.require('BattleArena').prepare,ow.map)
+      if not ok then updateBoundary('arena-floor-preload','failed',{error=tostring(reason)})end
+    end
     local warpWarm = WarpPrefetch.update(Game, covered)
     V.require("LoadingCompanion").update(Game)
     local warm = ChunkMesher.preloadSetting:get()
@@ -570,7 +580,8 @@ local voxelPipeline = {
       end
     end
     if ow and ow.map and ow.camera
-        and (Voxel.active() or warm or mobileSceneryDrive) then
+        and (Voxel.active() or mobileSceneryDrive
+          or warm and VoxelScene.needsWarmPrefetch(ow)) then
       -- Warm a single actual actor while a transition/menu covers the world
       -- or its initial mesh is still pending. No pose(), camera probing or
       -- imagined future trainers: draw consumes the same canonical cache.
@@ -621,9 +632,9 @@ local voxelPipeline = {
       end
     end
     local gatePreparing = V.require("GatePrefetch").update(Game, covered)
-    if not Voxel.active() then
+    if not Voxel.active() and not battleActive then
       if warm then
-        local warmCovered = Game and Game.stack and Game.stack:top() ~= ow
+        local warmCovered = covered
         updateBoundary("pump", "start", {
           loading=false, covered=warmCovered, background=true,
         })
@@ -648,7 +659,7 @@ local voxelPipeline = {
     -- its covered build slice to 6ms; while the complete 2D fallback is
     -- visible, the bounded 8ms loading slice likewise keeps iPhone responsive
     -- until the atomic swap.
-    local loading = not Voxel.ready
+    local loading = not battleVisible and not Voxel.ready
     -- Once the current scene and every relevant seam are complete, two-hop
     -- survey maps receive only a 1ms trickle. They are promoted automatically
     -- when approached. This still drains the bounded cache over long walks,
@@ -660,7 +671,7 @@ local voxelPipeline = {
     local workSerial=ChunkMesher.workSerial or 0
     local okPump, pumpError = pcall(
       ChunkMesher.pump, covered, false, loading, warpWarm,
-      not covered and not loading and not priorityWork, gatePreparing)
+      not covered and not loading and not priorityWork, gatePreparing, battleVisible)
     -- Only an executed build slice can change claims after preparation.
     -- Idle/paused queue polls retain the already validated frame snapshot.
     if (ChunkMesher.workSerial or 0)~=workSerial then
@@ -715,18 +726,6 @@ local voxelPipeline = {
     if not canvas then
       return held
     end   -- a rebuild keeps its captured world; unrelated failures may decline
-    if Voxel3D.beginOverlay() then
-      -- the FX closures are ordinary 2D draws sized in DISPLAY pixels, and
-      -- they are drawing into the supersampled canvas alongside everything
-      -- else -- so the scale goes up with it, or the "!" bubble lands the
-      -- right place at half the size.  project() already answers in canvas
-      -- pixels, so only the scale needs saying.
-      V.require('TrainerAlert').draw(ctx,function(wx, wy)
-        return Voxel3D.project(wx, VoxelScene.fieldEffectGround(ctx.state,wx,wy), wy)
-      end,
-                 ctx.scale * AntiAlias.factor())
-      Voxel3D.endOverlay()
-    end
     -- and back to the window's own size, which is what the engine composites
     -- one canvas pixel to one display pixel.  A pass-through when AA is off.
     mobileDiagnostic("checkpoint", "gen1-aa-resolve-start", {
@@ -740,6 +739,14 @@ local voxelPipeline = {
           caller="AntiAlias.resolve", context="world",
         })
       return nil
+    end
+    if Voxel3D.beginOverlay(resolved) then
+      local sx,sy=sw/rw,sh/rh
+      V.require('TrainerAlert').draw(ctx,function(wx,wy)
+        local x,y,scale=Voxel3D.project(wx,VoxelScene.fieldEffectGround(ctx.state,wx,wy),wy)
+        if x then return x*sx,y*sy,scale end
+      end,ctx.scale,sx,sy)
+      Voxel3D.endOverlay()
     end
     mobileDiagnostic("produced", "gen1-voxelPipeline.drawWorld", "world", {
       width=sw, height=sh, renderWidth=rw, renderHeight=rh,
@@ -1364,7 +1371,8 @@ local SETTINGS = {
     "AUTO 60 adjusts world resolution toward 60 FPS (50–100% of the 1080P limit), without "
     .. "supersampling. Existing manual choices stay fixed. 1080P limits the "
     .. "GPU workload on large/Retina screens; 720P saves more power. NATIVE "
-    .. "uses every display pixel. Menus and text retain display resolution.",
+    .. "uses every display pixel. 75% and 50% fix the render scale with crisp "
+    .. "nearest upscaling and no supersampling. Menus and text retain display resolution.",
     full = true },
   { AntiAlias.setting,
     "Smooth the stair-stepped edges of the 3D world -- roof ridges, ledge "
@@ -2069,8 +2077,17 @@ mod.events:on("map.reloaded", function(payload)
   if payload and payload.reason == "colors" then return end
   local mapId = payload and (payload.mapId or (payload.map and payload.map.id))
   if mapId then
-    ChunkMesher.invalidate(mapId)
-    HorizonWall.invalidateMap(mapId)
+    local map=payload.map
+    if not map then
+      local game=require("src.core.Game")
+      local current=game.overworld and game.overworld.map
+      if current and current.id==mapId then map=current end
+    end
+    V.require("WallDecals").invalidate(map)
+    if not(map and ChunkMesher.reload(map))then
+      if not map then ChunkMesher.refresh(mapId)end
+      HorizonWall.invalidateMap(mapId)
+    end
   end
 end)
 
@@ -2659,6 +2676,7 @@ V.require('ObservationBinoculars').install()
 V.require('WorldSceneHold').install()
 V.require('CeladonClosedShop').install()
 V.require('SilphElevator').install()
+V.require('Gen1GlassDoors').install()
 -- KASC installs its native follower transport on game.ready. Keep the
 -- camera-to-world input adapter outside that transport, including reloads.
 mod.events:on("game.ready", function()
@@ -2671,6 +2689,10 @@ ShortcutToast.install(require("src.core.Game"), {
 })
 V.PerformanceOverlay.install(require("src.core.Game"))
 V.require("LoadingCompanion").install(require("src.core.Game"))
+V.require('RooftopFly').install(require('src.core.Game'))
+mod.events:on('game.ready', function()
+  V.require('RooftopFly').install(require('src.core.Game'))
+end, -12000)
 V.require("ContinuePreparation").install(require("src.core.Game"))
 VoxelShortcut.install(cycleVoxel)
 

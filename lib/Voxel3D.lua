@@ -39,6 +39,11 @@ local PixelCanvas = V.require("PixelCanvas")
 local CanvasPresentation = V.require("CanvasPresentation")
 
 local Voxel3D = {}
+local OpaqueProgram=V.require("OpaqueProgram")
+local WorldLayer=V.require("BattleWorldLayer")
+local Raster=V.require("RasterResources")
+OpaqueProgram.observe=WorldLayer.changed
+local OpaqueMaterials=V.require("OpaqueMaterials")
 
 local MobileDiagnostic = V and V.mod and V.mod._vascMobileDiagnostic or nil
 local function mobileDiagnostic(name, ...)
@@ -773,6 +778,9 @@ local shaders = { [false] = nil, [true] = nil }
 local shaderVariants = { [false] = nil, [true] = nil }
 local shaderErrors = { [false] = nil, [true] = nil }
 local activeShader = nil      -- the variant this pass bound
+local drawUniforms=V.require("UniformMemo").new()
+local MeshVisibility=V.require("PropVisibility")
+local meshVisible
 
 -- Scene canvases, one per NAMED SLOT. There are exactly two callers and
 -- they want different sizes -- the free-roam pass renders at the window's
@@ -886,6 +894,7 @@ end
 -- for one. Nearby water prepares its reflection target under the initial
 -- loading cover even when the first camera faces away from the lake.
 local function releaseSlot(slotHeld)
+  WorldLayer.release(slotHeld)
   V.require("WaterReflection").release(slotHeld)
   for _, key in ipairs({ "canvas", "depth", "depthBuffer", "mirror" }) do
     local obj = slotHeld[key]
@@ -1269,6 +1278,10 @@ local function shaderSource(variant, grid, lighting)
   return source
 end
 
+function Voxel3D.setWorldCurve(value)
+  if activeShader then return pcall(activeShader.send,activeShader,'curve',value)end
+end
+
 function Voxel3D.weatherFoliageSnow(amount)
   if not (active and activeShader) then return false end
   amount=tonumber(amount)or 0;if amount~=amount then amount=0 end
@@ -1300,6 +1313,7 @@ local function compileShader(variant, grid, lighting)
       caller="Voxel3D.compileShader", variant=variant,
       grid=grid == true,
     })
+    if not MOBILE_RUNTIME then OpaqueProgram.register(shaderOrError,source)end
     return shaderOrError, nil
   end
   mobileDiagnostic("checkpoint", "shader-compile-rejected:" .. traceVariant, {
@@ -1603,7 +1617,7 @@ end
 -- Build a mesh in the shared format. `verts` is the LOVE vertex list and
 -- `map` the triangle index list. Returns nil when meshes are unavailable,
 -- which the callers treat the same way they treat a missing model.
-function Voxel3D.newMesh(verts, map)
+function Voxel3D.newMesh(verts, map, immutable)
   if #verts == 0 then return nil end
   mobileDiagnostic("checkpoint", "mesh-create-start", {
     caller="love.graphics.newMesh", vertexCount=#verts,
@@ -1634,6 +1648,7 @@ function Voxel3D.newMesh(verts, map)
       })
     end
   end
+  if immutable then Raster.seal(mesh)end
   return mesh
 end
 
@@ -2090,6 +2105,7 @@ end
 -- `slot` names which cached canvas to render into (see `slots` above);
 -- omitted is the free-roam world pass.
 function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
+  WorldLayer.abort()
   -- the wireframe variant when the player has it on AND it built; either
   -- answer falls through to the plain scene rather than to no scene
   local sceneLighting=skyContext and skyContext.localLights==true
@@ -2272,6 +2288,7 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
     caller="Voxel3D.beginScene", context="world", slot=name,
     variant=shaderVariants[grid],
   })
+  sh=OpaqueProgram.wrap(sh)
   love.graphics.setColor(1, 1, 1, 1)
   mobileDiagnostic("checkpoint", "scene-uniform-batch-start", {
     caller="Shader.send", context="world", slot=name,
@@ -2428,6 +2445,8 @@ function Voxel3D.beginScene(w, h, cx, cy, vw, vh, sky, slot, skyContext)
     variant=shaderVariants[grid],
   })
   activeShader = sh
+  drawUniforms.clear()
+  meshVisible=MeshVisibility.forView(Voxel3D.vp,Voxel3D.curveK,cx,cy,16)
   active = true
   firstDrawPending = true
   mobileDiagnostic("capability", "D08", "scene-framebuffer-ready", true,
@@ -2455,6 +2474,7 @@ end
 -- narrow scene primitive rather than an overlay: overlays run after the 3D
 -- pass and would cover the Pokemon as well as the empty backdrop.
 function Voxel3D.backdrop(image, tint)
+  WorldLayer.finish()
   if not (active and activeShader and image and canvasW > 0 and canvasH > 0)
   then
     return false
@@ -2477,7 +2497,7 @@ function Voxel3D.backdrop(image, tint)
   -- established ARENA stage which continues drawing after this call.
   pcall(love.graphics.setColor, 1, 1, 1, 1)
   pcall(love.graphics.setDepthMode, "lequal", true)
-  pcall(love.graphics.setShader, activeShader)
+  pcall(love.graphics.setShader, OpaqueProgram.native(activeShader))
   return ok
 end
 
@@ -2486,6 +2506,7 @@ end
 -- scaled to the active battle canvas.  Rectangles, porthole ellipses and
 -- simple convex panes cover the reviewed interiors without a mask texture.
 function Voxel3D.backdropWindows(scene, regions, sourceW, sourceH)
+  WorldLayer.finish()
   local gfx = love.graphics
   local tint = type(scene) == "table" and (scene.tint or scene) or nil
   if not (active and activeShader and type(tint) == "table"
@@ -2632,7 +2653,7 @@ function Voxel3D.backdropWindows(scene, regions, sourceW, sourceH)
   pcall(gfx.setBlendMode, blend or "alpha", alphaMode)
   pcall(gfx.setColor, cr, cg, cb, ca)
   pcall(gfx.setDepthMode, "lequal", true)
-  pcall(gfx.setShader, activeShader)
+  pcall(gfx.setShader, OpaqueProgram.native(activeShader))
   return ok
 end
 
@@ -2758,8 +2779,9 @@ function Voxel3D.prepareWater()
 end
 
 function Voxel3D.beginWater(paint)
+  WorldLayer.finish()
   if not (active and canvas and held and held.depth) then return nil end
-  local reflection,sceneDepth=V.require("WaterReflection").draw(held,paint,activeShader)
+  local reflection,sceneDepth=V.require("WaterReflection").draw(held,paint,OpaqueProgram.native(activeShader))
   if reflection then return reflection,sceneDepth end
   -- Optional target/program failure keeps the original full-size path.
   if not held.mirror then
@@ -2812,7 +2834,7 @@ function Voxel3D.beginWater(paint)
   love.graphics.setBlendMode("alpha")
   if paint and activeShader then
     love.graphics.setDepthMode("lequal", false)
-    love.graphics.setShader(activeShader)
+    love.graphics.setShader(OpaqueProgram.native(activeShader))
     pcall(paint)
     love.graphics.setShader()
   end
@@ -2842,7 +2864,7 @@ function Voxel3D.endWater()
   pcall(love.graphics.setCanvas, depthTarget())
   pcall(love.graphics.setDepthMode, "lequal", true)
   love.graphics.setColor(1, 1, 1, 1)
-  if activeShader then love.graphics.setShader(activeShader) end
+  if activeShader then love.graphics.setShader(OpaqueProgram.native(activeShader)) end
 end
 
 -- Whether a reflective water pass can run in this frame at all -- there is
@@ -3078,8 +3100,43 @@ function Voxel3D.silphWindow(map,H)
   end
 end
 
+local function drawMaterial(sh,mesh,texture,count)
+  if texture then mesh:setTexture(texture)end
+  if WorldLayer.recording and WorldLayer.draw(sh,mesh,mesh:getTexture(),count)then return end
+  local opaque=OpaqueProgram.worldSafe(sh)and OpaqueMaterials.allowed(mesh,texture)
+  if opaque and OpaqueProgram.draw(sh,mesh,count)then
+    OpaqueMaterials.opaqueDraws=OpaqueMaterials.opaqueDraws+1;return
+  end
+  if not count and OpaqueProgram.worldSafe(sh)
+      and OpaqueProgram.drawRanges(sh,mesh,OpaqueMaterials.ranges(mesh,texture))then
+    OpaqueMaterials.rangeDraws=OpaqueMaterials.rangeDraws+1;return
+  end
+  OpaqueMaterials.alphaDraws=OpaqueMaterials.alphaDraws+1
+  if count then love.graphics.drawInstanced(mesh,count)else love.graphics.draw(mesh)end
+end
+local function performMeshDraw(sh,mesh,texture,model,pull,sunModel)
+  drawUniforms.send(sh,"model",model or IDENTITY,"row")
+  if not MOBILE_RUNTIME or sh:hasUniform("sunModel") then
+    drawUniforms.send(sh,"sunModel",sunModel or model or IDENTITY,"row")
+  end
+  drawUniforms.send(sh,"pull",pull or 0)
+  if mesh.__voxelMeshBundle then
+    if mesh.base then drawMaterial(sh,mesh.base,texture)end
+    for _,group in ipairs(mesh.instances or{})do drawMaterial(sh,group.mesh,texture,group.count)end
+  else drawMaterial(sh,mesh,texture)end
+end
+function Voxel3D.prepareOpaqueProgram()
+  if MOBILE_RUNTIME then return false end
+  for _,programs in ipairs{shaders,unlitShaders}do
+    for _,sh in pairs(programs)do if sh and OpaqueProgram.prepare(sh)then return true end end
+  end
+  return false
+end
+
 function Voxel3D.draw(mesh, texture, model, pull, sunModel)
   if not (active and mesh) then return end
+  if not Voxel3D.silphTeleport and meshVisible
+      and not meshVisible(MeshVisibility.known(mesh),model or IDENTITY,pull) then return end
   -- the variant beginScene actually bound, not whichever one is default:
   -- sending a uniform to the other shader would go nowhere
   local sh = activeShader
@@ -3087,27 +3144,6 @@ function Voxel3D.draw(mesh, texture, model, pull, sunModel)
   if Voxel3D.silphTeleport then
     local fx = Voxel3D.silphTeleport
     mesh = V.require('SilphTeleport').present(fx, mesh, texture, model, sunModel) or mesh
-  end
-  local function performDraw()
-    -- LOVE defaults matrix uniforms to column-major; Mat4 is row-major
-    pcall(sh.send, sh, "model", "row", model or IDENTITY)
-    if not MOBILE_RUNTIME or sh:hasUniform("sunModel") then
-      pcall(sh.send, sh, "sunModel", "row", sunModel or model or IDENTITY)
-    end
-    pcall(sh.send, sh, "pull", pull or 0)
-    if mesh.__voxelMeshBundle then
-      if mesh.base then
-        if texture then mesh.base:setTexture(texture) end
-        love.graphics.draw(mesh.base)
-      end
-      for _, group in ipairs(mesh.instances or {}) do
-        if texture then group.mesh:setTexture(texture) end
-        love.graphics.drawInstanced(group.mesh, group.count)
-      end
-    else
-      if texture then mesh:setTexture(texture) end
-      love.graphics.draw(mesh)
-    end
   end
 
   if firstDrawPending then
@@ -3117,7 +3153,7 @@ function Voxel3D.draw(mesh, texture, model, pull, sunModel)
       variant=shaderVariants[false],
       bundle=mesh.__voxelMeshBundle and true or false,
     })
-    local ok, err = pcall(performDraw)
+    local ok, err = pcall(performMeshDraw,sh,mesh,texture,model,pull,sunModel)
     if not ok then
       if MOBILE_RUNTIME and shaderVariants[false] and shaderVariants[false]:find("mobile-shadow",1,true) then
         DeviceShadows.fail(err)
@@ -3137,7 +3173,7 @@ function Voxel3D.draw(mesh, texture, model, pull, sunModel)
     return true
   end
 
-  performDraw()
+  performMeshDraw(sh,mesh,texture,model,pull,sunModel)
   return true
 end
 
@@ -3240,14 +3276,15 @@ end
 -- Re-bind the scene canvas for ordinary 2D drawing (no depth test), so
 -- screen-space overlays can be composited into the same image the 3D pass
 -- just filled. Pairs with endScene, which unbinds it.
-function Voxel3D.beginOverlay()
+function Voxel3D.beginOverlay(target)
+  WorldLayer.finish()
   if not canvas then return false end
   love.graphics.setShader()
   love.graphics.setDepthMode()
   mobileDiagnostic("checkpoint", "gen1-overlay-canvas-bind-start", {
     caller="love.graphics.setCanvas", context="world-overlay",
   })
-  local ok, err = pcall(love.graphics.setCanvas, canvas)
+  local ok, err = pcall(love.graphics.setCanvas, target or canvas)
   if not ok then
     mobileDiagnostic("checkpoint", "gen1-overlay-canvas-bind-unavailable", {
       caller="love.graphics.setCanvas", context="world-overlay", error=err,
@@ -3280,7 +3317,12 @@ function Voxel3D.indoorMist(map,dark)
 end
 
 -- End the pass and hand back the rendered canvas.
+function Voxel3D.beginWorldLayer()return WorldLayer.begin(held,Voxel3D.vp,activeShader)end
+function Voxel3D.endWorldLayer()return WorldLayer.finish()end
+function Voxel3D.releaseBattleLayer()WorldLayer.abort();WorldLayer.release(slots.battle)end
+
 function Voxel3D.endScene()
+  WorldLayer.finish()
   if not active then return nil end
   love.graphics.setShader()
   love.graphics.setDepthMode()

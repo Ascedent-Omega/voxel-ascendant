@@ -14,6 +14,7 @@ local depth={depthReadable=function()return readable end,
 }
 local hide=false
 local modules={
+ ScenePrefetchCache=assert(loadfile("lib/ScenePrefetchCache.lua"))(),
  Voxel3D=depth,CanvasPresentation={OS='OS X'},Water={level=function()return waterLevel end},
  VoxelState={isFirstPerson=function()return false end},
  FirstPerson={hidePlayer=function()return hide end},

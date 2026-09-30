@@ -2,6 +2,7 @@ local noop=setmetatable({register=function()end},{__call=function()end})
 local resolved=0
 local P={models={},setting={get=function()return true end},resolveKind=function(k)resolved=resolved+1;return k,'texture'end}
 local mods={VoxelItems=P,Voxel3D={},Mat4=assert(loadfile('lib/Mat4.lua'))(),BuildBudget={},
+ SeasonalTrees={winter=function()return false end,kind=function(_,kind)return kind end},
  LedgeElevation={map=function()return {at=function()return 7 end}end},Gen1Harbor={kind=function()end,each=function()end}}
 package.loaded['src.render.Assets']={register=function()end}
 local F=assert(loadfile('lib/VoxelFurniture.lua'))({require=function(n)return mods[n]or noop end})

@@ -3,6 +3,7 @@
 local modules={};local V={require=function(k)return assert(modules[k],k)end}
 modules.ModSetting={new=function()return{get=function()return'voxel'end}end}
 modules.HorizonBuildings={}
+modules.RasterResources=assert(loadfile('lib/RasterResources.lua'))()
 local allocations,uploads,slices,maxUploads={},0,0,0
 local corners={{{0,0,0},{1,0,0},{1,1,0},{0,1,0}}}
 modules.Voxel3D={FACE_CORNERS=corners,FACE_SHADE={1},

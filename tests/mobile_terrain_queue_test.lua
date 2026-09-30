@@ -7,7 +7,7 @@ for _,mobile in ipairs{true,false}do
  local t=0;local picked={};local budget
  love={timer={getTime=function()return t end,getDelta=function()return 1/60 end}}
  package.loaded['src.render.Assets']={register=function()end}
- local modules={Voxel3D={mobileRuntime=function()return mobile end},ModSetting={new=function()return{}end},
+ local modules={BackgroundBudget={allowance=function(seconds)return seconds end},Voxel3D={mobileRuntime=function()return mobile end},ModSetting={new=function()return{}end},
  BuildBudget={begin=function(_,slice)budget=slice end,finish=function()end}}
  local M=assert(loadfile('lib/ChunkMesher.lua'))({require=function(n)return modules[n] or{}end})
  local jobs=up(M.pump,'jobs')

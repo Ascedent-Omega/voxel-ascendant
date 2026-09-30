@@ -22,6 +22,8 @@ local function room(id, tileset, width, height, theme, wallHeight)
     ceiling={enabled=true,authored=true}, doors={},
   }
 end
+room('KA_BLAINE_GYM_TUNNEL','FACILITY',24,7,'workshop',80)
+M.profiles.KA_BLAINE_GYM_TUNNEL.owner='kasc.blaine-volcano-route/v1'
 room('OAKS_LAB','DOJO',5,6,'lab',72)
 for _, town in ipairs({'VIRIDIAN','PEWTER','CERULEAN','VERMILION','LAVENDER','CELADON','FUCHSIA','SAFFRON','CINNABAR','MT_MOON','ROCK_TUNNEL'}) do
   room(town..'_POKECENTER','POKECENTER',7,4,'center',72)
@@ -146,7 +148,7 @@ function M.profileFor(map)
   local d=map and map.def
   if not d then return nil end
   local p=M.profiles[tostring(map.id or d.id or '')]
-  if p and d.tileset==p.tileset and d.width==p.width and d.height==p.height
+  if p and (not p.owner or d.kaOwner==p.owner)and d.tileset==p.tileset and d.width==p.width and d.height==p.height
       and next(d.connections or {})==nil then
     local doors,openCells={},{}
     for _,warp in ipairs(d.warps or {}) do

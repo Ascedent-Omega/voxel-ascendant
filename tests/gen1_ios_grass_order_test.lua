@@ -12,6 +12,7 @@ local depth={
 }
 local hide=false
 local modules={
+ ScenePrefetchCache=assert(loadfile(root..'lib/ScenePrefetchCache.lua'))(),
  Voxel3D=depth,CanvasPresentation={OS='iOS'},
  VoxelState={isFirstPerson=function()return false end},
  FirstPerson={hidePlayer=function()return hide end},

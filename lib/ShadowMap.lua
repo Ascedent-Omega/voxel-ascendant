@@ -32,6 +32,8 @@ local Voxel = V.require("VoxelState")
 
 local Device = V.require("DeviceShadows")
 local ShadowMap = { stableFootprint = true }
+local OpaqueProgram=V.require("OpaqueProgram")
+local OpaqueMaterials=V.require("OpaqueMaterials")
 
 -- The sun, as the shear a shadow takes: a point `y` world-pixels above the
 -- ground drops its shadow (KX*y, KZ*y) away from the point under it. Both
@@ -280,6 +282,10 @@ local function getShader()
   if shader == nil then
     local ok, sh = pcall(love.graphics.newShader, SHADER)
     shader = (ok and sh) or false
+    if shader and not Device.mobile then
+      OpaqueProgram.register(shader,SHADER);OpaqueProgram.prepare(shader)
+      shader=OpaqueProgram.wrap(shader)
+    end
   end
   return shader or nil
 end
@@ -358,7 +364,7 @@ function ShadowMap.available()
     if Device.mobile then Device.fail("depth shader unavailable") end
     return false
   end
-  if not Device.prepare(writer) then return false end
+  if not Device.prepare(OpaqueProgram.native(writer)) then return false end
   -- Once begin() has selected the fitted rung, availability is a read-only
   -- capability answer. Re-requesting the smallest rung here used to release a
   -- live 1536/2048 canvas every frame; begin() then allocated the large one
@@ -440,16 +446,13 @@ end
 -- continuously with the camera reprojects every shadow edge a fraction of a
 -- texel every frame and the whole world's shadows crawl and shimmer while
 -- you walk.
-local function fit(cx, cy, vw, vh, casterHeight, omnidirectional)
+local function footprint(cx, cy, vw, vh, casterHeight, omnidirectional)
   local padding=0
   if ShadowMap.stableFootprint then
     -- A padded fixed cell keeps stationary depth reusable while walking.
     -- Padding covers the entire displacement; actors still redraw live.
     cx=math.floor(cx/64+.5)*64;cy=math.floor(cy/64+.5)*64;padding=32
   end
-  local f = sunDir()
-  local view = Mat4.lookAt({ 0, 0, 0 }, f, { 0, 0, -1 })
-
   local height=math.max(ShadowMap.HEIGHT,casterHeight or 0)
   local reach = height
                 * math.max(math.abs(ShadowMap.KX), math.abs(ShadowMap.KZ)) + 24
@@ -480,6 +483,22 @@ local function fit(cx, cy, vw, vh, casterHeight, omnidirectional)
     range[2] = math.ceil(range[2] / 16) * 16
   end
 
+  return xs[1],xs[2],zs[1],zs[2],height
+end
+
+-- Same outward-rounded bounds as fit(), without rebinding GPU resources.
+-- Tiny battle-camera drift can reuse depth; a zoom/sun/quality change cannot.
+function ShadowMap.footprintKey(cx,cy,vw,vh,casterHeight)
+  local x1,x2,z1,z2,height=footprint(cx,cy,vw,vh,casterHeight)
+  return table.concat({x1,x2,z1,z2,height,ShadowMap.KX,ShadowMap.KZ,
+    ShadowMap.TARGET,tostring(Device.mobile),tostring(Device.resolution),
+    table.concat(ShadowMap.SIZES,':')},',')
+end
+
+local function fit(cx, cy, vw, vh, casterHeight, omnidirectional)
+  local x1,x2,z1,z2,height=footprint(cx,cy,vw,vh,casterHeight,omnidirectional)
+  local xs,ys,zs={x1,x2},{-32,height},{z1,z2}
+  local view=Mat4.lookAt({0,0,0},sunDir(),{0,0,-1})
   local l, r, b, t, zn, zf
   for _, x in ipairs(xs) do
     for _, y in ipairs(ys) do
@@ -605,6 +624,31 @@ function ShadowMap.snug(model)
            m[13], m[14], m[15], m[16] }
 end
 
+-- Retained terrain/neighbor transforms are shared by the lit and depth passes.
+-- Reuse their snugged matrix without mutating anything a deferred draw holds.
+-- The returned matrix is read-only; callers needing an owned result use snug().
+-- Compare all source values as well as the light parameters so an in-place edit
+-- cannot leave a stale shadow lookup. Weak keys do not retain departed maps.
+local staticSnugs = setmetatable({}, { __mode = "k" })
+function ShadowMap.snugStatic(model)
+  local m = model or IDENTITY
+  local held = staticSnugs[m]
+  local same = held and held.kx == ShadowMap.KX and held.kz == ShadowMap.KZ
+    and held.slack == ShadowMap.slack and held.amount == ShadowMap.SNUG
+  if same then
+    for i = 1, 16 do
+      if held[i] ~= m[i] then same = false break end
+    end
+  end
+  if same then return held.result end
+  held = { kx = ShadowMap.KX, kz = ShadowMap.KZ,
+    slack = ShadowMap.slack, amount = ShadowMap.SNUG,
+    result = ShadowMap.snug(m) }
+  for i = 1, 16 do held[i] = m[i] end
+  staticSnugs[m] = held
+  return held.result
+end
+
 -- Whether the map has to be redrawn for `sig` -- a caller-built stamp of
 -- everything the pass depends on (camera, terrain meshes, every pose). A
 -- frame that changes none of it reuses the map it already has, which is
@@ -621,6 +665,7 @@ function ShadowMap.begin(cx, cy, vw, vh, casterHeight, staticSignature, omnidire
   if not sh then return false end
   -- fit first: it is what decides which resolution rung this view wants
   fit(cx, cy, vw, vh, casterHeight, omnidirectional)
+  ShadowMap.meshVisible=V.require("PropVisibility").forView(ShadowMap.clipVP,0,0,0,16)
   local c = getCanvas(ShadowMap.res)
   if not c then return false end
   local reused = not Device.mobile and staticSignature ~= nil and staticSignature == staticKey
@@ -630,6 +675,7 @@ function ShadowMap.begin(cx, cy, vw, vh, casterHeight, staticSignature, omnidire
       if staticVP[i] ~= ShadowMap.clipVP[i] then reused = false break end
     end
   end
+  V.require("RasterResources").changing(c)
   savedGraphicsState = captureGraphicsState()
   local ok, beginError = pcall(function()
     if Device.mobile then
@@ -659,7 +705,7 @@ function ShadowMap.begin(cx, cy, vw, vh, casterHeight, staticSignature, omnidire
       love.graphics.pop()
       if not copied then error(copyErr, 0) end
     end
-    love.graphics.setShader(sh)
+    love.graphics.setShader(OpaqueProgram.native(sh))
     love.graphics.setColor(1, 1, 1, 1)
     sh:send("lightVP", "row", ShadowMap.clipVP)
     -- the world until a cast pass says otherwise, reset per pass so one that
@@ -766,23 +812,24 @@ function ShadowMap.sprites(on)
   if sh then pcall(sh.send, sh, "sprite", on and 1 or 0) end
 end
 
+local function drawMaterial(sh,mesh,texture,count)
+ if texture then mesh:setTexture(texture)end
+ local opaque=OpaqueProgram.shadowSafe(sh)and OpaqueMaterials.allowed(mesh,texture)
+ if opaque and OpaqueProgram.draw(sh,mesh,count)then return end
+ if not count and OpaqueProgram.shadowSafe(sh)
+     and OpaqueProgram.drawRanges(sh,mesh,OpaqueMaterials.ranges(mesh,texture))then return end
+ if count then love.graphics.drawInstanced(mesh,count)else love.graphics.draw(mesh)end
+end
 local function drawCaster(mesh, texture, model)
   if not (drawing and mesh) then return end
+  if ShadowMap.meshVisible and not ShadowMap.meshVisible(
+    V.require("PropVisibility").known(mesh),model or IDENTITY)then return end
   local sh = getShader()
   sh:send("model", "row", model or IDENTITY)
   if mesh.__voxelMeshBundle then
-    if mesh.base then
-      if texture then mesh.base:setTexture(texture) end
-      love.graphics.draw(mesh.base)
-    end
-    for _, group in ipairs(mesh.instances or {}) do
-      if texture then group.mesh:setTexture(texture) end
-      love.graphics.drawInstanced(group.mesh, group.count)
-    end
-  else
-    if texture then mesh:setTexture(texture) end
-    love.graphics.draw(mesh)
-  end
+    if mesh.base then drawMaterial(sh,mesh.base,texture)end
+    for _,group in ipairs(mesh.instances or{})do drawMaterial(sh,group.mesh,texture,group.count)end
+  else drawMaterial(sh,mesh,texture)end
 end
 
 function ShadowMap.draw(mesh, texture, model)

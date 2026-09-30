@@ -16,9 +16,26 @@ function M.bounds(vertices,budget)
   return {x0,y0,z0,x1,y1,z1}
 end
 local staticBounds=setmetatable({},{__mode='k'})
+function M.remember(mesh,bounds)
+  if mesh then staticBounds[mesh]=bounds or false end
+  return mesh
+end
+function M.known(mesh)return mesh and staticBounds[mesh] or nil end
+function M.include(b,x,y,z)
+  b[1],b[2],b[3]=math.min(b[1],x),math.min(b[2],y),math.min(b[3],z)
+  b[4],b[5],b[6]=math.max(b[4],x),math.max(b[5],y),math.max(b[6],z)
+end
+function M.empty()return {math.huge,math.huge,math.huge,-math.huge,-math.huge,-math.huge}end
+function M.union(out,b,x,y,z)
+  if not b then return false end
+  x,y,z=x or 0,y or 0,z or 0
+  M.include(out,b[1]+x,b[2]+y,b[3]+z)
+  M.include(out,b[4]+x,b[5]+y,b[6]+z)
+  return true
+end
 -- Only call for immutable scene meshes (water from a completed terrain slot).
 -- Cache weakly so retired map meshes never stay alive through this lookup.
-function M.staticMeshBounds(mesh)
+function M.staticMeshBounds(mesh,budget,visit)
   if not mesh or mesh.__voxelMeshBundle or not mesh.getVertexCount or not mesh.getVertex then return nil end
   local cached=staticBounds[mesh]
   if cached~=nil then return cached or nil end
@@ -26,7 +43,9 @@ function M.staticMeshBounds(mesh)
   local count=mesh:getVertexCount()
   if count==0 then staticBounds[mesh]=false;return nil end
   for i=1,count do
-    local x,y,z=mesh:getVertex(i)
+    if budget and i%256==0 then budget.check()end
+    local x,y,z,u,v=mesh:getVertex(i)
+    if visit then visit(i,u,v)end
     b[1],b[2],b[3]=math.min(b[1],x),math.min(b[2],y),math.min(b[3],z)
     b[4],b[5],b[6]=math.max(b[4],x),math.max(b[5],y),math.max(b[6],z)
   end
@@ -40,7 +59,7 @@ function M.visibleWater(draws,vp,k,cx,cz)
   end
   return kept
 end
-function M.forView(vp,k,cx,cz)
+function M.forView(vp,k,cx,cz,padding)
   if not vp then return function()return true end end
   local planes={}
   for axis=0,2 do for _,sign in ipairs({-1,1})do
@@ -50,18 +69,21 @@ function M.forView(vp,k,cx,cz)
     planes[#planes+1]=p
   end end
   k,cx,cz=k or 0,cx or 0,cz or 0
+  padding=padding or 0
   local function distance(lo,hi,c)
     local a,b=lo-c,hi-c
     return a<=0 and b>=0 and 0 or math.min(a*a,b*b),math.max(a*a,b*b)
   end
-  return function(b,m)
+  return function(b,m,extraPadding)
     if not b or not m then return true end
     -- Furniture is translated; transformed actors stay on their established
     -- path rather than risking a false rejection of rotated/scaled bounds.
     if m[1]~=1 or m[2]~=0 or m[3]~=0 or m[5]~=0 or m[6]~=1 or m[7]~=0
       or m[9]~=0 or m[10]~=0 or m[11]~=1 then return true end
-    local x0,y0,z0=b[1]+m[4],b[2]+m[8],b[3]+m[12]
-    local x1,y1,z1=b[4]+m[4],b[5]+m[8],b[6]+m[12]
+    -- Camera-ward depth pull can bring geometry back through the far plane.
+    local pad=padding+math.max(0,extraPadding or 0)
+    local x0,y0,z0=b[1]+m[4]-pad,b[2]+m[8]-pad,b[3]+m[12]-pad
+    local x1,y1,z1=b[4]+m[4]+pad,b[5]+m[8]+pad,b[6]+m[12]+pad
     if k~=0 then
       local nearX,farX=distance(x0,x1,cx)
       local nearZ,farZ=distance(z0,z1,cz)

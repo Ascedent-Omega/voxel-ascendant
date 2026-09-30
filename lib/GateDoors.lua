@@ -31,13 +31,13 @@ function M.forBuilding(map,tx,ty,bw,bh)
      and west.count==east.count then
   for _,side in ipairs{'west','east'}do
    doors[#doors+1]={side=side,x=side=='west' and -0.02 or bw*8+0.02,
-    z=(west.start-y)*16,width=west.count*16,tiles={11,12,27,28}}
+    z=(west.start-y)*16,width=west.count*16,dest=west.dest,destWarp=(side=='west'and west or east).warp.destWarp,tiles={11,12,27,28}}
   end
  end
  local south=group(def.warps,'y',y+h-1,'x',x,x+w)
  if south then
   doors[#doors+1]={side='south',x=(south.start-x)*16,z=bh*8+0.02,
-   width=south.count*16,tiles={11,12,27,28}}
+   width=south.count*16,dest=south.dest,destWarp=south.warp.destWarp,tiles={11,12,27,28}}
  end
  local north=group(def.warps,'y',y-1,'x',x,x+w)
  if north then doors.north={x=(north.start-x)*16,width=north.count*16,warp=north.warp} end

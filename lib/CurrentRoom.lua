@@ -23,6 +23,10 @@ function M.enabled(map)
  -- Gym walls already close their authored floor plan. Treating their puzzle
  -- rooms as cave chambers erased every disconnected room down to the sky.
  if type(H.arenaViewFor)=='function' and H.arenaViewFor(map)then return false end
+ -- KASC's suspended arena is one open volume, including its impassable lava.
+ -- A player-centred cave flood would erase the chains, rim and distant leader.
+ if map.id=='KA_BLAINE_VOLCANO_GYM'and V.require('BlaineVolcano').profile(map)=='arena'
+  and V.require('VoxelItems').setting:get()then return false end
  local c=H.classFor(map)
  return c=='cave'or c=='interior'or c=='room'or c=='tower'
 end
@@ -272,7 +276,7 @@ end
 function M.texture(view,horizon)
  if not view then return nil end
  for _,rim in ipairs(horizon or{})do
-  if rim.kind=='wall'and rim.texture and rim.class~='room_door'and rim.class~='room_security_door'
+  if rim.kind=='wall'and rim.texture and rim.class~='room_door'and not tostring(rim.class):match('^room_wood_door:')and rim.class~='room_security_door'
     and rim.class~='silph_exterior'and rim.class~='silph_frame'and rim.class~='silph_glass'then return rim.texture end
  end
  return nil

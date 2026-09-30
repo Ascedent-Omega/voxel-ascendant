@@ -1,0 +1,2746 @@
+{
+  "description": "Native Gen 1 Red voxel destination views, captured without actors or HUD in an isolated LOVE host. Fixed pictures; no runtime portal render. Gate views follow reciprocal warp bearings, including Route 22 native last-map rewrites.",
+  "host": "LOVE 11.5 / KASC 6.7.29-rc.3 / VASC rc.8 and rc.9 worktrees",
+  "generator": "tools/qa_glass_door_views.lua",
+  "views": [
+    {
+      "file": "BIKE_SHOP-in.png",
+      "map": "BIKE_SHOP",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "882603014f8b1e65b83312df4cbc6e2a6bc2ef4b40da619087ef90eebe967ddd",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "BIKE_SHOP-out-5.png",
+      "map": "CERULEAN_CITY",
+      "cell": [
+        13,
+        26
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "e324343a2f7c1132672a1d76a134d7c76949899e76189be5f69a479bcf7ee4fe",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "BILLS_HOUSE-in.png",
+      "map": "BILLS_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "8dcfe7b27b3a356bcf659835cf2f2142e701981df3350f5b1d72577c910c26a3",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "BILLS_HOUSE-out-1.png",
+      "map": "ROUTE_25",
+      "cell": [
+        45,
+        4
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "d978ee5dae9381d3f2872a9dcb6cce6220eb7ea07b696158ee782cb7dd21268a",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "CELADON_CHIEF_HOUSE-in.png",
+      "map": "CELADON_CHIEF_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "dbb98c8d7d8fcbfab884745182eeee4a7e6a1edd621f50f72269086789a92101",
+      "capture_log": "capture.log"
+    },
+    {
+      "file": "CELADON_CHIEF_HOUSE-out-12.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        35,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f7b614e76d7d6a8b5c139da6e1883481f0720a41dc621baa423b385db7e192df",
+      "capture_log": "capture.log"
+    },
+    {
+      "file": "CELADON_DINER-in.png",
+      "map": "CELADON_DINER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "547f4bdcaab69a222bf9d9c087921a6f6a948aa7aa77a862d404c393c92ba668",
+      "capture_log": "capture.log"
+    },
+    {
+      "file": "CELADON_DINER-out-11.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        31,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "82d7a5a214452319e6d9b2841edd75014aa5a3e939aee018bad4e15d01c0b509",
+      "capture_log": "capture.log"
+    },
+    {
+      "file": "CELADON_HOTEL-in.png",
+      "map": "CELADON_HOTEL",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "0af5bedfffb99fd7809ab365141b6396f48033f7c4016d61a34c9c9d5e0ad31b",
+      "capture_log": "capture.log"
+    },
+    {
+      "file": "CELADON_HOTEL-out-13.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        43,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "e7a36314ec6e9d671f948cd42db77b1f8a9b19b9257bbc1d9ed8bdb0d662554a",
+      "capture_log": "capture.log"
+    },
+    {
+      "file": "CELADON_MANSION_1F-in.png",
+      "map": "CELADON_MANSION_1F",
+      "cell": [
+        4,
+        10
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "72bb4436432a7da4f5cf83bb18d715bb5e8024563bd78fb076aa3d0fba76c7dd",
+      "capture_log": "capture.log"
+    },
+    {
+      "file": "CELADON_MANSION_1F-out-3.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        24,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7566a941e1352d70e1bbdd54eebd4623bc36dc00ac826d7fd89a63a7c23a0e61",
+      "capture_log": "capture.log"
+    },
+    {
+      "file": "CELADON_MANSION_1F-out-5.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        25,
+        2
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "dd6f88168e8b6d60ae6bb33633d014b37c2a96c42b6e0b1310c3e7fade4152be",
+      "capture_log": "capture.log"
+    },
+    {
+      "file": "CELADON_MART_1F-in.png",
+      "map": "CELADON_MART_1F",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "b1efc5bac573e57d3621426e3ea6bfb0c560397c35e225c9033e788716c54d39"
+    },
+    {
+      "file": "CELADON_MART_1F-out-1.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        8,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3b9804fd0ea2b6cd80290066c5a2fe7de3cbc85ffade9f7efbd06f24a35a7277"
+    },
+    {
+      "file": "CELADON_MART_1F-out-2.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        10,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "960345e864ca135b6d95adcae6c1258bc2b48714b55550d8904c60b395a90bbd"
+    },
+    {
+      "file": "CELADON_POKECENTER-in.png",
+      "map": "CELADON_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7b8e2900547469423e1ae0add990d5648550f9f7fd34bb437fda934742f486fa"
+    },
+    {
+      "file": "CELADON_POKECENTER-out-6.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        41,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "c322d99dd40ba7b615e7cf8d7480d8d9e66d12f7f43490868d0f9fd24a820252"
+    },
+    {
+      "file": "CERULEAN_BADGE_HOUSE-in.png",
+      "map": "CERULEAN_BADGE_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "e4ce193b89cc2dbafb07b2e57c0a5e2d1448cf8808686d434d7e301a5fa25466",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CERULEAN_BADGE_HOUSE-out-10.png",
+      "map": "CERULEAN_CITY",
+      "cell": [
+        9,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "ebd04f882ff95ac9dfed8737a703827832432ca823a9a50c2cc162adb5a79f98",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CERULEAN_BADGE_HOUSE-out-9.png",
+      "map": "CERULEAN_CITY",
+      "cell": [
+        9,
+        12
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "80ace626a3f88169cc739600b5c2a709a48e04d3c975e5387ff12b15db82d8a1",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CERULEAN_MART-in.png",
+      "map": "CERULEAN_MART",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a4b240bb09a581617d88a700c2aa6e3355cb44e5483e4756afabc47102e675fb"
+    },
+    {
+      "file": "CERULEAN_MART-out-6.png",
+      "map": "CERULEAN_CITY",
+      "cell": [
+        25,
+        26
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "5ccc77c7c19fa5be2d031f2b8719f5a95ab01a95c3be5fe495df0c0fe0ac78af"
+    },
+    {
+      "file": "CERULEAN_POKECENTER-in.png",
+      "map": "CERULEAN_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "df40d69ccbed410ec5bd1bfaf4c0b6b74c6e64daf1090f7456cbf39ab71d0868"
+    },
+    {
+      "file": "CERULEAN_POKECENTER-out-3.png",
+      "map": "CERULEAN_CITY",
+      "cell": [
+        19,
+        18
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "d3f5c259edd6c7b3339a88d87c02bbad654c397e408935738af91f7fc230417c"
+    },
+    {
+      "file": "CERULEAN_TRADE_HOUSE-in.png",
+      "map": "CERULEAN_TRADE_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "17547919a9ecc74cbda663ab49cacbaa4f0b999c9085220b08463d4da18052bd",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CERULEAN_TRADE_HOUSE-out-2.png",
+      "map": "CERULEAN_CITY",
+      "cell": [
+        13,
+        16
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "bd367d4ee7b9b8df536c90c877c144f37d478614953f77a57a6fb5e931341bb9",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CERULEAN_TRASHED_HOUSE-in.png",
+      "map": "CERULEAN_TRASHED_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "791ae6bd72a0b68bd6e6163a12dd26c1e3ddbf190ec51acf16816f3a45753442",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CERULEAN_TRASHED_HOUSE-out-1.png",
+      "map": "CERULEAN_CITY",
+      "cell": [
+        27,
+        12
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "d5d7f2dbf40e26081b8bab14ae9def0a17838f4f57993ebcc86496c4b6ee44ab",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CERULEAN_TRASHED_HOUSE-out-8.png",
+      "map": "CERULEAN_CITY",
+      "cell": [
+        27,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f33835152d38461100624f55a22c2037b0ac68d14441701045bc5907aa3a189f",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CINNABAR_LAB-in.png",
+      "map": "CINNABAR_LAB",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a8d9d870eafc10a57ec3c7f1dab24af93c9acb94344054e14fe673a6955ea5a6",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CINNABAR_LAB-out-3.png",
+      "map": "CINNABAR_ISLAND",
+      "cell": [
+        6,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "65c26ce0225044784911c2c1d84edf12637f71fbd2e77e4fc6326132feba8fc1",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "CINNABAR_MART-in.png",
+      "map": "CINNABAR_MART",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "cf03e5b65e543976d3823bc80883df89aa47745b96961caea2133c1b870fd5be"
+    },
+    {
+      "file": "CINNABAR_MART-out-5.png",
+      "map": "CINNABAR_ISLAND",
+      "cell": [
+        15,
+        12
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "d51d09c44beeec561d63bd965ab81b5bf93ae973b72f7973a20be51a536d861e"
+    },
+    {
+      "file": "CINNABAR_POKECENTER-in.png",
+      "map": "CINNABAR_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "549c01acfd00c2de40e6f53ca528cb7c981c9c01e6e79e6be62cb8ac382dd569"
+    },
+    {
+      "file": "CINNABAR_POKECENTER-out-4.png",
+      "map": "CINNABAR_ISLAND",
+      "cell": [
+        11,
+        12
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "4413ef8f8b19229cbea74f7c5b95537ae255e8f7319226f5ba8418d6e745b929"
+    },
+    {
+      "file": "COPYCATS_HOUSE_1F-in.png",
+      "map": "COPYCATS_HOUSE_1F",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "40abfe0ad1d423d2ddf2f9a061f257505a5b9491f143afcede4a636aac9a4a53",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "COPYCATS_HOUSE_1F-out-1.png",
+      "map": "SAFFRON_CITY",
+      "cell": [
+        7,
+        6
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3849f6e38c2b81f85e9391b97dcbf1b36ddb4c333777e2619442741c5a9133e7",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "DAYCARE-in.png",
+      "map": "DAYCARE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3d591e127c90b1e273edef8058e95bddec5bbdeef1db9972d346291e453ace33",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "DAYCARE-out-5.png",
+      "map": "ROUTE_5",
+      "cell": [
+        10,
+        22
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3cdb6de77c3ad40938f166dc62dea02bdde9a595007e146aac978ecf44df3d4c",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "FUCHSIA_BILLS_GRANDPAS_HOUSE-in.png",
+      "map": "FUCHSIA_BILLS_GRANDPAS_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "95abad4e1e7cb7509fab46542da44c36686526b2c7122d60aa83aea45d4fe352",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "FUCHSIA_BILLS_GRANDPAS_HOUSE-out-2.png",
+      "map": "FUCHSIA_CITY",
+      "cell": [
+        11,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "4484d09c04853e62063e7492d926f7560fbf92d6c18ddab0ee8b3be168e39c57",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "FUCHSIA_GOOD_ROD_HOUSE-in.png",
+      "map": "FUCHSIA_GOOD_ROD_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f57fb70b67d82b1fd1232de425288f9d4865c180b0e991bc2bf4c2bb3f7f38dd",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "FUCHSIA_GOOD_ROD_HOUSE-out-8.png",
+      "map": "FUCHSIA_CITY",
+      "cell": [
+        31,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "04f59623a7e40b7154476d8441d1c9a2aa349835b15727a542833fc500125ea6",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "FUCHSIA_GOOD_ROD_HOUSE-out-9.png",
+      "map": "FUCHSIA_CITY",
+      "cell": [
+        31,
+        23
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "6067eb278f66fb5d9353ad8318620a78e28fc928b35ea43ba05a33b9a12a6541",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "FUCHSIA_MART-in.png",
+      "map": "FUCHSIA_MART",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "539f5fce14a92b29c17d261ad6891e5ae53af2309c7341ea5e49f0bd426b089c"
+    },
+    {
+      "file": "FUCHSIA_MART-out-1.png",
+      "map": "FUCHSIA_CITY",
+      "cell": [
+        5,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "ebe32285bdfc9f75a304a77d5e5fb2b528853fa44eb705443c2682be79e3efe5"
+    },
+    {
+      "file": "FUCHSIA_MEETING_ROOM-in.png",
+      "map": "FUCHSIA_MEETING_ROOM",
+      "cell": [
+        4,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "4e5a8c6adefae083c8cb8d8bd22d10709f279b1e033c46b480442f27b2ed208c",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "FUCHSIA_MEETING_ROOM-out-7.png",
+      "map": "FUCHSIA_CITY",
+      "cell": [
+        22,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "72bd81077a7e5379e0012f04fa2d9da3d39f50f17e6861e86e53b208035f4452",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "FUCHSIA_POKECENTER-in.png",
+      "map": "FUCHSIA_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "ccfcab74b9f29bd8a7f2f30df255a6b5a818923066be9cff68cbd3a4fdd14d55"
+    },
+    {
+      "file": "FUCHSIA_POKECENTER-out-3.png",
+      "map": "FUCHSIA_CITY",
+      "cell": [
+        19,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "5be603baea26728102722fe00617e01e636f910309940e0c3ee79598e9dad1ba"
+    },
+    {
+      "file": "GAME_CORNER-in.png",
+      "map": "GAME_CORNER",
+      "cell": [
+        15,
+        16
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3b0cd08fdb6fcea17ea88a12812686157628090a3715ca381afe70a6b7709ebc",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "GAME_CORNER-out-8.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        28,
+        20
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "2776f88ce477ce9879dda5534c349ff77de2448a291a0148d88fbeee7d409297",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "GAME_CORNER_PRIZE_ROOM-in.png",
+      "map": "GAME_CORNER_PRIZE_ROOM",
+      "cell": [
+        4,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "71465234704cc95e3d01bc6f0df63e2e19f6e7f091f4ff131f534e69b7dc802c",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "GAME_CORNER_PRIZE_ROOM-out-10.png",
+      "map": "CELADON_CITY",
+      "cell": [
+        33,
+        20
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "349ac9d4230960f40c066e0140b1f8f9238377e6afd6361f85264b7da64f6eef",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "LAVENDER_CUBONE_HOUSE-in.png",
+      "map": "LAVENDER_CUBONE_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "6cdadfadc0544efd15f102ab7f0347d0911a9f875fac4c88347ccb21130c913e",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "LAVENDER_CUBONE_HOUSE-out-5.png",
+      "map": "LAVENDER_TOWN",
+      "cell": [
+        3,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a4b978dcb8ecb140fea88490885e433b1247cc4c124b2bf532cf3af71b59b78c",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "LAVENDER_MART-in.png",
+      "map": "LAVENDER_MART",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "27029154d5ee4821c933a19c8b5ff81d79da48cff00676fa7d320fcf21c6285c"
+    },
+    {
+      "file": "LAVENDER_MART-out-4.png",
+      "map": "LAVENDER_TOWN",
+      "cell": [
+        15,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a96862791cfae47a591739d850ba5b7311b16413374a75ea14405eeedfe82fd1"
+    },
+    {
+      "file": "LAVENDER_POKECENTER-in.png",
+      "map": "LAVENDER_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "4f193fb78c9898204c0630db36d6d3d0a625f5c157f7dda31cae3225c79e681e"
+    },
+    {
+      "file": "LAVENDER_POKECENTER-out-1.png",
+      "map": "LAVENDER_TOWN",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "d1b243a1a590047ceeb856f3857170ce23c5d2b76da6f2c6d0ff9141ab60e3b0"
+    },
+    {
+      "file": "MR_FUJIS_HOUSE-in.png",
+      "map": "MR_FUJIS_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "6f0a2219eeb0996d3e15d259c2d9a20d6a962895ff5739d0d9eed08529db5bef",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "MR_FUJIS_HOUSE-out-3.png",
+      "map": "LAVENDER_TOWN",
+      "cell": [
+        7,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "15390c8d260d22ebef613ae119d23d4bccca375bd07be7120bfd7eccfa5608de",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "MR_PSYCHICS_HOUSE-in.png",
+      "map": "MR_PSYCHICS_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "db8ff87e19ef8483621e8da58c401ac35959423651ac4691cdf63a0d3fbfdc1d",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "MR_PSYCHICS_HOUSE-out-8.png",
+      "map": "SAFFRON_CITY",
+      "cell": [
+        29,
+        30
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "051c3e637d1ed4f6894e10cfce60d6b8a125a975f84a5081f5ee96f805692894",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "MT_MOON_POKECENTER-in.png",
+      "map": "MT_MOON_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "6a57b619095afe4f542b54b7dd66a79991c983fa52e56c06134faee72e328d89"
+    },
+    {
+      "file": "MT_MOON_POKECENTER-out-1.png",
+      "map": "ROUTE_4",
+      "cell": [
+        11,
+        6
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "5443a034dee6954783964d78bc18d7d246b5e09691d1209ee507d09a3ac88ea7"
+    },
+    {
+      "file": "MUSEUM_1F-in.png",
+      "map": "MUSEUM_1F",
+      "cell": [
+        10,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "c4dc8663e821d8cb412cd212e591b66b4c882d2d67a4e98453d5f5883764ea72",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "MUSEUM_1F-out-1.png",
+      "map": "PEWTER_CITY",
+      "cell": [
+        14,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7c0bac291cb52e8b66d885f43a275712cf9fc7189e4df954ab4f5c027493ccd1",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "MUSEUM_1F-out-2.png",
+      "map": "PEWTER_CITY",
+      "cell": [
+        19,
+        6
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "68383b09bd8fd2af60c94f17ee29c00fbaa4f0e79b2cdd403aa5c589023a0a18",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "NAME_RATERS_HOUSE-in.png",
+      "map": "NAME_RATERS_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "9545d068ac7a7546ebf20864b6fdb7e7d7e5956ba1e7e8843ec8cb4adb590bd3",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "NAME_RATERS_HOUSE-out-6.png",
+      "map": "LAVENDER_TOWN",
+      "cell": [
+        7,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "60efabb1be94b5ba3eefdeda9e94cfcc2d02db21f7319497e50ffec0e4e1bf13",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "PEWTER_MART-in.png",
+      "map": "PEWTER_MART",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "53e4182ac1198911f90639cae63e807b3dc05ccb1e91d504485989808b439c78"
+    },
+    {
+      "file": "PEWTER_MART-out-5.png",
+      "map": "PEWTER_CITY",
+      "cell": [
+        23,
+        18
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "2d0e84d41be635f5eaf48b40aa64fb3028269d4ca0a2c68dd36fbf56c6255283"
+    },
+    {
+      "file": "PEWTER_NIDORAN_HOUSE-in.png",
+      "map": "PEWTER_NIDORAN_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "bbeb13e57af12012d1973d35d8b83c25bf612b625eee23ec17f55a895bfdec38",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "PEWTER_NIDORAN_HOUSE-out-4.png",
+      "map": "PEWTER_CITY",
+      "cell": [
+        29,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7be468ed3d77c6460b44b49c6df1f8efa239673a447aa0b9f056ed05f67c4bbd",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "PEWTER_POKECENTER-in.png",
+      "map": "PEWTER_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "1204c89f42a27911deb0c74fc0713d1576dd261e4d61d0956020dea0cb165ed7"
+    },
+    {
+      "file": "PEWTER_POKECENTER-out-7.png",
+      "map": "PEWTER_CITY",
+      "cell": [
+        13,
+        26
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "bff6309a2aba226ff7aa2e5690b86f1e30c1bcc7dde5b0e5eab2e912768eef8a"
+    },
+    {
+      "file": "PEWTER_SPEECH_HOUSE-in.png",
+      "map": "PEWTER_SPEECH_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "1bc876981cae7c3836ef2f0de3e9d428fcb77735349232c7f53bc5386902198f",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "PEWTER_SPEECH_HOUSE-out-6.png",
+      "map": "PEWTER_CITY",
+      "cell": [
+        7,
+        30
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "62ab40314594973715a27b559b519c2abffc4a5e0dd3538f9800398d8d45354c",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "POKEMON_FAN_CLUB-in.png",
+      "map": "POKEMON_FAN_CLUB",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "22b162e252d5ca9a662c56e565f6b2c4f8fc50319888b4e2468b0697f8c14b23",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "POKEMON_FAN_CLUB-out-2.png",
+      "map": "VERMILION_CITY",
+      "cell": [
+        9,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "2256a61594caae3607c464313180cb0f39bde6e1e2efbefc90f235ce0c34dd82",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "POKEMON_MANSION_1F-in.png",
+      "map": "POKEMON_MANSION_1F",
+      "cell": [
+        5,
+        26
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "ab5c4026b99a07cff436d7a78d567169e409013929b9258b09038d4a3980096c",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "POKEMON_MANSION_1F-out-1.png",
+      "map": "CINNABAR_ISLAND",
+      "cell": [
+        6,
+        4
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "ca3787ce2411816c87e10992ec7e44c519224b3b8fe20830d35715db96e57062",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "POWER_PLANT-in.png",
+      "map": "POWER_PLANT",
+      "cell": [
+        4,
+        34
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3297ecc1b5439655815389ecb58b75d142e0d1b4b791e33ef1b892725d8f254f",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "POWER_PLANT-out-4.png",
+      "map": "ROUTE_10",
+      "cell": [
+        6,
+        40
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "2c8ab38c75a4923981eb3ab37a2dbb952699e94542f9d8c516bd77445e2d9c95",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROCK_TUNNEL_POKECENTER-in.png",
+      "map": "ROCK_TUNNEL_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "eb94d59af1d5b7a87a41831a0499ca1cacbab90b79b0f67893440755d0fac6c5"
+    },
+    {
+      "file": "ROCK_TUNNEL_POKECENTER-out-1.png",
+      "map": "ROUTE_10",
+      "cell": [
+        11,
+        20
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f9337989df36681aaa8e28821e859112f01d01f13d3ce6a03dc0d64d36e6ff7b"
+    },
+    {
+      "file": "ROUTE_11_GATE_1F-in-1.png",
+      "map": "ROUTE_11_GATE_1F",
+      "cell": [
+        1,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f8e554f0329d06c9285da720737d0458d2bf3fd8310c4d784f49203c13a891e5",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_11_GATE_1F-in-2.png",
+      "map": "ROUTE_11_GATE_1F",
+      "cell": [
+        1,
+        5
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "8ca2a4f7150a74f54d91efc2186eaf96a1aa50febc45d86b1588474768f4be4c",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_11_GATE_1F-in-3.png",
+      "map": "ROUTE_11_GATE_1F",
+      "cell": [
+        6,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "084c2867521d632374887d543a8978a8247a0d6a6382e675d4429781c95b6867",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_11_GATE_1F-in-4.png",
+      "map": "ROUTE_11_GATE_1F",
+      "cell": [
+        6,
+        5
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "dbb88178d04d28e1dbbc81900cf7f69de98851972f18ec71ef737883a13fc086",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_11_GATE_1F-out-LAST_MAP-1.png",
+      "map": "ROUTE_11",
+      "cell": [
+        48,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "55624a67a65029d96c0f9134cfaf9b0165408e5d52c2058da6e7d315c983775b",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_11_GATE_1F-out-LAST_MAP-2.png",
+      "map": "ROUTE_11",
+      "cell": [
+        48,
+        9
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "373b323b1077e39296a24508863e6ad52e6c05ad7d0306c04132d12bf7f6785b",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_11_GATE_1F-out-LAST_MAP-3.png",
+      "map": "ROUTE_11",
+      "cell": [
+        59,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "93daf2a198ffd28a4354388de74993522a25ca1988f0b4d39c3916b4e161a814",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_11_GATE_1F-out-LAST_MAP-4.png",
+      "map": "ROUTE_11",
+      "cell": [
+        59,
+        9
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "5c0f207ba2380c76dd87aa3ef2a303273698527be0f4b42b4fac9899a607005f",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_12_GATE_1F-in-1.png",
+      "map": "ROUTE_12_GATE_1F",
+      "cell": [
+        4,
+        1
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "92611a3bd648b81f49ab012bf66037552ba4b605481df44595c48620f9c8f324",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_12_GATE_1F-in-2.png",
+      "map": "ROUTE_12_GATE_1F",
+      "cell": [
+        5,
+        1
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f7d3e5886143cfc07ad2f515c80a7ca67e1cf5bc48c36faf6587524b01c38ac9",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_12_GATE_1F-in-3.png",
+      "map": "ROUTE_12_GATE_1F",
+      "cell": [
+        4,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "83322079e01cb0ba4be98fa706c06405eac156ac3ecb7707057ac4156264afba",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_12_GATE_1F-out-LAST_MAP-1.png",
+      "map": "ROUTE_12",
+      "cell": [
+        10,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "1ba337d144d9d97387484d888c42b9e60bfc4641a24499a6db189aca71dc65ea",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_12_GATE_1F-out-LAST_MAP-2.png",
+      "map": "ROUTE_12",
+      "cell": [
+        11,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a77a76427145f0eb06d6e42b93398f33cd100d1958f2532d6d19db550f511de9",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_12_GATE_1F-out-LAST_MAP-3.png",
+      "map": "ROUTE_12",
+      "cell": [
+        10,
+        22
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "71dfdf8415db0fd5407417441acf8173b6b91164771bb4fb2a8c82b17be631ab",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_12_SUPER_ROD_HOUSE-in.png",
+      "map": "ROUTE_12_SUPER_ROD_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "cc35dc243e35b380c588e07252b255006cb3035f8b30a0c951c000208984ffc0",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_12_SUPER_ROD_HOUSE-out-4.png",
+      "map": "ROUTE_12",
+      "cell": [
+        11,
+        78
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "362d015574ad6ef531122bc162c524ab510427270e6c2de4e989bda80ae2ab63",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_15_GATE_1F-in-1.png",
+      "map": "ROUTE_15_GATE_1F",
+      "cell": [
+        1,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "1a9d048a11da8651cd5e12090d1ebf10135b268b8c3cf3f9f7237e63addbb1e2",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_15_GATE_1F-in-2.png",
+      "map": "ROUTE_15_GATE_1F",
+      "cell": [
+        1,
+        5
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "1959d2701d05ba8f0b05f04aa7ae2e5d2d0579f56dc4ee703ad2a80243123925",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_15_GATE_1F-in-3.png",
+      "map": "ROUTE_15_GATE_1F",
+      "cell": [
+        6,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f3608d9294f8001287d13e681f1b8eb8fa1a131230e5302c23a9c1702fe4bea4",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_15_GATE_1F-in-4.png",
+      "map": "ROUTE_15_GATE_1F",
+      "cell": [
+        6,
+        5
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "9acab97123331a58b0f0385c2d2d70229e7fc5b7135cbd92ad4410abdf3799fd",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_15_GATE_1F-out-LAST_MAP-1.png",
+      "map": "ROUTE_15",
+      "cell": [
+        6,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "fba7dbd1cdfc8c96a59cec8dfbab4400ac8f628aa2eb70756675e003c8f20c17",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_15_GATE_1F-out-LAST_MAP-2.png",
+      "map": "ROUTE_15",
+      "cell": [
+        6,
+        9
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "09c9830626623b82279ae7c84b70d96a0ca4d5317be4533531d44c0644d662ea",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_15_GATE_1F-out-LAST_MAP-3.png",
+      "map": "ROUTE_15",
+      "cell": [
+        15,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "ba50bdd247c4627863446f7681b782466923fcaf52a47458970dc0d5985358aa",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_15_GATE_1F-out-LAST_MAP-4.png",
+      "map": "ROUTE_15",
+      "cell": [
+        15,
+        9
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "41550842f59e7173b4d1472bb2c6f0234fb8fb57e5eb582c8457407245c87048",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_FLY_HOUSE-in.png",
+      "map": "ROUTE_16_FLY_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "13c4cb166c73e74576cbd43728e3e9ef27ae90690d38ffa8ef90b1ad30818234",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_FLY_HOUSE-out-9.png",
+      "map": "ROUTE_16",
+      "cell": [
+        7,
+        6
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "4e702ef6758686d36ce1bde250925f2ca3a3b670444822655141c2a84e98668d",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-in-1.png",
+      "map": "ROUTE_16_GATE_1F",
+      "cell": [
+        1,
+        8
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "e4e5a03000e28fb839d383c24f58a420773facb2a4da184e230563c5104deaf5",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-in-2.png",
+      "map": "ROUTE_16_GATE_1F",
+      "cell": [
+        1,
+        9
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "d51793e2b66248ac02d57f99b8f27f67216c4210db0fd1c29dd533ac2bdc380a",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-in-3.png",
+      "map": "ROUTE_16_GATE_1F",
+      "cell": [
+        6,
+        8
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "6d3aefab2a8b7e3a11229863fbae38f4877f21b9258545b2cb11b2e82f853d54",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-in-4.png",
+      "map": "ROUTE_16_GATE_1F",
+      "cell": [
+        6,
+        9
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "c2c47eb017b0284f30d34e3338ab2ba639aa12a712edde3978650dd08ba1dfdf",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-in-5.png",
+      "map": "ROUTE_16_GATE_1F",
+      "cell": [
+        1,
+        2
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "09dbdb2e32c37137cc83c004413cf1c8f6eaab707179fcc26bee706506b75299",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-in-6.png",
+      "map": "ROUTE_16_GATE_1F",
+      "cell": [
+        1,
+        3
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f20f86735c5c0b151d0b6cb3920bdff2b686091939f902c889fade84bbe287c6",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-in-7.png",
+      "map": "ROUTE_16_GATE_1F",
+      "cell": [
+        6,
+        2
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "89becd884c2f6d9f1b98a6556bfbfbf9e7f3c22dae077d2b4ee7280d04c8c877",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-in-8.png",
+      "map": "ROUTE_16_GATE_1F",
+      "cell": [
+        6,
+        3
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "807731144109850b69fecdf770c2acbe623e4f9d0922b9737269aaadc124baa9",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-out-LAST_MAP-1.png",
+      "map": "ROUTE_16",
+      "cell": [
+        16,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f2947400d858489ad63b6055d92382382cb2a23546e8baead7d4d4c088803af2",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-out-LAST_MAP-2.png",
+      "map": "ROUTE_16",
+      "cell": [
+        16,
+        11
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "5bce352d12db7a8990db4944cfa00e3cd64f5c1d919256913439e8775f464c17",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-out-LAST_MAP-3.png",
+      "map": "ROUTE_16",
+      "cell": [
+        25,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f66f69bb67656c40ab50ba5e7c452c56e78ab0c28d472d90ed6c9a2a792014f1",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-out-LAST_MAP-5.png",
+      "map": "ROUTE_16",
+      "cell": [
+        16,
+        4
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "edc15c16123e9aa9a87f2f9a3e597690bb78a45e7db6d942f45cc7bce9152ba6",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-out-LAST_MAP-6.png",
+      "map": "ROUTE_16",
+      "cell": [
+        16,
+        5
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a1ae5ee67464aba9a12ac02bc3810cc636694fe83b16363931c81e272fe439fd",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-out-LAST_MAP-7.png",
+      "map": "ROUTE_16",
+      "cell": [
+        25,
+        4
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "98c11b84f7ab908a0135de345cef686e14a09531b96f9eb5ab93856fa818dde0",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_16_GATE_1F-out-LAST_MAP-8.png",
+      "map": "ROUTE_16",
+      "cell": [
+        25,
+        5
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "52c041684010a146974af1e875b1a42d1e09c82ed2338bf72efe8dbd5f521e7c",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_18_GATE_1F-in-1.png",
+      "map": "ROUTE_18_GATE_1F",
+      "cell": [
+        1,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "563a3ce4d0f2d6473b6c6f71a565f163f951ce2dec60570257be56e6a9a269d3",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_18_GATE_1F-in-2.png",
+      "map": "ROUTE_18_GATE_1F",
+      "cell": [
+        1,
+        5
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "6cff7f47b0a414b0a43ba89566bfe22fc97e66252724635ca5cdf5cc0b60fcad",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_18_GATE_1F-in-3.png",
+      "map": "ROUTE_18_GATE_1F",
+      "cell": [
+        6,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "950ba28a4d5d7cb0c5351430e8a881e32dd6936fda1a850b4707fac58e56bc0b",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_18_GATE_1F-in-4.png",
+      "map": "ROUTE_18_GATE_1F",
+      "cell": [
+        6,
+        5
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "aed9e66274fd91dbf247383734530b4db755946dcca7433f842af592db17502e",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_18_GATE_1F-out-LAST_MAP-1.png",
+      "map": "ROUTE_18",
+      "cell": [
+        32,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "38631606477d173f4856766398dfcabc1ddc9d5bc5e3be3eb24915501e473a57",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_18_GATE_1F-out-LAST_MAP-2.png",
+      "map": "ROUTE_18",
+      "cell": [
+        32,
+        9
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "26f20e85341cf11dc3b6cbe413cd223e5edff2026fc620c4a375a4150b82f50e",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_18_GATE_1F-out-LAST_MAP-3.png",
+      "map": "ROUTE_18",
+      "cell": [
+        41,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a14db2fe0014c331d09eff18d0f4ce8de03caa592edab18055b9e4973ab90dde",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_18_GATE_1F-out-LAST_MAP-4.png",
+      "map": "ROUTE_18",
+      "cell": [
+        41,
+        9
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "2cfca994116cad90fb3b571369af349c9613cae2c47c69c61ea1a351ef72e01c",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_22_GATE-in-1.png",
+      "map": "ROUTE_22_GATE",
+      "cell": [
+        4,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "4ccc9723cf18f26f82c0ef706bf40374b2d8ec1cc17bbfa25f28159d291c3ff0",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_22_GATE-out-LAST_MAP-0-1.png",
+      "map": "ROUTE_23",
+      "cell": [
+        7,
+        138
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a8f90d3742bfbbf742222f578572dd4271a5c1f6c940c6eceda0f4796ca9d822",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_22_GATE-out-LAST_MAP-0-2.png",
+      "map": "ROUTE_23",
+      "cell": [
+        8,
+        138
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "87a99e94c18d092e8603d8d2a94707dc231ce6cb5963f20818ffb41068dc127d",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_22_GATE-out-LAST_MAP-7-1.png",
+      "map": "ROUTE_22",
+      "cell": [
+        8,
+        6
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "01aee68ab00f08a441152dee07f0e7b55cd000e5ad0ccec2fabfc92049cd3337",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_2_GATE-in-2.png",
+      "map": "ROUTE_2_GATE",
+      "cell": [
+        5,
+        1
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "2d5e82d7ad8709d80b8250bb3d4e1abedb6b9555d3832f3baaa5477e13e2ad2f",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_2_GATE-in-3.png",
+      "map": "ROUTE_2_GATE",
+      "cell": [
+        4,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "708316b22b672ed51e6c903fa5a57da5510c3622df1de57c533e131ff6c75dff",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_2_GATE-out-LAST_MAP-4.png",
+      "map": "ROUTE_2",
+      "cell": [
+        16,
+        34
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "19d21afebfec3bb843dfde2d4907150e5afa3779e6040fca26d66a45f5f976e8",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_2_GATE-out-LAST_MAP-5.png",
+      "map": "ROUTE_2",
+      "cell": [
+        15,
+        40
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f9c437ba348b79b424db1bac6de114c4a947ddf1fe1f7055e3a392533007c9f9",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_2_TRADE_HOUSE-in.png",
+      "map": "ROUTE_2_TRADE_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f0197e98617767722593cd1d3a142b6d22c44a7c0ff40a98ff0f447f80ef465b",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_2_TRADE_HOUSE-out-3.png",
+      "map": "ROUTE_2",
+      "cell": [
+        15,
+        20
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "194b7d4c5b288c1f496c45080488c2b96de7cf76c5ef25b2cebee6f9a37ff802",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "ROUTE_5_GATE-in-1.png",
+      "map": "ROUTE_5_GATE",
+      "cell": [
+        3,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "df9af5c5ef5a848901bc2f7eb8cdd917c41fd2cb70e033f359d0d7e092e5db96",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_5_GATE-in-3.png",
+      "map": "ROUTE_5_GATE",
+      "cell": [
+        3,
+        1
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a8b83e92f9cf5ff739cac44e6a375f237299a3578d2497904c79eed9332c08a5",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_5_GATE-in-4.png",
+      "map": "ROUTE_5_GATE",
+      "cell": [
+        4,
+        1
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "8ed61cc65ea44c83a63013cd9d16448382847fef2942206d946174967adde70f",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_5_GATE-out-LAST_MAP-1.png",
+      "map": "ROUTE_5",
+      "cell": [
+        10,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "18137469d5b5086b26ef6d22c41dfbf6fbc80f5c6676cd2f1726943291fa58d4",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_5_GATE-out-LAST_MAP-2.png",
+      "map": "ROUTE_5",
+      "cell": [
+        9,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "19369aab50cdaf6288b23ae1870f400a19052a66c6d1344a4dfc67da85b5dd59",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_5_GATE-out-LAST_MAP-3.png",
+      "map": "ROUTE_5",
+      "cell": [
+        10,
+        34
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a30da9ba005b6d19b7a5326a0b77db166be99873cf3c5821a11eb2369b94cfcb",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_6_GATE-in-1.png",
+      "map": "ROUTE_6_GATE",
+      "cell": [
+        3,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3dd51107a04852cd3a59ccc00f3053ce7cdfda0938204d42a9b305448b686b5d",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_6_GATE-in-3.png",
+      "map": "ROUTE_6_GATE",
+      "cell": [
+        3,
+        1
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "05250b0243eecdc167e0ba24b449fe969ec62fbd1094abbf7e754a7d6c78395b",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_6_GATE-out-LAST_MAP-2.png",
+      "map": "ROUTE_6",
+      "cell": [
+        10,
+        0
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3a5b6fb750084c3cb96cb739440daa441ffc2b99b4eb8fbf69969f3d3f4d5d9b",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_6_GATE-out-LAST_MAP-3.png",
+      "map": "ROUTE_6",
+      "cell": [
+        10,
+        8
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "493a3d4eb2f990157dd50655c1fe80de38c5dbe65a47797d564171eb7c7676c0",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_7_GATE-in-1.png",
+      "map": "ROUTE_7_GATE",
+      "cell": [
+        1,
+        3
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "35402bde25ac97b199217796aba42f0e280374137948559eb011c9c97a464b6e",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_7_GATE-in-2.png",
+      "map": "ROUTE_7_GATE",
+      "cell": [
+        1,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f7e77639f40f54140ad17f94daee2a99f36200dae3a3eb1c77c3dab8f35b16f7",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_7_GATE-in-3.png",
+      "map": "ROUTE_7_GATE",
+      "cell": [
+        4,
+        3
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "c0e45427e066ac4b737ac7a20ac8e4c0f39a016973267eeedb487e64457e960c",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_7_GATE-in-4.png",
+      "map": "ROUTE_7_GATE",
+      "cell": [
+        4,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "00787927ef7686a58bae49e66cb78eef9e97cc40dd7401773aa5d652d6925401",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_7_GATE-out-LAST_MAP-1.png",
+      "map": "ROUTE_7",
+      "cell": [
+        19,
+        9
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3baf6f446552f834b58d0637d8b47791ea1ee76cff8151dc290eab18ddd1d691",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_7_GATE-out-LAST_MAP-2.png",
+      "map": "ROUTE_7",
+      "cell": [
+        19,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "1ff42a801e9db29599da016f0ca5130331ea0c3612a6f6d81e100b415a438dbd",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_7_GATE-out-LAST_MAP-4.png",
+      "map": "ROUTE_7",
+      "cell": [
+        10,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "9030c4bd5bd37ac863571b8f09653bcf62feb310296a6dedbea30bd513093f41",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_8_GATE-in-1.png",
+      "map": "ROUTE_8_GATE",
+      "cell": [
+        1,
+        3
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "96383c5582361f25bcef6f9bf8f53072d4c64e64d2972e16957d645324358a1d",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_8_GATE-in-2.png",
+      "map": "ROUTE_8_GATE",
+      "cell": [
+        1,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3904f08367ce3aafab2fe67f4f76a6d43c2f7d2c5eeb221f90250df50472cb9d",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_8_GATE-in-3.png",
+      "map": "ROUTE_8_GATE",
+      "cell": [
+        4,
+        3
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3cb6610e926002ecee525d1d73fb5056afc0ea59934fb72faf23dbf192834c02",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_8_GATE-in-4.png",
+      "map": "ROUTE_8_GATE",
+      "cell": [
+        4,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "9672fea87364c96e5d1ea5a08e5f60cf4f01726d4d8bd65a7efa48310da04a32",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_8_GATE-out-LAST_MAP-1.png",
+      "map": "ROUTE_8",
+      "cell": [
+        0,
+        9
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "90ec0eb446cb173ef78987f62108e492d4c6376b7deab19ff787f44b57b981c0",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_8_GATE-out-LAST_MAP-2.png",
+      "map": "ROUTE_8",
+      "cell": [
+        0,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "d07b7aa7cc98560d2b4abb1d4b60b50a6bc6a5e27282a4e64f17a64fb1e73393",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_8_GATE-out-LAST_MAP-3.png",
+      "map": "ROUTE_8",
+      "cell": [
+        9,
+        9
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7e8908529f0ae65feee070f60a97582b2d80e875d5f1c23ca3db9c296b773e3d",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "ROUTE_8_GATE-out-LAST_MAP-4.png",
+      "map": "ROUTE_8",
+      "cell": [
+        9,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "8de3c9d1827128a55fa98981129ce69b0b7f9a69e5d6c378d2ca30a309b8c1b7",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "SAFARI_ZONE_GATE-in-1.png",
+      "map": "SAFARI_ZONE_GATE",
+      "cell": [
+        3,
+        4
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7a6edcbca9bdfd8c07a667701634a5ccc77a6564a4287ab686e311dbcbef0100",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "SAFARI_ZONE_GATE-out-LAST_MAP-5.png",
+      "map": "FUCHSIA_CITY",
+      "cell": [
+        18,
+        4
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "05e9268b2a0cf5d804a7e836b5064f002c2482d8ec289a2af2a3bc4c9cb992f7",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "SAFFRON_MART-in.png",
+      "map": "SAFFRON_MART",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "eaba117403b2767f3e188b8ebb0d6f18c4b2fe8c2086e0a53a0e047208caac55"
+    },
+    {
+      "file": "SAFFRON_MART-out-5.png",
+      "map": "SAFFRON_CITY",
+      "cell": [
+        25,
+        12
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f6bd79535a893ad57c5c6db753c43cf99c9b451cd96e66837fb5fc9c9d5ca6f8"
+    },
+    {
+      "file": "SAFFRON_PIDGEY_HOUSE-in.png",
+      "map": "SAFFRON_PIDGEY_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f31e5278902b529b4e4ff499e7510435d10021223ee44ec6599927aca2314e1b",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "SAFFRON_PIDGEY_HOUSE-out-4.png",
+      "map": "SAFFRON_CITY",
+      "cell": [
+        13,
+        12
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "98e510872d218ee1597fb11565cc4556979d94565e923a4f0c142827289637c7",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "SAFFRON_POKECENTER-in.png",
+      "map": "SAFFRON_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "eb337bc3ee17c0cb6337e09d55ecae55f69e8ee2d38664392de0a92baa6e0d60"
+    },
+    {
+      "file": "SAFFRON_POKECENTER-out-7.png",
+      "map": "SAFFRON_CITY",
+      "cell": [
+        9,
+        30
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "dd187a6d3e72625a418c9f7a11a3af17a595a19470f922ad60053ad4af2692f6"
+    },
+    {
+      "file": "SILPH_CO_1F-in.png",
+      "map": "SILPH_CO_1F",
+      "cell": [
+        10,
+        16
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "3935e8e16fdafa7621b306ccf2f29aab1d48839529f98dda695b291d63d94fd1"
+    },
+    {
+      "file": "SILPH_CO_1F-out-6.png",
+      "map": "SAFFRON_CITY",
+      "cell": [
+        18,
+        22
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "1265ee09d7bffe35bc9729d83c77f166bddf10dbf9d304d59e8bd5f4d122f0ef"
+    },
+    {
+      "file": "UNDERGROUND_PATH_ROUTE_5-in.png",
+      "map": "UNDERGROUND_PATH_ROUTE_5",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "8fbf3d84720e644a16c1bcaebfd81da20ab76b416eb6a52e043ab5c108b9d6d7",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "UNDERGROUND_PATH_ROUTE_5-out-4.png",
+      "map": "ROUTE_5",
+      "cell": [
+        17,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "04e7fa2d22b8bc09c420064fddf1552967c77b62f49af851c5da83b7796d6f21",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "UNDERGROUND_PATH_ROUTE_6-in.png",
+      "map": "UNDERGROUND_PATH_ROUTE_6",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7b8acb6430ff710c297306c0d4ecf315882ae2a4c958ce390c9e26b507da1003",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "UNDERGROUND_PATH_ROUTE_6-out-4.png",
+      "map": "ROUTE_6",
+      "cell": [
+        17,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "15ad5b4f83116a24f4cf2a9c0ed8357c56fdbc763f12be22543c4dcecbf17cd6",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "UNDERGROUND_PATH_ROUTE_7-in.png",
+      "map": "UNDERGROUND_PATH_ROUTE_7",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7f98c9d647462edaf0318f05c46fb7b12d2ffe092633e6198a8f4a15965830fb",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "UNDERGROUND_PATH_ROUTE_7-out-5.png",
+      "map": "ROUTE_7",
+      "cell": [
+        5,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "51cb69811a508da8b9b960d6ea517e6b3d78f38fb1bc08bcd6bad0924da168f3",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "UNDERGROUND_PATH_ROUTE_8-in.png",
+      "map": "UNDERGROUND_PATH_ROUTE_8",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "2e3b939e1cbab73bfd36ead290989dc41bdebb01cd8507e0f3d8cc8a37215c6e",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "UNDERGROUND_PATH_ROUTE_8-out-5.png",
+      "map": "ROUTE_8",
+      "cell": [
+        13,
+        4
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "c42b64d653deb04dcbbd6d88abfc419df3c5e484d2780f56bdd3492bb565f24a",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VERMILION_MART-in.png",
+      "map": "VERMILION_MART",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "1de6d3e6d22d556f3b6f703783ebe12381e655f1c0fc7436859ed7acbbd1a799"
+    },
+    {
+      "file": "VERMILION_MART-out-3.png",
+      "map": "VERMILION_CITY",
+      "cell": [
+        23,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "341fad631e039dc63eee66a42c73463e3223d10c0f5da76749fdb3d245fa9c13"
+    },
+    {
+      "file": "VERMILION_OLD_ROD_HOUSE-in.png",
+      "map": "VERMILION_OLD_ROD_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a5bc29f4990cc44b536955c99d0dc57820131d33697c231b2a8aef97612f6937",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VERMILION_OLD_ROD_HOUSE-out-9.png",
+      "map": "VERMILION_CITY",
+      "cell": [
+        7,
+        4
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "bd1cbcfb1ea11bed264f72dccaac8b2e421984c43af26537be7659715d015eb6",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VERMILION_PIDGEY_HOUSE-in.png",
+      "map": "VERMILION_PIDGEY_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "fbb835f20af0dde6cd70cc3454e76030cbbf4f7986cc471ec8218f7905a66d81",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VERMILION_PIDGEY_HOUSE-out-5.png",
+      "map": "VERMILION_CITY",
+      "cell": [
+        23,
+        20
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "a0c67819a83caeeafbc163e23802290e4012d578d3b4fddc37b5c2bb1c872c88",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VERMILION_POKECENTER-in.png",
+      "map": "VERMILION_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "8146a2c79d4d0f2bda4448f26dd9c82e2623b4d4ea49d2419f1b4fc3a02ed16a"
+    },
+    {
+      "file": "VERMILION_POKECENTER-out-1.png",
+      "map": "VERMILION_CITY",
+      "cell": [
+        11,
+        4
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "16fa9a1d1286e261032f890aa6fe39d09f4792fcf894637f784203a4eaf491a4"
+    },
+    {
+      "file": "VERMILION_TRADE_HOUSE-in.png",
+      "map": "VERMILION_TRADE_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "96a1496e2193d4c9f4c83f557794c194f4aaea1e26f8bdbed29821523f80cc14",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VERMILION_TRADE_HOUSE-out-8.png",
+      "map": "VERMILION_CITY",
+      "cell": [
+        15,
+        14
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "eec89ed64ed6c9e37ade2a25c314089a3a944faff9f42eab4245a04858857036",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VIRIDIAN_FOREST_NORTH_GATE-in-2.png",
+      "map": "VIRIDIAN_FOREST_NORTH_GATE",
+      "cell": [
+        5,
+        1
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "00679742a79efa7e595e0238722d7f0b0dcf475986179b4ea51587e737995b5c",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "VIRIDIAN_FOREST_NORTH_GATE-out-LAST_MAP-2.png",
+      "map": "ROUTE_2",
+      "cell": [
+        3,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "8c514e50aeff636d56190239c5dff4e29bff7bf91a828f362dc361c8c5196f27",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "VIRIDIAN_FOREST_SOUTH_GATE-in-3.png",
+      "map": "VIRIDIAN_FOREST_SOUTH_GATE",
+      "cell": [
+        4,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7378d4f5faae64de3b218ea4cd9e9605b585c7c95ad615833104f0220fb0461f",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "VIRIDIAN_FOREST_SOUTH_GATE-out-LAST_MAP-6.png",
+      "map": "ROUTE_2",
+      "cell": [
+        3,
+        44
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "ab0a26f595793e618e9588c11963a0456a6e23f473470bbd31ee93c83516c91b",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "VIRIDIAN_MART-in.png",
+      "map": "VIRIDIAN_MART",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "1d4a0e7edc985711268da9d836eb8975edf2d9fa8e034b4aa1a2bb3f42258cab"
+    },
+    {
+      "file": "VIRIDIAN_MART-out-2.png",
+      "map": "VIRIDIAN_CITY",
+      "cell": [
+        29,
+        20
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "7ea0ff7122c202e9f195f38745ccf5b2a685ed1fd15125b3977aabcae3e37405"
+    },
+    {
+      "file": "VIRIDIAN_NICKNAME_HOUSE-in.png",
+      "map": "VIRIDIAN_NICKNAME_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "14a0a4cf4946e039b15f89e6ed05e6eb026da9badc6ee117809d36b8adf4bcce",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VIRIDIAN_NICKNAME_HOUSE-out-4.png",
+      "map": "VIRIDIAN_CITY",
+      "cell": [
+        21,
+        10
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "15d7fd94fb664b7da866362d8ba199f7008f743144c5aeaa5c6454294c0cc259",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VIRIDIAN_POKECENTER-in.png",
+      "map": "VIRIDIAN_POKECENTER",
+      "cell": [
+        3,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "80ba730a7c4f3993fc2e177a85a9653680bebfb079aecb787884ef36c477e818"
+    },
+    {
+      "file": "VIRIDIAN_POKECENTER-out-1.png",
+      "map": "VIRIDIAN_CITY",
+      "cell": [
+        23,
+        26
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "9c6f0bfdc6b60e9a1e3383e08db6e938913740b773eb2e4b86b6adf440ad5511"
+    },
+    {
+      "file": "VIRIDIAN_SCHOOL_HOUSE-in.png",
+      "map": "VIRIDIAN_SCHOOL_HOUSE",
+      "cell": [
+        2,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "05b8b5cbab5b09d2df429e123a22f2e14a530c5bf464a08a60f89878a1ec30d5",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "VIRIDIAN_SCHOOL_HOUSE-out-3.png",
+      "map": "VIRIDIAN_CITY",
+      "cell": [
+        21,
+        16
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "e37b8e389042b334855430478e384a9d7fd975750cc79140a3c0d012fba1e921",
+      "capture_log": "capture3.log"
+    },
+    {
+      "file": "WARDENS_HOUSE-in.png",
+      "map": "WARDENS_HOUSE",
+      "cell": [
+        4,
+        6
+      ],
+      "view": "inside",
+      "width": 640,
+      "height": 480,
+      "sha256": "f4efb25db5abcab5ab651932693b51892af676ccee51ea05912cc93cc8c48e7f",
+      "capture_log": "capture2.log"
+    },
+    {
+      "file": "WARDENS_HOUSE-out-4.png",
+      "map": "FUCHSIA_CITY",
+      "cell": [
+        27,
+        28
+      ],
+      "view": "outside",
+      "width": 640,
+      "height": 480,
+      "sha256": "cc44bda2880c4f7bef743fb65d4b9908c66cce676a16ac56f76d10051ea8f8c0",
+      "capture_log": "capture2.log"
+    }
+  ]
+}

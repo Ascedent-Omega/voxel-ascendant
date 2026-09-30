@@ -137,6 +137,10 @@ function B.geometryField(structures,furniture,models)
   local x=(key%4096)-64;local z=math.floor(key/4096)-64
   if (shape.h or 0)>1 then stamp(x*8,z*8,x*8+7.99,z*8+7.99,shape.h)end
  end
+ for z,row in pairs(structures.objectHeights or{})do
+  local target=heights[z]or{};heights[z]=target
+  for x,h in pairs(row)do target[x]=math.max(target[x]or 0,h)end
+ end
  for _,q in ipairs(structures.objectQuads or {})do
   local x0,z0,x1,z1,h=math.huge,math.huge,-math.huge,-math.huge,0
   for i=1,4 do local p=q[i]

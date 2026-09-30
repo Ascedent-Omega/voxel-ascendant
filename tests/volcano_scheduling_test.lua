@@ -49,6 +49,33 @@ if os.getenv('QA_VOLCANO_REFERENCE')then
  local old=assert(loadfile(os.getenv('QA_VOLCANO_REFERENCE')))(V)
  same(old.meshes(31,-73,6),owned)
 end
+-- Optional transformed views preserve every source face and material.
+local view={transform=function(x,y,z)
+ local c,s=math.cos(.18),math.sin(.18);local dx,dz=x+700,z-144
+ return 248+(s*dx-c*dz)*8,(y-5)*8,80+(c*dx+s*dz-492)*8
+end}
+local source=M.meshes(0,0,0)
+local entrance=M.meshes(0,0,0,nil,nil,view)
+local a,b=flatten(source),flatten(entrance);assert(#a==#b)
+for i,v in ipairs(a)do
+ local x,y,z=view.transform(v[1],v[2],v[3])
+ assert(b[i][1]==x and b[i][2]==y and b[i][3]==z,'entrance is not shared volcano geometry')
+ for k=4,7 do assert(v[k]==b[i][k],'entrance material/lava differs')end
+end
+-- The actual Blaine adapter preserves the complete mountain, omitting the coast.
+modules.CinnabarVolcano=M
+local B=assert(loadfile('lib/BlaineVolcano.lua'))(V)
+assert(B.ENTRANCE_SCALE==8,'entrance must not regress to a room-sized miniature')
+local actual=B.buildHorizon({ox=17,oy=29},nil,{})
+local uncropped=M.meshes(17,29,0,nil,nil,{transform=view.transform,coneOnly=true})
+same(uncropped,actual)
+for _,part in ipairs(actual)do for _,v in ipairs(part.mesh.vertices)do
+ for axis=1,3 do assert(v[axis]>=part.bounds[axis]and v[axis]<=part.bounds[axis+3],'transformed cone culled')end
+end end
+local low,high=math.huge,-math.huge
+for _,part in ipairs(actual)do low=math.min(low,part.bounds[2]);high=math.max(high,part.bounds[5])end
+assert(high-low>5000,'volcano lost its mountain scale relative to the player')
+print('PASS actual Blaine adapter: full-sized shared cone/lava, canonical offsets and culling bounds')
 uploads=0;allocated={};failAt=2
 assert(not pcall(M.meshes,0,0,0),'allocation failure silently accepted')
 assert(#allocated==1 and allocated[1].released,'standalone failure leaked first mesh')

@@ -74,6 +74,10 @@ for key in ('runtime-receipt.json','.modkit/pack.json'):
  files[key]=encode(d);(root/key).write_bytes(files[key])
 archive=a.output/('Voxel-Ascendant-'+version+'.zip')
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6)as z:
+ directories=sorted({str(parent)+'/' for name in files for parent in Path(name).parents if str(parent)!='.'})
+ for name in directories:
+  info=zipfile.ZipInfo(name,(2026,9,26,0,0,0));info.external_attr=(0o40755<<16)|0x10
+  z.writestr(info,b'')
  for n,b in sorted(files.items()):
   info=zipfile.ZipInfo(n,(2026,9,26,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED;info.external_attr=0o100644<<16
   z.writestr(info,b)
@@ -88,5 +92,5 @@ report=dict(archive=str(archive),version=version,base_version=base_version,sourc
  sha256=checksum,bytes=archive.stat().st_size,files=len(files),lua_syntax_checked=syntax,prepared_models_verified=len(models),
  crc='PASS',source_equality='PASS',file_receipts='PASS',changed_or_added=sorted(changed))
 (a.output/'verification.json').write_bytes(encode(report))
-for n in ('RELEASE_NOTES.md','QA-REPORT.md','VIDEO_POLISH_PROGRESS.md'):(a.output/n).write_bytes(files[n])
+for n in ('RELEASE_NOTES.md','QA-REPORT.md','VIDEO_POLISH_PROGRESS.md','PERFORMANCE-TASK-STATUS.md'):(a.output/n).write_bytes(files[n])
 print(json.dumps({k:v for k,v in report.items()if k!='changed_or_added'},indent=2),flush=True)

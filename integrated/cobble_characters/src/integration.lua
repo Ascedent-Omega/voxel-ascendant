@@ -33,6 +33,11 @@ function Integration.new(provider,wardrobeArt)
   if not row or not row.styles[style]then return nil end
   local def,art=provider:definition(row.id,style,false)
   if not def then return nil,art end
+  if style=='cobble' then
+   -- The host owns map identity and seating; artwork/wardrobe variants keep
+   -- that source identity even when the provider uses another catalog id.
+   def.ascendantSeatSource=row.source
+  end
   local action=ctx.action~='walk'and ctx.action or nil
   local dressed=ctx.selection and ctx.wardrobe and not ctx.wardrobe.plain(ctx.selection)
   if action or dressed then

@@ -186,7 +186,7 @@ local function entry(tileset, advance)
           end
         end
       end
-      texture = love.graphics.newImage(mask)
+      texture = V.require("RasterResources").seal(love.graphics.newImage(mask))
       texture:setFilter("nearest", "nearest")
     end)
     if not built then texture = false end
@@ -235,7 +235,7 @@ function GlassMask.blank()
     local ok, img = pcall(function()
       local data = love.image.newImageData(1, 1)
       data:setPixel(0, 0, 0, 0, 0, 0)
-      return love.graphics.newImage(data)
+      return V.require("RasterResources").seal(love.graphics.newImage(data))
     end)
     blank = (ok and img) or false
   end

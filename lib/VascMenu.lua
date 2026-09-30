@@ -234,7 +234,8 @@ local SETTING_HELP_DE = {
     .. "Tag-/Nachtphasen und kurzen Übergängen.",
   sceneResolution = "Interne Auflösung der 3D-Welt und Kämpfe. 1080P begrenzt die GPU-Last "
     .. "auf großen/Retina-Bildschirmen. 720P spart mehr Leistung; NATIVE nutzt "
-    .. "alle Bildschirmpixel. Menüs und Texte bleiben scharf.",
+    .. "alle Bildschirmpixel. 75% und 50% reduzieren die Weltauflösung mit "
+    .. "pixelgenauer Hochskalierung. Menüs, Texte und Feld-Effekte bleiben scharf.",
   aa = "Kantenglättung der 3D-Welt per Supersampling. 2X/4X kosten deutlich "
     .. "mehr GPU-Leistung; Menüs und Kampftext bleiben scharf.",
 }

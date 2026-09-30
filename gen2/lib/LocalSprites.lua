@@ -10,6 +10,7 @@ LocalSprites.API_VERSION = 1
 LocalSprites.ROOT = "user/sprites"
 LocalSprites.ENABLED_KEY = "localSprites.enabled"
 local validation = {}
+local inventory, candidateCache = {}, {}
 local enabled = false
 local inventoryText = ""
 
@@ -59,8 +60,8 @@ local function hasVisibleColor(image, width, height)
 end
 
 local function validPng(path)
-  local meta = info(path)
-  if not meta then validation[path] = nil return false end
+  local meta = inventory[path]
+  if not meta then return false end
   local signature = tostring(meta.modtime or "") .. ":" .. tostring(meta.size or "")
   local held = validation[path]
   if held and held.signature == signature then
@@ -91,8 +92,15 @@ end
 
 local function candidate(relative)
   local path = LocalSprites.ROOT .. "/" .. relative
+  local held = candidateCache[path]
+  if held then return held.path, held.trueColor end
+  -- Missing names are rejected by the bounded directory inventory. Do not
+  -- retain every arbitrary failed name supplied by an external provider.
+  if not inventory[path] then return nil end
   local valid, trueColor = validPng(path)
-  if valid then return UserFiles.path(path), trueColor end
+  held = {path=valid and UserFiles.path(path) or nil, trueColor=trueColor}
+  candidateCache[path] = held
+  return held.path, held.trueColor
 end
 
 local function appendUnique(out, seen, value)
@@ -241,7 +249,9 @@ local function persistOptions(game)
 end
 
 function LocalSprites.setEnabled(game, value)
+  local wasEnabled = enabled
   enabled = value == true
+  if enabled and not wasEnabled then LocalSprites.rescan() end
   local save, loader = gameBuckets(game)
   if save then save[LocalSprites.ENABLED_KEY] = enabled end
   if loader then loader[LocalSprites.ENABLED_KEY] = enabled end
@@ -250,9 +260,11 @@ function LocalSprites.setEnabled(game, value)
 end
 
 function LocalSprites.restore(game)
+  local wasEnabled = enabled
   local save, loader = gameBuckets(game)
   enabled = (save and save[LocalSprites.ENABLED_KEY]
              or loader and loader[LocalSprites.ENABLED_KEY]) == true
+  if enabled and not wasEnabled then LocalSprites.rescan() end
   return enabled
 end
 
@@ -277,7 +289,20 @@ function LocalSprites.backToDefault(game)
 end
 
 function LocalSprites.rescan()
-  validation = {}
+  validation, inventory, candidateCache = {}, {}, {}
+  -- The explicit refresh boundary admits additions/removals/replacements.
+  -- Resolve hooks never stat absent candidates or recheck file timestamps.
+  for _, directory in ipairs(DIRECTORIES) do
+    local folder = LocalSprites.ROOT .. "/" .. directory
+    for _, name in ipairs(UserFiles.list(folder)) do
+      if type(name) == "string" and not name:find("[/\\]")
+          and name:match("%.[Pp][Nn][Gg]$") then
+        local path = folder .. "/" .. name
+        local meta = info(path)
+        if meta then inventory[path] = meta end
+      end
+    end
+  end
   return true
 end
 

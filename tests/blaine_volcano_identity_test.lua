@@ -10,5 +10,7 @@ local function npc(x,y)return{def={sprite='SPRITE_MIDDLE_AGED_MAN',x=x,y=y,name=
 local old,role=binder:_npcVisual('CINNABAR_GYM',npc(3,3),true)
 local moved,newRole=binder:_npcVisual('KA_BLAINE_VOLCANO_GYM',npc(24,10),true)
 assert(old and old:find('/blaine%-')and moved==old and newRole==role,'Blaine artwork follows the leader')
+local compact,compactRole=binder:_npcVisual('KA_BLAINE_VOLCANO_GYM',npc(25,12),true)
+assert(compact==old and compactRole==role,'compact arena lost Blaine artwork')
 assert(not binder:_rowFor('KA_BLAINE_VOLCANO_GYM',npc(3,3)),'old position is not a new-map identity')
 print('PASS Blaine native and relocated VASC identity')

@@ -3,7 +3,7 @@
 local root=(arg and arg[1]) or '.'
 local function eq(a,b,label)assert(a==b,(label or 'mismatch')..': '..tostring(a)..' ~= '..tostring(b))end
 for _,prefix in ipairs{'lib/','gen2/lib/'}do
- local files,decoded,released,reads={},0,0,0
+ local files,decoded,released,reads,stats,lists={},0,0,0,0,0
  local function add(folder,name,pixels,meta)
   local path='user/sprites/pokemon/'..folder..'/'..name..'.png'
   files[path]={pixels=pixels,meta=meta or {type='file',size=100,modtime=1}}
@@ -30,7 +30,10 @@ for _,prefix in ipairs{'lib/','gen2/lib/'}do
    getPixel=function(_,x,y)reads=reads+1;if f.badRead then error('pixel access failed')end;return unpack(f.pixels[x+1])end,
    release=function()released=released+1 end}
  end}}
- local user={info=function(path)return files[path] and files[path].meta end,path=function(path)return path end}
+ local user={info=function(path)stats=stats+1;return files[path] and files[path].meta end,path=function(path)return path end,
+  list=function(folder)lists=lists+1;local out={};for path in pairs(files)do
+   local prefix=folder..'/';if path:sub(1,#prefix)==prefix then out[#out+1]=path:sub(#prefix+1)end
+  end;return out end}
  local V={mod={id='VOXEL_ASCENDANT'},require=function(name)assert(name=='UserFiles');return user end}
  local M=assert(loadfile(root..'/'..prefix..'LocalSprites.lua'))(V)
  local function resolve(species,side,kind,inherited,mon)
@@ -57,16 +60,20 @@ for _,prefix in ipairs{'lib/','gen2/lib/'}do
  for _,name in ipairs{'MISSING','BROKEN','BAD_READ','HUGE'}do
   path,tc=resolve(name,'front','battle',true);eq(path,'upstream',name..' path');eq(tc,true,name..' touched upstream flag')
  end
+ local scans=stats
+ for i=1,1000 do resolve('MISSING','front','dex',true,{shiny=true});resolve('CHARMANDER')end
+ eq(stats,scans,'lookup issued filesystem stat');eq(lists,8,'directories not scanned once')
  files[front].pixels=gray;files[front].meta.modtime=2
+ M.rescan()
  path,tc=resolve('CHARMANDER','front','battle',true);eq(tc,false,'modified file retained stale color')
  files[front].pixels=color;M.rescan()
  path,tc=resolve('CHARMANDER','front','battle',false);eq(tc,true,'explicit rescan retained stale classification')
- files[front]=nil
+ files[front]=nil;M.rescan()
  path,tc=resolve('CHARMANDER','front','battle',false);eq(path,'upstream','removed file');eq(tc,false,'removed flag')
- add('front','CHARMANDER',gray)
+ add('front','CHARMANDER',gray);M.rescan()
  path,tc=resolve('CHARMANDER','front','battle',true);eq(tc,false,'readded file retained old signature cache')
  -- A host without pixel inspection keeps the previous path/flag contract.
- add('front','NO_PIXELS',gray)
+ add('front','NO_PIXELS',gray);M.rescan()
  love.image.newImageData=function()decoded=decoded+1;return {getDimensions=function()return 2,2 end,release=function()released=released+1 end}end
  path,tc=resolve('NO_PIXELS','front','battle',true);assert(path~='upstream');eq(tc,true,'legacy no-pixel host flag')
  eq(released,decoded-1,'decoded images not released (one decode throws)')

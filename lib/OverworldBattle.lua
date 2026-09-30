@@ -65,6 +65,14 @@ if not lifecycleLoaded or type(BattleLifecycle) ~= "table" then
 end
 
 local OverworldBattle = {}
+do
+  local quad
+  function OverworldBattle.viewportQuad(x,y,w,h,tw,th)
+    if quad then quad:setViewport(x,y,w,h,tw,th)
+    else quad=love.graphics.newQuad(x,y,w,h,tw,th)end
+    return quad
+  end
+end
 local supported = false
 -- The engine classes outlive a module instance.  Their wrappers therefore
 -- need one process-local owner. A reload retires the old owner before replacing it.
@@ -2620,6 +2628,7 @@ local function rendererSessionFinishImpl(expectedBattle, rawOwner,
   restoreCast(active)
   finishPresetArenaBackdrop(active, battle)
   pcall(function() V.require("Stadium").finish() end)
+  if Voxel3D.releaseBattleLayer then Voxel3D.releaseBattleLayer()end
   if sameBattle(session, active) then session = nil end
   Voxel3D.camera = nil
   clearRendererBattleReceipts(battle)
@@ -2683,6 +2692,7 @@ local function rendererSessionAbortImpl(expectedBattle, reason, fallback,
     restoreCast(active)
     finishPresetArenaBackdrop(active, battle)
     pcall(function() V.require("Stadium").finish() end)
+    if Voxel3D.releaseBattleLayer then Voxel3D.releaseBattleLayer()end
     if sameBattle(session, active) then session = nil end
     Voxel3D.camera = nil
     clearRendererBattleReceipts(battle)
@@ -4121,7 +4131,6 @@ function OverworldBattle.applyPendingPresentation(active, dt, textures)
   end
   local prepared,prepareReason=pcall(function()
     BattleScene.prepare(active.state,arena)
-    ChunkMesher.pump(true)
   end)
   if not prepared then
     active.pendingPresentation=nil
@@ -4398,7 +4407,6 @@ local function updateBattleFrame(dt)
       if ok and (prepared or status == "pending") then return end
     end
     pcall(BattleScene.prepare, session.state, session.arena)
-    ChunkMesher.pump(true)
     return
   end
   BattleCam.steerable = not OverworldBattle.playerBackPinned(session.battle)
@@ -4500,9 +4508,8 @@ local function updateBattleFrame(dt)
   if not (session.battle and session.battle.animPlaying == true) then
     BattleCam.update(dt, session.arena, session.battle, groundY)
   end
-  -- the world pass is hidden behind the battle, so mesh builds get the wide
-  -- slice: nothing visible can hitch on them
-  ChunkMesher.pump(true)
+  -- The pipeline owns the single build slice, after battle preparation.
+  -- A committed battle shot is visible scenery and uses the idle budget.
 
   -- The mons' textures are rendered HERE, with no canvas bound, for the same
   -- reason the scene is: the pics layer binds its own targets, and doing that
@@ -4725,8 +4732,13 @@ function OverworldBattle.update(dt)
   return false, tostring(reason)
 end
 
--- The finished shot for this frame, or nil when there is none and the battle
--- should draw the way it always did.
+-- Preparation must keep receiving the pipeline build slice even when
+-- free-roam VOXEL and PRELOAD are both disabled.
+function OverworldBattle.sceneActive()
+  return session~=nil and not session.broken
+end
+
+-- The finished shot, or nil when native presentation owns this frame.
 function OverworldBattle.shot()
   if not session or session.broken then return nil end
   local s = session.shot
@@ -6061,6 +6073,21 @@ function OverworldBattle.install()
     return innerHUDs(self, slide, ...)
   end
 
+  -- Capture native CPU sprite bytes only across synchronous battle seams.
+  -- The scoped observer restores Assets/graphics even when a constructor or
+  -- palette pass fails; unsupported providers retain the readback fallback.
+  for _,key in ipairs({"newWild","newTrainer","makeBattler","trainerSprite",
+      "speciesSprite","makeGhost","makeOldManDemo","enter","update",
+      "picImage","drawAnimLayer"}) do
+    local inner=BattleState[key]
+    if type(inner)=="function" then
+      BattleState[key]=function(...)
+        if not runtimeLeaseActive() then return inner(...) end
+        return BattlePics.capture(inner,...)
+      end
+    end
+  end
+
   local replacements = {}
   for class, before in pairs(originalMethods) do
     for key, fn in pairs(class) do
@@ -6521,21 +6548,21 @@ snapHUDs = function(battle, shot)
     g.setColor(1, 1, 1, 1)
     for side, band in pairs(OverworldBattle.HUD_BAND) do
       local place = placement[side]
-      local quad = g.newQuad(band[1], band[2], band[3], band[4],
+      local quad = OverworldBattle.viewportQuad(band[1], band[2], band[3], band[4],
                              BattleScene.GB_W, BattleScene.GB_H)
       g.draw(layer, quad, place.x + band[1] * place.scale,
              place.y, 0, place.scale, place.scale)
     end
     for _, item in ipairs(partyPlacement) do
       local source, target = item.source, item.target
-      local quad = g.newQuad(source[1], source[2], source[3], source[4],
+      local quad = OverworldBattle.viewportQuad(source[1], source[2], source[3], source[4],
                              BattleScene.GB_W, BattleScene.GB_H)
       g.draw(partyLayer, quad, target[1], target[2], 0,
              target[3] / source[3], target[4] / source[4])
     end
     for _, item in ipairs(textPlacement) do
       local source, target = item.source, item.target
-      local quad = g.newQuad(source[1], source[2], source[3], source[4],
+      local quad = OverworldBattle.viewportQuad(source[1], source[2], source[3], source[4],
                              BattleScene.GB_W, BattleScene.GB_H)
       g.draw(textLayer, quad, target[1], target[2], 0,
              target[3] / source[3], target[4] / source[4])

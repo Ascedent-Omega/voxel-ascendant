@@ -22,7 +22,7 @@ for _,osName in ipairs({'Android','iOS'}) do
   local V={mod={}}
   function V.require(n)
     if not modules[n] then
-      if n=='MobileWorldPlan' or n=='MobileSceneryGate' then
+      if n=='MobileWorldPlan' or n=='MobileSceneryGate' or n=='ScenePrefetchCache' then
         modules[n]=assert(loadfile('lib/'..n..'.lua'))(V)
       else modules[n]={} end
     end
@@ -30,7 +30,7 @@ for _,osName in ipairs({'Android','iOS'}) do
   end
   package.loaded['src.render.PaletteFX']={};package.loaded['src.world.Map']={}
   local scene=assert(loadfile('lib/VoxelScene.lua'))(V)
-  local core=up(scene.prefetch,'mobileCorePrefetch')
+  local core=up(up(scene.prefetch,'prefetchScene'),'mobileCorePrefetch')
   local trace=up(core,'mobileCoreTrace')
   local a={id='PALLET_TOWN',def={width=10,height=9,connections={north={map='ROUTE_1'}}}}
   local b={id='ROUTE_1',def={width=10,height=18,connections={south={map='PALLET_TOWN'}}}}
@@ -102,5 +102,16 @@ for _,osName in ipairs({'Android','iOS'}) do
   horizonReady=true;scene.stageMobileScenery(cityState)
   local _,_,_,_,expanded=scene.prefetch(cityState)
   assert(expanded.maps[fifth.id] and gate.allow(city),'completed horizon did not publish atomically')
+  -- A battle can rebuild a BODY while the same scenery union stays admitted.
+  -- A saved union is not ownership of its old mesh handles.
+  local fresh={id='replacement-body'}
+  local oldPair=modules.ChunkMesher.pair
+  modules.ChunkMesher.pair=function(map)
+    if map==cityState.neighbors[1].map then return fresh,nil end
+    return oldPair(map)
+  end
+  local _,_,_,_,rebuilt=scene.prefetch(cityState)
+  assert(rebuilt.meshes[1]==fresh,'retained scenery draws the released pre-battle BODY')
+  assert(rebuilt.waters[1]==nil,'retained scenery draws removed water')
   print('PASS '..osName..': cold admission, terrain before decoration, handoff/return, panorama failure, warp/save isolation')
 end

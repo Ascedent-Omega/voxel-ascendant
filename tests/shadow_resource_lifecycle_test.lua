@@ -18,6 +18,8 @@ for _,prefix in ipairs({'','gen2/'})do
   CanvasPresentation=setmetatable({},{__index=function()return mobile and 'Android' or 'OS X'end}),
   Quality={shadowsOff=function()return off end,shadowSizes=function()return {1024,1536,2048}end},
   PixelCanvas={new=function()attempts=attempts+1;if failCanvas then return false,'injected allocation failure'end;return true,resource()end}}
+ modules.OpaqueProgram=assert(loadfile('lib/OpaqueProgram.lua'))()
+ modules.OpaqueMaterials=assert(loadfile('lib/OpaqueMaterials.lua'))()
  local shadow=assert(loadfile(prefix..'lib/ShadowMap.lua'))({require=function(n)return assert(modules[n],n)end})
  if prefix==''then
   local stable=upvalue(shadow.storeStatic,'stableFit');local vp={}

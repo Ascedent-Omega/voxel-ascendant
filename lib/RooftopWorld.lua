@@ -218,7 +218,9 @@ function M.geometry(entry,defs,emit,yieldStep)
      end
      -- Use the actual facade/roof boxes and original colours. Their texture
      -- atlas is tiny; no foreground voxel meshes or sprite caches are loaded.
-     for _,kind in ipairs({p.kind,a.glassKind})do
+     local kinds={p.kind,a.glassKind}
+     for _,door in ipairs(a.slidingDoors or{})do kinds[#kinds+1]=door.kind end
+     for _,kind in ipairs(kinds)do
       local m=P.models[kind]
       if m then for _,b in ipairs(m.boxes)do
        box(e.x+p.tx*8+b[1],b[2],e.z+p.ty*8+b[3],b[4],b[5],b[6],b[7],kind==a.glassKind)

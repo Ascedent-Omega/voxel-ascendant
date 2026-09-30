@@ -38,13 +38,14 @@ function C.key(entry,defs,address,near,yieldStep)
    local models={};local items=V.require('VoxelItems');local Map=require('src.world.Map')
    local function model(a)
     if not a then return end
-    return {boxes=a.boxes,template=a.template,frameW=a.frameW,depth=a.depth,offsetY=a.offsetY,glassKind=a.glassKind}
+    return {boxes=a.boxes,template=a.template,frameW=a.frameW,depth=a.depth,offsetY=a.offsetY,glassKind=a.glassKind,slidingDoors=a.slidingDoors}
    end
    for _,p in ipairs(V.require('RooftopWorld').maps(entry,defs))do
     local map=Map.new(p.def,game.data.tilesets[p.def.tileset])
     for _,b in ipairs(V.require('VoxelFurniture').findBuildings(map))do
      local a=items.models[b.kind];models[b.kind]=model(a)
      if a and a.glassKind then models[a.glassKind]=model(items.models[a.glassKind])end
+     for _,door in ipairs(a and a.slidingDoors or{})do models[door.kind]=model(items.models[door.kind])end
     end
     pause(yieldStep)
    end
