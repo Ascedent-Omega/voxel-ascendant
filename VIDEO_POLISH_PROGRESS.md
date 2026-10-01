@@ -1,3 +1,13 @@
+# Voxel Ascendant 3.0.62-rc.1 - current online release plus video polish
+
+Merges public VASC 3.0.61 (68e33c32, Halloween crown-contact fix) with the complete local 3.0.61-rc.6 video-polish candidate. The posed accessory anchor and scoped hotel counter depth bias share the final actor transform and pull value, keeping both fixes. Public base archive SHA256 was checked against the current GitHub release checksum.
+
+Includes English/German loading, previous language/cyclist/seat fixes, lower starter posters in ball order, compact shallow stairs, Mew wish window and fair rewards, Center sitter art, quiet Silph glass lift, iOS observation HUD and hotel reception correction. Paired KASC 6.7.33-rc.1 already builds on current public KASC 6.7.32. Optional HD Characters 1.0.0-rc.1 remains a separate tested ZIP import; its in-game download catalog entry is still absent.
+
+Focused merged regressions, native hats/hotel/HD and complete archive verification are recorded with the delivered bundle. Historical QA below preserves earlier scopes. Physical mobile and subjective lift listening remain open. Local combined candidate, no public release.
+
+---
+
 # Voxel Ascendant 3.0.61-rc.6 — hotel reception correction
 
 The Prismania/Celadon hotel receptionist remains on her native floor cell behind the reception desk. A scoped depth-bias correction lets the opaque counter hide her legs instead of drawing them over the tabletop. Native position, floor height, collision and across-counter dialogue are preserved. The guard checks the original hotel and exact counter tiles; other rooms, moving actors and changed layouts retain their existing draw behavior.

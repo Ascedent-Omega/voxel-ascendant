@@ -3191,6 +3191,24 @@ local function vascPatch(self)
           -- A fixed seat needs real depth: that pull put the occupant in front
           -- of the chair back even when viewed from behind it.
           local cardPull=seatProfile and (seatProfile.contact or seatProfile.mapId=='GAME_CORNER') and 0 or pull
+          if Voxel3D.costumeDef == def and not record.dex then
+            -- Use the same bounds and transform as atlasCardMesh, including
+            -- authored roots, breathing and fixed-seat alignment. Neutral
+            -- width keeps an outstretched walking arm from resizing the hat.
+            local anchorSource = record.externalHumanSources and record.externalHumanSources.idle or activeSource
+            local anchor = anchorSource.rigBounds and anchorSource.rigBounds[row]
+              or anchorSource.bounds[row][0] or bounds
+            local unit = visibleHeight / (bounds.layout and bounds.layout.referenceHeight
+              or math.max(1,bounds.bottom-bounds.top))
+            local top = visibleHeight
+            local x = 8
+            if bounds.layout then
+              top = (bounds.layout.anchorY-(anchor.top-anchor.cellY))*unit
+              x = 8+((anchor.left+anchor.right)/2-anchor.cellX-bounds.layout.anchorX)*unit
+            end
+            Voxel3D.costumePose = {def=def,model=cardModel,pull=cardPull,x=x,top=top,
+              width=(anchor.right-anchor.left)*unit,height=visibleHeight}
+          end
           return correctedDraw(card, cardTexture, cardModel, cardPull,
             cardSun, true, styleSpec)
         end

@@ -112,10 +112,37 @@ function M.costume(def,seed)
  if h%4~=0 then return nil end
  return h%8==0 and 'october_witch_hat'or 'october_bat_cape'
 end
-function M.drawCostume(def,seed,mat,pull)
+-- The native card is 16px tall. HD cards publish their actual, posed
+-- bounds: their height, breathing, lean, seat and walk offsets can differ.
+function M.costumeMatrix(kind,mat,pose)
+ local Mat=V.require('Mat4')
+ if pose then mat=pose.model end
+ if kind=='october_witch_hat' then
+  local top=pose and pose.top or 16
+  local width=math.max(4,math.min(9,(pose and pose.width or 8)*.95))
+  local sx,sy=width/12,width/12*.8
+  -- Seat the brim around the upper hair, rather than tangent to its
+  -- highest pixel. The fitted width also determines insertion depth;
+  -- its upper face remains inside the crown even on a large HD head.
+  local seatDepth=width*.18
+  mat=Mat.mul(mat,Mat.translate(pose and pose.x or 8,top-seatDepth,0))
+  mat=Mat.mul(mat,Mat.scale(sx,sy,sx))
+  return Mat.mul(mat,Mat.translate(-8,-14,0))
+ end
+ if pose then
+  local scale=pose.height/16
+  mat=Mat.mul(mat,Mat.translate(pose.x-8*scale,pose.top-pose.height,0))
+  mat=Mat.mul(mat,Mat.scale(scale,scale,scale))
+ end
+ return mat
+end
+function M.drawCostume(def,seed,mat,pull,pose)
  local kind=M.costume(def,seed);if not kind then return end
+ if pose and pose.def~=def then pose=nil end
  register();local mesh,tex=V.require('VoxelItems').resolveKind(kind)
- if mesh then V.require('Voxel3D').draw(mesh,tex,mat,pull)end
+ if mesh then
+  V.require('Voxel3D').draw(mesh,tex,M.costumeMatrix(kind,mat,pose),pose and pose.pull or pull)
+ end
 end
 -- Decorations occupy existing non-walkable tree/rock footprints. Their
 -- number is capped and selection is stable across camera moves and re-entry.

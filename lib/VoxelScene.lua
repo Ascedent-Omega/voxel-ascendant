@@ -821,6 +821,9 @@ local function drawEntity(sprite, px, py, facing, phase, flip, gh, colors,
   local model = billboardMatrix(px, py, y, mirror)
   local pull = pullOverride ~= nil and pullOverride or billboardPull()
   local caster = ShadowMap.snug(Voxel3D.casterMatrix(px, py, y, mirror))
+  -- The HD substitution reports this actor's final posed card for accessories.
+  Voxel3D.costumeDef = costumeSeed and def or nil
+  Voxel3D.costumePose = nil
   if teleport then
     ok, why = pcall(Voxel3D.draw, mesh, tex, model, pull, caster)
   else
@@ -828,8 +831,10 @@ local function drawEntity(sprite, px, py, facing, phase, flip, gh, colors,
   end
   Voxel3D.silphTeleport = nil
   Voxel3D.actorLighting(false)
+  local costumePose = Voxel3D.costumePose
+  Voxel3D.costumeDef, Voxel3D.costumePose = nil, nil
   if not ok then error(why, 0) end
-  if costumeSeed then V.require('Halloween').drawCostume(def,costumeSeed,model,pull)end
+  if costumeSeed then V.require('Halloween').drawCostume(def,costumeSeed,model,pull,costumePose)end
   return true
 end
 
