@@ -789,7 +789,7 @@ end
 -- `lift` raises the figure off the ground plane (ledge hops arc UP in 3D,
 -- where the 2D path could only slide the sprite north).
 local function drawEntity(sprite, px, py, facing, phase, flip, gh, colors,
-                          lift, costumeSeed, teleport)
+                          lift, costumeSeed, teleport, pullOverride)
   if VoxelItems.draw(sprite, px, py, gh, lift) then return true end
   local def = sprite.def
   local tex = sprite:resolveImage()
@@ -819,16 +819,17 @@ local function drawEntity(sprite, px, py, facing, phase, flip, gh, colors,
   Voxel3D.silphTeleport = teleport
   local ok, why = true, nil
   local model = billboardMatrix(px, py, y, mirror)
+  local pull = pullOverride ~= nil and pullOverride or billboardPull()
   local caster = ShadowMap.snug(Voxel3D.casterMatrix(px, py, y, mirror))
   if teleport then
-    ok, why = pcall(Voxel3D.draw, mesh, tex, model, billboardPull(), caster)
+    ok, why = pcall(Voxel3D.draw, mesh, tex, model, pull, caster)
   else
-    Voxel3D.draw(mesh, tex, model, billboardPull(), caster)
+    Voxel3D.draw(mesh, tex, model, pull, caster)
   end
   Voxel3D.silphTeleport = nil
   Voxel3D.actorLighting(false)
   if not ok then error(why, 0) end
-  if costumeSeed then V.require('Halloween').drawCostume(def,costumeSeed,billboardMatrix(px,py,y,mirror),billboardPull())end
+  if costumeSeed then V.require('Halloween').drawCostume(def,costumeSeed,model,pull)end
   return true
 end
 
@@ -2157,6 +2158,10 @@ local function posesOf(state, spriteColors, drawableMaps, externalPlayerWalker)
         lift = e.py - vy, colors = colors,
         entity = e, mapId = state.map.id,
       }
+      if e ~= state.player then
+        posed[#posed].pullOverride = V.require("Gen1CounterOcclusion").pull(
+          state.map, e, posed[#posed].gh, hopping)
+      end
       if e == state.player then
         me = posed[#posed]
         -- marked so the camera draw can leave the card out in first
@@ -2409,7 +2414,7 @@ local function drawCast(state, posed, atlasFor, ghostPose, beforeActors, opaqueP
       Voxel3D.waterline(p.waterline)
       if not OverworldStadium.draw(p,actorVisible,billboardPull()) then
         drawEntity(p.sprite, p.px, p.py, viewFacing(p), p.phase, p.flip, p.gh,
-                   p.colors, p.lift, not p.isPlayer and p.sprite.seed or nil, p.silphTeleport)
+                   p.colors, p.lift, not p.isPlayer and p.sprite.seed or nil, p.silphTeleport, p.pullOverride)
       end
       Voxel3D.waterline(nil)
     end

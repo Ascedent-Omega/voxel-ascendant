@@ -1,3 +1,11 @@
+# Voxel Ascendant 3.0.61-rc.6 — hotel reception correction
+
+The Prismania/Celadon hotel receptionist remains on her native floor cell behind the reception desk. A scoped depth-bias correction lets the opaque counter hide her legs instead of drawing them over the tabletop. Native position, floor height, collision and across-counter dialogue are preserved. The guard checks the original hotel and exact counter tiles; other rooms, moving actors and changed layouts retain their existing draw behavior.
+
+Voxel and Cobble pass four native camera angles and dialogue. Four focused regressions pass. The shared sitter recognition covers all twelve current placements: eleven Pokémon Centers and this hotel; hotel Voxel/Cobble/OFF rendering additionally checked. Builds on the complete rc.5 candidate. Physical mobile and optional HD-pack scene acceptance remain open; no public release.
+
+---
+
 # Voxel Ascendant 3.0.61-rc.5 — local completion
 
 Replaces the tile-authored Center sitter with separate Voxel-HD and Cobble artwork. Cobble follows the existing roster/Bedrock rig and transparent export workflow, including eye/lid blinking. The temporary hand-built substitute was discarded. Fixed cushion anchor and walking OFF fallback are retained; three Centers per style verified. HD retains its existing source when its optional pack is available.

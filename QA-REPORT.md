@@ -1,3 +1,13 @@
+# VASC 3.0.61-rc.6 — hotel counter verification, 2026-10-01
+
+Base: complete rc.5, isolated checkout without concurrent Halloween changes. The apparent elevated GRANNY is CELADON_HOTEL's native floor receptionist (cell 3,1; pixels 48,16; ground 0). Orbit-card camera-ray bias previously pulled the sprite depth through the reception desk. Gen1CounterOcclusion checks the exact native hotel dimensions, actor state and raw counter pattern 8,8 / 24,25 before overriding only her draw bias to zero. No global bias, position, support height, collision or dialogue changes. Other maps and changed/native-incompatible layouts fall through.
+
+Four focused tests pass in rc6-regressions.json: actual imported hotel geometry, sitter style/cache/OFF contracts, final iOS observation HUD and furniture receipts. native-hotel-desk-isolated2.log passes Voxel/Cobble at pipeline levels 1,2,4,5 (396 clerk draws checked), native floor/position and across-counter interaction. FULL Voxel screenshot visually confirms legs behind the counter. native-center-hotel-locations.log enumerates twelve actual figure placements: eleven Centers and CELADON_HOTEL, and renders the hotel in Voxel/Cobble/OFF. This is not a full visual run in every Center; three Centers per style were already checked in rc.5.
+
+Complete package syntax, model hashes, archive CRC, source equality and receipts are verified by tools/build_local_candidate.py. Unpacked native package acceptance is recorded externally in deliverables/VASC-3.0.61-rc.6-Hotel-Counter-Local/PACKED-QA.md. Physical iPhone/iPad and optional HD-pack scene acceptance remain open. Earlier rc.5 checks and limitations below remain valid.
+
+---
+
 # VASC 3.0.61-rc.5 — completion verification, 2026-10-01
 
 Base: complete local rc.4. Adds the Voxel-HD Center sitter and Cobble sprite exports from the existing local roster/Bedrock workflow. Model, palette, animation, poser and provenance retained; generated Voxel image references the original seated HD character and packaged Voxel nurse. The rejected hand-built block body is absent. Separate cached per-style textures, fixed seat anchor, four baked eye/lid blink frames, failure latch and walking OFF fallback. Three native Centers per style pass, with screenshots reviewed. Optional HD DLC is absent on the QA host: HD selection falls back to Voxel; the retained HD path is covered by the focused stub test, not a native optional-pack run.

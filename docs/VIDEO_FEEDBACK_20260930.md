@@ -6,7 +6,7 @@ Das Video zeigt einen älteren Entwicklungsstand. Die ursprüngliche Aufnahme en
 
 Grundlage ist das vollständige automatisch erzeugte englische [Transkript](/Users/maarten/Documents/Recompile/artifacts/vasc-video-feedback-20260930/transcript-en.txt). Einzelbilder bei 11:54, 15:03, 18:25, 37:41 und 39:23 wurden zusätzlich angesehen. Das ist keine vollständige audiovisuelle Sichtung und keine lokale Fehlerreproduktion. Automatische Untertitel erkennen Namen und einzelne Begriffe falsch. Trotz des Videotitels betrifft die Mehrheit der Rückmeldungen Voxel Ascendant. Die genaue gezeigte Paketversion ist nicht sicher bestimmt.
 
-**Aktueller Stand: lokaler VASC 3.0.61-rc.5, auf dem vorhandenen rc.2 aufgebaut.** Radfahrer, Sitz-Kompatibilität und Sprachfix waren bereits in rc.2 enthalten und werden hier nicht erneut als neue Reparaturen gezählt. Öffentliche Basis bleibt 3.0.60. Die Änderungen liegen in [diesem Arbeitsstand](/Users/maarten/Documents/Recompile/.worktrees/vasc-loading-locale-20260930); ZIP, Prüfsummen und Paketprüfung stehen unter `deliverables/VASC-3.0.61-rc.5-Local`.
+**Aktueller Stand: lokaler VASC 3.0.61-rc.6, auf dem vorhandenen rc.2 aufgebaut.** Radfahrer, Sitz-Kompatibilität und Sprachfix waren bereits in rc.2 enthalten und werden hier nicht erneut als neue Reparaturen gezählt. Öffentliche Basis bleibt 3.0.60. Die Änderungen liegen in [diesem Arbeitsstand](/Users/maarten/Documents/Recompile/.worktrees/vasc-hotel-counter-20261001); ZIP, Prüfsummen und Paketprüfung stehen unter `deliverables/VASC-3.0.61-rc.6-Hotel-Counter-Local`.
 
 ## In dieser Runde umgesetzt
 
@@ -35,7 +35,7 @@ Zum Casino wurde die alte A-Logo-Wand mit dem aktuellen, bereits anders ausgesta
 
 ## Vollständiger Abgleich aller 37 Punkte
 
-`KANDIDAT` bezeichnet die lokale rc.5 einschließlich ihrer vorhandenen rc.2-Basis; keine Veröffentlichung. `BESTAND` bezeichnet bereits vorhandene Lösungen. `NACHPRÜFEN` bleibt eine unbestimmte Szene oder externe Abnahme und ist kein bestätigter neuer Fehler.
+`KANDIDAT` bezeichnet die lokale rc.6 einschließlich ihrer vorhandenen rc.2-Basis; keine Veröffentlichung. `BESTAND` bezeichnet bereits vorhandene Lösungen. `NACHPRÜFEN` bleibt eine unbestimmte Szene oder externe Abnahme und ist kein bestätigter neuer Fehler.
 
 | ID | Aktueller Status | Ergebnis / noch erforderlicher Schritt |
 |---|---|---|
@@ -61,7 +61,7 @@ Zum Casino wurde die alte A-Logo-Wand mit dem aktuellen, bereits anders ausgesta
 | Z30-20 | KANDIDAT, nativ geprüft | Eigenes Mewtu-Sternbild mit Abstand zu den Starter-Sternbildern; native Nachtaufnahme geprüft. |
 | Z30-21 | KANDIDAT, Nutzerpräzisierung | Dezente, selten vorbeifliegende Mew-Sternsilhouette statt buntem Atlas-Pokémon. Sechs Sekunden Sichtungsfenster, an echte Himmelsrichtung gebunden. |
 | Z30-22 | KANDIDAT, nativ geprüft | Rechtzeitiges A im Blickfeld öffnet ein kleines Fenster für Nugget/Elixier/Hyperball. Ein Item je Sichtung, kein Masterball; nativer Input und Speichern/Laden geprüft. |
-| Z30-23 | KANDIDAT, Nutzerkorrektur | Sitzender Center-Mann: Cobble via bestehendem Roster-/Bedrock-Modell mit echtem Blinzeln; eigener Voxel-HD-Sprite. Keine handgebaute Ersatzbox. Drei Center je Stil, fester Bankanker und AUS nativ geprüft. HD-Quelle vorhanden, separates optionales HD-Paket auf diesem Host nicht angebunden. |
+| Z30-23 | KANDIDAT, Nutzerkorrektur | Sitzender Center-Mann: Cobble via bestehendem Roster-/Bedrock-Modell mit echtem Blinzeln; eigener Voxel-HD-Sprite. Keine handgebaute Ersatzbox. Gemeinsame Erkennung an zwölf Fundstellen (elf Center plus Hotel); drei Center je Stil sowie Hotel in Voxel/Cobble/AUS nativ geprüft. Fester Bankanker erhalten. HD-Quelle vorhanden, separates optionales HD-Paket auf diesem Host nicht angebunden. |
 | Z30-24 | BESTAND, gezielt nachgeprüft | Nidoking/Tauros mit aktueller Cobble-Quelle und gültigen Animationsclips im nativen Kampf aufgenommen. Die exakt historische einzelne Intro-Sekunde wurde nicht lückenlos nachgestellt. |
 | Z30-25 | ERLEDIGT | Your-Look-Führung, Quellenwahl, Verfügbarkeits-/Downloadstatus vorhanden. Eingebettete Cobble-Inhalte benötigen keinen separaten Download. |
 | Z30-26 | BESTAND, nativ geprüft | CUSTOM SPRITES öffnet den registrierten Bildschirm. Native RESCAN-Auswahl ausgeführt und Rückkehr ins Spiel geprüft; nutzt vorhandene Funktion. |
@@ -84,6 +84,14 @@ Zum Casino wurde die alte A-Logo-Wand mit dem aktuellen, bereits anders ausgesta
 - `native-remainders-review4.log`: 30 HD-Outfits und drei Center-Figuren tatsächlich geprüft. Frühere Hilfsläufe mit leerer Freischaltliste werden nicht als Outfitbeleg gewertet.
 - `native-last-remainders.log`: sichtbares Nidoking-Intro, echte Aufzugfahrt mit Tonaufrufzählung und Brunnen-Stopp bestanden. Keine akustische Zuordnung des Videotons behauptet.
 - Diese rc.4-Befunde wurden durch die rc.5-Abschlussprüfung oben ergänzt; die damals offenen Outfit-/Figuren-/Fensterbelege sind dort eingeordnet.
+
+## Hotelkorrektur rc.6 vom 01.10.2026
+
+- Nutzerbild identifiziert als `CELADON_HOTEL`, Hotel in Prismania. Empfangsdame steht nativ auf Bodenhöhe 0; die Zeichen-Tiefenverschiebung ließ ihre Füße über dem Tresen erscheinen.
+- Nur bei unverändertem Hotel/Tresenmuster wird ihr Kamerabias auf 0 gesetzt. Originalposition, Kollisionsregeln und Ansprechen über den Tresen bleiben erhalten. Keine Raumumgestaltung.
+- `rc6-regressions.json`: vier fokussierte Tests bestanden. `native-hotel-desk-isolated2.log`: Voxel/Cobble in vier Kamerawinkeln, 396 tatsächliche Zeichnungen, Bodenhöhe und native Interaktion bestanden; FULL-Voxel-Aufnahme visuell geprüft.
+- `native-center-hotel-locations.log`: zwölf tatsächliche Sitzfiguren-Fundstellen ermittelt (elf Center plus Hotel), Hotel in Voxel/Cobble/AUS zusätzlich geprüft. Der Austausch greift über das gemeinsame Kachelmuster auch in den anderen Häusern.
+- Vollständiges Paket und entpackte native Abnahme: `deliverables/VASC-3.0.61-rc.6-Hotel-Counter-Local/verification.json` und `PACKED-QA.md`.
 
 ## Abschlussprüfung rc.5 vom 01.10.2026
 
