@@ -3090,11 +3090,12 @@ function Voxel3D.silphWindow(map,H)
     local house=map and V.require('HouseWindows').describe(map)
     local north=0
     if house then for _,p in ipairs(house.panes)do if p.edge=='north'then north=p.at;break end end end
-    local b=map and V.require('Gen1RoomBounds').forMap(map)
+    local b=map and V.require('HouseWindows').activeBounds(map,Voxel3D.camera and Voxel3D.camera.eye)
+    if house and house.rooms and b then north=b.north end
     pcall(activeShader.send,activeShader,'silphBounds',b and {b.west,house and north or b.north,b.east,b.south}or {0,0,0,0})
     pcall(activeShader.send,activeShader,'houseWindow',{map and 1 or 0,north})
     if map then activeShader:send('houseWindowMask',house and V.require('HouseWindows').mask(map)or V.require('SilphWindows').mask(map,H))end
-    local value=map and {map.def.width*32,map.def.height*32,house and 12 or 10,house and H-10 or H-5}or {0,0,0,0}
+    local value=map and {map.def.width*32,map.def.height*32,house and 12 or 10,house and house.panes[1].top or H-5}or {0,0,0,0}
     pcall(activeShader.send,activeShader,"silphWindow",value)
     local rects,edges
     if map then rects,edges=V.require('GlassDoorWindows').uniforms(map)end

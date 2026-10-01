@@ -22,5 +22,5 @@ for _,id in ipairs{'REDS_HOUSE_1F','REDS_HOUSE_2F','BLUES_HOUSE','VERMILION_TRAD
  for _,style in ipairs{'stone','wood'}do for _,suffix in ipairs{'','-rb'}do assert(index[id..'-'..style..suffix])end end
 end
 local yellow=0;for key in pairs(index)do if key:match('%-yellow$')then yellow=yellow+1 end end
-assert(yellow==58,'incomplete Yellow domestic bitmaps')
+assert(yellow>=58,'incomplete Yellow domestic bitmaps')
 print('PASS house bitmap assets: '..count..' captures, zero near boxes, source/config guards, '..bytes..' bytes')

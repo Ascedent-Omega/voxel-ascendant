@@ -6,6 +6,7 @@ local cache=setmetatable({},{__mode='k'})
 -- Apertures measured in the original panorama's UV space. West artwork is
 -- reversed by Gen1InteriorFinish; derive its world position with that rule.
 M.apertures={
+ gate={{.060,.317,.095,.265},{.367,.616,.095,.265},{.683,.936,.095,.265}},
  home={{.195,.307,.17,.55},{.689,.809,.17,.55}},
  coastal_home={{.247,.357,.17,.53},{.675,.784,.17,.53}},
  traditional_home={{.003,.103,.16,.63},{.264,.483,.16,.63},{.892,.997,.16,.63}},

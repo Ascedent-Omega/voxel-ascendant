@@ -1,7 +1,7 @@
 -- Offline derivative of validated packaged hybrid captures. No scene-building
 -- or render-to-texture work runs on the player's device, including first launch.
 return function(game)
- assert(os.getenv('POKEPORT_IDENTITY')=='vasc-video-polish-qa')
+ assert((os.getenv('POKEPORT_IDENTITY')or''):match('^vasc%-.*%-qa$'))
  io.stdout:setvbuf('no');love.audio.setVolume(0)
  local U=require('tests.drivers.util');game:startNewGame{intro=false}
  local function find(fn,name,seen)
@@ -11,6 +11,8 @@ return function(game)
  end
  local ex=game.mods.exports.VOXEL_ASCENDANT;ex.setupCard.suspended=true
  local V=assert(find(ex.lib.require('VoxelScene').render,'V'))
+ love.draw=function()end
+ love.window.hasFocus=function()return true end;love.window.isVisible=function()return true end
  local C=V.require('RooftopCache');local W=V.require('WindowImageCache');local G=V.require('Voxel3D')
  local Mat=V.require('Mat4');local P=V.require('VoxelItems');local World=V.require('RooftopWorld');local g=love.graphics
  local output=assert(os.getenv('WINDOW_BITMAP_DIR'));assert(output:match('^[%w_/%-%.]+$'))
@@ -20,7 +22,8 @@ return function(game)
   local keys={};for k in pairs(v)do keys[#keys+1]=k end;table.sort(keys,function(a,b)return tostring(a)<tostring(b)end)
   local rows={'{'};for _,k in ipairs(keys)do rows[#rows+1]='['..serial(k)..']='..serial(v[k])..','end;rows[#rows+1]='}';return table.concat(rows)
  end
- local source=V.data('window_cache');local index={};local keys={}
+ local sourcePath=os.getenv('WINDOW_BITMAP_SOURCE')
+ local source=sourcePath and assert(loadfile(sourcePath))()or V.data('window_cache');local index={};local keys={}
  for key in pairs(source)do local id=key:match('^(.-)%-');if W.bitmapEligible({id=id})then keys[#keys+1]=key end end;table.sort(keys)
  local shader=g.newShader([[
   uniform int pass;

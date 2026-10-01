@@ -1,7 +1,7 @@
 -- Offline build driver. Requires an isolated QA identity and explicit output.
 return function(game)
  io.stdout:setvbuf('no')
- assert(os.getenv('POKEPORT_IDENTITY')=='vasc-video-polish-qa')
+ assert((os.getenv('POKEPORT_IDENTITY')or''):match('^vasc%-.*%-qa$'))
  local output=assert(os.getenv('WINDOW_BAKE_DIR'));assert(output:match('^[%w%_/%-%.]+$'));local U=require('tests.drivers.util')
  game:startNewGame{intro=false}
  local exports=game.mods.exports.VOXEL_ASCENDANT
@@ -11,6 +11,9 @@ return function(game)
   for i=1,200 do local k,v=debug.getupvalue(fn,i);if not k then break end;local r=find(v,name,seen);if r then return r end end
  end
  local V=assert(find(exports.lib.require('VoxelScene').render,'V'))
+ exports.setupCard.suspended=true
+ love.draw=function()end
+ love.window.hasFocus=function()return true end;love.window.isVisible=function()return true end
  local World=V.require('RooftopWorld');local Cache=V.require('RooftopCache');local P=V.require('VoxelItems')
  local G=V.require('Voxel3D');local Mat=V.require('Mat4');local g=love.graphics
  local Map=require('src.world.Map');local metadata={}

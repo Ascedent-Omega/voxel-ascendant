@@ -520,6 +520,7 @@ local voxelPipeline = {
     V.require('ObservationBinoculars').update(dt,weatherGame)
     V.require('HomeMeal').update(dt,weatherGame)
     V.require('MewSky').update(dt,weatherGame,level)
+    V.require('GateMaps').update(dt,weatherGame,level)
     if WeatherMusicPlayback
         and type(WeatherMusicPlayback.observe) == "function" then
       WeatherMusicPlayback.observe(weatherGame, weatherMode, DayNight.tod())
@@ -707,7 +708,7 @@ local voxelPipeline = {
     })
     local sw, sh = sceneSize(ctx)
     local wish=V.require('MewSky')
-    local wishFrame=wish.choiceFrame(ctx.state)
+    local wishFrame=V.require('GateMaps').viewFrame(ctx.state)or wish.choiceFrame(ctx.state)
     if wishFrame then
       V.require('LoadingCompanion').clear()
       return wishFrame
@@ -762,15 +763,16 @@ local voxelPipeline = {
     })
     V.require('WorldSceneHold').presented(resolved, ctx.state, sw, sh)
     wish.keepFrame(resolved,ctx.state)
+    V.require('GateMaps').keepFrame(resolved,ctx.state)
     return resolved
   end,
 
   present = function(canvas)
     local binoculars=V.require('ObservationBinoculars')
-    if not canvas or not(binoculars.current() or V.require('MewSky').visible or V.require('MewSky').choice)then return canvas end
+    if not canvas or not(binoculars.current() or V.require('MewSky').visible or V.require('MewSky').choice or V.require('GateMaps').visible or V.require('GateMaps').viewer)then return canvas end
     local w,h=canvas:getDimensions()
     -- Instruction text belongs after world resolution and tilt-shift.
-    return binoculars.hud(canvas,w,h)
+    return V.require('GateMaps').hud(binoculars.hud(canvas,w,h),w,h)
   end,
 
   invalidate = function()
@@ -2693,6 +2695,7 @@ V.require('ObservationLayout').install()
 V.require('ObservationBinoculars').install()
 V.require('HomeMeal').install()
 V.require('MewSky').install()
+V.require('GateMaps').install()
 V.require('WorldSceneHold').install()
 V.require('CeladonClosedShop').install()
 V.require('SilphElevator').install()

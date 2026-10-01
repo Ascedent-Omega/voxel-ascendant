@@ -3213,6 +3213,7 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
       local shade=Voxel3D.FACE_SHADE[({north=5,south=6,west=1,east=2})[panel.edge]] or .8
       local placement=placements[panel]
       local glazing=V.require('SilphWindows').perimeter(entry.map,panel)
+        and #V.require('SilphWindows').panelApertures(entry.map,panel,H)>0
       local glass,windowFrame
       if glazing then glass={family='silph_glass',kind='window_glass',vertices={},indices={},interiorPanel=panel};groups[#groups+1]=glass
        windowFrame={family='silph_frame',vertices={},indices={},interiorPanel=panel};groups[#groups+1]=windowFrame end
@@ -6909,6 +6910,10 @@ local function editorPanoramaTexture(family)
     if not (ok and image) then ok, image = pcall(Backgrounds.newImage, path) end
   end
   if not (ok and image) then textureFailures[family] = true return nil end
+  if id=='kanto_gate'then
+    local decorated=V.require('GateMaps').decorate(image)
+    if decorated then releaseImage(image);image=decorated end
+  end
   assetStats.loads = assetStats.loads + 1
   if image.setFilter then
     pcall(image.setFilter, image, "nearest", "nearest", 1)

@@ -1,5 +1,5 @@
 local config=true;local lift=false;local good=true;local width=480
-local released=0;local loads=0;local sig='match';local meta={revision=2,size=768,width=480,depth=288,configuration='true:true:true:true:connected',maps={'CITY'},signature='match'}
+local released=0;local loads=0;local sig='match';local meta={revision=2,size=768,width=480,depth=288,configuration='true:true:true:true:connected:facades-20261001',maps={'CITY'},signature='match'}
 local index={['SILPH_CO_1F-stone']=meta}
 local yes={get=function()return config end}
 local modules={Gen1InteriorPanoramas={profiles={}},Gen1LavenderTower={setting={get=function()return'stone'end}},

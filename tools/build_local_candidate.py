@@ -4,6 +4,7 @@ import argparse, ctypes, hashlib, json, subprocess, zipfile
 from pathlib import Path
 
 p=argparse.ArgumentParser()
+p.add_argument('--release',action='store_true',help='Build the checked stable release instead of an experimental candidate')
 p.add_argument('--source',type=Path,required=True)
 p.add_argument('--base',type=Path,required=True)
 p.add_argument('--output',type=Path,required=True)
@@ -14,7 +15,10 @@ encode=lambda o:(json.dumps(o,indent=2,ensure_ascii=False)+'\n').encode()
 paths=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],cwd=root).decode().split('\0')
 files={n:(root/n).read_bytes()for n in paths if n and (root/n).is_file()}
 manifest=json.loads(files['manifest.json']);version=manifest['version']
-assert '-rc.' in version and manifest['experimental'] is True,'candidate identity required'
+if a.release:
+ assert '-rc.' not in version and manifest['experimental'] is False,'stable release identity required'
+else:
+ assert '-rc.' in version and manifest['experimental'] is True,'candidate identity required'
 with zipfile.ZipFile(a.base)as z:
  names=[n for n in z.namelist()if not n.endswith('/')]
  prefix='' if 'manifest.json' in names else 'VOXEL_ASCENDANT/'
@@ -68,7 +72,7 @@ for key in ('runtime-receipt.json','.modkit/pack.json'):
   d['files']=[dict(path=n,size_bytes=len(b),sha256=sha(b))for n,b in sorted(files.items())if n not in ('runtime-receipt.json','.modkit/pack.json')]
   d['file_count']=len(d['files'])
  else:
-  d['local_candidate']=True;d['source_commit']=commit;d['base_archive_sha256']=sha(a.base.read_bytes())
+  d['local_candidate']=not a.release;d['source_commit']=commit;d['base_archive_sha256']=sha(a.base.read_bytes())
   d['files']=[dict(path=n,bytes=len(b),sha256=sha(b))for n,b in sorted(files.items())if n!=key]
   d['source_snapshot_sha256']=sha(json.dumps(d['files'],sort_keys=True).encode())
  files[key]=encode(d);(root/key).write_bytes(files[key])
@@ -88,7 +92,7 @@ with zipfile.ZipFile(archive)as z:
   for row in json.loads(z.read(key))['files']:assert sha(z.read(row['path']))==row['sha256'],row['path']
 checksum=sha(archive.read_bytes())
 (a.output/(archive.name+'.sha256')).write_text(checksum+'  '+archive.name+'\n')
-report=dict(archive=str(archive),version=version,base_version=base_version,source_commit=commit,local_candidate=True,
+report=dict(archive=str(archive),version=version,base_version=base_version,source_commit=commit,local_candidate=not a.release,
  sha256=checksum,bytes=archive.stat().st_size,files=len(files),lua_syntax_checked=syntax,prepared_models_verified=len(models),
  crc='PASS',source_equality='PASS',file_receipts='PASS',changed_or_added=sorted(changed))
 (a.output/'verification.json').write_bytes(encode(report))

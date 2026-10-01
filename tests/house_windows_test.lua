@@ -1,5 +1,6 @@
 local mods={};local V={require=function(n)return assert(mods[n],n)end}
 local enabled=true
+mods.Gen1LavenderTower={setting={get=function()return'stone'end}}
 mods.Gen1PalletVillage={buildings={get=function()return enabled end}}
 local profile={theme='home',tileset='HOUSE',width=4,height=4,shellHeight=40}
 mods.Gen1InteriorPanoramas={profiles={HOME=profile,HOME_1F=profile,HOME_2F=profile,UNKNOWN=profile}}
@@ -22,6 +23,7 @@ mods.Gen1InteriorLayout={panelsFor=function()return{
  {edge='north',at=16,from=0,upto=128,openings={}},
  {edge='east',at=128,from=16,upto=128,openings={}},
 }end}
+mods.Gen1WindowBindings=assert(loadfile('lib/Gen1WindowBindings.lua'))(V)
 local H=assert(loadfile('lib/HouseWindows.lua'))(V)
 local function map(id)return{id=id,def={tileset='HOUSE',width=4,height=4}}end
 local m=map('HOME');local h=assert(H.describe(m));assert(#h.panes==3 and h.height==0)
@@ -33,6 +35,7 @@ end
 local attic=assert(H.describe(map('HOME_2F')));assert(#attic.panes==1 and attic.height==24 and attic.panes[1].edge=='south')
 assert(H.source(map('HOME_2F'))=='TOWN','upper-floor shortcut replaced the ground-floor facade')
 assert(not H.describe(map('UNKNOWN')),'unknown exterior invented')
+assert(not H.describe(map('POKEMON_TOWER_1F')),'Lavender Tower must remain closed')
 local changed=map('HOME');changed.def.width=5;assert(not H.describe(changed),'modified footprint claimed')
 changed=map('HOME');changed.def.generation=2;assert(not H.describe(changed))
 enabled=false;assert(not H.describe(m),'building OFF retained live windows')
@@ -43,10 +46,10 @@ print('PASS house windows: native entrance, real facade, attic, door/roof exclus
 local pixels={};local cleanup
 package.loaded['src.render.Assets']={register=function(f)cleanup=f end}
 love={image={newImageData=function(w,h)
- assert(w==512 and h==4)
- return{setPixel=function(_,x,y,r)pixels[y*512+x]=r end,release=function()end}
+ assert(w==1024 and h==4)
+ return{setPixel=function(_,x,y,r)pixels[y*1024+x]=r end,release=function()end}
 end},graphics={newImage=function()return{setFilter=function()end,release=function()end}end}}
-assert(H.mask(m));assert(pixels[512+18]==1 and not pixels[512+48],'door glass became a window')
+assert(H.mask(m));assert(pixels[1024+18]==1 and not pixels[1024+48],'door glass became a window')
 assert(not pixels[18],'opaque rear wall lost its mask')
 cleanup()
 print('PASS compact facade mask: real window visible, entrance and opaque rear wall hidden')

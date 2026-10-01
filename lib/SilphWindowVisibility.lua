@@ -201,7 +201,7 @@ bool silphCross(highp float ea, highp float pa, highp float eo,
  highp float y=mix(eye.y,py,t);
  highp float a=mix(eo,po,t);
  return y>=silphWindow.z && y<=silphWindow.w && a>=lo && a<=span
-  && (houseWindow.x<0.5 || Texel(houseWindowMask,vec2((floor(a)+0.5)/512.0,(row+0.5)/4.0)).r>0.5);
+  && (houseWindow.x<0.5 || Texel(houseWindowMask,vec2((floor(a)+0.5)/1024.0,(row+0.5)/4.0)).r>0.5);
 }
 bool glassDoorCross(highp vec3 p, highp vec4 r, highp float edge) {
  if(edge<0.5)return false;

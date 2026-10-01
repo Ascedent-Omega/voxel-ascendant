@@ -5,6 +5,7 @@ local M={REVISION=2,FACE_SIZE=768,BITMAP_REVISION=1,BITMAP_SIZE=512,hits=0,misse
 -- Small domestic apertures tolerate a fixed capture point. Wide public glass
 -- fronts and moving elevators retain near geometry and its parallax.
 function M.bitmapEligible(map)
+ if map and tostring(map.id):match('^SS_ANNE_')then return false end
  local profile=map and V.require('Gen1InteriorPanoramas').profiles[map.id]
  local theme=profile and profile.theme
  return theme=='home' or theme=='traditional_home' or theme=='coastal_home' or theme=='daycare'
@@ -16,7 +17,7 @@ function M.configuration()
  local outdoor=V.require('Gen1OutdoorScenery')
  return table.concat({tostring(outdoor.ground:get()),tostring(outdoor.trees:get()),
   tostring(V.require('Gen1PalletVillage').buildings:get()),
-  tostring(V.require('VoxelItems').setting:get()),tostring(V.require('CinnabarVolcano').setting:get())},':')
+  tostring(V.require('VoxelItems').setting:get()),tostring(V.require('CinnabarVolcano').setting:get()),'facades-20261001'},':')
 end
 local function record(entry,status,reason,meta)
  M.last={map=entry.map.id,status=status,reason=reason,path=meta and meta.path}

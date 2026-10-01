@@ -1,0 +1,20 @@
+{
+  "source": "Imported FireRed USA 1.0 region-map tilemaps, unchanged cartridge artwork",
+  "source_sha256": "3d0c79f1627022e18765766f6cb5ea067f6b5bf7dca115552189ad65a5c3a8ac",
+  "extractor": "src/import/gba/region_map_extract.lua",
+  "kanto": "assets/maps/kanto_fly_map_hd.png (existing VASC source-exact Kanto map)",
+  "files": [
+    {
+      "path": "assets/maps/sevii123_map.png",
+      "sha256": "6aa4ebf4e8b939cfc345c65d15406334c6ee47d7e50c502e25a2c7a2d10a756f"
+    },
+    {
+      "path": "assets/maps/sevii45_map.png",
+      "sha256": "fd67382b8430fe67da3068f0b0c4e7c2bc35546381febcb23bdbf514bf5875bd"
+    },
+    {
+      "path": "assets/maps/sevii67_map.png",
+      "sha256": "af16fc5111c51efb2a257dcd7f265178ba2c588485f297c8f90f41489e6af0a9"
+    }
+  ]
+}

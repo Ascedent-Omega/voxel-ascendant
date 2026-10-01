@@ -81,7 +81,7 @@ function M.maps(entry,defs)
  local out={}
  local radius=M.radius(entry)
  for id,d in pairs(defs)do
-  if d.generation~=2 and d.tileset=='OVERWORLD'then
+  if d.generation~=2 and (d.tileset=='OVERWORLD'or d.tileset=='FOREST'or d.tileset=='PLATEAU')then
    local p=Place.position(id,defs)
    if p and p.anchor==origin.anchor then
     local x,z=p.x-origin.x,p.y-origin.y
@@ -210,7 +210,7 @@ function M.geometry(entry,defs,emit,yieldStep)
   for _,p in ipairs(props)do local a=P.models[p.kind]
    if a then
     for y=p.ty,p.ty+p.h-1 do for x=p.tx,p.tx+p.w-1 do occupied[y*4096+x]=true end end
-    if e.id~=sourceId or p.kind~=anchor.kind or (anchor.tx and (p.tx~=anchor.tx or p.ty~=anchor.ty))then
+    if not(anchor.suppressTemplates and anchor.suppressTemplates[a.template])and(e.id~=sourceId or p.kind~=anchor.kind or (anchor.tx and (p.tx~=anchor.tx or p.ty~=anchor.ty)))then
      M.last.buildings=M.last.buildings+1
      if a.template=='silph_co'or a.template=='pokemon_tower'or a.template=='pokemon_tower_top'then
       local x,_,z=M.point(anchor,e.x+p.tx*8,0,e.z+p.ty*8)
@@ -227,6 +227,13 @@ function M.geometry(entry,defs,emit,yieldStep)
       end end
      end
     end
+   end
+  end
+  -- The quay and truck are native harbor props outside ordinary facades.
+  if e.id=='VERMILION_CITY'and V.require('Gen1Harbor').kind(map)then
+   V.require('Gen1Harbor').models(P)
+   for _,p in ipairs{{'ss_anne_pier',384,0,584},{'ss_anne_truck',408,3,598}}do
+    for _,b in ipairs(P.models[p[1]].boxes)do box(e.x+p[2]+b[1],p[3]+b[2],e.z+p[4]+b[3],b[4],b[5],b[6],b[7],b[7]==8)end
    end
   end
   -- Coarse terrain follows actual native cells. Merge identical horizontal

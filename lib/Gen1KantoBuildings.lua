@@ -82,7 +82,9 @@ function M.register(P,F)
   local league=template:find('league')~=nil
   local routeGate=template=='victory_road_gate'or template=='route23_south_gate'
   local department=template=='celadon_mart'
-  local height=department and 114 or tower and 68 or league and 56 or tall and 54 or 36
+  local ruined=false;local lab=false
+  for _,door in ipairs(doors)do ruined=ruined or door.dest=='POKEMON_MANSION_1F';lab=lab or door.dest=='CINNABAR_LAB'end
+  local height=department and 114 or ruined and 78 or museum and 66 or tower and 68 or league and 56 or tall and 54 or 36
   local a,b=make(kind,w,d,height+20);local panes,g=make(kind..'_glass',w,d,height+20)
   local haunted=map.id=='LAVENDER_TOWN'
   if haunted then
@@ -119,7 +121,8 @@ function M.register(P,F)
   b(left,3,back,2,height-9,front-back,facade);b(right,3,back,2,height-9,front-back,facade)
   if not tower or template=='pokemon_tower_top'then b(2,3,back,w-4,height-9,2,facade)end
   if not tower or template=='pokemon_tower'then b(2,3,front-2,w-4,height-9,2,facade)end
-  local levels=department and 6 or tall and 3 or tower and 4 or 1
+  local levels=department and 6 or ruined and 3 or museum and 2 or tall and 3 or tower and 4 or 1
+  if levels>1 then a.windowLevelHeight=(height-9)/levels end
   for level=0,levels-1 do
    local yy=math.floor(level*(height-9)/levels)+4
    local hh=math.floor(math.min(12,(height-9)/levels-4))
@@ -139,6 +142,9 @@ function M.register(P,F)
     if clear then b(side,yy+4,z-1,1,hh+2,10,4);g(side+(side==left and -1 or 1),yy+5,z,1,hh,8,7)end
    end end
   end
+  if lab then for x=7,w-12,16 do
+   b(x-1,8,back-1,10,14,1,4);g(x,9,back-2,8,12,1,7)
+  end end
   -- Foundation courses and dressed quoins make the facade read as a
   -- building at human height rather than a featureless cream box.
   if not tower or template=='pokemon_tower'then

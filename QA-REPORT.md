@@ -1,3 +1,19 @@
+# Voxel Ascendant 3.0.62 — windows, guardhouse maps and video polish
+
+Connects previously missing native building interiors to their real outdoor facade, including Celadon Hotel and diner, Museum, mansion floors, Cinnabar lab annexes, Indigo Plateau, Safari huts and the S.S. Anne. Ship cabins keep their six separate native room boundaries. Flat guardhouse windows remain painted and contribute daylight and night lighting. The Lavender Pokémon Tower remains closed, with no new interior windows.
+
+Guardhouse artwork now shows the actual Kanto map and the original Sevii charts for islands 1–3, 4–5 and 6–7. Approaching a map offers a small English/German prompt; A opens a read-only viewer, Left/Right browses the Sevii charts and B closes it. Native NPC/sign interactions retain priority. No item, destination or island is unlocked.
+
+Includes the complete public 3.0.61 Halloween fix and the previously tested video polish: lower starter posters in ball order, shallow compact stairs, timed Mew wish window with Nugget/Elixir/Ultra Ball, loading translations, Center sitter artwork and seats, upholstered Center/Hotel couch, hotel receptionist depth correction and observation HUD fixes. Tested with current public KASC 6.7.32; this release does not require a new KASC package.
+
+Validation: 28 focused regressions, complete binary window/bitmap asset validation, source-native LÖVE window rendering in 20 representative rooms with cache hits, all six cabins per ship cabin map, real-windows OFF fallback, four flat guardhouse layouts and daylight/night views, Kanto/Sevii proximity prompt and viewer. Native census binds 88 HouseWindows rooms; all seven Lavender Tower floors remain unbound. Rebuilt 700 hybrid captures and 214 house bitmap captures across the default, Red/Blue and Yellow source families and both facade styles. Prior independent couch/HD/Voxel/Cobble/OFF and public-base merge checks are retained below.
+
+Full release archive syntax, model hashes, CRC and source equality are checked by tools/build_local_candidate.py --release. Final extracted-package and public download results accompany the release archive. Physical iPhone/iPad acceptance and subjective lift listening remain open. The optional human HD pack works when imported; its in-game download catalog entry remains absent.
+
+Earlier candidate reports below are historical.
+
+---
+
 # Voxel Ascendant 3.0.62-rc.2 — upholstered Center couch
 
 Replaces the shared native couch extrusion with an authored blue upholstered voxel sofa: two seat/back cushions, stepped armrests and recessed feet. Exact full drawing recognition covers eleven Pokémon Centers and Celadon Hotel. Native collision and the 8px seat anchor remain unchanged. Furniture ownership explicitly preserves only the original seated man; other overlapping figures keep their existing protection. Furniture OFF restores native terrain; walking-sprite OFF keeps the original seated-person art on the new couch.

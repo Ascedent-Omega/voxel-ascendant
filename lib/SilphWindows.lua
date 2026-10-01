@@ -76,10 +76,10 @@ function M.mask(map,H)
  local key=table.concat(stamp,':')
  if old and old.key==key then return old.texture end
  if old then old.texture:release()end
- local data=love.image.newImageData(512,4)
+ local data=love.image.newImageData(1024,4)
  local row={north=0,south=1,west=2,east=3}
  for _,p in ipairs(M.apertures(map,H))do
-  for x=math.max(0,math.ceil(p.from)),math.min(511,math.ceil(p.upto)-1)do data:setPixel(x,row[p.edge],1,1,1,1)end
+  for x=math.max(0,math.ceil(p.from)),math.min(1023,math.ceil(p.upto)-1)do data:setPixel(x,row[p.edge],1,1,1,1)end
  end
  local texture=love.graphics.newImage(data);data:release();texture:setFilter('nearest','nearest')
  masks[map]={key=key,texture=texture}

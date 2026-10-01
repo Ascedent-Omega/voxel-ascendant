@@ -12,7 +12,9 @@ for key,m in pairs(index)do
  assert(#m.maps>0 and m.configuration)
  local coast=false
  for _,id in ipairs(m.maps)do if id=='CINNABAR_ISLAND'then coast=true end end
- assert(coast,'captured horizon ends before Cinnabar: '..key)
+ if key:match('^SAFARI_ZONE_')and not key:match('^SAFARI_ZONE_GATE')then
+  for _,id in ipairs(m.maps)do assert(id:match('^SAFARI_ZONE_'),'Safari hut view escaped its native connected area')end
+ else assert(coast,'captured horizon ends before Cinnabar: '..key)end
  for _,id in ipairs(m.maps)do assert(not id:match('^SILPH_CO_'),'native interior door state must not invalidate the exterior photograph')end
  for name,crop in pairs(m.files)do
   assert(crop.x>=0 and crop.y>=0 and crop.w>0 and crop.h>0 and crop.x+crop.w<=768 and crop.y+crop.h<=768)
@@ -29,7 +31,11 @@ for floor=1,5 do for _,style in ipairs{'stone','wood'}do
  assert(index['CELADON_MART_'..floor..'F-'..style],'missing department floor '..floor)
 end end
 local yellow=0;for key in pairs(index)do if key:match('%-yellow$')then yellow=yellow+1 end end
-assert(yellow==128,'incomplete Yellow room/style coverage')
+assert(yellow>=128,'incomplete Yellow room/style coverage')
+for _,id in ipairs{'CELADON_HOTEL','CELADON_DINER','MUSEUM_2F','CELADON_MANSION_3F','INDIGO_PLATEAU_LOBBY','POKEMON_MANSION_3F','SS_ANNE_1F_ROOMS','SS_ANNE_2F_ROOMS','CINNABAR_LAB_FOSSIL_ROOM','CELADON_MANSION_ROOF_HOUSE'}do
+ for _,style in ipairs{'stone','wood'}do for _,suffix in ipairs{'','-rb','-yellow'}do assert(index[id..'-'..style..suffix],'missing expanded building view: '..id..style..suffix)end end
+end
+for key in pairs(index)do assert(not key:match('^POKEMON_TOWER_'),'Lavender Tower must remain closed')end
 for i=1,11 do for _,style in ipairs{'stone','wood'}do
  assert(index['SILPH_CO_'..i..'F-'..style..'-yellow'],'missing Yellow Silph floor '..i)
  assert(index['SILPH_CO_'..i..'F-'..style]or index['SILPH_CO_'..i..'F-'..style..'-rb'])

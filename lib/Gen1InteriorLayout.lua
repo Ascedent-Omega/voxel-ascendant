@@ -320,7 +320,11 @@ end
 function M.panelsFor(map, profile)
   V.require('Gen1RoomBounds').refresh(map)
   local d=map.def;local out={};local domesticInset=false
-  if map.id=='LANCES_ROOM' or map.id=='CINNABAR_LAB' then blockFootprint(map,out)
+  local cabins=(map.id=='SS_ANNE_1F_ROOMS'or map.id=='SS_ANNE_2F_ROOMS')and V.require('Gen1WindowBindings').cabins(map)
+  if cabins then
+   blockFootprint(map,out)
+   for _,p in ipairs(out)do p.windowBoundary=true end
+  elseif map.id=='LANCES_ROOM' or map.id=='CINNABAR_LAB' then blockFootprint(map,out)
   elseif tostring(map.id):match('^CELADON_MANSION_[123]F$') and map.tileset and map.tileset.blocks then mansion(map,out)
   elseif map.id=='SILPH_CO_11F' and d.tileset=='INTERIOR' and map.tileset and map.tileset.blocks then silphOffice(map,out)
   elseif d.tileset=='UNDERGROUND' and map.tileset and map.tileset.blocks then underground(map,out)
@@ -366,7 +370,7 @@ function M.panelsFor(map, profile)
       local row=p.at-((p.edge=='south' or p.edge=='east')and 16 or 0)
       -- Silph's teleporter pads are floor events, never doors into a wall.
       local floorPad=tostring(map.id):match('^SILPH_CO_%d+F$') and tostring(warp.destMap):match('^SILPH_CO_%d+F$')
-      if not floorPad and not p.nicheReturn and not p.column and not p.endcap and (not tostring(map.id):match('^CELADON_MANSION_[123]F$') or p.boundary) and across==row and along>=p.from and along<p.upto and not verticalWarp(map,warp) then
+      if (not cabins or p.edge==(map.id=='SS_ANNE_1F_ROOMS'and'north'or'south'))and not floorPad and not p.nicheReturn and not p.column and not p.endcap and (not tostring(map.id):match('^CELADON_MANSION_[123]F$') or p.boundary) and across==row and along>=p.from and along<p.upto and not verticalWarp(map,warp) then
         local breach=p.edge=='north' and V.require('Gen1BreachExterior').opening(map,warp)
         p.openings[#p.openings+1]={from=along,upto=math.min(along+16,p.upto),
           height=warp.destMap=='SILPH_CO_ELEVATOR' and 36 or breach and 28 or nil,
@@ -413,8 +417,8 @@ function M.panelsFor(map, profile)
     end
     p.openings=merged
     if (profile.theme=="home" or profile.theme=="coastal_home" or profile.theme=="traditional_home")
-        and p.edge=="north" and p.at==0 and #p.openings==0 then
-      p.at=16;domesticInset=true
+        and p.edge=="north" and (p.at==0 or cabins)and #p.openings==0 then
+      p.at=p.at+16;domesticInset=true
     end
   end
   if domesticInset then
