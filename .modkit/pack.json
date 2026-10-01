@@ -1,6 +1,6 @@
 {
   "id": "VOXEL_ASCENDANT",
-  "version": "3.0.61-rc.6",
+  "version": "3.0.62-rc.1",
   "api": 2,
   "modkit": "1.0.0",
   "local_candidate": true,
@@ -91,6 +91,11 @@
       "sha256": "642d2753cd357199f3b864de9291d29fc2115d7d3ef8f3456ca1b9167a2c5352"
     },
     {
+      "path": "HALLOWEEN_HATS_QA.md",
+      "bytes": 1026,
+      "sha256": "f910395713c73b81cfe4d27693e0a2e56cce1e7ada467aa82adbd29019b20b93"
+    },
+    {
       "path": "HOENN_VISITOR_QA.md",
       "bytes": 2850,
       "sha256": "1bf0123f3bf554aca2109e752e5ecf470ff7e6982524d4d7c0cd1cb33289b279"
@@ -152,18 +157,18 @@
     },
     {
       "path": "QA-REPORT.md",
-      "bytes": 11775,
-      "sha256": "5ae4239043442019ac033c90ef483822cf000e6045e2585156108fbf45d0baef"
+      "bytes": 12926,
+      "sha256": "b10d9463175a4bf2d17fe9bba9df88cdebb19a98693e2d11e1c8f3bbf28a29cf"
     },
     {
       "path": "README.md",
-      "bytes": 36573,
-      "sha256": "eda1a8cc35bc49e8f0c6f99c84ba1a6311ffd3929c32d143bca77924cbd735be"
+      "bytes": 37382,
+      "sha256": "dcc939145c998a4c780d6b9b9c196225c13314fa202889bb9dcdf5e4c84c6216"
     },
     {
       "path": "RELEASE_NOTES.md",
-      "bytes": 5532,
-      "sha256": "bb1f3cb755c2e2a2f73325c6e0e5dcae0914efd7f722623a4aa4edda0e256d47"
+      "bytes": 6683,
+      "sha256": "b7918657bee0f93a470b3e6208640b2d23c8a23bedd5ffa1571a7872ed7a3b3d"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -351,6 +356,11 @@
       "sha256": "08aefce06f3859d1aed89d04b86cda4377ed78980422f32cc71e546d3ba96d52"
     },
     {
+      "path": "RELEASE_NOTES_3.0.61.md",
+      "bytes": 771,
+      "sha256": "7b7f7e1b89910b972a5be47c2075d32ee6a23cfc9101cea06eb6dda9a3ae4c95"
+    },
+    {
       "path": "RUNTIME_AUDIT_2026-09-25.md",
       "bytes": 7692,
       "sha256": "95e570674e17259b84878470660b1eac159d500fd90c950eb245d0f151f3d727"
@@ -382,8 +392,8 @@
     },
     {
       "path": "VIDEO_POLISH_PROGRESS.md",
-      "bytes": 23707,
-      "sha256": "a7a5ac6fb4ecfcdb56de4b75a5119078fcf8a241603f753416bff2e4427903e9"
+      "bytes": 24858,
+      "sha256": "5fa6ff01c02861dfed66212e80fb06359442e62d4eab9c5d0afd78f1956aa9db"
     },
     {
       "path": "WEATHER_SKY_NOTES.md",
@@ -94026,6 +94036,11 @@
       "sha256": "3ce56ef1915b1d4c106467a4d68e12ced1dd80f97f03843b4656bab2435c1ec6"
     },
     {
+      "path": "docs/ONLINE_MERGE_20261001.md",
+      "bytes": 1643,
+      "sha256": "f83a8a9454ea1d5b76717596901e63afa0fbd5237eed839a7460b82389f4790e"
+    },
+    {
       "path": "docs/POKEMMO_DIRECTION_FIX.md",
       "bytes": 1441,
       "sha256": "e3a651e94868c9ec41f9ede416033992b05f36b5f32097f25b773a7138c6fa4f"
@@ -100242,8 +100257,8 @@
     },
     {
       "path": "integrated/ascendant_pokemon_overworld/src/voxel_characters.lua",
-      "bytes": 160370,
-      "sha256": "97a66c1c24f3a6aab7b62ab90ca615fc0f95ba6b5f6f10c07263e59a83d13224"
+      "bytes": 161511,
+      "sha256": "a68efedc49967ac82ab8ef742ca36c7de035d2e295869423ad13dff379190d71"
     },
     {
       "path": "integrated/ascendant_pokemon_overworld/src/walking_sprites.lua",
@@ -109522,8 +109537,8 @@
     },
     {
       "path": "lib/Halloween.lua",
-      "bytes": 9169,
-      "sha256": "a2b4e5e76b782621cc95bdb0f36685a5d996b32805f7f3ca4c0c70820079e552"
+      "bytes": 10277,
+      "sha256": "454ec97106256cd7bc1c616d811e9443fe6ed1a7ad345c6411f02c856b863ee5"
     },
     {
       "path": "lib/HdAuthoredFigures.lua",
@@ -110762,8 +110777,8 @@
     },
     {
       "path": "lib/VoxelScene.lua",
-      "bytes": 171499,
-      "sha256": "96999451245d23e72f2c8155ce3008d132f590d8285639d61ca09a6b30d2f25e"
+      "bytes": 171764,
+      "sha256": "c1c412ed61e91d4d89aac7798d9555dd37329c75db63199745316649051753ee"
     },
     {
       "path": "lib/VoxelShortcut.lua",
@@ -111183,7 +111198,7 @@
     {
       "path": "manifest.json",
       "bytes": 22826,
-      "sha256": "7bdbf144e7c020a00d416331435e3e2f22a4f8c32150c9e8e9484e9406081d6a"
+      "sha256": "bc6e3d61383e2633bc3ab5da7f9e7a1a497f2f35b5374100b9fdf7b7b38d6f7c"
     },
     {
       "path": "mod.card",
@@ -111192,8 +111207,8 @@
     },
     {
       "path": "runtime-receipt.json",
-      "bytes": 4730457,
-      "sha256": "d5e14629757c5318e46d6125696c775628373d6c1dabe05b0d9f499ff43f0df4"
+      "bytes": 4731126,
+      "sha256": "dfcc245d26ad5235767f1d6b31e934d5b4f2db0395b20b00d63f086b5eb457d1"
     },
     {
       "path": "scripts/prepare_cobblemon_binary.py",
@@ -111779,6 +111794,11 @@
       "path": "tests/gym_glass_doors_test.lua",
       "bytes": 4137,
       "sha256": "cde43a5857a252732f233d1b519eaef331b9b2a51528bdf61fcca996dc46b230"
+    },
+    {
+      "path": "tests/halloween_costume_pose_test.lua",
+      "bytes": 2204,
+      "sha256": "33319ae26f0a7644804a87671cbebb26e40182d37202c6051a7247056fee8c24"
     },
     {
       "path": "tests/hd_binary_fetch_test.lua",
@@ -113611,9 +113631,9 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "base_archive_sha256": "6a8a7fc9460c12547bb843653f4942015479d8efa21571e640fa4e137994eff7",
-  "source_snapshot_sha256": "c47409829516eaa0776aa842266d93555e2bcb9c05d7485536c450628fc3d977",
-  "source_commit": "4823d8d688b5d1be0ea0eb6b22e130fe3495d29b",
+  "base_archive_sha256": "4e53864659a370d510240b8d3a12529775dd7e7cef5a290349e5dbb789f3647c",
+  "source_snapshot_sha256": "75955f2b86e210f063fd8ffad8e278555d200a9204451e5d640018ded6b036f7",
+  "source_commit": "9980e359af4e2045c0624a6dbb9ad3f80a73c871",
   "source_candidate_version": "3.0.60-rc.1",
   "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
 }
