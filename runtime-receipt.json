@@ -1,5 +1,5 @@
 {
-  "file_count": 27488,
+  "file_count": 27487,
   "files": [
     {
       "path": ".modkitromallow",
@@ -153,8 +153,8 @@
     },
     {
       "path": "QA-REPORT.md",
-      "size_bytes": 16340,
-      "sha256": "ec4cbb9f05a56b9dedd237f969b47a7748c0982c4ecd0f0d234b98a3896ab64b"
+      "size_bytes": 16478,
+      "sha256": "fab1fb42079cded0858031cfe509918abf4237bf374f2b7b26b32ac798582d29"
     },
     {
       "path": "README.md",
@@ -163,8 +163,8 @@
     },
     {
       "path": "RELEASE_NOTES.md",
-      "size_bytes": 9067,
-      "sha256": "ccc699bb1a2f4d4f258b5dca93807a7927e4ecb6976136e1a145e05dcba5c8ab"
+      "size_bytes": 9120,
+      "sha256": "15629b193311fd2542a3886b1aba73fb10369391416cf71898679aedca5a24e7"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -37408,8 +37408,8 @@
     },
     {
       "path": "assets/maps/gate-atlas-sources.json",
-      "size_bytes": 762,
-      "sha256": "0fa60bb156234c9f1716be9297b027a872a7b369d0172bf4cfd8580a2c848453"
+      "size_bytes": 763,
+      "sha256": "4961717216976476e05032a9bcb9d0c3574eddf0e3579af99ad5eecc7f92e0c9"
     },
     {
       "path": "assets/maps/kanto_fly_map_hd.png",
@@ -37432,19 +37432,9 @@
       "sha256": "c9ce022bf3b68f2381c818c678d42595e5acd5fe077b4a8010b86db0fe6c778f"
     },
     {
-      "path": "assets/maps/sevii123_map.png",
-      "size_bytes": 2325,
-      "sha256": "6aa4ebf4e8b939cfc345c65d15406334c6ee47d7e50c502e25a2c7a2d10a756f"
-    },
-    {
-      "path": "assets/maps/sevii45_map.png",
-      "size_bytes": 1874,
-      "sha256": "fd67382b8430fe67da3068f0b0c4e7c2bc35546381febcb23bdbf514bf5875bd"
-    },
-    {
-      "path": "assets/maps/sevii67_map.png",
-      "size_bytes": 2441,
-      "sha256": "af16fc5111c51efb2a257dcd7f265178ba2c588485f297c8f90f41489e6af0a9"
+      "path": "assets/maps/sevii_fly_map_master.png",
+      "size_bytes": 2679134,
+      "sha256": "c8adf071bf63e5caad23c92cf0aadc0354de3203558adce43259cea4754b2a16"
     },
     {
       "path": "assets/runtime/dynamic_billboard_base.png",
@@ -117903,8 +117893,8 @@
     },
     {
       "path": "docs/guardhouse-maps.md",
-      "size_bytes": 837,
-      "sha256": "25ded2d10b3113c52ec587117b1e884e1c92a21931c588fbce0c91c7ec7aa59b"
+      "size_bytes": 1159,
+      "sha256": "27659cc48abd21266211b98ddf64a5f51a58e6a0eb7b5c64ec557c209d541fd8"
     },
     {
       "path": "docs/guide/COMPLETE_GUIDE_DE.md",
@@ -132167,6 +132157,11 @@
       "sha256": "71aeb1c548c42031098bc8a9908ac2caa8c64efd5c0f14439721d9d7d532a81d"
     },
     {
+      "path": "integrated/guardhouse_maps/main.lua",
+      "size_bytes": 48241,
+      "sha256": "2391ebf63a824e0ff0984cc570aa1ade7da20f320e9f8fb2b5a4fee43db018b1"
+    },
+    {
       "path": "integrated/kanto_fly_map/SOURCE_RECEIPT.json",
       "size_bytes": 3220,
       "sha256": "1d7fb3d25342bb3b5f6a1430a48b655df795425a34ea6c59b6b3b5d0036c4eb2"
@@ -133008,8 +133003,8 @@
     },
     {
       "path": "lib/GateMaps.lua",
-      "size_bytes": 8645,
-      "sha256": "8d164c960de42309aa83c98a056ca954c83c023b85d9d6b144ff4bbdbd667ffe"
+      "size_bytes": 9547,
+      "sha256": "d865c76a42d75d0e1491cea48a6334df695710f107171309a1a92e11180e9abf"
     },
     {
       "path": "lib/GatePrefetch.lua",
@@ -135418,8 +135413,8 @@
     },
     {
       "path": "tests/drivers/gate_maps.lua",
-      "size_bytes": 5125,
-      "sha256": "a97fe6658ac8b0e5ca546a0fa69c295890be9b13c807683b169ae02890d7c499"
+      "size_bytes": 5604,
+      "sha256": "cec3bbe8cb17db2ac71b81ff2dadc7b470f180b0e9d7d0988dff884d83960c63"
     },
     {
       "path": "tests/error_inbox_test.lua",
@@ -135493,8 +135488,8 @@
     },
     {
       "path": "tests/gate_maps_test.lua",
-      "size_bytes": 1895,
-      "sha256": "905f22b0596e6cc1059857b99d7ad180c31e6b6cec143638927fe145b1c0528f"
+      "size_bytes": 2575,
+      "sha256": "38179fba7284026982375c6e3d06774d6be67d69d3639994c6c7577aeec289ec"
     },
     {
       "path": "tests/gate_prefetch_test.lua",
