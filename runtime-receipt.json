@@ -1,5 +1,5 @@
 {
-  "file_count": 22686,
+  "file_count": 22689,
   "files": [
     {
       "path": ".modkitromallow",
@@ -82,6 +82,11 @@
       "size_bytes": 7088
     },
     {
+      "path": "HALLOWEEN_HATS_QA.md",
+      "sha256": "f910395713c73b81cfe4d27693e0a2e56cce1e7ada467aa82adbd29019b20b93",
+      "size_bytes": 1026
+    },
+    {
       "path": "HOENN_VISITOR_QA.md",
       "sha256": "1bf0123f3bf554aca2109e752e5ecf470ff7e6982524d4d7c0cd1cb33289b279",
       "size_bytes": 2850
@@ -138,18 +143,18 @@
     },
     {
       "path": "QA-REPORT.md",
-      "sha256": "d203dcd54ee8280dec8f8b900d491f238471c8ebadb9a9fb21ff4b0e2a17fc2a",
-      "size_bytes": 3072
+      "sha256": "f910395713c73b81cfe4d27693e0a2e56cce1e7ada467aa82adbd29019b20b93",
+      "size_bytes": 1026
     },
     {
       "path": "README.md",
-      "sha256": "eda1a8cc35bc49e8f0c6f99c84ba1a6311ffd3929c32d143bca77924cbd735be",
-      "size_bytes": 36573
+      "sha256": "dcc939145c998a4c780d6b9b9c196225c13314fa202889bb9dcdf5e4c84c6216",
+      "size_bytes": 37382
     },
     {
       "path": "RELEASE_NOTES.md",
-      "sha256": "ee1477128812bd175c90d014f9a31d286b4ccf560ce53d8ce5c44318e4844dfa",
-      "size_bytes": 1394
+      "sha256": "7b7f7e1b89910b972a5be47c2075d32ee6a23cfc9101cea06eb6dda9a3ae4c95",
+      "size_bytes": 771
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -335,6 +340,11 @@
       "path": "RELEASE_NOTES_3.0.54.md",
       "sha256": "08aefce06f3859d1aed89d04b86cda4377ed78980422f32cc71e546d3ba96d52",
       "size_bytes": 2032
+    },
+    {
+      "path": "RELEASE_NOTES_3.0.61.md",
+      "sha256": "7b7f7e1b89910b972a5be47c2075d32ee6a23cfc9101cea06eb6dda9a3ae4c95",
+      "size_bytes": 771
     },
     {
       "path": "RUNTIME_AUDIT_2026-09-25.md",
@@ -100178,8 +100188,8 @@
     },
     {
       "path": "integrated/ascendant_pokemon_overworld/src/voxel_characters.lua",
-      "sha256": "97a66c1c24f3a6aab7b62ab90ca615fc0f95ba6b5f6f10c07263e59a83d13224",
-      "size_bytes": 160370
+      "sha256": "a68efedc49967ac82ab8ef742ca36c7de035d2e295869423ad13dff379190d71",
+      "size_bytes": 161511
     },
     {
       "path": "integrated/ascendant_pokemon_overworld/src/walking_sprites.lua",
@@ -109413,8 +109423,8 @@
     },
     {
       "path": "lib/Halloween.lua",
-      "sha256": "a2b4e5e76b782621cc95bdb0f36685a5d996b32805f7f3ca4c0c70820079e552",
-      "size_bytes": 9169
+      "sha256": "454ec97106256cd7bc1c616d811e9443fe6ed1a7ad345c6411f02c856b863ee5",
+      "size_bytes": 10277
     },
     {
       "path": "lib/HdAuthoredFigures.lua",
@@ -110633,8 +110643,8 @@
     },
     {
       "path": "lib/VoxelScene.lua",
-      "sha256": "bf1dedc5c0dc99913e12bd0b9f78ed12c162c8c15d46a51debae90ae7c8a566b",
-      "size_bytes": 171391
+      "sha256": "9054f21b01165290706d4e376d25fedfd901e5cc192b5d2ba77722398dbe76f8",
+      "size_bytes": 171630
     },
     {
       "path": "lib/VoxelShortcut.lua",
@@ -111053,7 +111063,7 @@
     },
     {
       "path": "manifest.json",
-      "sha256": "0946808afb493d1712b5d05f16cef940157f0902571a436ac842a11be89b6535",
+      "sha256": "c69405093ef248070bc03ec3ae1f6b66975163a64c68d606f8b370dd5573b4d1",
       "size_bytes": 22822
     },
     {
@@ -111635,6 +111645,11 @@
       "path": "tests/gym_glass_doors_test.lua",
       "sha256": "cde43a5857a252732f233d1b519eaef331b9b2a51528bdf61fcca996dc46b230",
       "size_bytes": 4137
+    },
+    {
+      "path": "tests/halloween_costume_pose_test.lua",
+      "sha256": "33319ae26f0a7644804a87671cbebb26e40182d37202c6051a7247056fee8c24",
+      "size_bytes": 2204
     },
     {
       "path": "tests/hd_binary_fetch_test.lua",
@@ -113432,11 +113447,14 @@
       "size_bytes": 217
     }
   ],
-  "manifest_sha256": "0946808afb493d1712b5d05f16cef940157f0902571a436ac842a11be89b6535",
+  "manifest_sha256": "c69405093ef248070bc03ec3ae1f6b66975163a64c68d606f8b370dd5573b4d1",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.60",
+  "version": "3.0.61",
   "local_candidate": false,
   "source_candidate_version": "3.0.60-rc.1",
-  "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
+  "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b",
+  "base_release_version": "3.0.60",
+  "base_release_sha256": "5cae80e6e62dd40fef40e82e8ad54b4b8e982f2d674851ad43574e8d6fdec008",
+  "source_hotfix_commit": "a6103bfc"
 }
