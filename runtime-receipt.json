@@ -1,5 +1,5 @@
 {
-  "file_count": 22724,
+  "file_count": 22727,
   "files": [
     {
       "path": ".modkitromallow",
@@ -153,8 +153,8 @@
     },
     {
       "path": "QA-REPORT.md",
-      "size_bytes": 12926,
-      "sha256": "b10d9463175a4bf2d17fe9bba9df88cdebb19a98693e2d11e1c8f3bbf28a29cf"
+      "size_bytes": 13967,
+      "sha256": "ee4312fab6329da4fefc92669005094adcde6739cf7fb545ef6189258dc4fdc2"
     },
     {
       "path": "README.md",
@@ -163,8 +163,8 @@
     },
     {
       "path": "RELEASE_NOTES.md",
-      "size_bytes": 6683,
-      "sha256": "b7918657bee0f93a470b3e6208640b2d23c8a23bedd5ffa1571a7872ed7a3b3d"
+      "size_bytes": 7724,
+      "sha256": "4474651aca1452dc13b8e1f716c43d21f0887e492ba3a72bdcfe6e8d93ab3dfe"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -388,8 +388,8 @@
     },
     {
       "path": "VIDEO_POLISH_PROGRESS.md",
-      "size_bytes": 24858,
-      "sha256": "5fa6ff01c02861dfed66212e80fb06359442e62d4eab9c5d0afd78f1956aa9db"
+      "size_bytes": 25899,
+      "sha256": "15382a308bbd9a68208b4120cfe31cf8dce9b2dac9a6fe148caa403c2fd4c758"
     },
     {
       "path": "WEATHER_SKY_NOTES.md",
@@ -93907,6 +93907,11 @@
       "sha256": "1c1709a6bce9d19e6a0cef9c48d7c1c8a5a7fcca0a6c42316ac7e01325d06f19"
     },
     {
+      "path": "docs/CENTER_COUCH_20261001.md",
+      "size_bytes": 1429,
+      "sha256": "9112171b4a4faf3426b36f00cd7604df7848cf38ff83780af6620ad6fc0f7733"
+    },
+    {
       "path": "docs/COBBLEMON-ASSETS.md",
       "size_bytes": 938,
       "sha256": "79f87b1e1b2b6c8037f732a892e41fc46ca98fe0c00f63430015302e95c2ad94"
@@ -110573,8 +110578,8 @@
     },
     {
       "path": "lib/Structures.lua",
-      "size_bytes": 214623,
-      "sha256": "ba608927d0b2e8d6c3e2a39eb6ce24f9127c053ed0a0dfbcebf5d6a6de8240b2"
+      "size_bytes": 215043,
+      "sha256": "c6ea21bc5439bec5386196f77e0e4effe93ffe419780e6e0b65638cd2428fc59"
     },
     {
       "path": "lib/SupportLogs.lua",
@@ -110728,8 +110733,8 @@
     },
     {
       "path": "lib/VoxelFurniture.lua",
-      "size_bytes": 44987,
-      "sha256": "993046766c22d1269895cee708e3a781b147077b3d82123107a0cd3f4d459d14"
+      "size_bytes": 45216,
+      "sha256": "a296c0df3db00e482eb01b12ab6bd0d3d420e0dd9345aa53d3e7117c42f2ee01"
     },
     {
       "path": "lib/VoxelGeometryCache.lua",
@@ -110748,13 +110753,13 @@
     },
     {
       "path": "lib/VoxelInteriorModels.lua",
-      "size_bytes": 15006,
-      "sha256": "fe6060335c7ea18f43ce6712395c2712d80444082c54fa06b19e65fdef9e2137"
+      "size_bytes": 15848,
+      "sha256": "412cb1a29346563907438ba31d632ca099b9e55e9aa8dae280f574b89cbdfdba"
     },
     {
       "path": "lib/VoxelInteriorPatterns.lua",
-      "size_bytes": 15705,
-      "sha256": "fcd382c36dda7816b6d7a814b68be91466af5f9a18bdf7ce84bd777638e294fa"
+      "size_bytes": 15993,
+      "sha256": "a6a660b3c1a108652037489cc97459f550564615117c0e5eb3493a76d94c0402"
     },
     {
       "path": "lib/VoxelItemExtras.lua",
@@ -110763,8 +110768,8 @@
     },
     {
       "path": "lib/VoxelItems.lua",
-      "size_bytes": 23312,
-      "sha256": "2a093695ca6cb4a1d9e15d74a7fff5762edf56ac5423e2832248177dc98d01a3"
+      "size_bytes": 23406,
+      "sha256": "ddcff3f67342805028853f77ed81ee9e377b48b44bf029a88063d214248b702c"
     },
     {
       "path": "lib/VoxelPropBatch.lua",
@@ -111194,7 +111199,7 @@
     {
       "path": "manifest.json",
       "size_bytes": 22826,
-      "sha256": "bc6e3d61383e2633bc3ab5da7f9e7a1a497f2f35b5374100b9fdf7b7b38d6f7c"
+      "sha256": "e978bb780378082c0858b2951de98fc05b969c75e51c140c0712a51fdec59641"
     },
     {
       "path": "mod.card",
@@ -111442,6 +111447,11 @@
       "sha256": "fb852b9837e8ea01bfebe2f770bb7bf317cc6fa6bcf61ba6ff42870ec98a253e"
     },
     {
+      "path": "tests/center_couch_figure_test.lua",
+      "size_bytes": 1855,
+      "sha256": "505b500b7e2aa085a0b1df709e53404d270facc5834803813db5452c03bb8cdc"
+    },
+    {
       "path": "tests/cinnabar_activity_test.lua",
       "size_bytes": 2142,
       "sha256": "9f660a4d0796f7f6dc4ee7d52404f818bab5c29197f659ccf5ca38dd82b6c301"
@@ -111610,6 +111620,11 @@
       "path": "tests/download_status_navigation_test.lua",
       "size_bytes": 2167,
       "sha256": "ea568ce068097738b23265861289ccdb19387836863f6c246feae514c7b86882"
+    },
+    {
+      "path": "tests/drivers/center_couch.lua",
+      "size_bytes": 6257,
+      "sha256": "6fdbc2bdc343482c98c11ae77645da7cc727c13b0be41953ee13caecf7ef2236"
     },
     {
       "path": "tests/error_inbox_test.lua",
@@ -113622,10 +113637,10 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "manifest_sha256": "bc6e3d61383e2633bc3ab5da7f9e7a1a497f2f35b5374100b9fdf7b7b38d6f7c",
+  "manifest_sha256": "e978bb780378082c0858b2951de98fc05b969c75e51c140c0712a51fdec59641",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.62-rc.1",
+  "version": "3.0.62-rc.2",
   "local_candidate": false,
   "source_candidate_version": "3.0.60-rc.1",
   "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
