@@ -173,6 +173,25 @@ return function(P,F)
     b(x,4,3,1,17,10,16);b(x,20,3,1,1,10,11)
     for y=7,16,3 do b(x,y,5,1,1,6,3)end
   end
+  -- Two upholstered places, facing east. Keep the native cushion height
+  -- (8px) and footprint so the existing sitter and collision still agree.
+  b=model('center_couch',24,32)
+  for _,x in ipairs({2,14})do for _,z in ipairs({3,27})do b(x,0,z,2,3,2,16)end end
+  b(1,3,1,17,3,30,16)
+  b(2,4,2,15,2,28,P.decorColors.clinicSeam)
+  b(0,5,1,4,10,30,P.decorColors.clinicUpholstery)
+  b(1,15,2,3,1,28,P.decorColors.clinicCushion)
+  for _,z in ipairs({2,17})do
+    b(4,6,z,14,2,13,P.decorColors.clinicCushion)
+    b(4,8,z,1,6,13,P.decorColors.clinicUpholstery)
+    b(5,9,z+1,1,4,11,P.decorColors.clinicCushion)
+    b(17,6,z+1,1,1,11,P.decorColors.clinicUpholstery)
+  end
+  for _,z in ipairs({0,30})do
+    b(1,3,z,17,7,2,P.decorColors.clinicUpholstery)
+    b(2,10,z,15,1,2,P.decorColors.clinicCushion)
+  end
+  P.models.center_couch.figureSupport=8
   b=model('lounge_chair',16,16)
   for _,x in ipairs({3,11})do for _,z in ipairs({4,11})do b(x,0,z,2,6,2,3)end end
   b(2,6,3,12,2,11,C.purple);b(2,8,3,12,6,2,C.purple);b(3,9,5,10,3,1,14)

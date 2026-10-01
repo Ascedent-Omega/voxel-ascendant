@@ -258,7 +258,7 @@ local function find(map,buildingsOnly)
           end end
           if match then
             result[#result+1]={kind=p.variant and p.variant(map,x,y) or F.variantKind(p.kind,map,x,y),
-              mapId=map.id,tx=x,ty=y,w=w,h=h,enabled=p.enabled,groundTile=type(p.groundTile)=='function'and p.groundTile(map,x,y)or p.groundTile,voxelOnly=p.voxelOnly,keepTerrain=p.keepTerrain,terrainDecoration=p.terrainDecoration}
+              mapId=map.id,tx=x,ty=y,w=w,h=h,enabled=p.enabled,groundTile=type(p.groundTile)=='function'and p.groundTile(map,x,y)or p.groundTile,voxelOnly=p.voxelOnly,authoredFigure=p.authoredFigure,keepTerrain=p.keepTerrain,terrainDecoration=p.terrainDecoration}
             for dy=0,h-1 do for dx=0,w-1 do used[key(x+dx,y+dy)]=true end end
           end
         end
@@ -343,6 +343,7 @@ end
 function F.claim(S,map,peekTerrain)
   publishedForMap=peekTerrain or publishedForMap
   S.voxelFurnitureClaims={}
+  S.voxelFurnitureFigures={}
   S.furnitureWater={}
   local props=F.find(map)
   S.voxelFurnitureProps=props
@@ -379,6 +380,9 @@ function F.claim(S,map,peekTerrain)
       for dy=0,p.h-1 do for dx=0,p.w-1 do
         local k=key(claimX+dx,claimY+dy)
         S.voxelFurnitureClaims[k]=true
+        if p.authoredFigure and model and model.figureSupport then
+          S.voxelFurnitureFigures[k]={actor=p.authoredFigure,height=model.figureSupport}
+        end
         S.skip[k]=true
         if model and model.replacesGround then S.ground[k]=model.groundAt(dx*8,dy*8)
         else S.ground[k]=p.groundTile or floorTile(map,p.tx+dx,p.ty+dy)end

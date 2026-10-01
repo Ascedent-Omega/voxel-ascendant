@@ -4487,7 +4487,8 @@ local function buildFigure(S, map, fig, tx, ty, perRow)
   -- its west corner: the corner tile can be furniture that is not his
   -- seat (the couch's raised backrest column stands there, `top` art and
   -- taller than the cushion he actually sits on).
-  local baseY = 0
+  local seat = S.voxelFurnitureFigures and S.voxelFurnitureFigures[keyOf(tx,ty)]
+  local baseY = seat and seat.actor == fig.hdActor and seat.height or 0
   local blocked = not map:isWalkableCell(math.floor(tx / 2),
                                          math.floor((ty + fig.h - 1) / 2))
   if blocked then
@@ -4603,8 +4604,13 @@ function Structures.buildFigures(S, map, x0, x1, y0, y1)
         local hit = true
         for i = 1, #fig.tiles do
           local dx, dy = (i - 1) % fig.w, math.floor((i - 1) / fig.w)
-          if (S.voxelFurnitureClaims and S.voxelFurnitureClaims[keyOf(tx + dx, ty + dy)])
-              or S.tileAt[keyOf(tx + dx, ty + dy)] ~= fig.tiles[i] then
+          local k = keyOf(tx + dx, ty + dy)
+          local seat = S.voxelFurnitureFigures and S.voxelFurnitureFigures[k]
+          -- Only the explicitly preserved sitter may survive a furniture
+          -- claim. Other figures retain the existing overlap protection.
+          if (S.voxelFurnitureClaims and S.voxelFurnitureClaims[k]
+              and not (seat and seat.actor == fig.hdActor))
+              or S.tileAt[k] ~= fig.tiles[i] then
             hit = false
             break
           end

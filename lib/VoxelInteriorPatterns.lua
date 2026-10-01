@@ -1,5 +1,9 @@
 -- Exact masks sampled from native Gen1 maps; altered layouts safely decline.
 return {
+  -- Full shared couch drawing, including its seated-person overlay. The
+  -- third column is the overlay's feet/underlay, not extra sofa width.
+  {kind='center_couch',sets={POKECENTER=true},authoredFigure='pokecenter_seated_man',
+   tiles={{36,37,57},{52,53,60},{38,39,54},{42,43,26}}},
   {["kind"]="reception_directory",["sets"]={["LOBBY"]=true},["tiles"]={{46,47},{21,49}},["maps"]={["CELADON_MART_1F"]=true}},
   {["kind"]="retail_checkout",["sets"]={["MART"]=true},["tiles"]={{40,40,40,89},{40,40,16,41},{54,11,14,15},{26,27,30,31},{56,8,16,41},{25,24,25,24}}},
   {["kind"]="retail_mixed",["sets"]={["LOBBY"]=true},["tiles"]={{42,43,44,45},{58,59,60,61},{64,65,66,67},{80,81,82,83}},["maps"]={["CELADON_MART_1F"]=true,["CELADON_MART_2F"]=true,["CELADON_MART_3F"]=true,["CELADON_MART_4F"]=true,["CELADON_MART_5F"]=true}},

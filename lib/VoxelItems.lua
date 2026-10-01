@@ -59,7 +59,8 @@ for _,entry in ipairs({{'walnut',99,70,54},{'oak',177,137,88},{'navy',40,62,85},
     {'hauntedStone',96,99,111},{'hauntedMortar',49,51,63},
     {'hauntedWeathered',128,130,133},{'hauntedSlate',55,58,74},{'hauntedGlass',112,133,119},{'silphGlass',113,178,199},{'pumpkin',235,113,23},{'pumpkinRib',194,72,13},
     {'palmBark',139,105,63},{'palmWood',181,144,86},{'palmCoconut',113,79,45},
-    {'palmDark',62,116,71},{'palmLeaf',80,144,74},{'palmLight',119,167,82}})do
+    {'palmDark',62,116,71},{'palmLeaf',80,144,74},{'palmLight',119,167,82},
+    {'clinicUpholstery',120,177,195},{'clinicCushion',164,206,218},{'clinicSeam',98,145,162}})do
   palette[#palette+1]={entry[2],entry[3],entry[4]};P.decorColors[entry[1]]=#palette
 end
 P.palette = palette
