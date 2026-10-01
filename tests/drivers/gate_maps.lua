@@ -56,8 +56,17 @@ return function(game)
   G.update(0,game,1);assert(G.visible and G.visible.region==region,'no nearby prompt '..region)
   U.wait(10);assert(U.shot(game,out..'/gate-map-'..region..'-prompt.png'));U.tap(game,'a');U.wait(5);assert(G.viewer,'A did not open wall map')
   U.wait(10);assert(U.shot(game,out..'/gate-map-'..region..'-viewer.png'))
-  if region=='sevii'then for page=1,3 do G.viewer.page=page;U.wait(5);assert(U.shot(game,out..'/gate-map-sevii-'..page..'.png'))end end
-  if region=='sevii'then U.tap(game,'right');assert(G.viewer.page==1);U.tap(game,'left');assert(G.viewer.page==3)end
+  assert(G.viewer.screen.region==region and not G.viewer.screen.fly)
+  local screen=G.viewer.screen;local selected=screen.selected
+  U.tap(game,'right');assert(screen.selected~=selected,'Smart Map navigation failed')
+  U.tap(game,'a');assert(screen.zoomed,'Smart Map zoom failed');U.wait(60)
+  assert(U.shot(game,out..'/gate-map-'..region..'-zoom.png'))
+  U.tap(game,'select');assert(G.viewer.info,'Smart Map info failed');U.wait(10)
+  assert(U.shot(game,out..'/gate-map-'..region..'-info.png'))
+  U.tap(game,'b');assert(not G.viewer.info)
+  U.tap(game,'b');assert(not screen.zoomed);U.wait(50)
+  U.tap(game,'start');assert(screen.region~=region,'Smart Map region switch failed')
+  U.tap(game,'start');assert(screen.region==region)
   U.tap(game,'b');assert(not G.viewer,'B did not close wall map');U.wait(10);G.update(0,game,1);assert(not G.visible,'dismissed prompt repeated')
   print('PASS_GATE_MAP_VIEWER',region,best[1],best[2])
  end

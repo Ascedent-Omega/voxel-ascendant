@@ -2,7 +2,7 @@
 
 Connects previously missing native building interiors to their real outdoor facade, including Celadon Hotel and diner, Museum, mansion floors, Cinnabar lab annexes, Indigo Plateau, Safari huts and the S.S. Anne. Ship cabins keep their six separate native room boundaries. Flat guardhouse windows remain painted and contribute daylight and night lighting. The Lavender Pokémon Tower remains closed, with no new interior windows.
 
-Guardhouse artwork now shows the actual Kanto map and the original Sevii charts for islands 1–3, 4–5 and 6–7. Approaching a map offers a small English/German prompt; A opens a read-only viewer, Left/Right browses the Sevii charts and B closes it. Native NPC/sign interactions retain priority. No item, destination or island is unlocked.
+Guardhouse artwork now shows the existing illustrated Kanto and Sevii Smart Maps for all seven islands. Approaching a map offers a small English/German prompt; A opens a read-only viewer, directions select places, A zooms, SELECT shows place information and START switches regions; B returns or closes it. Native NPC/sign interactions retain priority. No item, destination or island is unlocked.
 
 Includes the complete public 3.0.61 Halloween fix and the previously tested video polish: lower starter posters in ball order, shallow compact stairs, timed Mew wish window with Nugget/Elixir/Ultra Ball, loading translations, Center sitter artwork and seats, upholstered Center/Hotel couch, hotel receptionist depth correction and observation HUD fixes. Tested with current public KASC 6.7.32; this release does not require a new KASC package.
 

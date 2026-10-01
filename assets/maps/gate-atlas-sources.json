@@ -1,20 +1,19 @@
 {
-  "source": "Imported FireRed USA 1.0 region-map tilemaps, unchanged cartridge artwork",
-  "source_sha256": "3d0c79f1627022e18765766f6cb5ea067f6b5bf7dca115552189ad65a5c3a8ac",
-  "extractor": "src/import/gba/region_map_extract.lua",
-  "kanto": "assets/maps/kanto_fly_map_hd.png (existing VASC source-exact Kanto map)",
+  "source": "Existing illustrated Kanto/Sevii Smart Map companion 1.1.0; read-only wall-view factory",
+  "source_script_sha256": "7bb268a12f8ecb907813074457de32495c2dae1e9b816b4238c257cfa1fab9a1",
+  "adapted_script_sha256": "2391ebf63a824e0ff0984cc570aa1ade7da20f320e9f8fb2b5a4fee43db018b1",
   "files": [
     {
-      "path": "assets/maps/sevii123_map.png",
-      "sha256": "6aa4ebf4e8b939cfc345c65d15406334c6ee47d7e50c502e25a2c7a2d10a756f"
+      "path": "assets/maps/kanto_fly_map_wide.png",
+      "sha256": "6c7364811ab093cd50289f232af194f030f05e883e4705f9808e75d12e43a9a1"
     },
     {
-      "path": "assets/maps/sevii45_map.png",
-      "sha256": "fd67382b8430fe67da3068f0b0c4e7c2bc35546381febcb23bdbf514bf5875bd"
+      "path": "assets/maps/kanto_fly_map_wide_zoom.png",
+      "sha256": "c9ce022bf3b68f2381c818c678d42595e5acd5fe077b4a8010b86db0fe6c778f"
     },
     {
-      "path": "assets/maps/sevii67_map.png",
-      "sha256": "af16fc5111c51efb2a257dcd7f265178ba2c588485f297c8f90f41489e6af0a9"
+      "path": "assets/maps/sevii_fly_map_master.png",
+      "sha256": "c8adf071bf63e5caad23c92cf0aadc0354de3203558adce43259cea4754b2a16"
     }
   ]
 }

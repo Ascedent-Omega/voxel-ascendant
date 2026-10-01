@@ -2,44 +2,53 @@
 -- no map item, Fly destination, island unlock or saved flag is awarded.
 local V=...
 local M={}
-local images,quads={},{}
-local registered,font,fontSize
+local images={}
+local registered,font,fontSize,chartFactory
 M.POSTERS={
  {region='sevii',edge='west',u0=.072,u1=.192,v0=.343,v1=.616,page=1},
  {region='kanto',edge='north',u0=.403,u1=.601,v0=.299,v1=.635,page=1},
- {region='sevii',edge='east',u0=.811,u1=.948,v0=.343,v1=.616,page=3},
+ {region='sevii',edge='east',u0=.811,u1=.948,v0=.343,v1=.616,page=1},
 }
-local files={kanto={'kanto_fly_map_hd.png'},sevii={'sevii123_map.png','sevii45_map.png','sevii67_map.png'}}
+local files={kanto={'kanto_fly_map_wide_zoom.png'},sevii={'sevii_fly_map_master.png'}}
 local cache=setmetatable({},{__mode='k'})
 function M.clearFrame()
  if M.frame then M.frame.canvas:release();M.frame=nil end
 end
 local function cleanup()
  M.clearFrame();M.visible=nil;M.viewer=nil;M.dismissed=nil
- for _,q in pairs(quads)do q:release()end;quads={}
  for _,i in pairs(images)do if i~=false then i:release()end end;images={}
  if font then font:release();font=nil;fontSize=nil end
  cache=setmetatable({},{__mode='k'})
 end
-function M.image(region,page)
- local names=files[region];local name=names and names[page or 1];if not name then return end
+function M.asset(name)
+ if name=='kanto_fly_map_wide.png'then name='kanto_fly_map_wide_zoom.png'end
  if not registered then require('src.render.Assets').register(cleanup);registered=true end
  if images[name]==nil then
-  local ok,img=pcall(V.require('CompactBackgroundAssets').newImage,V.path..'/assets/maps/'..name,{mipmaps=false,linear=false})
+  local ok,img=pcall(V.require('CompactBackgroundAssets').newImage,V.path..'/assets/maps/'..name,{mipmaps=false,linear=true})
   images[name]=ok and img or false
-  if img and ok then img:setFilter('nearest','nearest')
-   if region=='sevii'then local w,h=img:getDimensions();quads[name]=love.graphics.newQuad(24,16,168,144,w,h)end
-  end
+  if img and ok then img:setFilter('linear','linear')end
  end
- return images[name]or nil,quads[name]
+ return images[name]or nil
+end
+function M.image(region,page)
+ local names=files[region];local name=names and names[page or 1];return name and M.asset(name)
+end
+function M.chart(game,region)
+ if not chartFactory then
+  local source=assert(V.mod:read('integrated/guardhouse_maps/main.lua'))
+  local installer=assert((loadstring or load)(source,'@guardhouse-smart-map'))()
+  chartFactory=installer({path=V.path,find=V.mod.find,assets={image=function(_,path)
+   return M.asset(path:match('([^/]+)$'))
+  end}})
+ end
+ return chartFactory.new(game,region)
 end
 local function paint(region,page,x,y,w,h)
- local img,q=M.image(region,page);if not img then return false end
- local iw,ih=img:getDimensions();if q then iw,ih=168,144 end
+ local img=M.image(region,page);if not img then return false end
+ local iw,ih=img:getDimensions()
  local s=math.min(w/iw,h/ih)
  local g=love.graphics;g.setColor(1,1,1,1)
- if q then g.draw(img,q,x+(w-iw*s)/2,y+(h-ih*s)/2,0,s,s)
- else g.draw(img,x+(w-iw*s)/2,y+(h-ih*s)/2,0,s,s)end
+ g.draw(img,x+(w-iw*s)/2,y+(h-ih*s)/2,0,s,s)
  return true
 end
 function M.decorate(image)
@@ -119,18 +128,28 @@ function M.open(game)
  local s=M.visible
  if not(s and M.frame and s.save==game.save and s.map==game.overworld.map and game.stack:top()==game.overworld)then return false end
  if not M.image(s.region,s.page)then return false end
- local viewer={game=game,save=game.save,map=s.map,region=s.region,page=s.page,isOpaque=false,kind='GateMapViewer'}
+ local screen=M.chart(game,s.region)
+ if not screen or screen.fly or screen.region~=s.region then return false end
+ local viewer={game=game,save=game.save,map=s.map,region=s.region,isOpaque=false,kind='GateMapViewer',screen=screen,__ascendantGlobalUiSkinSkip=true}
  function viewer:draw()end
  function viewer:exit()M.viewer=nil;M.dismissed={map=self.map};M.visible=nil;M.clearFrame()end
- function viewer:update()
+ screen.showSelectedInfo=function(self)
+  local text=chartFactory.formatLocationInfo(self.locations[self.selected],self.language,game,self.current==self.selected)
+  viewer.info={};for page in (text..'\f'):gmatch('(.-)\f')do viewer.info[#viewer.info+1]=page end;viewer.infoPage=1
+ end
+ function viewer:update(dt)
   local input=game.input
-  if game.save~=self.save or not game.overworld or game.overworld.map~=self.map or input:wasPressed('b')or input:wasPressed('a')then
+  if game.save~=self.save or not game.overworld or game.overworld.map~=self.map then
    game.stack:pop();self:exit();return
   end
-  if self.region=='sevii'then
-   if input:wasPressed('right')then self.page=self.page%3+1
-   elseif input:wasPressed('left')then self.page=(self.page-2)%3+1 end
+  if self.info then
+   if input:wasPressed('b')then self.info=nil
+   elseif input:wasPressed('a')then self.infoPage=self.infoPage+1;if self.infoPage>#self.info then self.info=nil end end
+   return
   end
+  self.screen:update(dt)
+  self.region=self.screen.region
+  if game.stack:top()~=self then self:exit()end
  end
  M.viewer=viewer;game.stack:push(viewer);M.visible=nil;return true
 end
@@ -147,22 +166,28 @@ function M.hud(canvas,w,h)
  local viewer=M.viewer;local p=viewer or M.visible;if not p then return canvas end
  local g=love.graphics;local L=V.require('SetupLocale');g.push('all');g.setCanvas(canvas);g.origin();g.setShader();g.setScissor()
  g.setDepthMode();g.setStencilTest();g.setBlendMode('alpha','alphamultiply');g.setColorMask(true,true,true,true)
+ if viewer then
+  local scale=math.min((w-24)/576,(h-24)/324);local x,y=(w-576*scale)/2,(h-324*scale)/2
+  g.translate(x,y);g.scale(scale,scale);viewer.screen:draw()
+  if viewer.info then
+   g.setColor(.02,.08,.12,.97);g.rectangle('fill',432,84,136,112,4,4)
+   g.setColor(.12,.85,.95,1);g.rectangle('line',432,84,136,112,4,4)
+   if fontSize~=12 then if font then font:release()end;font=g.newFont(12);fontSize=12 end;g.setFont(font)
+   g.setColor(1,1,1,1);g.printf(viewer.info[viewer.infoPage],440,96,120,'center')
+   g.printf(L.text('A: Next  B: Close','A: Weiter  B: Zurueck'),440,172,120,'center')
+  end
+  g.pop();return canvas
+ end
  local size=math.max(14,math.min(24,math.floor(h*.025)))
  if fontSize~=size then if font then font:release()end;font=g.newFont(size);fontSize=size end;g.setFont(font)
  local name=p.region=='kanto'and'Kanto'or'Sevii'
- local bw=viewer and math.min(w-24,h*1.35)or math.min(w-24,360)
- local bh=viewer and h*.86 or size*4.8;local x,y=(w-bw)/2,viewer and h*.07 or h-bh-24
+ local bw=math.min(w-24,360)
+ local bh=size*4.8;local x,y=(w-bw)/2,h-bh-24
  g.setColor(.08,.10,.12,.96);g.rectangle('fill',x,y,bw,bh,8,8)
  g.setColor(.75,.66,.43,1);g.rectangle('line',x+.5,y+.5,bw-1,bh-1,8,8)
  g.setColor(1,1,1,1)
- if viewer then
-  g.printf(name..(p.region=='sevii'and({'  1-3','  4-5','  6-7'})[p.page]or''),x,y+12,bw,'center')
-  paint(p.region,p.page,x+16,y+size*2.5,bw-32,bh-size*5)
-  g.setColor(1,1,1,1);g.printf(L.text(p.region=='sevii'and'Left/Right: Islands   B: Close'or'B: Close',p.region=='sevii'and'Links/Rechts: Inseln   B: Zurueck'or'B: Zurueck'),x+8,y+bh-size*1.8,bw-16,'center')
- else
-  g.printf(L.text('Look at the '..name..' map?',name..'-Karte anschauen?'),x+12,y+12,bw-24,'center')
-  g.printf(L.text('A: View     B: No','A: Ansehen     B: Nein'),x+12,y+12+size*2,bw-24,'center')
- end
+ g.printf(L.text('Look at the '..name..' map?',name..'-Karte anschauen?'),x+12,y+12,bw-24,'center')
+ g.printf(L.text('A: View     B: No','A: Ansehen     B: Nein'),x+12,y+12+size*2,bw-24,'center')
  g.pop();return canvas
 end
 return M
