@@ -1,5 +1,5 @@
 {
-  "file_count": 22705,
+  "file_count": 22718,
   "files": [
     {
       "path": ".modkitromallow",
@@ -148,8 +148,8 @@
     },
     {
       "path": "QA-REPORT.md",
-      "size_bytes": 8035,
-      "sha256": "57946dbfff8da1b629f7d6a4d4d8d9fe50d46c240b6f678275d7ae142b02dab8"
+      "size_bytes": 10104,
+      "sha256": "c2496949c62b960e689238f5593e56585d205c70096d9ae5781b5a165b1fbea3"
     },
     {
       "path": "README.md",
@@ -158,8 +158,8 @@
     },
     {
       "path": "RELEASE_NOTES.md",
-      "size_bytes": 3645,
-      "sha256": "ea21480e8b7b0b0deccf4510a3ad58219ecaf8ab5f08d18ceb55a2b3ae23a69d"
+      "size_bytes": 4640,
+      "sha256": "e6f618d516fed5dcfe0d1ba7c25206216af524222eb1ea82209366edcc7cc39b"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -378,8 +378,8 @@
     },
     {
       "path": "VIDEO_POLISH_PROGRESS.md",
-      "size_bytes": 21820,
-      "sha256": "4e00b390e459c110f640afccc139d7aa33957a9381f4017b94fcc7931a69ee89"
+      "size_bytes": 22815,
+      "sha256": "98b98fc06b72aaf1cad4cb99ec7fa7f991f7d4ce6b90bb0e40e2c73a936b21bd"
     },
     {
       "path": "WEATHER_SKY_NOTES.md",
@@ -870,6 +870,11 @@
       "path": "assets/audio/silph-fountain.wav",
       "size_bytes": 264644,
       "sha256": "515f2e58db92974876de9dac8e81f652b94d31c18e3953e93cc6bb8dd0570919"
+    },
+    {
+      "path": "assets/audio/silph-lift-motor.wav",
+      "size_bytes": 44144,
+      "sha256": "f370b6ba632a12a05df792939268d2755326d7cc4b844895a74be0f460da4779"
     },
     {
       "path": "assets/audio/weather/SOURCES.json",
@@ -2362,9 +2367,49 @@
       "sha256": "cff4aee2a0567dbda4a11ecfbf509435aa421cf5aee863848ef8acdfbe8c48af"
     },
     {
+      "path": "assets/characters/center-seated/cobble/model/model.animation.json",
+      "size_bytes": 4781,
+      "sha256": "6951c2d38f9dcf595535212a078774b584b8b33a13a41b24ce384814ed187759"
+    },
+    {
+      "path": "assets/characters/center-seated/cobble/model/model.geo.json",
+      "size_bytes": 24171,
+      "sha256": "3518c62594f664ffc84ad77f7c5eb197c945a08ad30a6b72f84466ed18f6c74f"
+    },
+    {
+      "path": "assets/characters/center-seated/cobble/model/model.poser.json",
+      "size_bytes": 343,
+      "sha256": "80e86e23026e3954169f03e825ec018b87ed10ec42ce3fbb85c4371ee79f53fe"
+    },
+    {
+      "path": "assets/characters/center-seated/cobble/model/palette.png",
+      "size_bytes": 4791,
+      "sha256": "247b5fd78ac69e335cd1c981af6a582fe7d141cff63cc229d6fd43e7599268ab"
+    },
+    {
+      "path": "assets/characters/center-seated/cobble/model/provenance.json",
+      "size_bytes": 1264,
+      "sha256": "86f81a1a8b5a00f068ac97d440f2f930c1be2ec6698fe8ce1ed50e0f7b81113e"
+    },
+    {
+      "path": "assets/characters/center-seated/cobble/sitting-4x4.png",
+      "size_bytes": 18941,
+      "sha256": "e4cf859f70f4db856e6c1d5a236218e8bff9ab96eb0b6954dbf560030dc422be"
+    },
+    {
+      "path": "assets/characters/center-seated/provenance.json",
+      "size_bytes": 10222,
+      "sha256": "6bf74e7ba9e9168f9e6cc9e5e17742eeeb17b75c8a37e808b2dc404def1becc2"
+    },
+    {
       "path": "assets/characters/pokecenter-seated-man-hd-v1.png",
       "size_bytes": 471026,
       "sha256": "cc9c5f00a2e151b9ca599bb666584aa6e532cbc42fcdfd5ffa8e172617c35ff0"
+    },
+    {
+      "path": "assets/characters/pokecenter-seated-man-voxel-v1.png",
+      "size_bytes": 555699,
+      "sha256": "50126dad894aea0418d44e845f5818f34d2e1ba15e0c91d47e939bd96853902f"
     },
     {
       "path": "assets/cobblemon-ascendant/README.md",
@@ -94033,8 +94078,8 @@
     },
     {
       "path": "docs/VIDEO_FEEDBACK_20260930.md",
-      "size_bytes": 29751,
-      "sha256": "b20c714e6d5cc53a82e645b85f601446bc6c3804e9038eb3f95ab7bbac67fe6d"
+      "size_bytes": 31996,
+      "sha256": "17a2ba063c968220971dbc89fbca812dff41760994c2d69226b249b64c417248"
     },
     {
       "path": "docs/WEATHER_SKY_WEATHER5.md",
@@ -109473,8 +109518,8 @@
     },
     {
       "path": "lib/HdAuthoredFigures.lua",
-      "size_bytes": 2137,
-      "sha256": "3baf863337d7a2e5188289bda086b4b9d4530795f4fed69bc26164e902febc9a"
+      "size_bytes": 3331,
+      "sha256": "cd141f1f397b0b41f78b376ac626d50304f270ee3ba63a17ed7e41f276fcb915"
     },
     {
       "path": "lib/HdBinaryFetch.lua",
@@ -110168,8 +110213,13 @@
     },
     {
       "path": "lib/SilphElevator.lua",
-      "size_bytes": 2547,
-      "sha256": "aa9dc266674835dbe4c7ae4dcd5d9bf06cead520816d312778cff30db14ecc6f"
+      "size_bytes": 2686,
+      "sha256": "ec3c69568e8a167d609a14f89375a0c5cb04a4a33480e6b43fd570251899710c"
+    },
+    {
+      "path": "lib/SilphElevatorAudio.lua",
+      "size_bytes": 2256,
+      "sha256": "7a3a9996c5eba7ba138d3ca5da8192eae7b29022223821897e32a0964f2b43af"
     },
     {
       "path": "lib/SilphFountains.lua",
@@ -110703,8 +110753,8 @@
     },
     {
       "path": "lib/VoxelScene.lua",
-      "size_bytes": 171303,
-      "sha256": "c1b7334708bb5fac9f46401f7b5ad6bf2cf1430f1dd6b65d96d3ad01fed62578"
+      "size_bytes": 171287,
+      "sha256": "1d14ec7c02d5b508b197478edef4152f00b416ed3914e0bd448cd80785cda133"
     },
     {
       "path": "lib/VoxelShortcut.lua",
@@ -111118,13 +111168,13 @@
     },
     {
       "path": "main_gen1.lua",
-      "size_bytes": 157019,
-      "sha256": "26f635a49b5373fca1ff55915a36e2a250d95e48382eca0a4b63596ff68e7dac"
+      "size_bytes": 157064,
+      "sha256": "f814f416f61887a4df2529ac6db75410630cc26b935f14c801dd0635fbc17a09"
     },
     {
       "path": "manifest.json",
       "size_bytes": 22826,
-      "sha256": "cc4b9c1159a806225591ebbe340e862961ef31ce250b2f5ce7b75c32c394c44b"
+      "sha256": "5bf24dd4230e51d922ef0c34007c6513da8b28364af0ff7ede3ce7f01ddce6e0"
     },
     {
       "path": "mod.card",
@@ -111258,8 +111308,8 @@
     },
     {
       "path": "tests/authored_figure_style_test.lua",
-      "size_bytes": 1219,
-      "sha256": "66b7559db0f0ab9d5feb27354050646649bb315b1ee1bb685eb12cbeb5f52001"
+      "size_bytes": 2447,
+      "sha256": "d2c038c7019fc88a332c03e42c406f7de62b3d0839c707433ec8b1d5aba4fe6c"
     },
     {
       "path": "tests/bag_default_wide_test.lua",
@@ -112937,9 +112987,14 @@
       "sha256": "ad00e1f7b3d935a10b96e207113ad89e3cf8085a5c650854b101081e53559656"
     },
     {
+      "path": "tests/silph_elevator_audio_test.lua",
+      "size_bytes": 3165,
+      "sha256": "4b39aaec592b97d687dd6a7b665961b6576fb8c00cccdd00549b2b5b9a5318d4"
+    },
+    {
       "path": "tests/silph_elevator_test.lua",
-      "size_bytes": 3040,
-      "sha256": "eb492be57105be3866df06cd2c87572b078c3e0c1e0d1fd376f386e04ffc15e5"
+      "size_bytes": 3149,
+      "sha256": "0fa022116f8e3ba8eaa2291c211c385c93bffeba7f600b921993c35f024a363c"
     },
     {
       "path": "tests/silph_fountain_prewarm_test.lua",
@@ -113262,6 +113317,16 @@
       "sha256": "4bbc4f6f902251706b6d2d3e589c35bec2562d74cc313eecabe2cda1f4476217"
     },
     {
+      "path": "tools/center_sitter/README.md",
+      "size_bytes": 1272,
+      "sha256": "85f3fb76c4a2c896958275f837e244e3f0f80921bb0c73e62627184ddf182fc5"
+    },
+    {
+      "path": "tools/center_sitter/roster-preview.html",
+      "size_bytes": 23568,
+      "sha256": "a31cbe2edc003e0cdcd6fe6860c024b91a7d21b411b02488d2204986150e91a0"
+    },
+    {
       "path": "tools/generate_glass_door.py",
       "size_bytes": 1134,
       "sha256": "f77a7eb418143197e68036cbb622693e237e35dca99fd3621b23d2663437655a"
@@ -113527,10 +113592,10 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "manifest_sha256": "cc4b9c1159a806225591ebbe340e862961ef31ce250b2f5ce7b75c32c394c44b",
+  "manifest_sha256": "5bf24dd4230e51d922ef0c34007c6513da8b28364af0ff7ede3ce7f01ddce6e0",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.61-rc.4",
+  "version": "3.0.61-rc.5",
   "local_candidate": false,
   "source_candidate_version": "3.0.60-rc.1",
   "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
