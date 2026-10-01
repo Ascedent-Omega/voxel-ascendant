@@ -1,5 +1,5 @@
 {
-  "file_count": 22718,
+  "file_count": 22720,
   "files": [
     {
       "path": ".modkitromallow",
@@ -148,8 +148,8 @@
     },
     {
       "path": "QA-REPORT.md",
-      "size_bytes": 10104,
-      "sha256": "c2496949c62b960e689238f5593e56585d205c70096d9ae5781b5a165b1fbea3"
+      "size_bytes": 11775,
+      "sha256": "5ae4239043442019ac033c90ef483822cf000e6045e2585156108fbf45d0baef"
     },
     {
       "path": "README.md",
@@ -158,8 +158,8 @@
     },
     {
       "path": "RELEASE_NOTES.md",
-      "size_bytes": 4640,
-      "sha256": "e6f618d516fed5dcfe0d1ba7c25206216af524222eb1ea82209366edcc7cc39b"
+      "size_bytes": 5532,
+      "sha256": "bb1f3cb755c2e2a2f73325c6e0e5dcae0914efd7f722623a4aa4edda0e256d47"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -378,8 +378,8 @@
     },
     {
       "path": "VIDEO_POLISH_PROGRESS.md",
-      "size_bytes": 22815,
-      "sha256": "98b98fc06b72aaf1cad4cb99ec7fa7f991f7d4ce6b90bb0e40e2c73a936b21bd"
+      "size_bytes": 23707,
+      "sha256": "a7a5ac6fb4ecfcdb56de4b75a5119078fcf8a241603f753416bff2e4427903e9"
     },
     {
       "path": "WEATHER_SKY_NOTES.md",
@@ -94078,8 +94078,8 @@
     },
     {
       "path": "docs/VIDEO_FEEDBACK_20260930.md",
-      "size_bytes": 31996,
-      "sha256": "17a2ba063c968220971dbc89fbca812dff41760994c2d69226b249b64c417248"
+      "size_bytes": 33167,
+      "sha256": "58a5d0d79aefb43e54d9aba3d47eca2602bf813eb64fd79d5c3335af24887eb8"
     },
     {
       "path": "docs/WEATHER_SKY_WEATHER5.md",
@@ -109252,6 +109252,11 @@
       "sha256": "118660cfccb2956015ea2163610b85de40c6d7bbfce7c5781228ecd5f53944ba"
     },
     {
+      "path": "lib/Gen1CounterOcclusion.lua",
+      "size_bytes": 1040,
+      "sha256": "e093ba2a0cd23a9393d4cbaeb116c6a12a71fee9e08e97fdb5c6c9692558f5b6"
+    },
+    {
       "path": "lib/Gen1DoorStyles.lua",
       "size_bytes": 1153,
       "sha256": "694b60f01eb63aca54d19b6136f95627801bebe77fe95d9c1f434f0aa87f95c3"
@@ -110753,8 +110758,8 @@
     },
     {
       "path": "lib/VoxelScene.lua",
-      "size_bytes": 171287,
-      "sha256": "1d14ec7c02d5b508b197478edef4152f00b416ed3914e0bd448cd80785cda133"
+      "size_bytes": 171499,
+      "sha256": "96999451245d23e72f2c8155ce3008d132f590d8285639d61ca09a6b30d2f25e"
     },
     {
       "path": "lib/VoxelShortcut.lua",
@@ -111174,7 +111179,7 @@
     {
       "path": "manifest.json",
       "size_bytes": 22826,
-      "sha256": "5bf24dd4230e51d922ef0c34007c6513da8b28364af0ff7ede3ce7f01ddce6e0"
+      "sha256": "7bdbf144e7c020a00d416331435e3e2f22a4f8c32150c9e8e9484e9406081d6a"
     },
     {
       "path": "mod.card",
@@ -111820,6 +111825,11 @@
       "path": "tests/horizon_optional_cache_test.lua",
       "size_bytes": 4138,
       "sha256": "970469d7e41fe58c0ab7e5aaedceda7c2295efc286e6b3f194a51a665c35ad60"
+    },
+    {
+      "path": "tests/hotel_counter_occlusion_test.lua",
+      "size_bytes": 1999,
+      "sha256": "b9361cb96b3599eccc7b3e9229c8d6e9f59baf6fe5d6caa13afb764b55424138"
     },
     {
       "path": "tests/house_bitmap_assets_test.lua",
@@ -113592,10 +113602,10 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "manifest_sha256": "5bf24dd4230e51d922ef0c34007c6513da8b28364af0ff7ede3ce7f01ddce6e0",
+  "manifest_sha256": "7bdbf144e7c020a00d416331435e3e2f22a4f8c32150c9e8e9484e9406081d6a",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.61-rc.5",
+  "version": "3.0.61-rc.6",
   "local_candidate": false,
   "source_candidate_version": "3.0.60-rc.1",
   "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
