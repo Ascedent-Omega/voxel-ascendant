@@ -28,6 +28,7 @@ function M.offset(map)
 end
 function M.install()
  if M.installed then return end;M.installed=true
+ V.require('SilphElevatorAudio').install()
  local List=require('src.ui.ListMenu');local make=List.new
  List.new=function(game,title,items,opts,...)
   if opts and opts.kind=='elevator_floors'and game.overworld and M.matches(game.overworld.map)then
@@ -57,10 +58,12 @@ function M.install()
   if M.matches(ow.map)and M.pending and M.pending.map==ow.map then
    r.vascFrom=M.pending.from;r.vascTo=M.pending.floor
    r.vascTicks=math.max(200,90+math.abs(r.vascTo-r.vascFrom)*48);r.vascElapsed=0;M.ride=r
+   V.require('SilphElevatorAudio').start(game,r)
   end
   return r
  end
  Shake.exit=function(self,...)
+  V.require('SilphElevatorAudio').finish(self)
   if M.ride==self then M.ride=nil end
   return exit(self,...)
  end

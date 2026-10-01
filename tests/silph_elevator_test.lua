@@ -1,5 +1,6 @@
 local glass,pipeline=true,'voxel'
 local V={require=function(name)
+ if name=='SilphElevatorAudio'then return{install=function()end,start=function()end,finish=function()end}end
  assert(name=='SilphWindows');return{setting={get=function()return glass end}}
 end};local E=assert(loadfile('lib/SilphElevator.lua'))(V)
 package.loaded['src.render.Pipelines']={worldPipeline=function()return pipeline end}

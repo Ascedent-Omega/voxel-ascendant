@@ -1,3 +1,11 @@
+# Voxel Ascendant 3.0.61-rc.5 — local completion
+
+Replaces the tile-authored Center sitter with separate Voxel-HD and Cobble artwork. Cobble follows the existing roster/Bedrock rig and transparent export workflow, including eye/lid blinking. The temporary hand-built substitute was discarded. Fixed cushion anchor and walking OFF fallback are retained; three Centers per style verified. HD retains its existing source when its optional pack is available.
+
+The Voxel Silph glass lift uses a quiet, fading motor loop instead of repeated collision SFX, keeping the arrival chime and native sounds for other lifts/glass OFF. Native ride and focused checks pass. All 30 registered outfit recipes are now distinct from original in each of HD, Voxel, Cobble and 2D. The actual bedroom south window was captured unobstructed. Eight focused regressions pass. See QA-REPORT.md and the full video audit for evidence and limitations; physical iPhone/iPad acceptance remains open. No public release.
+
+---
+
 # Voxel Ascendant 3.0.61-rc.4 — local follow-up
 
 Fixes vertically mirrored Mew choice/prompt and binocular help on the iOS final composite. Focused regressions and native iOS policy landscape/portrait wish flow pass. Prepared mobile sky already existed; physical device acceptance remains open. Review identifies the old Center sitter in Voxel/Cobble, verifies 30 distinct HD outfit recipes and visible animated Nidoking send-out, and narrows the Silph sound to the lift's 100 Collision triggers pending listening. Full evidence and limitations: QA-REPORT.md and docs/VIDEO_FEEDBACK_20260930.md. No public release.

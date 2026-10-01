@@ -1,3 +1,15 @@
+# VASC 3.0.61-rc.5 — completion verification, 2026-10-01
+
+Base: complete local rc.4. Adds the Voxel-HD Center sitter and Cobble sprite exports from the existing local roster/Bedrock workflow. Model, palette, animation, poser and provenance retained; generated Voxel image references the original seated HD character and packaged Voxel nurse. The rejected hand-built block body is absent. Separate cached per-style textures, fixed seat anchor, four baked eye/lid blink frames, failure latch and walking OFF fallback. Three native Centers per style pass, with screenshots reviewed. Optional HD DLC is absent on the QA host: HD selection falls back to Voxel; the retained HD path is covered by the focused stub test, not a native optional-pack run.
+
+Silph Voxel glass lift: quiet continuous 60/120/180Hz motor, faded over travel, observes native SFX volume and pause/exit. The native 1→7 test confirms an active motor source, zero forwarded Collision calls, one arrival PA and stopped source after exit. Other lifts, classic pipeline, glass OFF and decoder failure keep native sounds. Unit covers source reuse, SFX=0, fade, pause, cleanup and fallback. Historical video sound identity and subjective listening acceptance remain unconfirmed; QA system audio is muted.
+
+Eight focused tests in rc5-regressions.json pass. Native completion logs: native-center-accepted.log and native-window-lift-final.log. Full outfit acceptance adds 90 Voxel/Cobble/2D renders to the previous 30 HD renders; 120 current recipes differ from original and are unique per character/style. Source-derived bedroom south-window camera proves current exterior street/neighbor roof/cloud view, not an exact recreation of the historical camera.
+
+Complete ZIP/source/CRC/syntax/model/receipt verification and isolated unpacked package start are recorded under deliverables/VASC-3.0.61-rc.5-Local. Physical iPhone/iPad QA remains open; no connected device was available. Existing rc.4 iOS/Android policy HUD/wish checks remain valid. No installed mods, normal saves or public release changed.
+
+---
+
 # VASC 3.0.61-rc.4 — follow-up verification, 2026-10-01
 
 Base: complete local rc.3. Fixes the iOS vertical reflection of final Mew and binocular HUDs: these passes receive the final composite and must not apply the world-canvas transform again. No changes to world orientation or gameplay.

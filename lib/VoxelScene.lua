@@ -2605,7 +2605,7 @@ local function shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh,
   -- lit from somewhere new must be redrawn from there too. Quantised by the
   -- rig's own step (DayNight.rigTime), so a running cycle redraws the map a
   -- few times a minute rather than every frame.
-  put(HdAuthoredFigures.enabled() and "hd-figures" or "native-figures")
+  put("authored-figures:" .. HdAuthoredFigures.style())
   put(math.floor(ShadowMap.KX * 128))
   put(math.floor(ShadowMap.KZ * 128))
   put(policy and policy.key or "legacy-world")

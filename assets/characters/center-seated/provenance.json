@@ -1,0 +1,436 @@
+{
+  "voxel": {
+    "asset": "assets/characters/pokecenter-seated-man-voxel-v1.png",
+    "method": "image_gen from existing seated HD and Voxel nurse style references",
+    "references": [
+      "assets/characters/pokecenter-seated-man-hd-v1.png",
+      "integrated/ascendant_pokemon_overworld/assets/characters/voxel-npcs/nurse-kasc-hd-4x3-walk-sheet-v1.png"
+    ],
+    "bounds": [
+      350,
+      48,
+      1020,
+      1228
+    ],
+    "sha256": "50126dad894aea0418d44e845f5818f34d2e1ba15e0c91d47e939bd96853902f"
+  },
+  "cobble": {
+    "asset": "assets/characters/center-seated/cobble/sitting-4x4.png",
+    "method": "Kanto Cobble roster orthographic export, original-v3 Bedrock model, four directions with eye/lid blink renders",
+    "dimensions": [
+      1024,
+      1280
+    ],
+    "columns": 4,
+    "rows": [
+      "front",
+      "right",
+      "back",
+      "left"
+    ],
+    "model": "assets/characters/center-seated/cobble/model/model.geo.json",
+    "renderReceipt": [
+      {
+        "name": "front-0.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 1
+          }
+        }
+      },
+      {
+        "name": "front-1.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 0.06000000000000005
+          }
+        }
+      },
+      {
+        "name": "front-2.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 0
+          }
+        }
+      },
+      {
+        "name": "front-3.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 1
+          }
+        }
+      },
+      {
+        "name": "right-0.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 1
+          }
+        }
+      },
+      {
+        "name": "right-1.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 0.06000000000000005
+          }
+        }
+      },
+      {
+        "name": "right-2.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 0
+          }
+        }
+      },
+      {
+        "name": "right-3.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 1
+          }
+        }
+      },
+      {
+        "name": "back-0.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 1
+          }
+        }
+      },
+      {
+        "name": "back-1.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 0.06000000000000005
+          }
+        }
+      },
+      {
+        "name": "back-2.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 0
+          }
+        }
+      },
+      {
+        "name": "back-3.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 1
+          }
+        }
+      },
+      {
+        "name": "left-0.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 1
+          }
+        }
+      },
+      {
+        "name": "left-1.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 0.06000000000000005
+          }
+        }
+      },
+      {
+        "name": "left-2.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 0
+          }
+        }
+      },
+      {
+        "name": "left-3.png",
+        "bones": {
+          "arm_left": {
+            "rotation": 0,
+            "scale": 1
+          },
+          "leg_left": {
+            "rotation": 1.5707963267948966,
+            "scale": 1
+          },
+          "shin_left": {
+            "rotation": -1.5707963267948966,
+            "scale": 1
+          },
+          "forearm_left": {
+            "rotation": 0.5235987755982988,
+            "scale": 1
+          },
+          "eye_left": {
+            "rotation": 0,
+            "scale": 1
+          }
+        }
+      }
+    ],
+    "sha256": "e4cf859f70f4db856e6c1d5a236218e8bff9ab96eb0b6954dbf560030dc422be"
+  }
+}

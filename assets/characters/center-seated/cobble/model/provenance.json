@@ -1,0 +1,75 @@
+{
+  "workflow": "existing Kanto Cobble roster / original-v3 Bedrock rig / transparent orthographic export",
+  "profile": {
+    "id": "pokecenter-seated-man",
+    "hair": "parted",
+    "haircolor": "252936",
+    "top": "f3ecdc",
+    "bottom": "293f65",
+    "accent": "76543c",
+    "outfit": "shirt",
+    "accessory": "collar"
+  },
+  "seated_pose": {
+    "loop": true,
+    "animation_length": 2,
+    "bones": {
+      "body": {
+        "position": [
+          0,
+          -6,
+          0
+        ]
+      },
+      "leg_left": {
+        "rotation": [
+          90,
+          0,
+          0
+        ]
+      },
+      "shin_left": {
+        "rotation": [
+          -90,
+          0,
+          0
+        ]
+      },
+      "forearm_left": {
+        "rotation": [
+          30,
+          0,
+          0
+        ]
+      },
+      "leg_right": {
+        "rotation": [
+          90,
+          0,
+          0
+        ]
+      },
+      "shin_right": {
+        "rotation": [
+          -90,
+          0,
+          0
+        ]
+      },
+      "forearm_right": {
+        "rotation": [
+          30,
+          0,
+          0
+        ]
+      }
+    }
+  },
+  "source": "ascendant-cobble-characters/tools/roster_source.py",
+  "views": [
+    "front",
+    "right",
+    "back",
+    "left"
+  ]
+}

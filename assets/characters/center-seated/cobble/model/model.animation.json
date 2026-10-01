@@ -1,0 +1,277 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.ascendant_pokecenter-seated-man.ground_idle": {
+      "loop": true,
+      "animation_length": 2,
+      "bones": {
+        "body": {
+          "position": [
+            0,
+            -6,
+            0
+          ]
+        },
+        "leg_left": {
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        },
+        "shin_left": {
+          "rotation": [
+            -90,
+            0,
+            0
+          ]
+        },
+        "forearm_left": {
+          "rotation": [
+            30,
+            0,
+            0
+          ]
+        },
+        "leg_right": {
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        },
+        "shin_right": {
+          "rotation": [
+            -90,
+            0,
+            0
+          ]
+        },
+        "forearm_right": {
+          "rotation": [
+            30,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.ascendant_pokecenter-seated-man.ground_walk": {
+      "loop": true,
+      "animation_length": 2,
+      "bones": {
+        "body": {
+          "position": [
+            0,
+            -6,
+            0
+          ]
+        },
+        "leg_left": {
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        },
+        "shin_left": {
+          "rotation": [
+            -90,
+            0,
+            0
+          ]
+        },
+        "forearm_left": {
+          "rotation": [
+            30,
+            0,
+            0
+          ]
+        },
+        "leg_right": {
+          "rotation": [
+            90,
+            0,
+            0
+          ]
+        },
+        "shin_right": {
+          "rotation": [
+            -90,
+            0,
+            0
+          ]
+        },
+        "forearm_right": {
+          "rotation": [
+            30,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.ascendant_pokecenter-seated-man.blink": {
+      "loop": true,
+      "animation_length": 4,
+      "bones": {
+        "eye_left": {
+          "scale": {
+            "0": [
+              1,
+              1,
+              1
+            ],
+            "2.65": [
+              1,
+              1,
+              1
+            ],
+            "2.73": [
+              1,
+              0.06,
+              1
+            ],
+            "2.76": [
+              0,
+              0,
+              0
+            ],
+            "2.84": [
+              0,
+              0,
+              0
+            ],
+            "2.88": [
+              1,
+              0.06,
+              1
+            ],
+            "2.98": [
+              1,
+              1,
+              1
+            ],
+            "4": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        "lid_left": {
+          "scale": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "2.73": [
+              0,
+              0,
+              0
+            ],
+            "2.76": [
+              1,
+              1,
+              1
+            ],
+            "2.84": [
+              1,
+              1,
+              1
+            ],
+            "2.88": [
+              0,
+              0,
+              0
+            ],
+            "4": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "eye_right": {
+          "scale": {
+            "0": [
+              1,
+              1,
+              1
+            ],
+            "2.65": [
+              1,
+              1,
+              1
+            ],
+            "2.73": [
+              1,
+              0.06,
+              1
+            ],
+            "2.76": [
+              0,
+              0,
+              0
+            ],
+            "2.84": [
+              0,
+              0,
+              0
+            ],
+            "2.88": [
+              1,
+              0.06,
+              1
+            ],
+            "2.98": [
+              1,
+              1,
+              1
+            ],
+            "4": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        "lid_right": {
+          "scale": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            "2.73": [
+              0,
+              0,
+              0
+            ],
+            "2.76": [
+              1,
+              1,
+              1
+            ],
+            "2.84": [
+              1,
+              1,
+              1
+            ],
+            "2.88": [
+              0,
+              0,
+              0
+            ],
+            "4": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

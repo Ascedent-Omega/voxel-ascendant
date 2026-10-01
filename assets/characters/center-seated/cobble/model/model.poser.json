@@ -1,0 +1,16 @@
+{
+  "rootBone": "ascendant_pokecenter-seated-man",
+  "poses": {
+    "sitting": {
+      "poseTypes": [
+        "STAND",
+        "PORTRAIT",
+        "PROFILE"
+      ],
+      "animations": [
+        "q.bedrock('ascendant_pokecenter-seated-man', 'ground_idle')",
+        "q.bedrock('ascendant_pokecenter-seated-man', 'blink')"
+      ]
+    }
+  }
+}

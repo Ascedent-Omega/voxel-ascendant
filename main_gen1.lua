@@ -514,6 +514,7 @@ local voxelPipeline = {
     V.require('Halloween').update(dt,weatherGame,level)
     V.require('CinnabarActivity').update(dt,weatherGame,level)
     V.require('FountainAudio').update(dt,weatherGame,level)
+    V.require('SilphElevatorAudio').update()
     V.require('Gen1GlassDoors').update(dt,weatherGame)
     V.require('WorldSeats').update(weatherGame)
     V.require('ObservationBinoculars').update(dt,weatherGame)
