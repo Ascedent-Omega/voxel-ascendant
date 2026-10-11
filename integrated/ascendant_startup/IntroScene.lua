@@ -1,5 +1,5 @@
 -- Rendered from the existing Cobblemon models; no live 3D loading at startup.
-local M={duration=15.6,logoAt=6.16,cryAt=9.8,flyAt=10.2,eyeAt=13.1,eyeSeconds=2.5,eyeRate=6.54/2.5}
+local M={duration=20.335918367,logoAt=6.16,cryAt=9.8,flyAt=10.2,eyeAt=13.1,eyeSeconds=7.235918367,eyeRate=6.54/7.235918367}
 local function clamp(t)return math.max(0,math.min(1,t))end
 local function smooth(t)t=clamp(t);return t*t*(3-2*t)end
 local function mix(a,b,t)return a+(b-a)*t end

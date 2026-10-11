@@ -30,8 +30,8 @@ plays; baked Cobblemon Lugia flies across and sweeps the original logo and
 characters away. The continuation credit uses OASC's existing Omega Dias
 wordmark and appears at the same time as the eye. Immediately after Lugia leaves, at 13.1 seconds the Eye Omega animation appears below the wordmark,
 white on black, with the replacement caption “Omega Ascendant Team”. It runs
-once, synchronized to the GameCube startup sound, cleanly accelerated from 7.235918 seconds
-to 2.5 seconds with pitch-preserving tempo adjustment.
+once, synchronized to the complete GameCube startup sound at its original tempo and pitch
+(7.235918 seconds).
 All cues share the SFX/mute/skip lifecycle and stop on cancellation.
 
 `OmegaEye.lua` retains the GIF's frame timing; the draw shader inverts its
