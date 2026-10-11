@@ -34,7 +34,12 @@ once, synchronized to the complete GameCube startup sound at its original tempo 
 (7.235918 seconds).
 All cues share the SFX/mute/skip lifecycle and stop on cancellation.
 
-`OmegaEye.lua` retains the GIF's frame timing; the draw shader inverts its
+`OmegaEye.lua` maps the GIF poses to measured GameCube audio onsets. The
+eye/Omega/triangle switches and blink/zoom poses follow the melody; the final
+logo and caption settle on the 4.327-second chord and hold through the decay.
+The audible sample cursor drives the eye timing when audio is active; muted
+devices fall back to the animation clock. Visible poses never rewind.
+The draw shader inverts its
 colors and the frame quads exclude the old caption. No live 3D renderer is
 initialized by the intro. Asset source URLs and hashes are recorded in
 `assets/omega-intro-sources.json`.

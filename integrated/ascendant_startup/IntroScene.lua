@@ -1,5 +1,5 @@
 -- Rendered from the existing Cobblemon models; no live 3D loading at startup.
-local M={duration=20.335918367,logoAt=6.16,cryAt=9.8,flyAt=10.2,eyeAt=13.1,eyeSeconds=7.235918367,eyeRate=6.54/7.235918367}
+local M={duration=20.335918367,logoAt=6.16,cryAt=9.8,flyAt=10.2,eyeAt=13.1,eyeSeconds=7.235918367}
 local function clamp(t)return math.max(0,math.min(1,t))end
 local function smooth(t)t=clamp(t);return t*t*(3-2*t)end
 local function mix(a,b,t)return a+(b-a)*t end
@@ -63,6 +63,19 @@ function M.new(read)
     if source and self.volume>0 then source:setVolume(self.volume*cue[4]);source:play()end
    end
   end
+ end
+ -- Prefer the audible sample cursor over frame timing on slower displays.
+ -- Muted/no-audio devices use the animation clock. Never rewind a visible
+ -- pose when playback stops or a preload resynchronizes the sound.
+ function self:eyeTime(animationTime)
+  local elapsed=math.max(0,animationTime-M.eyeAt)
+  local source=self.sounds.gamecube
+  if self.enabled and self.volume>0 and source and self.played.gamecube and source.tell and source:isPlaying()then
+   local ok,seconds=pcall(source.tell,source,'seconds')
+   if ok and type(seconds)=='number'and seconds==seconds and seconds>=0 then elapsed=seconds end
+  end
+  self.eyeAudioTime=math.max(self.eyeAudioTime or 0,math.min(M.eyeSeconds,elapsed))
+  return self.eyeAudioTime
  end
  function self:draw(t,w,h,animationTime)
   animationTime=animationTime or t
@@ -159,16 +172,16 @@ function M.new(read)
   end
   if t>=M.eyeAt then
    local a=smooth((t-M.eyeAt)/.12)*fade
-   local elapsed=math.max(0,animationTime-M.eyeAt)*M.eyeRate;local frame=Eye.holdFrame
-   if elapsed<6.54 then
-    local cursor=0
-    for i,seconds in ipairs(Eye.durations)do cursor=cursor+seconds;if elapsed<cursor then frame=i-1;break end end
-   end
+   local elapsed=self:eyeTime(animationTime)
+   local frame=Eye.frameAt(elapsed)
    local page=math.floor(frame/32)+1
    -- Crop only the original sliding caption; retain the eye's animation.
    g.setShader(self.eyeShader);g.setColor(1,1,1,a)
-   g.draw(self.images['omega-eye-'..page],self.eyeQuads[frame],508,366,0,1.1,1.1);g.setShader()
-   local caption=smooth((elapsed-4.2)/.4)*a
+   -- A restrained landing pulse lands on the final chord, then settles.
+   local pulse=elapsed>=Eye.resolveAt and math.exp(-(elapsed-Eye.resolveAt)*8)*.025 or 0
+   local k=1.1*(1+pulse)
+   g.draw(self.images['omega-eye-'..page],self.eyeQuads[frame],640,498,0,k,k,120,120);g.setShader()
+   local caption=smooth((elapsed-Eye.captionAt)/(Eye.resolveAt-Eye.captionAt))*a
    g.setFont(self.teamFont);g.setColor(1,1,1,caption);g.printf('Omega Ascendant Team',0,626,1280,'center')
   end
   g.pop()

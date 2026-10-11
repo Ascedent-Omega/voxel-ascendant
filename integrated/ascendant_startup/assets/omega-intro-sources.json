@@ -2,7 +2,8 @@
   "gif": {
     "url": "https://klipy.com/gifs/eye-omega",
     "asset_url": "https://static2.klipy.com/ii/4e7bea9f7a3371424e6c16ebc93252fe/b2/04/U9R7bmDGwrRetV.gif",
-    "sha256": "57e0594631a8a815cde3b88c4193721477992c2630f07f9a4d8bf66e0556836f"
+    "sha256": "57e0594631a8a815cde3b88c4193721477992c2630f07f9a4d8bf66e0556836f",
+    "timing": "Audio-onset frame anchors in OmegaEye.lua; final logo and caption resolve at 4.327s; terminal logo held during decay"
   },
   "gamecube_audio": {
     "url": "https://www.myinstants.com/en/instant/gamecube-startup/",

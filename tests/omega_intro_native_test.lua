@@ -3,6 +3,13 @@ local function read(p)local f=assert(io.open(root..'/integrated/ascendant_startu
 function love.load()
  io.stdout:setvbuf('no')
  local Scene=assert(loadstring(read('IntroScene.lua')))()
+ local Eye=assert(loadstring(read('OmegaEye.lua')))()
+ assert(Eye.frameAt(.351)==8 and Eye.frameAt(.705)==17,'eye construction follows opening notes')
+ assert(Eye.frameAt(1.219)==24,'triangle completes on the next strong note')
+ assert(Eye.frameAt(3.813)==71 and Eye.frameAt(4.327)==74,'final logo resolves on the chord')
+ for _,t in ipairs{5.2,6.4,7.235918367,40}do assert(Eye.frameAt(t)==74,'terminal logo must not clear or restart')end
+ local previous=-1
+ for i=0,724 do local frame=Eye.frameAt(i/100);assert(frame>=previous and frame<=74);previous=frame end
  local scene=Scene.new(read);local count=0
  for name,s in pairs(scene.sounds)do assert(s:getDuration('seconds')>0,name);count=count+1 end
  assert(count==4,'all four real audio assets decode');assert(math.abs(scene.sounds.gamecube:getDuration('seconds')-Scene.eyeSeconds)<.01,'animation and GameCube audio duration match');scene:release()
@@ -28,13 +35,19 @@ function love.load()
  scene:draw(Scene.eyeAt,1280,720,Scene.eyeAt);assert(sources[4].count==1)
  for _,t in ipairs{23.14,24,24.4,40}do scene:draw(Scene.duration-.6,1280,720,t)end
  for _,s in ipairs(sources)do assert(s.count==1,'hold must never loop audio')end
+ -- A slower render clock must follow the actual audible sample position.
+ scene.eyeAudioTime=nil;sources[4].tell=function()return 3.813 end
+ assert(math.abs(scene:eyeTime(Scene.eyeAt+1)-3.813)<.0001,'audible cursor drives the logo')
+ sources[4].tell=function()return 2 end
+ assert(scene:eyeTime(Scene.eyeAt+1)==3.813,'resync must not rewind the logo')
+ sources[4].tell=nil
  scene:setVolume(0);for _,s in ipairs(sources)do assert(s.volume==0,'skip/mute affects every cue')end
  scene:release();scene:release();for _,s in ipairs(sources)do assert(s.released)end
  sources={};scene=Scene.new(read);scene:play(0)
  for _,t in ipairs{0,10,12,24}do scene:draw(t,720,1280,t)end
  for _,s in ipairs(sources)do assert(s.count==0,'splashMute stays silent')end
  scene:release();love.audio.newSource=original
- print('PASS real rendering, all audio decode, cue timing, single playback on holds, mute, skip volume, resync, portrait and cleanup')
+ print('PASS audio-aligned poses and terminal hold, real rendering, all audio decode, cue timing, single playback on holds, mute, skip volume, resync, portrait and cleanup')
  love.event.quit()
 end
 function love.errorhandler(err)print(debug.traceback(err));return function()love.event.quit(1)end end
