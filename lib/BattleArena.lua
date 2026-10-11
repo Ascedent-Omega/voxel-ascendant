@@ -949,6 +949,10 @@ function BattleArena.clearance(map, arena)
 end
 
 local function rawCompactInterior(map)
+  if map and map.def and map.def.kaOwner=='kasc.sevii-expedition/v1'then
+    local p=V.require('KascSeviiScenery').profile(map)
+    if p and (p.kind=='canopy'or p.kind=='cave')then return true end
+  end
   -- A low, close camera is also valid in enclosed forest/cave aisles.
   -- Candidate footprints, height and visibility still pass the same checks.
   local tileset=map and map.def and map.def.tileset
@@ -1107,6 +1111,10 @@ local function findUncached(map, fromX, fromY, surfing)
   local adaptiveSurface = tileset == "OVERWORLD" or tileset == "FOREST"
                        or tileset == "CAVERN" or tileset == "PLATEAU"
                        or tileset == "SHIP_PORT"
+  if def.kaOwner=='kasc.sevii-expedition/v1'then
+    local p=V.require('KascSeviiScenery').profile(map)
+    adaptiveSurface=p and (p.exterior or p.kind=='cave')or adaptiveSurface
+  end
   local adaptive = adaptiveSurface
   if type(pick) == "table" and pick.adaptive ~= nil then
     adaptive = pick.adaptive == true

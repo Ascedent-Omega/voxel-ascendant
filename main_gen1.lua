@@ -157,6 +157,8 @@ function V.data(name)
   return value
 end
 
+V.require('SeviiSourceWater').install()
+
 -- Generated editor data is normally immutable for the lifetime of a mod
 -- loader, but the native scenery editor can deliberately replace its one
 -- generated module in an unpacked development install.  Keep cache eviction
@@ -2928,6 +2930,11 @@ mod.exports.capabilities = {
     generation=1,
     surfaces={ "status_hud" },
     rawRendererAuthority=false,
+  },
+  seviiDoubleBattle = {
+    schema="kasc.sevii-double-visual/v1",
+    ready=true,
+    modes={MAP=true,DISCS=true,ARENA=true,TERRARIUM=true},
   },
   ascendantCards = {
     apiVersion=1,

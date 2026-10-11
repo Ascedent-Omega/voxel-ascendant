@@ -1,0 +1,986 @@
+{
+  "scope": "Manual visual inspection of 23 contact sheets containing 135 native same-coordinate source pairs. Representative views only; structural audit covers all 266 fragments. Does not certify every camera angle, mobile GPU or animation frame.",
+  "sheets": [
+    "pairs-001-006.jpg",
+    "pairs-007-012.jpg",
+    "pairs-013-018.jpg",
+    "pairs-019-024.jpg",
+    "pairs-025-030.jpg",
+    "pairs-031-036.jpg",
+    "pairs-037-042.jpg",
+    "pairs-043-048.jpg",
+    "pairs-049-054.jpg",
+    "pairs-055-060.jpg",
+    "pairs-061-066.jpg",
+    "pairs-067-072.jpg",
+    "pairs-073-078.jpg",
+    "pairs-079-084.jpg",
+    "pairs-085-090.jpg",
+    "pairs-091-096.jpg",
+    "pairs-097-102.jpg",
+    "pairs-103-108.jpg",
+    "pairs-109-114.jpg",
+    "pairs-115-120.jpg",
+    "pairs-121-126.jpg",
+    "pairs-127-132.jpg",
+    "pairs-133-135.jpg"
+  ],
+  "rows": [
+    {
+      "source": "FiveIsland",
+      "native_2d": "source-FiveIsland-2d.png",
+      "native_voxel": "source-FiveIsland.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_Harbor",
+      "native_2d": "source-FiveIsland_Harbor-2d.png",
+      "native_voxel": "source-FiveIsland_Harbor.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_House1",
+      "native_2d": "source-FiveIsland_House1-2d.png",
+      "native_voxel": "source-FiveIsland_House1.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_House2",
+      "native_2d": "source-FiveIsland_House2-2d.png",
+      "native_voxel": "source-FiveIsland_House2.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Entrance",
+      "native_2d": "source-FiveIsland_LostCave_Entrance-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Entrance.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room1",
+      "native_2d": "source-FiveIsland_LostCave_Room1-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room1.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room10",
+      "native_2d": "source-FiveIsland_LostCave_Room10-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room10.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room11",
+      "native_2d": "source-FiveIsland_LostCave_Room11-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room11.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room12",
+      "native_2d": "source-FiveIsland_LostCave_Room12-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room12.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room13",
+      "native_2d": "source-FiveIsland_LostCave_Room13-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room13.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room14",
+      "native_2d": "source-FiveIsland_LostCave_Room14-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room14.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room2",
+      "native_2d": "source-FiveIsland_LostCave_Room2-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room2.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room3",
+      "native_2d": "source-FiveIsland_LostCave_Room3-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room3.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room4",
+      "native_2d": "source-FiveIsland_LostCave_Room4-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room4.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room5",
+      "native_2d": "source-FiveIsland_LostCave_Room5-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room5.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room6",
+      "native_2d": "source-FiveIsland_LostCave_Room6-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room6.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room7",
+      "native_2d": "source-FiveIsland_LostCave_Room7-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room7.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room8",
+      "native_2d": "source-FiveIsland_LostCave_Room8-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room8.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_LostCave_Room9",
+      "native_2d": "source-FiveIsland_LostCave_Room9-2d.png",
+      "native_voxel": "source-FiveIsland_LostCave_Room9.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_Meadow",
+      "native_2d": "source-FiveIsland_Meadow-2d.png",
+      "native_voxel": "source-FiveIsland_Meadow.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_MemorialPillar",
+      "native_2d": "source-FiveIsland_MemorialPillar-2d.png",
+      "native_voxel": "source-FiveIsland_MemorialPillar.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_PokemonCenter_1F",
+      "native_2d": "source-FiveIsland_PokemonCenter_1F-2d.png",
+      "native_voxel": "source-FiveIsland_PokemonCenter_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_PokemonCenter_2F",
+      "native_2d": "source-FiveIsland_PokemonCenter_2F-2d.png",
+      "native_voxel": "source-FiveIsland_PokemonCenter_2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_ResortGorgeous",
+      "native_2d": "source-FiveIsland_ResortGorgeous-2d.png",
+      "native_voxel": "source-FiveIsland_ResortGorgeous.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_ResortGorgeous_House",
+      "native_2d": "source-FiveIsland_ResortGorgeous_House-2d.png",
+      "native_voxel": "source-FiveIsland_ResortGorgeous_House.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_RocketWarehouse",
+      "native_2d": "source-FiveIsland_RocketWarehouse-2d.png",
+      "native_voxel": "source-FiveIsland_RocketWarehouse.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FiveIsland_WaterLabyrinth",
+      "native_2d": "source-FiveIsland_WaterLabyrinth-2d.png",
+      "native_voxel": "source-FiveIsland_WaterLabyrinth.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland",
+      "native_2d": "source-FourIsland-2d.png",
+      "native_voxel": "source-FourIsland.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_Harbor",
+      "native_2d": "source-FourIsland_Harbor-2d.png",
+      "native_voxel": "source-FourIsland_Harbor.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_House1",
+      "native_2d": "source-FourIsland_House1-2d.png",
+      "native_voxel": "source-FourIsland_House1.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_House2",
+      "native_2d": "source-FourIsland_House2-2d.png",
+      "native_voxel": "source-FourIsland_House2.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_IcefallCave_1F",
+      "native_2d": "source-FourIsland_IcefallCave_1F-2d.png",
+      "native_voxel": "source-FourIsland_IcefallCave_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_IcefallCave_B1F",
+      "native_2d": "source-FourIsland_IcefallCave_B1F-2d.png",
+      "native_voxel": "source-FourIsland_IcefallCave_B1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_IcefallCave_Back",
+      "native_2d": "source-FourIsland_IcefallCave_Back-2d.png",
+      "native_voxel": "source-FourIsland_IcefallCave_Back.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_IcefallCave_Entrance",
+      "native_2d": "source-FourIsland_IcefallCave_Entrance-2d.png",
+      "native_voxel": "source-FourIsland_IcefallCave_Entrance.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_LoreleisHouse",
+      "native_2d": "source-FourIsland_LoreleisHouse-2d.png",
+      "native_voxel": "source-FourIsland_LoreleisHouse.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_Mart",
+      "native_2d": "source-FourIsland_Mart-2d.png",
+      "native_voxel": "source-FourIsland_Mart.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_PokemonCenter_1F",
+      "native_2d": "source-FourIsland_PokemonCenter_1F-2d.png",
+      "native_voxel": "source-FourIsland_PokemonCenter_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_PokemonCenter_2F",
+      "native_2d": "source-FourIsland_PokemonCenter_2F-2d.png",
+      "native_voxel": "source-FourIsland_PokemonCenter_2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "FourIsland_PokemonDayCare",
+      "native_2d": "source-FourIsland_PokemonDayCare-2d.png",
+      "native_voxel": "source-FourIsland_PokemonDayCare.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_Exterior",
+      "native_2d": "source-MtEmber_Exterior-2d.png",
+      "native_voxel": "source-MtEmber_Exterior.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_RubyPath_1F",
+      "native_2d": "source-MtEmber_RubyPath_1F-2d.png",
+      "native_voxel": "source-MtEmber_RubyPath_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_RubyPath_B1F",
+      "native_2d": "source-MtEmber_RubyPath_B1F-2d.png",
+      "native_voxel": "source-MtEmber_RubyPath_B1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_RubyPath_B1F_Stairs",
+      "native_2d": "source-MtEmber_RubyPath_B1F_Stairs-2d.png",
+      "native_voxel": "source-MtEmber_RubyPath_B1F_Stairs.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_RubyPath_B2F",
+      "native_2d": "source-MtEmber_RubyPath_B2F-2d.png",
+      "native_voxel": "source-MtEmber_RubyPath_B2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_RubyPath_B2F_Stairs",
+      "native_2d": "source-MtEmber_RubyPath_B2F_Stairs-2d.png",
+      "native_voxel": "source-MtEmber_RubyPath_B2F_Stairs.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_RubyPath_B3F",
+      "native_2d": "source-MtEmber_RubyPath_B3F-2d.png",
+      "native_voxel": "source-MtEmber_RubyPath_B3F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_RubyPath_B4F",
+      "native_2d": "source-MtEmber_RubyPath_B4F-2d.png",
+      "native_voxel": "source-MtEmber_RubyPath_B4F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_RubyPath_B5F",
+      "native_2d": "source-MtEmber_RubyPath_B5F-2d.png",
+      "native_voxel": "source-MtEmber_RubyPath_B5F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_Summit",
+      "native_2d": "source-MtEmber_Summit-2d.png",
+      "native_voxel": "source-MtEmber_Summit.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_SummitPath_1F",
+      "native_2d": "source-MtEmber_SummitPath_1F-2d.png",
+      "native_voxel": "source-MtEmber_SummitPath_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_SummitPath_2F",
+      "native_2d": "source-MtEmber_SummitPath_2F-2d.png",
+      "native_voxel": "source-MtEmber_SummitPath_2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "MtEmber_SummitPath_3F",
+      "native_2d": "source-MtEmber_SummitPath_3F-2d.png",
+      "native_voxel": "source-MtEmber_SummitPath_3F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "OneIsland",
+      "native_2d": "source-OneIsland-2d.png",
+      "native_voxel": "source-OneIsland.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "OneIsland_Harbor",
+      "native_2d": "source-OneIsland_Harbor-2d.png",
+      "native_voxel": "source-OneIsland_Harbor.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "OneIsland_House1",
+      "native_2d": "source-OneIsland_House1-2d.png",
+      "native_voxel": "source-OneIsland_House1.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "OneIsland_House2",
+      "native_2d": "source-OneIsland_House2-2d.png",
+      "native_voxel": "source-OneIsland_House2.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "OneIsland_KindleRoad",
+      "native_2d": "source-OneIsland_KindleRoad-2d.png",
+      "native_voxel": "source-OneIsland_KindleRoad.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "OneIsland_KindleRoad_EmberSpa",
+      "native_2d": "source-OneIsland_KindleRoad_EmberSpa-2d.png",
+      "native_voxel": "source-OneIsland_KindleRoad_EmberSpa.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "OneIsland_PokemonCenter_1F",
+      "native_2d": "source-OneIsland_PokemonCenter_1F-2d.png",
+      "native_voxel": "source-OneIsland_PokemonCenter_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "OneIsland_PokemonCenter_2F",
+      "native_2d": "source-OneIsland_PokemonCenter_2F-2d.png",
+      "native_voxel": "source-OneIsland_PokemonCenter_2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "OneIsland_TreasureBeach",
+      "native_2d": "source-OneIsland_TreasureBeach-2d.png",
+      "native_voxel": "source-OneIsland_TreasureBeach.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland",
+      "native_2d": "source-SevenIsland-2d.png",
+      "native_voxel": "source-SevenIsland.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_Harbor",
+      "native_2d": "source-SevenIsland_Harbor-2d.png",
+      "native_voxel": "source-SevenIsland_Harbor.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_House_Room1",
+      "native_2d": "source-SevenIsland_House_Room1-2d.png",
+      "native_voxel": "source-SevenIsland_House_Room1.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_House_Room2",
+      "native_2d": "source-SevenIsland_House_Room2-2d.png",
+      "native_voxel": "source-SevenIsland_House_Room2.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_Mart",
+      "native_2d": "source-SevenIsland_Mart-2d.png",
+      "native_voxel": "source-SevenIsland_Mart.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_PokemonCenter_1F",
+      "native_2d": "source-SevenIsland_PokemonCenter_1F-2d.png",
+      "native_voxel": "source-SevenIsland_PokemonCenter_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_PokemonCenter_2F",
+      "native_2d": "source-SevenIsland_PokemonCenter_2F-2d.png",
+      "native_voxel": "source-SevenIsland_PokemonCenter_2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon",
+      "native_2d": "source-SevenIsland_SevaultCanyon-2d.png",
+      "native_voxel": "source-SevenIsland_SevaultCanyon.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_Entrance",
+      "native_2d": "source-SevenIsland_SevaultCanyon_Entrance-2d.png",
+      "native_voxel": "source-SevenIsland_SevaultCanyon_Entrance.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_House",
+      "native_2d": "source-SevenIsland_SevaultCanyon_House-2d.png",
+      "native_voxel": "source-SevenIsland_SevaultCanyon_House.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_TanobyKey",
+      "native_2d": "source-SevenIsland_SevaultCanyon_TanobyKey-2d.png",
+      "native_voxel": "source-SevenIsland_SevaultCanyon_TanobyKey.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_TanobyRuins",
+      "native_2d": "source-SevenIsland_TanobyRuins-2d.png",
+      "native_voxel": "source-SevenIsland_TanobyRuins.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_DilfordChamber",
+      "native_2d": "source-SevenIsland_TanobyRuins_DilfordChamber-2d.png",
+      "native_voxel": "source-SevenIsland_TanobyRuins_DilfordChamber.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_LiptooChamber",
+      "native_2d": "source-SevenIsland_TanobyRuins_LiptooChamber-2d.png",
+      "native_voxel": "source-SevenIsland_TanobyRuins_LiptooChamber.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_MoneanChamber",
+      "native_2d": "source-SevenIsland_TanobyRuins_MoneanChamber-2d.png",
+      "native_voxel": "source-SevenIsland_TanobyRuins_MoneanChamber.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_RixyChamber",
+      "native_2d": "source-SevenIsland_TanobyRuins_RixyChamber-2d.png",
+      "native_voxel": "source-SevenIsland_TanobyRuins_RixyChamber.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_ScufibChamber",
+      "native_2d": "source-SevenIsland_TanobyRuins_ScufibChamber-2d.png",
+      "native_voxel": "source-SevenIsland_TanobyRuins_ScufibChamber.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_ViapoisChamber",
+      "native_2d": "source-SevenIsland_TanobyRuins_ViapoisChamber-2d.png",
+      "native_voxel": "source-SevenIsland_TanobyRuins_ViapoisChamber.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_WeepthChamber",
+      "native_2d": "source-SevenIsland_TanobyRuins_WeepthChamber-2d.png",
+      "native_voxel": "source-SevenIsland_TanobyRuins_WeepthChamber.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SevenIsland_TrainerTower",
+      "native_2d": "source-SevenIsland_TrainerTower-2d.png",
+      "native_voxel": "source-SevenIsland_TrainerTower.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland",
+      "native_2d": "source-SixIsland-2d.png",
+      "native_voxel": "source-SixIsland.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_AlteringCave",
+      "native_2d": "source-SixIsland_AlteringCave-2d.png",
+      "native_voxel": "source-SixIsland_AlteringCave.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_DottedHole_1F",
+      "native_2d": "source-SixIsland_DottedHole_1F-2d.png",
+      "native_voxel": "source-SixIsland_DottedHole_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_DottedHole_B1F",
+      "native_2d": "source-SixIsland_DottedHole_B1F-2d.png",
+      "native_voxel": "source-SixIsland_DottedHole_B1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_DottedHole_B2F",
+      "native_2d": "source-SixIsland_DottedHole_B2F-2d.png",
+      "native_voxel": "source-SixIsland_DottedHole_B2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_DottedHole_B3F",
+      "native_2d": "source-SixIsland_DottedHole_B3F-2d.png",
+      "native_voxel": "source-SixIsland_DottedHole_B3F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_DottedHole_B4F",
+      "native_2d": "source-SixIsland_DottedHole_B4F-2d.png",
+      "native_voxel": "source-SixIsland_DottedHole_B4F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_DottedHole_SapphireRoom",
+      "native_2d": "source-SixIsland_DottedHole_SapphireRoom-2d.png",
+      "native_voxel": "source-SixIsland_DottedHole_SapphireRoom.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_GreenPath",
+      "native_2d": "source-SixIsland_GreenPath-2d.png",
+      "native_voxel": "source-SixIsland_GreenPath.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_Harbor",
+      "native_2d": "source-SixIsland_Harbor-2d.png",
+      "native_voxel": "source-SixIsland_Harbor.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_House",
+      "native_2d": "source-SixIsland_House-2d.png",
+      "native_voxel": "source-SixIsland_House.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_Mart",
+      "native_2d": "source-SixIsland_Mart-2d.png",
+      "native_voxel": "source-SixIsland_Mart.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_OutcastIsland",
+      "native_2d": "source-SixIsland_OutcastIsland-2d.png",
+      "native_voxel": "source-SixIsland_OutcastIsland.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_PatternBush",
+      "native_2d": "source-SixIsland_PatternBush-2d.png",
+      "native_voxel": "source-SixIsland_PatternBush.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_PokemonCenter_1F",
+      "native_2d": "source-SixIsland_PokemonCenter_1F-2d.png",
+      "native_voxel": "source-SixIsland_PokemonCenter_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_PokemonCenter_2F",
+      "native_2d": "source-SixIsland_PokemonCenter_2F-2d.png",
+      "native_voxel": "source-SixIsland_PokemonCenter_2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_RuinValley",
+      "native_2d": "source-SixIsland_RuinValley-2d.png",
+      "native_voxel": "source-SixIsland_RuinValley.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_WaterPath",
+      "native_2d": "source-SixIsland_WaterPath-2d.png",
+      "native_voxel": "source-SixIsland_WaterPath.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_WaterPath_House1",
+      "native_2d": "source-SixIsland_WaterPath_House1-2d.png",
+      "native_voxel": "source-SixIsland_WaterPath_House1.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "SixIsland_WaterPath_House2",
+      "native_2d": "source-SixIsland_WaterPath_House2-2d.png",
+      "native_voxel": "source-SixIsland_WaterPath_House2.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland",
+      "native_2d": "source-ThreeIsland-2d.png",
+      "native_voxel": "source-ThreeIsland.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_BerryForest",
+      "native_2d": "source-ThreeIsland_BerryForest-2d.png",
+      "native_voxel": "source-ThreeIsland_BerryForest.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_BondBridge",
+      "native_2d": "source-ThreeIsland_BondBridge-2d.png",
+      "native_voxel": "source-ThreeIsland_BondBridge.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_DunsparceTunnel",
+      "native_2d": "source-ThreeIsland_DunsparceTunnel-2d.png",
+      "native_voxel": "source-ThreeIsland_DunsparceTunnel.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_Harbor",
+      "native_2d": "source-ThreeIsland_Harbor-2d.png",
+      "native_voxel": "source-ThreeIsland_Harbor.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_House1",
+      "native_2d": "source-ThreeIsland_House1-2d.png",
+      "native_voxel": "source-ThreeIsland_House1.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_House2",
+      "native_2d": "source-ThreeIsland_House2-2d.png",
+      "native_voxel": "source-ThreeIsland_House2.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_House3",
+      "native_2d": "source-ThreeIsland_House3-2d.png",
+      "native_voxel": "source-ThreeIsland_House3.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_House4",
+      "native_2d": "source-ThreeIsland_House4-2d.png",
+      "native_voxel": "source-ThreeIsland_House4.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_House5",
+      "native_2d": "source-ThreeIsland_House5-2d.png",
+      "native_voxel": "source-ThreeIsland_House5.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_Mart",
+      "native_2d": "source-ThreeIsland_Mart-2d.png",
+      "native_voxel": "source-ThreeIsland_Mart.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_PokemonCenter_1F",
+      "native_2d": "source-ThreeIsland_PokemonCenter_1F-2d.png",
+      "native_voxel": "source-ThreeIsland_PokemonCenter_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_PokemonCenter_2F",
+      "native_2d": "source-ThreeIsland_PokemonCenter_2F-2d.png",
+      "native_voxel": "source-ThreeIsland_PokemonCenter_2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "ThreeIsland_Port",
+      "native_2d": "source-ThreeIsland_Port-2d.png",
+      "native_voxel": "source-ThreeIsland_Port.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_1F",
+      "native_2d": "source-TrainerTower_1F-2d.png",
+      "native_voxel": "source-TrainerTower_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_2F",
+      "native_2d": "source-TrainerTower_2F-2d.png",
+      "native_voxel": "source-TrainerTower_2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_3F",
+      "native_2d": "source-TrainerTower_3F-2d.png",
+      "native_voxel": "source-TrainerTower_3F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_4F",
+      "native_2d": "source-TrainerTower_4F-2d.png",
+      "native_voxel": "source-TrainerTower_4F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_5F",
+      "native_2d": "source-TrainerTower_5F-2d.png",
+      "native_voxel": "source-TrainerTower_5F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_6F",
+      "native_2d": "source-TrainerTower_6F-2d.png",
+      "native_voxel": "source-TrainerTower_6F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_7F",
+      "native_2d": "source-TrainerTower_7F-2d.png",
+      "native_voxel": "source-TrainerTower_7F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_8F",
+      "native_2d": "source-TrainerTower_8F-2d.png",
+      "native_voxel": "source-TrainerTower_8F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_Elevator",
+      "native_2d": "source-TrainerTower_Elevator-2d.png",
+      "native_voxel": "source-TrainerTower_Elevator.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_Lobby",
+      "native_2d": "source-TrainerTower_Lobby-2d.png",
+      "native_voxel": "source-TrainerTower_Lobby.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TrainerTower_Roof",
+      "native_2d": "source-TrainerTower_Roof-2d.png",
+      "native_voxel": "source-TrainerTower_Roof.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TwoIsland",
+      "native_2d": "source-TwoIsland-2d.png",
+      "native_voxel": "source-TwoIsland.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TwoIsland_CapeBrink",
+      "native_2d": "source-TwoIsland_CapeBrink-2d.png",
+      "native_voxel": "source-TwoIsland_CapeBrink.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TwoIsland_CapeBrink_House",
+      "native_2d": "source-TwoIsland_CapeBrink_House-2d.png",
+      "native_voxel": "source-TwoIsland_CapeBrink_House.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TwoIsland_Harbor",
+      "native_2d": "source-TwoIsland_Harbor-2d.png",
+      "native_voxel": "source-TwoIsland_Harbor.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TwoIsland_House",
+      "native_2d": "source-TwoIsland_House-2d.png",
+      "native_voxel": "source-TwoIsland_House.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TwoIsland_JoyfulGameCorner",
+      "native_2d": "source-TwoIsland_JoyfulGameCorner-2d.png",
+      "native_voxel": "source-TwoIsland_JoyfulGameCorner.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TwoIsland_PokemonCenter_1F",
+      "native_2d": "source-TwoIsland_PokemonCenter_1F-2d.png",
+      "native_voxel": "source-TwoIsland_PokemonCenter_1F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    },
+    {
+      "source": "TwoIsland_PokemonCenter_2F",
+      "native_2d": "source-TwoIsland_PokemonCenter_2F-2d.png",
+      "native_voxel": "source-TwoIsland_PokemonCenter_2F.png",
+      "review": "representative pair inspected",
+      "result": "no confirmed visible parity defect in captured view"
+    }
+  ],
+  "observations": [
+    "Lost Cave downward ladder uses the existing Kanto standing-ladder convention; hole visibility needs eye-level review before classifying as a defect.",
+    "Night-time outdoor cliffs use the shared Kanto lighting convention; this inspection does not compare daytime/nighttime brightness separately.",
+    "QA profile lacks optional authentic follower walk sheets. Species identity and canonical model availability are covered separately; no substitute art created."
+  ],
+  "eye_view_review": {
+    "count": 57,
+    "scope": "47 cave and 10 room-theme third-person views inspected; representative directions only",
+    "result": "No additional confirmed geometry defect. In narrow passages the shared Kanto third-person camera compresses its boom and can hide the player, showing the wall being faced. This is not evidence that all viewing angles or Android rendering are verified.",
+    "lost_cave_entrance": "The source ladder is retained through the shared Gen1 stairs provider; no speculative extra entrance geometry was added."
+  }
+}

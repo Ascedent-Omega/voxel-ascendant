@@ -101,6 +101,13 @@ function M.scan(battle)
   battle._vascSoundMoves=stamp
   -- Native send-out sound is not part of the battlers' move lists.
   M.enqueue(battle.data,{sound='Ball_Poof'})
+  -- Sound preparation borrows a separate native player. Use the same scoped
+  -- Sevii composition as the real battle so missing later-generation ids
+  -- compile their reviewed row sounds here too, before the command menu.
+  local exports=battle.game and battle.game.mods and battle.game.mods.exports
+  local expedition=exports and exports.kanto_ascendant and exports.kanto_ascendant.seviiExpedition
+  local compositions=expedition and expedition.battleAnimations
+  local bind=compositions and compositions.OWNER=='kasc.sevii-battle-animations/v1'and compositions.bind
   for _,id in ipairs(ids)do
     local def=battle.data.moves[id];M.enqueue(battle.data,def and def.anim)
     -- Native row sounds may reference a different move's pitch/tempo.
@@ -109,6 +116,7 @@ function M.scan(battle)
     -- a decorated start failed (e.g. Surf's later Battle_2A sound).
     local ok,player=pcall(require('src.battle.AnimPlayer').new,battle.data.battle_anims)
     if ok and player then
+      if type(bind)=='function'then bind(battle,player)end
       local started=pcall(player.start,player,id,true)
       local native=player.native or player
       if started then for _,ev in ipairs(native.events or{})do

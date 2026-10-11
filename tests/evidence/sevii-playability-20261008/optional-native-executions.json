@@ -1,0 +1,2316 @@
+[
+  {
+    "event": "population",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_PURCHASED_BERRY_NATIVE_EFFECT_PASS\tLiechi: shop, equipment, reload, attack boost, consumption, reload",
+      "SEVII_NATIVE_POPULATION_PASS\t40\tresident conversations; seven purchases, seven PCs, seven journals, full-Bag retry, saved rewards, Gen2/3 berry purchases"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-population-flat0361-final-v7",
+    "source_receipt": "native-event-closure-flat.json"
+  },
+  {
+    "event": "legend_catalog",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_LEGEND_SOURCE_AUDIT_PASS\t23\tidentities; live owners, forms and gift profiles; detached per-run reset observed"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-legend_catalog-flat0361-final-v7",
+    "source_receipt": "native-event-closure-flat.json"
+  },
+  {
+    "event": "recovery",
+    "extra": {},
+    "mode": "flat",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/habitat_playthrough/drivers/common.lua:125: object has no accessible interaction cell 22,9"
+    ],
+    "result": "fix-after-quick-events-recovery-flat0361-final-v7",
+    "source_receipt": "native-event-closure-flat.json"
+  },
+  {
+    "event": "visible",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_VISIBLE_AUTHORED_ROOM_EXCLUSION_PASS\tKA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tTURTWIG\tAMBIPOM",
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tSNORUNT\tSNORUNT",
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tFEEBAS\tFEEBAS",
+      "SEVII_NATIVE_VISIBLE_CONTACT_PASS\t3"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-visible-flat0361-final-v7",
+    "source_receipt": "native-event-closure-flat.json"
+  },
+  {
+    "event": "flight_map",
+    "extra": {
+      "SEVII_QA_WITH_FLY": "1"
+    },
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_FLIGHT_MAP_PASS\t7"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-flight_map-flat0361-final-v7",
+    "source_receipt": "native-event-closure-flat.json"
+  },
+  {
+    "event": "population",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...bility-20261007/tests/sevii_native_population_driver.lua:89: full Bag leaves reward claim pending"
+    ],
+    "result": "fix-after-quick-events-population-voxel0361-final-v7",
+    "source_receipt": "native-event-closure-voxel.json"
+  },
+  {
+    "event": "legend_catalog",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_LEGEND_SOURCE_AUDIT_PASS\t23\tidentities; live owners, forms and gift profiles; detached per-run reset observed"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-legend_catalog-voxel0361-final-v7",
+    "source_receipt": "native-event-closure-voxel.json"
+  },
+  {
+    "event": "recovery",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...yability-20261007/tests/sevii_native_recovery_driver.lua:91: medicine UI did not close"
+    ],
+    "result": "fix-after-quick-events-recovery-voxel0361-final-v7",
+    "source_receipt": "native-event-closure-voxel.json"
+  },
+  {
+    "event": "visible",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_VISIBLE_AUTHORED_ROOM_EXCLUSION_PASS\tKA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tTURTWIG\tTREECKO",
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tSNORUNT\tWEAVILE",
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tFEEBAS\tFEEBAS",
+      "SEVII_NATIVE_VISIBLE_CONTACT_PASS\t3"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-visible-voxel0361-final-v7",
+    "source_receipt": "native-event-closure-voxel.json"
+  },
+  {
+    "event": "flight_map",
+    "extra": {
+      "SEVII_QA_WITH_FLY": "1"
+    },
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...bility-20261007/tests/sevii_native_flight_map_driver.lua:86: native Fly animation must land on charted island two"
+    ],
+    "result": "fix-after-quick-events-flight_map-voxel0361-final-v7",
+    "source_receipt": "native-event-closure-voxel.json"
+  },
+  {
+    "event": "testimonies",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_TESTIMONIES_CAPTURE_RELOAD_PASS\tARCEUS",
+      "SEVII_NATIVE_TESTIMONIES_PASS\t1780\t64\t72\t8"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-testimonies-voxel0361-final-v7",
+    "source_receipt": "native-event-closure-voxel.json"
+  },
+  {
+    "event": "legacy_access",
+    "mode": "flat",
+    "extra": {},
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_LEGACY_ACCESS_PASS\t7\t14\t16\tfirst-cycle-find-shop-reload-rematch"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-legacy_access-flat0361-final-v6",
+    "source_receipt": "native-event-continuity.json"
+  },
+  {
+    "event": "hoenn_continuity",
+    "mode": "flat",
+    "extra": {
+      "SEVII_HOENN_MODE": "capture"
+    },
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tGROUDON",
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tKYOGRE",
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tRAYQUAZA",
+      "SEVII_CURRENT_HOENN_CONTINUITY_PASS\tcapture"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-hoenn_continuity-capture-flat0361-final-v6",
+    "source_receipt": "native-event-continuity.json"
+  },
+  {
+    "event": "hoenn_continuity",
+    "mode": "voxel",
+    "extra": {
+      "SEVII_HOENN_MODE": "capture"
+    },
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tGROUDON",
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tKYOGRE",
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tRAYQUAZA",
+      "SEVII_CURRENT_HOENN_CONTINUITY_PASS\tcapture"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-hoenn_continuity-capture-voxel0361-final-v6",
+    "source_receipt": "native-event-continuity.json"
+  },
+  {
+    "event": "hoenn_continuity",
+    "mode": "flat",
+    "extra": {
+      "SEVII_HOENN_MODE": "witness"
+    },
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tGROUDON",
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tKYOGRE",
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tRAYQUAZA",
+      "SEVII_CURRENT_HOENN_CONTINUITY_PASS\twitness"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-hoenn_continuity-witness-flat0361-final-v6",
+    "source_receipt": "native-event-continuity.json"
+  },
+  {
+    "event": "hoenn_continuity",
+    "mode": "voxel",
+    "extra": {
+      "SEVII_HOENN_MODE": "witness"
+    },
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tGROUDON",
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tKYOGRE",
+      "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tRAYQUAZA",
+      "SEVII_CURRENT_HOENN_CONTINUITY_PASS\twitness"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-hoenn_continuity-witness-voxel0361-final-v6",
+    "source_receipt": "native-event-continuity.json"
+  },
+  {
+    "event": "trainer_profiles",
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_TRAINER_PROFILES_PASS\t264\tslots across Gen1-4, no unsupported move placeholders, deferred reward, profile change, reload, cancel, checkpoint guard, abandoned battle reload"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-trainer_profiles-flat0361-final-v5",
+    "source_receipt": "native-event-extra.json"
+  },
+  {
+    "event": "legacy_access",
+    "mode": "flat",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...ity-20261007/tests/sevii_native_legacy_access_driver.lua:135: native Sevii rematch starts"
+    ],
+    "result": "fix-after-quick-events-legacy_access-flat0361-final-v5",
+    "source_receipt": "native-event-extra.json"
+  },
+  {
+    "event": "medicine",
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_MEDICINE_PASS\tseven purchases; seven actual field uses; seven actual battle turns; heal, cure, revive, friendship and save/load"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-medicine-flat0361-final-v5",
+    "source_receipt": "native-event-extra.json"
+  },
+  {
+    "event": "trainer_profiles",
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_TRAINER_PROFILES_PASS\t264\tslots across Gen1-4, no unsupported move placeholders, deferred reward, profile change, reload, cancel, checkpoint guard, abandoned battle reload"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-trainer_profiles-voxel0361-final-v5",
+    "source_receipt": "native-event-extra.json"
+  },
+  {
+    "event": "legacy_access",
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_LEGACY_ACCESS_PASS\t7\t14\t16\tfirst-cycle-find-shop-reload-rematch"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-legacy_access-voxel0361-final-v5",
+    "source_receipt": "native-event-extra.json"
+  },
+  {
+    "event": "medicine",
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...yability-20261007/tests/sevii_native_medicine_driver.lua:87: purchased medicine absent in Bag MOOMOO_MILK"
+    ],
+    "result": "fix-after-quick-events-medicine-voxel0361-final-v5",
+    "source_receipt": "native-event-extra.json"
+  },
+  {
+    "event": "recovery",
+    "mode": "flat",
+    "extra": {},
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_PP_MAX_CANCEL_PASS",
+      "SEVII_PP_MAX_CHOSEN_MOVE_AND_MENU_RETURN_PASS",
+      "SEVII_PP_MAX_MAXED_REFUSAL_AND_MENU_RETURN_PASS",
+      "SEVII_RECOVERY_FLUTE_PASS\tBLUE_FLUTE",
+      "SEVII_RECOVERY_FLUTE_PASS\tYELLOW_FLUTE",
+      "SEVII_RECOVERY_FLUTE_PASS\tRED_FLUTE",
+      "SEVII_NATIVE_RECOVERY_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-recovery-flat0361-final-v8",
+    "source_receipt": "native-event-final-flat.json"
+  },
+  {
+    "event": "population",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_PURCHASED_BERRY_NATIVE_EFFECT_PASS\tLiechi: shop, equipment, reload, attack boost, consumption, reload",
+      "SEVII_NATIVE_POPULATION_PASS\t40\tresident conversations; seven purchases, seven PCs, seven journals, full-Bag retry, saved rewards, Gen2/3 berry purchases"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-population-voxel0361-final-v8",
+    "source_receipt": "native-event-final-voxel.json"
+  },
+  {
+    "event": "recovery",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_PP_MAX_CANCEL_PASS",
+      "SEVII_PP_MAX_CHOSEN_MOVE_AND_MENU_RETURN_PASS",
+      "SEVII_PP_MAX_MAXED_REFUSAL_AND_MENU_RETURN_PASS",
+      "SEVII_RECOVERY_FLUTE_PASS\tBLUE_FLUTE",
+      "SEVII_RECOVERY_FLUTE_PASS\tYELLOW_FLUTE",
+      "SEVII_RECOVERY_FLUTE_PASS\tRED_FLUTE",
+      "SEVII_NATIVE_RECOVERY_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-recovery-voxel0361-final-v8",
+    "source_receipt": "native-event-final-voxel.json"
+  },
+  {
+    "event": "flight_map",
+    "extra": {
+      "SEVII_QA_WITH_FLY": "1"
+    },
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_FLIGHT_MAP_PASS\t7"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-flight_map-voxel0361-final-v8",
+    "source_receipt": "native-event-final-voxel.json"
+  },
+  {
+    "event": "medicine",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_MEDICINE_PASS\tseven purchases; seven actual field uses; seven actual battle turns; heal, cure, revive, friendship and save/load"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-medicine-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "population",
+    "extra": {},
+    "mode": "flat",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...bility-20261007/tests/sevii_native_population_driver.lua:33: menu never appeared"
+    ],
+    "result": "fix-after-quick-events-population-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "legend_catalog",
+    "extra": {},
+    "mode": "flat",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/sevii_native_legend_catalog_driver.lua:31: reviewed authored outdoor surfaces"
+    ],
+    "result": "fix-after-quick-events-legend_catalog-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "finds",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_FINDS_APRICORN_PASS\tseven purchases/formulas; 14 full-Bag retries, pickups, sales and persistent receipts; purchased Friend Ball real capture/reload"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-finds-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "recovery",
+    "extra": {},
+    "mode": "flat",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...yability-20261007/tests/sevii_native_recovery_driver.lua:105: real PP Max move picker"
+    ],
+    "result": "fix-after-quick-events-recovery-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "balls",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_BALL_TIMER_ITEM_TURNS_PASS\t2",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tNET_BALL\t3",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tNEST_BALL\t3.5",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tREPEAT_BALL\t3",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tTIMER_BALL\t1",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tPREMIER_BALL\t1",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tDIVE_BALL\t1",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tLUXURY_BALL\t1",
+      "SEVII_NATIVE_RESEARCH_BALLS_PASS\t7"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-balls-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "fluffy_tail",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_FLUFFY_TAIL_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-fluffy_tail-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "dive_ball",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_DIVE_BALL_PASS\tHUNTAIL\tMAGIKARP"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-dive_ball-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "walking_encounters",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_WALKING_ENCOUNTERS_PASS\t3"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-walking_encounters-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "visible",
+    "extra": {},
+    "mode": "flat",
+    "exit": 1,
+    "passed": false,
+    "markers": [
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tTURTWIG\tTREECKO"
+    ],
+    "errors": [
+      "driver error: ...ayability-20261007/tests/sevii_native_visible_driver.lua:46: natural visible spawn pipeline ROTOM"
+    ],
+    "result": "fix-after-quick-events-visible-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "regi_return",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_REGI_RETURN_CAPTURE_PASS\tREGIROCK",
+      "SEVII_REGI_RETURN_CAPTURE_PASS\tREGICE",
+      "SEVII_REGI_RETURN_CAPTURE_PASS\tREGISTEEL",
+      "SEVII_REGI_RETURN_CAPTURE_PASS\tREGIGIGAS",
+      "SEVII_NATIVE_REGI_RETURN_PASS\t1695\t100\t26\t4"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-regi_return-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "tidal",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_TIDAL_CAPTURE_RELOAD_PASS\tPHIONE",
+      "SEVII_TIDAL_CAPTURE_RELOAD_PASS\tMANAPHY",
+      "SEVII_NATIVE_TIDAL_RETURN_PASS\t1358\t76\t18\t1"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-tidal-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "aftermath",
+    "extra": {
+      "SEVII_QA_SEED_PROFILE": "fix-after-journey-continuous-flat0361-final-v6"
+    },
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_AFTERMATH_PASS\tfixed story stones resist Strength; German finale labels rendered"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-aftermath-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "flight_map",
+    "extra": {
+      "SEVII_QA_WITH_FLY": "1"
+    },
+    "mode": "flat",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...bility-20261007/tests/sevii_native_flight_map_driver.lua:11: assertion failed!"
+    ],
+    "result": "fix-after-quick-events-flight_map-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "lucky_egg",
+    "extra": {
+      "SEVII_QA_SEED_PROFILE": "fix-after-quick-tower-native-flat0361-v3"
+    },
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_LUCKY_EGG_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-lucky_egg-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "weather_seals",
+    "extra": {
+      "SEVII_WEATHER_CHARACTER": "RED",
+      "SEVII_WEATHER_CAPTURE": "1",
+      "SEVII_WEATHER_CAPTURE_ORAS": "1",
+      "SEVII_WEATHER_NGPLUS": "1"
+    },
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_WEATHER_BATTLE_NATIVE_PASS\tRED",
+      "SEVII_WEATHER_CAPTURE_NATIVE_PASS\tRED",
+      "SEVII_WEATHER_SEALS_NATIVE_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-weather_seals-red-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "time_space",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_TIME_SPACE_CAPTURE_RELOAD_PASS\tDIALGA",
+      "SEVII_TIME_SPACE_CAPTURE_RELOAD_PASS\tPALKIA",
+      "SEVII_NATIVE_TIME_SPACE_PASS\t1892\t92\t39\t1"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-time_space-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "testimonies",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_TESTIMONIES_CAPTURE_RELOAD_PASS\tARCEUS",
+      "SEVII_NATIVE_TESTIMONIES_PASS\t1780\t64\t72\t8"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-testimonies-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "rematch",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_REMATCH_PASS\t75\t77\t1"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-rematch-flat0361-final-v4",
+    "source_receipt": "native-event-finish-flat.json"
+  },
+  {
+    "event": "medicine",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_MEDICINE_PASS\tseven purchases; seven actual field uses; seven actual battle turns; heal, cure, revive, friendship and save/load"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-medicine-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "population",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...bility-20261007/tests/sevii_native_population_driver.lua:33: menu never appeared"
+    ],
+    "result": "fix-after-quick-events-population-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "legend_catalog",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/sevii_native_legend_catalog_driver.lua:31: reviewed authored outdoor surfaces"
+    ],
+    "result": "fix-after-quick-events-legend_catalog-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "finds",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_FINDS_APRICORN_PASS\tseven purchases/formulas; 14 full-Bag retries, pickups, sales and persistent receipts; purchased Friend Ball real capture/reload"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-finds-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "recovery",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...yability-20261007/tests/sevii_native_recovery_driver.lua:105: real PP Max move picker"
+    ],
+    "result": "fix-after-quick-events-recovery-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "visible",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tTURTWIG\tSLAKOTH"
+    ],
+    "errors": [
+      "driver error: ...ayability-20261007/tests/sevii_native_visible_driver.lua:46: natural visible spawn pipeline ROTOM"
+    ],
+    "result": "fix-after-quick-events-visible-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "regi_return",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_REGI_RETURN_CAPTURE_PASS\tREGIROCK",
+      "SEVII_REGI_RETURN_CAPTURE_PASS\tREGICE",
+      "SEVII_REGI_RETURN_CAPTURE_PASS\tREGISTEEL",
+      "SEVII_REGI_RETURN_CAPTURE_PASS\tREGIGIGAS",
+      "SEVII_NATIVE_REGI_RETURN_PASS\t1695\t100\t26\t4"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-regi_return-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "tidal",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_TIDAL_CAPTURE_RELOAD_PASS\tPHIONE",
+      "SEVII_TIDAL_CAPTURE_RELOAD_PASS\tMANAPHY",
+      "SEVII_NATIVE_TIDAL_RETURN_PASS\t1358\t76\t18\t1"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-tidal-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "aftermath",
+    "extra": {
+      "SEVII_QA_SEED_PROFILE": "fix-after-journey-continuous-voxel0361-final-v5"
+    },
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_AFTERMATH_PASS\tfixed story stones resist Strength; German finale labels rendered"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-aftermath-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "flight_map",
+    "extra": {
+      "SEVII_QA_WITH_FLY": "1"
+    },
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...bility-20261007/tests/sevii_native_flight_map_driver.lua:11: assertion failed!"
+    ],
+    "result": "fix-after-quick-events-flight_map-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "lucky_egg",
+    "extra": {
+      "SEVII_QA_SEED_PROFILE": "fix-after-quick-tower-native-voxel0361-v3"
+    },
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_LUCKY_EGG_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-lucky_egg-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "weather_seals",
+    "extra": {
+      "SEVII_WEATHER_CHARACTER": "RED",
+      "SEVII_WEATHER_CAPTURE": "1",
+      "SEVII_WEATHER_CAPTURE_ORAS": "1",
+      "SEVII_WEATHER_NGPLUS": "1"
+    },
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_WEATHER_BATTLE_NATIVE_PASS\tRED",
+      "SEVII_WEATHER_CAPTURE_NATIVE_PASS\tRED",
+      "SEVII_WEATHER_SEALS_NATIVE_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-weather_seals-red-voxel0361-final-v4",
+    "source_receipt": "native-event-finish-voxel.json"
+  },
+  {
+    "event": "guardians",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tUXIE",
+      "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tMESPRIT",
+      "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tAZELF",
+      "SEVII_NATIVE_LAKE_GUARDIANS_PASS\t3\t1420\t76\t27\t5"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-guardians-flat0361-final-v2",
+    "source_receipt": "native-event-retries-flat.json"
+  },
+  {
+    "event": "services",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_ISLAND_SERVICES_NATIVE_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-services-flat0361-final-v2",
+    "source_receipt": "native-event-retries-flat.json"
+  },
+  {
+    "event": "services_regression",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_SERVICES_PASS\tshop buy/sell\thouse PC collision\tCenter PC access\tcamera persistence"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-services_regression-flat0361-final-v2",
+    "source_receipt": "native-event-retries-flat.json"
+  },
+  {
+    "event": "field_flutes",
+    "extra": {},
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_FIELD_FLUTES_NATIVE_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-field_flutes-flat0361-final-v2",
+    "source_receipt": "native-event-retries-flat.json"
+  },
+  {
+    "event": "finds",
+    "extra": {},
+    "mode": "flat",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...playability-20261007/tests/sevii_native_finds_driver.lua:70: full stack does not consume find"
+    ],
+    "result": "fix-after-quick-events-finds-flat0361-final-v2",
+    "source_receipt": "native-event-retries-flat.json"
+  },
+  {
+    "event": "regi_seals",
+    "extra": {
+      "SEVII_REGI_SPECIES": "REGIROCK",
+      "SEVII_REGI_CAPTURE": "1"
+    },
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGIROCK",
+      "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGIROCK"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-regi_seals-regirock-flat0361-final-v2",
+    "source_receipt": "native-event-retries-flat.json"
+  },
+  {
+    "event": "regi_seals",
+    "extra": {
+      "SEVII_REGI_SPECIES": "REGICE",
+      "SEVII_REGI_CAPTURE": "1"
+    },
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGICE",
+      "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGICE"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-regi_seals-regice-flat0361-final-v2",
+    "source_receipt": "native-event-retries-flat.json"
+  },
+  {
+    "event": "regi_seals",
+    "extra": {
+      "SEVII_REGI_SPECIES": "REGISTEEL",
+      "SEVII_REGI_CAPTURE": "1"
+    },
+    "mode": "flat",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGISTEEL",
+      "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGISTEEL"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-regi_seals-registeel-flat0361-final-v2",
+    "source_receipt": "native-event-retries-flat.json"
+  },
+  {
+    "event": "guardians",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tUXIE",
+      "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tMESPRIT",
+      "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tAZELF",
+      "SEVII_NATIVE_LAKE_GUARDIANS_PASS\t3\t1420\t76\t27\t5"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-guardians-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "services",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...yability-20261007/tests/sevii_native_services_driver.lua:33: shared nursery menu missing"
+    ],
+    "result": "fix-after-quick-events-services-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "services_regression",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_SERVICES_PASS\tshop buy/sell\thouse PC collision\tCenter PC access\tcamera persistence"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-services_regression-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "field_flutes",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_FIELD_FLUTES_NATIVE_PASS"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-field_flutes-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "finds",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 1,
+    "passed": false,
+    "markers": [],
+    "errors": [
+      "driver error: ...playability-20261007/tests/sevii_native_finds_driver.lua:70: full stack does not consume find"
+    ],
+    "result": "fix-after-quick-events-finds-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "dreams",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_DREAM_CAPTURE_RELOAD_PASS\tCRESSELIA",
+      "SEVII_DREAM_CAPTURE_RELOAD_PASS\tDARKRAI",
+      "SEVII_NATIVE_MOONLIT_NIGHT_PASS\t2\t897\t50\t40\t1"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-dreams-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "giant",
+    "extra": {},
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_NATIVE_SLEEPING_GIANT_PASS\t1119\t62\t18\t1"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-giant-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "regi_seals",
+    "extra": {
+      "SEVII_REGI_SPECIES": "REGIROCK",
+      "SEVII_REGI_CAPTURE": "1"
+    },
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGIROCK",
+      "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGIROCK"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-regi_seals-regirock-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "regi_seals",
+    "extra": {
+      "SEVII_REGI_SPECIES": "REGICE",
+      "SEVII_REGI_CAPTURE": "1"
+    },
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGICE",
+      "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGICE"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-regi_seals-regice-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "regi_seals",
+    "extra": {
+      "SEVII_REGI_SPECIES": "REGISTEEL",
+      "SEVII_REGI_CAPTURE": "1"
+    },
+    "mode": "voxel",
+    "exit": 0,
+    "passed": true,
+    "markers": [
+      "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGISTEEL",
+      "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGISTEEL"
+    ],
+    "errors": [],
+    "result": "fix-after-quick-events-regi_seals-registeel-voxel0361-final-v2",
+    "source_receipt": "native-event-retries-voxel.json"
+  },
+  {
+    "event": "mysteries",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...-playability-20261007/tests/sevii_journey_navigation.lua:90: no physical journey path KA_SEVII_MT_EMBER_RUBY_PATH_1_F:21:11 -> KA_SEVII_MT_EMBER_RUBY_PATH_B3_F:6:14"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-mysteries-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "guardians",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ability-20261007/tests/sevii_native_guardians_driver.lua:49: canonical guardian and level"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-guardians-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "old_legends",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_OLD_LEGENDS_PASS\t9"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-old_legends-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "eon",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...i-playability-20261007/tests/sevii_native_eon_driver.lua:126: one native local roll CELADON_CITY: 0"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-eon-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "regi_seals",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGIROCK"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-regi_seals-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "regi_return",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ility-20261007/tests/sevii_native_regi_return_driver.lua:91: each old puzzle is required REGIROCK"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-regi_return-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "dreams",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_DREAM_CAPTURE_RELOAD_PASS\tCRESSELIA",
+      "SEVII_DREAM_CAPTURE_RELOAD_PASS\tDARKRAI",
+      "SEVII_NATIVE_MOONLIT_NIGHT_PASS\t2\t897\t50\t40\t1"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-dreams-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "giant",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_SLEEPING_GIANT_PASS\t1119\t62\t18\t1"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-giant-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "jirachi_convergence",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_JIRACHI_CONVERGENCE_ONLY_NATIVE_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-jirachi_convergence-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "garden",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_GARDEN_CAPTURE_RELOAD_PASS\tSHAYMIN",
+      "SEVII_NATIVE_GARDEN_PASS\t1764\t110\t14\t1"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-garden-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "nursery",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_NURSERY_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-nursery-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "services",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_ISLAND_SERVICES_NATIVE_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-services-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "services_regression",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...261007/tests/sevii_native_services_regression_driver.lua:24: first island clerk must open the mart menu"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-services_regression-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "field_flutes",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...lity-20261007/tests/sevii_native_field_flutes_driver.lua:29: assertion failed!"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-field_flutes-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "finds",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...playability-20261007/tests/sevii_native_finds_driver.lua:51: native price confirmation"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-finds-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "ruins",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_RUINS_PASS\tfour real floors, wrong exit, reload, visible Giratina, no battle, report"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-ruins-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "testimonies",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ility-20261007/tests/sevii_native_testimonies_driver.lua:75: canonical testimonies legend/level"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-testimonies-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "aftermath",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ability-20261007/tests/sevii_native_aftermath_driver.lua:8: assertion failed!"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-aftermath-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "recovery",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...yability-20261007/tests/sevii_native_recovery_driver.lua:49: native price confirmation"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-recovery-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "rematch",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ayability-20261007/tests/sevii_native_rematch_driver.lua:30: native Sevii battle"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-rematch-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "flight_map",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...bility-20261007/tests/sevii_native_flight_map_driver.lua:4: assertion failed!"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-flight_map-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "rocket_transition",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_ROCKET_RETIRED_PROMPT_PASS",
+      "SEVII_ROCKET_UNOWNED_PENDING_RELOAD_PASS",
+      "SEVII_ROCKET_TRANSITION_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-rocket_transition-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "time_space",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...bility-20261007/tests/sevii_native_time_space_driver.lua:67: canonical time-space legend/level"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-time_space-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "weather_seals",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ity-20261007/tests/sevii_native_weather_seals_driver.lua:84: attempt to index field 'weatherSealAwakened' (a nil value)"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-weather_seals-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "hoenn_continuity",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...-20261007/tests/sevii_native_hoenn_continuity_driver.lua:76: original portal prerequisite fixture"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-hoenn_continuity-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "legend_history",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_HISTORY_GIFT_RELEASE_RELOAD_PASS",
+      "SEVII_HISTORY_FAILED_SAVE_RETRY_PASS",
+      "SEVII_HISTORY_NATIVE_CAPTURE_PASS\tKA_GIFT_NAT_485",
+      "SEVII_HISTORY_NATIVE_CAPTURE_PASS\tMOLTRES",
+      "SEVII_LEGEND_HISTORY_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-legend_history-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "legend_policy",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_LEGEND_POLICY_PASS\t6\tGiratina profiles; direct gifts, code preflight, pending retention, ordinary PC delivery, historical ownership, Master Ball guard"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-legend_policy-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "legend_catalog",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/sevii_native_legend_catalog_driver.lua:20: all six original owners bound to the same lifetime authority"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-legend_catalog-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "item_audit",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [],
+    "errors": [],
+    "passed": false,
+    "result": "fix-after-quick-events-item_audit-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "evolution_all_items",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_EVOLUTION_FIND_PASS\tPRISM_SCALE",
+      "SEVII_EVOLUTION_FIND_PASS\tDEEP_SEA_TOOTH",
+      "SEVII_EVOLUTION_FIND_PASS\tDEEP_SEA_SCALE",
+      "SEVII_EVOLUTION_FIND_PASS\tPROTECTOR",
+      "SEVII_EVOLUTION_FIND_PASS\tMAGMARIZER",
+      "SEVII_EVOLUTION_FIND_PASS\tRAZOR_FANG",
+      "SEVII_EVOLUTION_FIND_PASS\tELECTIRIZER",
+      "SEVII_EVOLUTION_FIND_PASS\tRAZOR_CLAW",
+      "SEVII_EVOLUTION_FIND_PASS\tDUBIOUS_DISC",
+      "SEVII_EVOLUTION_FIND_PASS\tSHINY_STONE",
+      "SEVII_EVOLUTION_FIND_PASS\tDUSK_STONE",
+      "SEVII_EVOLUTION_FIND_PASS\tDAWN_STONE",
+      "SEVII_EVOLUTION_FIND_PASS\tREAPER_CLOTH",
+      "SEVII_EVOLUTION_FIND_PASS\tOVAL_STONE",
+      "SEVII_EVOLUTION_FIND_PASS\tMAGNETIC_CORE",
+      "SEVII_EVOLUTION_SHOP_PASS\tPRISM_SCALE",
+      "SEVII_EVOLUTION_SHOP_PASS\tDEEP_SEA_TOOTH",
+      "SEVII_EVOLUTION_SHOP_PASS\tDEEP_SEA_SCALE",
+      "SEVII_EVOLUTION_SHOP_PASS\tPROTECTOR",
+      "SEVII_EVOLUTION_SHOP_PASS\tMAGMARIZER",
+      "SEVII_EVOLUTION_SHOP_PASS\tRAZOR_FANG",
+      "SEVII_EVOLUTION_SHOP_PASS\tELECTIRIZER",
+      "SEVII_EVOLUTION_SHOP_PASS\tRAZOR_CLAW",
+      "SEVII_EVOLUTION_SHOP_PASS\tDUBIOUS_DISC",
+      "SEVII_EVOLUTION_SHOP_PASS\tSHINY_STONE",
+      "SEVII_EVOLUTION_SHOP_PASS\tDUSK_STONE",
+      "SEVII_EVOLUTION_SHOP_PASS\tDAWN_STONE",
+      "SEVII_EVOLUTION_SHOP_PASS\tREAPER_CLOTH",
+      "SEVII_EVOLUTION_SHOP_PASS\tOVAL_STONE",
+      "SEVII_EVOLUTION_SHOP_PASS\tMAGNETIC_CORE",
+      "SEVII_EVOLUTION_ALL_ITEMS_PASS\t15"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-evolution_all_items-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "breeding_audit",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_LEGEND_BREEDING_AUDIT_PASS\t24\t0"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-breeding_audit-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "gs_ball",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_GS_BALL_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-gs_ball-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "lucky_egg",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ability-20261007/tests/sevii_native_lucky_egg_driver.lua:8: assertion failed!"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-lucky_egg-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "zinc",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_ZINC_PASS\tpurchase, Zinc and Calcium Bag use, bred stats, Oak trial, save/load"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-zinc-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "medicine",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_MEDICINE_PASS\tseven purchases; seven actual field uses; seven actual battle turns; heal, cure, revive, friendship and save/load"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-medicine-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "balls",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/habitat_playthrough/drivers/common.lua:30: UI or native world scene did not settle"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-balls-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "fluffy_tail",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/habitat_playthrough/drivers/common.lua:30: UI or native world scene did not settle"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-fluffy_tail-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "dive_ball",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/habitat_playthrough/drivers/common.lua:30: UI or native world scene did not settle"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-dive_ball-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "visible",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tTURTWIG\tTURTWIG"
+    ],
+    "errors": [
+      "driver error: ...ayability-20261007/tests/sevii_native_visible_driver.lua:39: natural visible spawn pipeline ROTOM"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-visible-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "walking_encounters",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...0261007/tests/sevii_native_walking_encounters_driver.lua:77: native walking battle FEEBAS"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-walking_encounters-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "balance",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [],
+    "errors": [],
+    "passed": false,
+    "result": "fix-after-quick-events-balance-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "level_scaling",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_LEVEL_SCALING_PASS\t13\tferries\t80\twild\t90\ttrainer\t92\tlegend"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-level_scaling-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "trainer_profiles",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...-20261007/tests/sevii_native_trainer_profiles_driver.lua:57: assertion failed!"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-trainer_profiles-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "ngplus_legend",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_NGPLUS_LEGENDS_PASS\t1"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-ngplus_legend-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "ngplus_menu",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_NGPLUS_MENU_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-ngplus_menu-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "moltres_continuity",
+    "mode": "flat",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_MOLTRES_CONTINUITY_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-moltres_continuity-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "legacy_access",
+    "mode": "flat",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ity-20261007/tests/sevii_native_legacy_access_driver.lua:134: native Sevii rematch starts"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-legacy_access-flat0361-final-v1",
+    "source_receipt": "native-event-sweep-flat.json"
+  },
+  {
+    "event": "mysteries",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...-playability-20261007/tests/sevii_journey_navigation.lua:90: no physical journey path KA_SEVII_MT_EMBER_RUBY_PATH_1_F:21:11 -> KA_SEVII_MT_EMBER_RUBY_PATH_B3_F:6:14"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-mysteries-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "guardians",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ability-20261007/tests/sevii_native_guardians_driver.lua:49: canonical guardian and level"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-guardians-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "old_legends",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_OLD_LEGENDS_PASS\t9"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-old_legends-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "eon",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...i-playability-20261007/tests/sevii_native_eon_driver.lua:126: one native local roll CELADON_CITY: 0"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-eon-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "regi_seals",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGIROCK"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-regi_seals-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "regi_return",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ility-20261007/tests/sevii_native_regi_return_driver.lua:91: each old puzzle is required REGIROCK"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-regi_return-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "dreams",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/habitat_playthrough/drivers/common.lua:127: bag navigation"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-dreams-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "giant",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/habitat_playthrough/drivers/common.lua:127: bag navigation"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-giant-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "jirachi_convergence",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_JIRACHI_CONVERGENCE_ONLY_NATIVE_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-jirachi_convergence-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "garden",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_GARDEN_CAPTURE_RELOAD_PASS\tSHAYMIN",
+      "SEVII_NATIVE_GARDEN_PASS\t1764\t110\t14\t1"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-garden-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "nursery",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_NURSERY_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-nursery-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "services",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...yability-20261007/tests/sevii_native_services_driver.lua:33: shared nursery menu missing"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-services-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "services_regression",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...261007/tests/sevii_native_services_regression_driver.lua:24: first island clerk must open the mart menu"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-services_regression-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "field_flutes",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...lity-20261007/tests/sevii_native_field_flutes_driver.lua:29: assertion failed!"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-field_flutes-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "finds",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...playability-20261007/tests/sevii_native_finds_driver.lua:51: native price confirmation"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-finds-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "ruins",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_RUINS_PASS\tfour real floors, wrong exit, reload, visible Giratina, no battle, report"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-ruins-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "testimonies",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ility-20261007/tests/sevii_native_testimonies_driver.lua:75: canonical testimonies legend/level"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-testimonies-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "aftermath",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ability-20261007/tests/sevii_native_aftermath_driver.lua:8: assertion failed!"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-aftermath-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "recovery",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...yability-20261007/tests/sevii_native_recovery_driver.lua:69: six recovery shop supplies"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-recovery-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "rematch",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_REMATCH_PASS\t75\t77\t1"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-rematch-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "flight_map",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...bility-20261007/tests/sevii_native_flight_map_driver.lua:11: assertion failed!"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-flight_map-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "rocket_transition",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_ROCKET_RETIRED_PROMPT_PASS",
+      "SEVII_ROCKET_UNOWNED_PENDING_RELOAD_PASS",
+      "SEVII_ROCKET_TRANSITION_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-rocket_transition-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "time_space",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_TIME_SPACE_CAPTURE_RELOAD_PASS\tDIALGA",
+      "SEVII_TIME_SPACE_CAPTURE_RELOAD_PASS\tPALKIA",
+      "SEVII_NATIVE_TIME_SPACE_PASS\t1892\t92\t39\t1"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-time_space-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "weather_seals",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_WEATHER_BATTLE_NATIVE_PASS\tRED",
+      "SEVII_WEATHER_SEALS_NATIVE_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-weather_seals-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "hoenn_continuity",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...-20261007/tests/sevii_native_hoenn_continuity_driver.lua:76: original portal prerequisite fixture"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-hoenn_continuity-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "legend_history",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_HISTORY_GIFT_RELEASE_RELOAD_PASS",
+      "SEVII_HISTORY_FAILED_SAVE_RETRY_PASS",
+      "SEVII_HISTORY_NATIVE_CAPTURE_PASS\tKA_GIFT_NAT_485",
+      "SEVII_HISTORY_NATIVE_CAPTURE_PASS\tMOLTRES",
+      "SEVII_LEGEND_HISTORY_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-legend_history-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "legend_policy",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_LEGEND_POLICY_PASS\t6\tGiratina profiles; direct gifts, code preflight, pending retention, ordinary PC delivery, historical ownership, Master Ball guard"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-legend_policy-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "legend_catalog",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ty-20261007/tests/sevii_native_legend_catalog_driver.lua:31: reviewed authored outdoor surfaces"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-legend_catalog-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "item_audit",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [],
+    "errors": [],
+    "passed": false,
+    "result": "fix-after-quick-events-item_audit-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "evolution_all_items",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_EVOLUTION_FIND_PASS\tPRISM_SCALE",
+      "SEVII_EVOLUTION_FIND_PASS\tDEEP_SEA_TOOTH",
+      "SEVII_EVOLUTION_FIND_PASS\tDEEP_SEA_SCALE",
+      "SEVII_EVOLUTION_FIND_PASS\tPROTECTOR",
+      "SEVII_EVOLUTION_FIND_PASS\tMAGMARIZER",
+      "SEVII_EVOLUTION_FIND_PASS\tRAZOR_FANG",
+      "SEVII_EVOLUTION_FIND_PASS\tELECTIRIZER",
+      "SEVII_EVOLUTION_FIND_PASS\tRAZOR_CLAW",
+      "SEVII_EVOLUTION_FIND_PASS\tDUBIOUS_DISC",
+      "SEVII_EVOLUTION_FIND_PASS\tSHINY_STONE",
+      "SEVII_EVOLUTION_FIND_PASS\tDUSK_STONE",
+      "SEVII_EVOLUTION_FIND_PASS\tDAWN_STONE",
+      "SEVII_EVOLUTION_FIND_PASS\tREAPER_CLOTH",
+      "SEVII_EVOLUTION_FIND_PASS\tOVAL_STONE",
+      "SEVII_EVOLUTION_FIND_PASS\tMAGNETIC_CORE",
+      "SEVII_EVOLUTION_SHOP_PASS\tPRISM_SCALE",
+      "SEVII_EVOLUTION_SHOP_PASS\tDEEP_SEA_TOOTH",
+      "SEVII_EVOLUTION_SHOP_PASS\tDEEP_SEA_SCALE",
+      "SEVII_EVOLUTION_SHOP_PASS\tPROTECTOR",
+      "SEVII_EVOLUTION_SHOP_PASS\tMAGMARIZER",
+      "SEVII_EVOLUTION_SHOP_PASS\tRAZOR_FANG",
+      "SEVII_EVOLUTION_SHOP_PASS\tELECTIRIZER",
+      "SEVII_EVOLUTION_SHOP_PASS\tRAZOR_CLAW",
+      "SEVII_EVOLUTION_SHOP_PASS\tDUBIOUS_DISC",
+      "SEVII_EVOLUTION_SHOP_PASS\tSHINY_STONE",
+      "SEVII_EVOLUTION_SHOP_PASS\tDUSK_STONE",
+      "SEVII_EVOLUTION_SHOP_PASS\tDAWN_STONE",
+      "SEVII_EVOLUTION_SHOP_PASS\tREAPER_CLOTH",
+      "SEVII_EVOLUTION_SHOP_PASS\tOVAL_STONE",
+      "SEVII_EVOLUTION_SHOP_PASS\tMAGNETIC_CORE",
+      "SEVII_EVOLUTION_ALL_ITEMS_PASS\t15"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-evolution_all_items-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "breeding_audit",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_LEGEND_BREEDING_AUDIT_PASS\t24\t0"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-breeding_audit-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "gs_ball",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_GS_BALL_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-gs_ball-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "lucky_egg",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...ability-20261007/tests/sevii_native_lucky_egg_driver.lua:8: assertion failed!"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-lucky_egg-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "zinc",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_ZINC_PASS\tpurchase, Zinc and Calcium Bag use, bred stats, Oak trial, save/load"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-zinc-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "medicine",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [],
+    "errors": [
+      "driver error: ...yability-20261007/tests/sevii_native_medicine_driver.lua:87: purchased medicine absent in Bag MOOMOO_MILK"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-medicine-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "balls",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_BALL_TIMER_ITEM_TURNS_PASS\t2",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tNET_BALL\t3",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tNEST_BALL\t3.5",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tREPEAT_BALL\t3",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tTIMER_BALL\t1",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tPREMIER_BALL\t1",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tDIVE_BALL\t1",
+      "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tLUXURY_BALL\t1",
+      "SEVII_NATIVE_RESEARCH_BALLS_PASS\t7"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-balls-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "fluffy_tail",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_FLUFFY_TAIL_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-fluffy_tail-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "dive_ball",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_DIVE_BALL_PASS\tHUNTAIL\tMAGIKARP"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-dive_ball-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "visible",
+    "mode": "voxel",
+    "exit": 1,
+    "markers": [
+      "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tTURTWIG\tROSERADE"
+    ],
+    "errors": [
+      "driver error: ...ayability-20261007/tests/sevii_native_visible_driver.lua:39: natural visible spawn pipeline ROTOM"
+    ],
+    "passed": false,
+    "result": "fix-after-quick-events-visible-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "walking_encounters",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_WALKING_ENCOUNTERS_PASS\t3"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-walking_encounters-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "balance",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [],
+    "errors": [],
+    "passed": false,
+    "result": "fix-after-quick-events-balance-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "level_scaling",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_LEVEL_SCALING_PASS\t13\tferries\t80\twild\t90\ttrainer\t92\tlegend"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-level_scaling-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "trainer_profiles",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_TRAINER_PROFILES_PASS\t264\tslots across Gen1-4, no unsupported move placeholders, deferred reward, profile change, reload, cancel, checkpoint guard, abandoned battle reload"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-trainer_profiles-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "ngplus_legend",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_NGPLUS_LEGENDS_PASS\t1"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-ngplus_legend-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "ngplus_menu",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_NGPLUS_MENU_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-ngplus_menu-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "moltres_continuity",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_MOLTRES_CONTINUITY_PASS"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-moltres_continuity-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  },
+  {
+    "event": "legacy_access",
+    "mode": "voxel",
+    "exit": 0,
+    "markers": [
+      "SEVII_NATIVE_LEGACY_ACCESS_PASS\t7\t14\t16\tfirst-cycle-find-shop-reload-rematch"
+    ],
+    "errors": [],
+    "passed": true,
+    "result": "fix-after-quick-events-legacy_access-voxel0361-final-v1",
+    "source_receipt": "native-event-sweep-voxel.json"
+  }
+]

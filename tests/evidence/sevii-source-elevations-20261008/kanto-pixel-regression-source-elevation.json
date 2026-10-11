@@ -1,0 +1,199 @@
+{
+  "passed": true,
+  "maps": 16,
+  "rows": [
+    {
+      "map": "PALLET_TOWN",
+      "file": "kanto-PALLET_TOWN.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "VIRIDIAN_CITY",
+      "file": "kanto-VIRIDIAN_CITY.png",
+      "before": "fix-before-quick-kanto-viridian0361-final-v10",
+      "after": "fix-after-quick-kanto-viridian0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "CERULEAN_CITY",
+      "file": "kanto-CERULEAN_CITY.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "CINNABAR_ISLAND",
+      "file": "kanto-CINNABAR_ISLAND.png",
+      "before": "fix-before-quick-kanto-cinnabar0361-final-v10",
+      "after": "fix-after-quick-kanto-cinnabar0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "ROUTE_1",
+      "file": "kanto-ROUTE_1.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "ROUTE_12",
+      "file": "kanto-ROUTE_12.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "ROUTE_20",
+      "file": "kanto-ROUTE_20.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "ROUTE_23",
+      "file": "kanto-ROUTE_23.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "VIRIDIAN_FOREST",
+      "file": "kanto-VIRIDIAN_FOREST.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "REDS_HOUSE_1F",
+      "file": "kanto-REDS_HOUSE_1F.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "VERMILION_TRADE_HOUSE",
+      "file": "kanto-VERMILION_TRADE_HOUSE.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "VIRIDIAN_POKECENTER",
+      "file": "kanto-VIRIDIAN_POKECENTER.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "GAME_CORNER",
+      "file": "kanto-GAME_CORNER.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "SEAFOAM_ISLANDS_1F",
+      "file": "kanto-SEAFOAM_ISLANDS_1F.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "MT_MOON_1F",
+      "file": "kanto-MT_MOON_1F.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    },
+    {
+      "map": "ROCK_TUNNEL_1F",
+      "file": "kanto-ROCK_TUNNEL_1F.png",
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-source-elevation-v22",
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "identical": true
+    }
+  ],
+  "scope": "Full RGBA equality; no masks, crop, tolerance or seeded renderer profile. Fourteen long-history pairs plus two matching isolated-history pairs."
+}

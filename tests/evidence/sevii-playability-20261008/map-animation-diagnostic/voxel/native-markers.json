@@ -1,0 +1,12 @@
+{
+  "exit": 0,
+  "markers": [
+    "SEVII_MAP_ANIMATION_SAMPLE\toutdoor-island\t53\ttrue",
+    "SEVII_MAP_ANIMATION_SAMPLE\tcave-seafoam\t53\ttrue",
+    "SEVII_MAP_ANIMATION_SAMPLE\toutdoor-volcanic_coast\t54\ttrue",
+    "SEVII_MAP_ANIMATION_SAMPLE\tcave-diglett\t60\ttrue",
+    "SEVII_MAP_ANIMATION_SAMPLE\toutdoor-ruins\t58\ttrue",
+    "SEVII_MAP_ANIMATION_SAMPLE\toutdoor-forest\t54\ttrue",
+    "SEVII_MAP_ANIMATION_DIAGNOSTIC_PASS\t266\t105\t0\t6\t1"
+  ]
+}

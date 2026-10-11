@@ -1,5 +1,5 @@
 {
-  "file_count": 27487,
+  "file_count": 27524,
   "files": [
     {
       "path": ".modkitromallow",
@@ -158,8 +158,8 @@
     },
     {
       "path": "README.md",
-      "size_bytes": 37382,
-      "sha256": "dcc939145c998a4c780d6b9b9c196225c13314fa202889bb9dcdf5e4c84c6216"
+      "size_bytes": 38734,
+      "sha256": "c9e8c0eb07b4615b1e2e6f6a2d5ae283b624e64021a422abd29343ecdc312998"
     },
     {
       "path": "RELEASE_NOTES.md",
@@ -370,6 +370,11 @@
       "path": "SELECTOR_SOURCE_CONTRACT.json",
       "size_bytes": 9097,
       "sha256": "e77be22cfccd41cf311fdcf89dd9020509143d324df948473f7703830ee21f6d"
+    },
+    {
+      "path": "SEVII_VOXEL_QA_DE.md",
+      "size_bytes": 12180,
+      "sha256": "e2b991ee46a06de24f4a021365591c78a780238e05c503caafd5eeba09a03ce6"
     },
     {
       "path": "SUPPORT_REPORTS.md",
@@ -117647,6 +117652,11 @@
       "sha256": "902b39ead6e103ce2f1395901194b4549fdefb3cf411f099673aee1edb5b160b"
     },
     {
+      "path": "data/sevii_voxel_profiles.lua",
+      "size_bytes": 676294,
+      "sha256": "f0e8a43290fdcfb6bc92c3540a4b23a11906af80a1e69c105b500f98d055efd5"
+    },
+    {
       "path": "data/vasc_battle_animations.lua",
       "size_bytes": 361862,
       "sha256": "e4447706d4bb8b68734923bd32a7483ecc4aa281543237760743328fa7fcc318"
@@ -132568,13 +132578,13 @@
     },
     {
       "path": "lib/BattleArena.lua",
-      "size_bytes": 56532,
-      "sha256": "7bc57dd3d8c0025f1ada57fcc2aee18f6d288f9909d5a6733af85fc3dd59316d"
+      "size_bytes": 56920,
+      "sha256": "76d11c8b42d516094e7e983b18d38314b45e024edfa20fff643e867447386145"
     },
     {
       "path": "lib/BattleArenaStyle.lua",
-      "size_bytes": 6505,
-      "sha256": "105b2d12ba575306a98365b851863df4cd3e7dd157d6345bfac6ff5eb76f62d9"
+      "size_bytes": 6600,
+      "sha256": "55e03fbfc37ddc567687efea7b551e06175bc598bb1c7658fa13b56352a957a4"
     },
     {
       "path": "lib/BattleBillboard.lua",
@@ -132668,13 +132678,13 @@
     },
     {
       "path": "lib/BattleScene.lua",
-      "size_bytes": 116699,
-      "sha256": "9a6739df1ade486f4064c1758059dadb33af683769bb1c96f06fa1e8041ab440"
+      "size_bytes": 119632,
+      "sha256": "31c08aa6921e4c6e7a53e34b5d13e3245df7c30e43e3ee8d12bb737a8680bbe6"
     },
     {
       "path": "lib/BattleShadowStamp.lua",
-      "size_bytes": 1388,
-      "sha256": "5d91f1d938322b1352e864f4fb670af54b6391406119f8b47b81081e1b4070ff"
+      "size_bytes": 1401,
+      "sha256": "e1613ab883c61882453cc8abcd1a8f58537616ce7780cce729609e7db6de35f8"
     },
     {
       "path": "lib/BattleSoundPreparation.lua",
@@ -132718,8 +132728,8 @@
     },
     {
       "path": "lib/Buildings.lua",
-      "size_bytes": 86960,
-      "sha256": "35d521d0be5a4578e8fa29a26529afb641e56564d55cebda21d406a4e1fe6e08"
+      "size_bytes": 95008,
+      "sha256": "1efd44f8340508e4b4c298b2de36c9deed21b54e4ca22c1bc363e6c18124fa89"
     },
     {
       "path": "lib/CalendarDecor.lua",
@@ -132758,8 +132768,8 @@
     },
     {
       "path": "lib/ChunkMesher.lua",
-      "size_bytes": 159819,
-      "sha256": "0c451bb476bfddfbfb2181622b469e18776c1ffd9af60f64d53b66c1230e7f34"
+      "size_bytes": 160513,
+      "sha256": "ff8332e8ae31262702f961f2606ed6e46d033738c1cb51e507044f24a2674819"
     },
     {
       "path": "lib/CinnabarActivity.lua",
@@ -132873,8 +132883,8 @@
     },
     {
       "path": "lib/DayNight.lua",
-      "size_bytes": 22775,
-      "sha256": "7e749c70478531dbfe51466b5735b25de343ca5f61822f198011faae36e77f34"
+      "size_bytes": 22939,
+      "sha256": "b7671b6052063c15b56a019f4efb25af476f5f0bf855d29a6773e8c484a74e07"
     },
     {
       "path": "lib/DayTint.lua",
@@ -133033,13 +133043,13 @@
     },
     {
       "path": "lib/Gen1CavePanoramas.lua",
-      "size_bytes": 4144,
-      "sha256": "b96fef07c4a844363a55f4ee293482955e713980f9a90e3bd3d49bd838bd754a"
+      "size_bytes": 4307,
+      "sha256": "962bd5b37d133fbdaea8c58f2f01b243906b3efd1a6f15de4ae9dc3b41f1ea7a"
     },
     {
       "path": "lib/Gen1CaveSurfaces.lua",
-      "size_bytes": 5092,
-      "sha256": "40d70ff04987129d2c4f202e12429d23b5f0f13430dbdd488ccd1e5c331b7761"
+      "size_bytes": 6038,
+      "sha256": "83a379830cd57b88ae1689a2a2ee8d06d59d26c6267d42ccd798fbb9cf2ab80e"
     },
     {
       "path": "lib/Gen1CaveWalls.lua",
@@ -133118,28 +133128,28 @@
     },
     {
       "path": "lib/Gen1InteriorFloors.lua",
-      "size_bytes": 5003,
-      "sha256": "6d52655edefb6f7c1c4775bbbcdb7c635e34e969e81d038bcd40c34f6efedbe8"
+      "size_bytes": 5161,
+      "sha256": "4df4231124b32e71d4e617d9890ccc3f12b08d5d43bade8dbb0669b589990701"
     },
     {
       "path": "lib/Gen1InteriorLayout.lua",
-      "size_bytes": 19084,
-      "sha256": "e9980b1b53daa06594bc23cf098c797b4f442ae680bb0025c7e03b2578dc399d"
+      "size_bytes": 19335,
+      "sha256": "7d946155c1a457f80b59d0a8621078ffee342172e91ab191cf4beb569b53f246"
     },
     {
       "path": "lib/Gen1InteriorPanoramas.lua",
-      "size_bytes": 9251,
-      "sha256": "4a53d495b32037fc73866d15ff149ff87a315f9a0ad481ebc38b54eb96df317c"
+      "size_bytes": 9360,
+      "sha256": "02f28d3fb69bdf6f30242248045a45595b799decfeb666d0dc282d9a4b23bcc2"
     },
     {
       "path": "lib/Gen1InteriorWallClaims.lua",
-      "size_bytes": 4818,
-      "sha256": "44bc7918fe317a6cd7ebe5c1a40104c800a092864b5f2803df6ca374c76f12d3"
+      "size_bytes": 5379,
+      "sha256": "dc84a0f3844bbe824cf20c561e4744d7ed3d285a185750c05ee9d1d205725aa0"
     },
     {
       "path": "lib/Gen1KantoBuildings.lua",
-      "size_bytes": 15501,
-      "sha256": "5119ed8b4c7a3de9fa4044549dc6383d1cd932ec73856eb90d777eace756975d"
+      "size_bytes": 15546,
+      "sha256": "a23563a2f1075082359161127d28095f51bffa8311d5a6ba4b9f649567e26ad5"
     },
     {
       "path": "lib/Gen1LavenderTower.lua",
@@ -133173,8 +133183,8 @@
     },
     {
       "path": "lib/Gen1OutdoorScenery.lua",
-      "size_bytes": 32927,
-      "sha256": "a9720ccc1f9c1baaca9773ffdebe30f6dd7329381feeb4c97ba25b9ffa51217d"
+      "size_bytes": 34327,
+      "sha256": "5f804d9d0e8b497b25eda29436a62eae7fd102344bfa2ff2d948e11fe1d5afbf"
     },
     {
       "path": "lib/Gen1OverworldStadium.lua",
@@ -133203,8 +133213,8 @@
     },
     {
       "path": "lib/Gen1RoomBounds.lua",
-      "size_bytes": 2376,
-      "sha256": "af114715d1ee70224fe3a934f9b631c4aeaf896a02cfb244b02a94e3bb715a93"
+      "size_bytes": 3180,
+      "sha256": "39512256d5480a1f91d75ec3f4f2ff31bbff9c0fcf250d39f5377827b38cb29f"
     },
     {
       "path": "lib/Gen1Route23Gates.lua",
@@ -133228,13 +133238,13 @@
     },
     {
       "path": "lib/Gen1StairCells.lua",
-      "size_bytes": 1098,
-      "sha256": "77d499b5c2193d7d685b594b7e82fbd551209322e91989539f2f8d661084f21b"
+      "size_bytes": 1340,
+      "sha256": "5abbbca8745ab89406cd43c47b5232a70882a5ce60f3492458411a497370077b"
     },
     {
       "path": "lib/Gen1Stairs.lua",
-      "size_bytes": 23176,
-      "sha256": "1d0b41c5b5c0342c40dbf656736712eb97658c730b3e43cd8fec45a44a93d93f"
+      "size_bytes": 23538,
+      "sha256": "e3374702173101704723c000db91cd605e32941385129a8890ef53f726c63ad7"
     },
     {
       "path": "lib/Gen1TowerEntrance.lua",
@@ -133428,13 +133438,13 @@
     },
     {
       "path": "lib/HorizonWall.lua",
-      "size_bytes": 370578,
-      "sha256": "22ae77041724870878e7764cb28eaa51d2664497bda2e615c08904333516ece4"
+      "size_bytes": 373319,
+      "sha256": "67473a58e013922f3054f0d9d90ba38764b4012fe87680f60795be0076a71781"
     },
     {
       "path": "lib/HouseWindows.lua",
-      "size_bytes": 9760,
-      "sha256": "f3a1d2a4c5ddb36b87dc809a6a6f415ffb0a7d92a990c245fb6e3abb9dd832c8"
+      "size_bytes": 10624,
+      "sha256": "ba84bdb6b590af357f2fb5cf48d73b1a3015425a1ccfb189f063da60b1e2a5c6"
     },
     {
       "path": "lib/HumanAnimationMigration.lua",
@@ -133453,8 +133463,8 @@
     },
     {
       "path": "lib/IndoorMist.lua",
-      "size_bytes": 15396,
-      "sha256": "42b7620bfe5ad8c642f0792d1fc05596b0441dfa2920895822c7f81119b99e6c"
+      "size_bytes": 15492,
+      "sha256": "0720b52f4fca0228c2598bdb7d3d330af9f310ddd34704613ab97c3f6581e0f6"
     },
     {
       "path": "lib/IntegratedTerarrium.lua",
@@ -133537,6 +133547,11 @@
       "sha256": "96af72de4b3e12dc90c5f60c95200df1e33e22a540160c0a5eb0567bdec5c60a"
     },
     {
+      "path": "lib/KascSeviiScenery.lua",
+      "size_bytes": 30018,
+      "sha256": "b30512def284c130b9c1dd288c72916632d2ef1787025517d94b7515caac1c03"
+    },
+    {
       "path": "lib/KascSkySanctum.lua",
       "size_bytes": 3019,
       "sha256": "672fca6c8468cd07d84b4bf8a0eab6f2fdc18e2d678d13acbbf1cab3b8557c59"
@@ -133558,8 +133573,8 @@
     },
     {
       "path": "lib/LedgeElevation.lua",
-      "size_bytes": 80006,
-      "sha256": "567d3d75e2ce8b51b4cd354b851c147a4a7185a70220da0824f6788e0f957f5b"
+      "size_bytes": 80182,
+      "sha256": "69c461dbe5cdfcc38f097d7a32f3842b2d689923d5a8dfe11d2b3d9474cc937e"
     },
     {
       "path": "lib/LevelUpPresentation.lua",
@@ -133593,8 +133608,8 @@
     },
     {
       "path": "lib/LocalLights.lua",
-      "size_bytes": 32564,
-      "sha256": "1600d64e47cf8f23b4b002c6b9c8c99509001eb9886fe3f8a38ba106206f2825"
+      "size_bytes": 34238,
+      "sha256": "5eb2f5181e0beaba7bddc14ee6c7e36c240c41a489acf9e38c2c1ea4b08a408d"
     },
     {
       "path": "lib/LocalMusic.lua",
@@ -133758,13 +133773,13 @@
     },
     {
       "path": "lib/OutdoorHorizon.lua",
-      "size_bytes": 26035,
-      "sha256": "c8622d358427f8aeac71860f7547c540da3e1712aa238b8793527643a5e7e1c3"
+      "size_bytes": 26483,
+      "sha256": "d5fc1f11502879f58bdc08efe80b5afa0c6b6367a844a4b15758a70266112749"
     },
     {
       "path": "lib/OverworldBattle.lua",
-      "size_bytes": 292552,
-      "sha256": "11d3cd8031f5b2d565490b1b3f16da1f3949fe77fa5d9b42e8579a8919692a8d"
+      "size_bytes": 297396,
+      "sha256": "61f46d049b3dbe1f80987c13eccaa1f62033ae644173be7137d474e17a2571aa"
     },
     {
       "path": "lib/OverworldPokemonCard.lua",
@@ -133903,8 +133918,8 @@
     },
     {
       "path": "lib/RooftopWorld.lua",
-      "size_bytes": 12685,
-      "sha256": "679aee54c2995b4997cd731643d83a006f79a65f2939015773f43c6712e2585a"
+      "size_bytes": 12964,
+      "sha256": "52502a946075bd33621c79e1384cfc8f7afbecb7f239a277dcdde8519811a3dc"
     },
     {
       "path": "lib/RuntimePerformanceDiagnostics.lua",
@@ -133913,8 +133928,8 @@
     },
     {
       "path": "lib/ScenePrefetchCache.lua",
-      "size_bytes": 3484,
-      "sha256": "b333dffc3452fb21b4f893787a6dcdf729fae21eebd52b61c3f8b8693cb754c6"
+      "size_bytes": 3840,
+      "sha256": "78de5c3daee2540c2acb957dd327b281f5b5f32f4c81fde7c109cbfa33e99b0c"
     },
     {
       "path": "lib/SceneryMeshUpload.lua",
@@ -133933,8 +133948,8 @@
     },
     {
       "path": "lib/SeasonalTrees.lua",
-      "size_bytes": 2088,
-      "sha256": "4fef04b8158abf39dc8fe6bfd114dfbf25553f416700cbb39beb629db080862b"
+      "size_bytes": 2204,
+      "sha256": "7b32c07f8cb66d524ec0262b94c2cd24bef4490dee25a80a5cb0ec13c5144ca8"
     },
     {
       "path": "lib/SetupBenchmark.lua",
@@ -133980,6 +133995,76 @@
       "path": "lib/SetupPreview.lua",
       "size_bytes": 10340,
       "sha256": "a4d396dc0a92754fab1e7a7e5db1911ee2db6383c8d89c411b828a156023d6ae"
+    },
+    {
+      "path": "lib/SeviiArenaBindings.lua",
+      "size_bytes": 1094,
+      "sha256": "6d6b9ed3146f18b1e5eaf4247f560be9cdb37a1d1c12b96245427d3b4a653a4d"
+    },
+    {
+      "path": "lib/SeviiCanvasCopy.lua",
+      "size_bytes": 707,
+      "sha256": "1a62fae7067dc19fca2df5329c182cf7d3039ff42cd57dc0f28499c5218fad04"
+    },
+    {
+      "path": "lib/SeviiCaveEnclosure.lua",
+      "size_bytes": 4710,
+      "sha256": "2746cbcadd17330fbf813c452c599fd5ca3a924cf3e3398d6cb3c828afe47cfd"
+    },
+    {
+      "path": "lib/SeviiDoubleVisual.lua",
+      "size_bytes": 6158,
+      "sha256": "618ebbe7fa52c25e0703f4cee9761101cfc4747bd82b455f83972be28ae03ef1"
+    },
+    {
+      "path": "lib/SeviiFloor.lua",
+      "size_bytes": 1488,
+      "sha256": "d83bfde40e90b6fe361296f73e07e7aad5e618aa71411bca67b400b91f403d06"
+    },
+    {
+      "path": "lib/SeviiHarbor.lua",
+      "size_bytes": 1717,
+      "sha256": "abd8215d0162e62e399aeae1e2ef0dedc98df4f8b9e7692ea917312876d8fe42"
+    },
+    {
+      "path": "lib/SeviiIce.lua",
+      "size_bytes": 893,
+      "sha256": "13eccba6fb56f16d174d4b3ea76e5088fbe636327dea67e41e98a83679253a47"
+    },
+    {
+      "path": "lib/SeviiLandforms.lua",
+      "size_bytes": 2035,
+      "sha256": "3fc8e82e19d9e6bf487b65799b9a93877c0498d15e98d837826b3b8a65424825"
+    },
+    {
+      "path": "lib/SeviiLandscape.lua",
+      "size_bytes": 5979,
+      "sha256": "87cc6d3547e84af68aeb29b126c3ba02132b8c88784fa4e7a77e80ac87931364"
+    },
+    {
+      "path": "lib/SeviiNativeRoom.lua",
+      "size_bytes": 4757,
+      "sha256": "fd38e42398d2a1f1d16655808f1975f097fe371d3bc5a8bf2d27306d02ce2b23"
+    },
+    {
+      "path": "lib/SeviiNativeVoxel.lua",
+      "size_bytes": 10427,
+      "sha256": "43d2dc8997a552fd3c7a5255b40b08abd7443d31a3d82c2a248539ecf041b0d8"
+    },
+    {
+      "path": "lib/SeviiSeaRocks.lua",
+      "size_bytes": 892,
+      "sha256": "98b9755c5afb6ffad6bf7df741acefa4fe93a96c0705140f687535ed27fccdb4"
+    },
+    {
+      "path": "lib/SeviiSourceWater.lua",
+      "size_bytes": 1403,
+      "sha256": "6e57753ac5da79015c950ae6cfa3e52f60f209dc4ecede504bdc4e57b288766c"
+    },
+    {
+      "path": "lib/SeviiVegetation.lua",
+      "size_bytes": 1900,
+      "sha256": "82b45a671c7ae85f8619cd99d5c3f65475082662b64bd8294c003bd4bbea08d6"
     },
     {
       "path": "lib/ShadowMap.lua",
@@ -134093,8 +134178,8 @@
     },
     {
       "path": "lib/SpringBlossom.lua",
-      "size_bytes": 4203,
-      "sha256": "4f6542e839b99986778633f657c35ecc7ba6ea3c6bc64c96a119715ce847eee7"
+      "size_bytes": 4331,
+      "sha256": "bfb3cae9189a3f7af5ca03c20e3b677a196fa4847836a5c4a68f31bb2a0d68de"
     },
     {
       "path": "lib/SpriteAssetResolver.lua",
@@ -134358,8 +134443,8 @@
     },
     {
       "path": "lib/Structures.lua",
-      "size_bytes": 215043,
-      "sha256": "c6ea21bc5439bec5386196f77e0e4effe93ffe419780e6e0b65638cd2428fc59"
+      "size_bytes": 215977,
+      "sha256": "aa8bdc77d55b930e6497aad50c645fdabd0e58e2214287c7cee092c2f23bf35e"
     },
     {
       "path": "lib/SupportLogs.lua",
@@ -134392,6 +134477,11 @@
       "sha256": "465dabb6580f2213968242a9b043524296ac9f5aed5553f3dc49e4c3ce600e9b"
     },
     {
+      "path": "lib/TerrainCompletion.lua",
+      "size_bytes": 550,
+      "sha256": "a63cadc158df35713eae574fa3f2a186d604043dad20fca9de7eaadfec4e2209"
+    },
+    {
       "path": "lib/TerrainDiskCache.lua",
       "size_bytes": 10985,
       "sha256": "3a4f9f4bdd39fe5475b5cb5b7c39c80aa7895056a2e39d0522f2277d33caf37d"
@@ -134408,8 +134498,8 @@
     },
     {
       "path": "lib/TileShape.lua",
-      "size_bytes": 33799,
-      "sha256": "4bfb80d8ce2de767203a8d03ef936a8c39f00f174b7a2a4c3ab7040c31aca2ae"
+      "size_bytes": 33898,
+      "sha256": "ff14541fdf25a3bf4756caee7d5024808e1b0567eb2546f3026048b7dfaa712b"
     },
     {
       "path": "lib/TilesetPixels.lua",
@@ -134493,8 +134583,8 @@
     },
     {
       "path": "lib/VisibleNeighborhood.lua",
-      "size_bytes": 987,
-      "sha256": "7cb103fec6c3540e815bbef144a71884c8a4f8a992ffdd187cda7d99506e9810"
+      "size_bytes": 1773,
+      "sha256": "9e79ddc0a5f25af2bf47d7861424b3a6c0125f4d884118f9dee9d87e7be8e4d5"
     },
     {
       "path": "lib/Voxel3D.lua",
@@ -134503,8 +134593,8 @@
     },
     {
       "path": "lib/VoxelBattleStage.lua",
-      "size_bytes": 61775,
-      "sha256": "64560deb82ea1f208e377babed9daa3853e877d4ac8b9162d7468ce1c5da93aa"
+      "size_bytes": 62685,
+      "sha256": "0b2f2a2796eb502311c0829e9a806777522df4651042dd85ae74f5cb71b6a62d"
     },
     {
       "path": "lib/VoxelDialogGate.lua",
@@ -134513,8 +134603,8 @@
     },
     {
       "path": "lib/VoxelFurniture.lua",
-      "size_bytes": 45216,
-      "sha256": "a296c0df3db00e482eb01b12ab6bd0d3d420e0dd9345aa53d3e7117c42f2ee01"
+      "size_bytes": 45807,
+      "sha256": "a842b0bd9fdfa44dd03476a304984fcd71a19023fa4ec010e91627f51129f939"
     },
     {
       "path": "lib/VoxelGeometryCache.lua",
@@ -134548,8 +134638,8 @@
     },
     {
       "path": "lib/VoxelItems.lua",
-      "size_bytes": 23406,
-      "sha256": "ddcff3f67342805028853f77ed81ee9e377b48b44bf029a88063d214248b702c"
+      "size_bytes": 23843,
+      "sha256": "1b932590dafa99a439fbfd4413898e013373457788af7f49c84bcc9c53d361b8"
     },
     {
       "path": "lib/VoxelPropBatch.lua",
@@ -134558,8 +134648,8 @@
     },
     {
       "path": "lib/VoxelScene.lua",
-      "size_bytes": 171764,
-      "sha256": "c1c412ed61e91d4d89aac7798d9555dd37329c75db63199745316649051753ee"
+      "size_bytes": 173846,
+      "sha256": "05213c8eee74b78692d5e96e239d6ee00f77531a304bdf96c422bd5447e81b1a"
     },
     {
       "path": "lib/VoxelShortcut.lua",
@@ -134623,8 +134713,8 @@
     },
     {
       "path": "lib/Weather.lua",
-      "size_bytes": 36951,
-      "sha256": "7e929b03aff50614cf0c933e5bae36b7e342ab8682990426d504ddcce3b2941a"
+      "size_bytes": 37103,
+      "sha256": "4c3247ea9266a3eca24fe90ec7f1c9f58520824543c0a18adb6916c471682be8"
     },
     {
       "path": "lib/WeatherAudio.lua",
@@ -134973,18 +135063,23 @@
     },
     {
       "path": "main_gen1.lua",
-      "size_bytes": 157348,
-      "sha256": "7e5ef68934573f35de0bb0759affa55ba948af6810c678d8e47e310ab16946ac"
+      "size_bytes": 157535,
+      "sha256": "94a5485b59d1179e3aec84cc5a6856f5df9f6aaa3278bc9e9b82d133ed0eb3f8"
     },
     {
       "path": "manifest.json",
-      "size_bytes": 22822,
-      "sha256": "33aac5e3300550ec702e2b242e15cb33b6f5fe597223327014f6ade273033255"
+      "size_bytes": 22916,
+      "sha256": "26cb57e5de31755641598298fb9a6331e036e09d1ebe429155d6ad5c9e8740ac"
     },
     {
       "path": "mod.card",
       "size_bytes": 1437,
       "sha256": "a47a15f2307c7fa0e001b9f92bf889acc17eaef51b757dd469ab131e2e017021"
+    },
+    {
+      "path": "scripts/build_sevii_voxel_profiles.py",
+      "size_bytes": 40749,
+      "sha256": "ab6e304eed41aa09fcc05a6ed8d2473c124f36021085c29a382b07ef1cadc683"
     },
     {
       "path": "scripts/prepare_cobblemon_binary.py",
@@ -135190,6 +135285,11 @@
       "path": "tests/battle_trainer_support_test.lua",
       "size_bytes": 2861,
       "sha256": "fbe9bfc4b86a133129d342b881b075bd805d20d20b41f4521342e48877cc3dc9"
+    },
+    {
+      "path": "tests/battle_visible_union_test.lua",
+      "size_bytes": 1465,
+      "sha256": "a3fa7efd38144385023f807e7522bcda203864e85b80efebffc7cb4c0eaa6f46"
     },
     {
       "path": "tests/battle_warmup_test.lua",
@@ -135648,8 +135748,8 @@
     },
     {
       "path": "tests/horizon_job_budget_test.lua",
-      "size_bytes": 2466,
-      "sha256": "cc7596a9a4fa64d764038fdce3c4640f0b36e8b12262823fd8256a3e2fe7abc9"
+      "size_bytes": 3330,
+      "sha256": "c220de6fcf966c5ee9ffe058cceb7d55751390162661ac5cc11063883610ba2c"
     },
     {
       "path": "tests/horizon_optional_cache_test.lua",
@@ -135713,8 +135813,8 @@
     },
     {
       "path": "tests/lighting_failure_isolation_test.lua",
-      "size_bytes": 1639,
-      "sha256": "584b726b5a32a2dfee7226191e0f4af32f314e1aa106dd8a401d83315c2f6979"
+      "size_bytes": 1706,
+      "sha256": "0a972116677b2cb85b9058236e7f7146efea6f1a28c9dad89fc2e69fa61e7104"
     },
     {
       "path": "tests/live_battle_selection_test.lua",
@@ -136718,8 +136818,8 @@
     },
     {
       "path": "tests/scene_prefetch_cache_test.lua",
-      "size_bytes": 2119,
-      "sha256": "41334a851f2b3022a4c07a1a593f68e719c8884e4e5a5609eb028a5be926d88e"
+      "size_bytes": 2461,
+      "sha256": "094350bba7cf55b436ccf6ac8a8ce74b3debc3b03be917bc8449411463ca2eb6"
     },
     {
       "path": "tests/scenery_mesh_upload_test.lua",
@@ -136807,6 +136907,86 @@
       "sha256": "a0b5d4f841165fa5d90cb21bc4ac2639885e1e58ba7e777b05780826e6f5612e"
     },
     {
+      "path": "tests/sevii_arena_bindings_test.lua",
+      "size_bytes": 2458,
+      "sha256": "054471e064f1911649d694233e81d8ccd01c982597cfc46a2bd6b7709298dccb"
+    },
+    {
+      "path": "tests/sevii_canvas_copy_test.lua",
+      "size_bytes": 1824,
+      "sha256": "bba68be675b603c54b47bd6c56b93cde380bfefe5629a640256c143fd5df5fcb"
+    },
+    {
+      "path": "tests/sevii_cave_enclosure_test.lua",
+      "size_bytes": 3076,
+      "sha256": "8a3edfe97038a1b9601936330ab4fdc73983dc2a72c94304dfefcb861ac406b0"
+    },
+    {
+      "path": "tests/sevii_double_visual_test.lua",
+      "size_bytes": 3032,
+      "sha256": "794d9ac058644ee609a73e8011d82643e2c052a23d1e28df51132af49da8a658"
+    },
+    {
+      "path": "tests/sevii_features_test.lua",
+      "size_bytes": 6845,
+      "sha256": "fd36fceb157e87b55ac6c454ae8483590672c2b07177245438c82b6e6c28f72b"
+    },
+    {
+      "path": "tests/sevii_floor_test.lua",
+      "size_bytes": 1908,
+      "sha256": "482b7de6569b1e8935121b732d847539f90f94ed6bd9183b304a8544b4d17eb9"
+    },
+    {
+      "path": "tests/sevii_landscape_test.lua",
+      "size_bytes": 4173,
+      "sha256": "f1c260b2c4ddeb92e7e7699d5fa0aaea923eb5c74ed6683eb34074f7ec9ef383"
+    },
+    {
+      "path": "tests/sevii_native_art_test.lua",
+      "size_bytes": 17721,
+      "sha256": "87445c27b99d18c3bcd6c9999fa6e2df6db5c65b5a3c04da4d4c6377ccafa30a"
+    },
+    {
+      "path": "tests/sevii_native_grass_test.lua",
+      "size_bytes": 4267,
+      "sha256": "cc870f367f1c0501075e717bd9679c299e3131f6dc916c0d09f4472026a7f69b"
+    },
+    {
+      "path": "tests/sevii_native_room_test.lua",
+      "size_bytes": 3558,
+      "sha256": "0a02edf48207f22756cb166cc4ac1232b977d6ff57e936c2c1172be3ad21195d"
+    },
+    {
+      "path": "tests/sevii_native_voxel_driver.lua",
+      "size_bytes": 38563,
+      "sha256": "26a9ae13d1b72386712549f64e0e537bee1081866e48f9c87610d0be79a524c9"
+    },
+    {
+      "path": "tests/sevii_neighborhood_test.lua",
+      "size_bytes": 1771,
+      "sha256": "52067eeb271626fb032e9279620690dba913f424f407f94b435d823bf7ebf9e5"
+    },
+    {
+      "path": "tests/sevii_scenery_test.lua",
+      "size_bytes": 7617,
+      "sha256": "9fd0ded30b4bc0731a810ad54a8144a194e493cc5cfbb754df492e7fe76165cb"
+    },
+    {
+      "path": "tests/sevii_source_quality_test.py",
+      "size_bytes": 8465,
+      "sha256": "230fdc8626a7b6b8c949d673d0257b80696a889c205adfd1c61b53ab4be57bab"
+    },
+    {
+      "path": "tests/sevii_source_water_test.lua",
+      "size_bytes": 1796,
+      "sha256": "623fa2964040bde96e3bf3848ea022858f2ebad1d96d9f03ac5edd4f5209d937"
+    },
+    {
+      "path": "tests/sevii_vegetation_test.lua",
+      "size_bytes": 3719,
+      "sha256": "4a8751415f92709490b52cd4eba35ad460234bc087f6f3fbafae2c931e7dc93b"
+    },
+    {
       "path": "tests/shadow_resource_lifecycle_test.lua",
       "size_bytes": 3338,
       "sha256": "0323f870ddd00654b20c2decfc3a90eb540ea8aef00bc4f30456edbc285e6363"
@@ -136878,8 +137058,8 @@
     },
     {
       "path": "tests/spring_blossom_test.lua",
-      "size_bytes": 5214,
-      "sha256": "d94c282d39d38f39a314935bf12239acf77bf8d9445b376ed34a3147c652ed13"
+      "size_bytes": 5290,
+      "sha256": "d9b1636ea1a1513dd664fef6e02d0a85a8b23611cf11d93448ffbef48b011606"
     },
     {
       "path": "tests/sprite_content_collections_test.lua",
@@ -137045,6 +137225,11 @@
       "path": "tests/warp_prediction_test.lua",
       "size_bytes": 2379,
       "sha256": "ece8a372601e967a8b39a1586db1ce106a61c817d96ced92b435462dcf5f76b8"
+    },
+    {
+      "path": "tests/water_only_terrain_test.lua",
+      "size_bytes": 1029,
+      "sha256": "7fe512b7a5bca9cc0b1162574a60b15a0a363c0b94c18ed68341ad2b9b263f65"
     },
     {
       "path": "tests/water_opaque_order_test.lua",
@@ -137437,10 +137622,10 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "manifest_sha256": "33aac5e3300550ec702e2b242e15cb33b6f5fe597223327014f6ade273033255",
+  "manifest_sha256": "26cb57e5de31755641598298fb9a6331e036e09d1ebe429155d6ad5c9e8740ac",
   "package_id": "VOXEL_ASCENDANT",
   "schema": "voxel-ascendant/runtime-receipt/v1",
-  "version": "3.0.62",
+  "version": "3.0.63-rc.1-sevii",
   "local_candidate": false,
   "source_candidate_version": "3.0.60-rc.1",
   "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"

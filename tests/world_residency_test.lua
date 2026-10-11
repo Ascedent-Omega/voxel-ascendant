@@ -21,4 +21,15 @@ assert(M.last.maps==3 and M.last.estimatedTerrainBytes==300*MB,'byte allowance i
 M.record('required',{allocation(400*MB)});M.keep({required=true})
 assert(M.retained().required and M.last.maps==1,'visible world evicted for history')
 M.reset();assert(next(M.retained())==nil)
-print('PASS cache: byte budget, unique allocations, pinned live maps, LRU, budget decrease, reset')
+local sourceBytes={source1=80*MB,source2=80*MB}
+M.registerOwnedSize('source-fixture',function(id)return sourceBytes[id]or 0 end)
+setting.value=128
+M.record('source1',{});M.touch('source1')
+M.record('source2',{});M.keep({source2=true})
+assert(not M.retained().source1 and M.last.estimatedTerrainBytes==80*MB,'source buffers escaped history budget')
+M.reset();sourceBytes.source2=0
+M.record('kanto',{});M.keep({kanto=true})
+assert(M.last.estimatedTerrainBytes==64*1024,'registered source owner changed unrelated estimate')
+M.record('source1',{});M.keep({source1=true})
+assert(M.last.estimatedTerrainBytes>=80*MB,'reset lost persistent ownership reader')
+print('PASS cache: byte budget, unique allocations, pinned live maps, LRU, budget decrease, reset, separate ownership')

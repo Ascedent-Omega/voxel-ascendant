@@ -8,6 +8,7 @@ local themes={PALLET_TOWN=1,VIRIDIAN_CITY=2,PEWTER_CITY=3,CERULEAN_CITY=4,
  VERMILION_CITY=5,LAVENDER_TOWN=6,CELADON_CITY=7,FUCHSIA_CITY=8,
  SAFFRON_CITY=9,CINNABAR_ISLAND=10,INDIGO_PLATEAU=11}
 function M.theme(id)
+ if id:match('^KA_SEVII_')then return 10 end
  if themes[id]then return themes[id]end
  if id:find('SAFARI')then return 8 end
  local n=tonumber(id:match('ROUTE_(%d+)'))or 0

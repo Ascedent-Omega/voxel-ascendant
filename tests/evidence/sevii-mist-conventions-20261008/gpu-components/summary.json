@@ -1,0 +1,22 @@
+[
+  {
+    "test": "indoor_mist_prewarm_test.lua",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "test": "indoor_mist_composite_test.lua",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "test": "curved_mist_gpu_test.lua",
+    "exit": 0,
+    "passed": true
+  },
+  {
+    "test": "mobile_mist_gpu_test.lua",
+    "exit": 0,
+    "passed": true
+  }
+]

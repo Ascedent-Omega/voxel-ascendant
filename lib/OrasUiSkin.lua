@@ -428,7 +428,11 @@ local function createController(mod, opts)
     if type(state) ~= "table" or (not BagSkin and not FrlgBagSkin) then
       return false
     end
-    if state.kind == "elevator_floors" then return false end
+    if state.kind == "elevator_floors" or state.kind == "shop_buy"
+        or state.kind == "shop_sell"
+        or (state.dialogue and type(state.money) == "function") then
+      return false
+    end
     -- Screens assigns this stable id to the final state returned by every
     -- BagMenu provider.  KASC's pocket title changes from ITEMS to e.g.
     -- KEY ITEMS and provider wrappers may hide the original ListMenu

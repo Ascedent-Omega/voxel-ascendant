@@ -1394,6 +1394,8 @@ function Structures.forMap(map)
   local TileRenderer = require("src.render.TileRenderer")
   local borderId = TileRenderer.borderBlockFor(map)
   local borderBlk = borderId and tileset.blocks[borderId + 1] or nil
+  local seviiProfile=def.kaOwner=='kasc.sevii-expedition/v1'and V.require('KascSeviiScenery').profile(map)
+  if seviiProfile then borderBlk=nil end
   -- The compact, authored habitat already has its own forest boundary.
   -- Repeating its custom Johto tree block in the generic twelve-tile apron
   -- creates a solid canopy directly through the entrance camera. Keep the
@@ -1481,6 +1483,7 @@ function Structures.forMap(map)
         if s and void and void[tile] and not s.authored then
           s = shapes.classes.void
         end
+        if seviiProfile and s and s.class=="void" then s=nil end
         shapeAt[k], tileAt[k] = s, tile
       end
     end
@@ -4797,9 +4800,11 @@ local function grassTemplate(map, data, tileId)
   local ax0 = (tileId % perRow) * 8
   local ay0 = math.floor(tileId / perRow) * 8
 
+  local sourceMask = V.require("SeviiNativeVoxel").grassMask(map)
   local function opaque(px, py)
     if px < 0 or px > 7 or py < 0 or py > 7 then return false end
     local r, g, b, a = data:getPixel(ax0 + px, ay0 + py)
+    if sourceMask then return sourceMask(r,g,b,a) end
     return a > 0 and math.min(r, g, b) <= 0.83
   end
 
@@ -4864,6 +4869,19 @@ local function grassTemplate(map, data, tileId)
     end
   end
   return quads
+end
+
+-- Reuse the native Gen1 tuft for authored exterior replacements. The
+-- imported RGB silhouette remains the ordinary renderer's separate owner.
+local kantoGrass
+function Structures.kantoGrassTemplate()
+  if kantoGrass then return kantoGrass end
+  local ok,pixels=pcall(Assets.imageData,'assets/generated/tilesets/overworld.png')
+  if not ok or not pixels then return nil end
+  local w,h=pixels:getWidth(),pixels:getHeight()
+  if w~=128 or h<48 then return nil end
+  kantoGrass=grassTemplate({tileset={tilesPerRow=16,imageWidth=w,imageHeight=h}},pixels,0x52)
+  return kantoGrass
 end
 
 function Structures.buildGrass(S, map, x0, x1, y0, y1, data)
@@ -5136,6 +5154,7 @@ end
 -- Hull templates key on art content (tileset + tiles), which a block edit
 -- cannot change, so only the full drop clears them (atlas reload).
 function Structures.invalidate(mapId)
+  kantoGrass=nil
   if mapId then
     cache[mapId] = nil
   else

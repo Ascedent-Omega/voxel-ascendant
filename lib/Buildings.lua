@@ -276,7 +276,7 @@ local function read(t, data, perRow)
       local i = sy * W + sx
       ax[i], ay[i] = px, py
       local r, g, b, a = data:getPixel(px, py)
-      col[i] = shadeOf(r, g, b, a)
+      col[i] = t.background and t.background(r,g,b,a) and WHITE or shadeOf(r, g, b, a)
     end
   end
 
@@ -317,10 +317,53 @@ local function read(t, data, perRow)
     if y > 0 then seed(x, y - 1) end
   end
 
+  -- Matching grass paint inside an outlined crown is still leaf paint.
+  -- Only the component connected to the sprite's outside is a margin.
+  local backgroundOutside
+  if t.connectedBackground and t.background then
+    backgroundOutside={};local queue={};local n=0
+    local function seed(x,y)
+      local i=y*W+x;if backgroundOutside[i]then return end
+      if t.background(data:getPixel(ax[i],ay[i]))then
+        backgroundOutside[i]=true;n=n+1;queue[n]=i
+      end
+    end
+    for x=0,W-1 do seed(x,0);seed(x,H-1)end
+    for y=0,H-1 do seed(0,y);seed(W-1,y)end
+    while n>0 do
+      Budget.tick();local i=queue[n];queue[n]=nil;n=n-1
+      local x,y=i%W,math.floor(i/W)
+      if x>0 then seed(x-1,y)end;if x<W-1 then seed(x+1,y)end
+      if y>0 then seed(x,y-1)end;if y<H-1 then seed(x,y+1)end
+    end
+  end
   local inside = {}
   for i = 0, W * H - 1 do
     Budget.tick()
     inside[i] = not outside[i]
+    if t.silhouette and t.background then
+      local r,g,b,a=data:getPixel(ax[i],ay[i])
+      if backgroundOutside then inside[i]=a>0 and not backgroundOutside[i]
+      else inside[i]=not t.background(r,g,b,a)end
+    end
+    if t.solidFacade and math.floor(i/W)>=t.roofRows then inside[i]=true end
+  end
+
+  -- Plant art paints the room's floor stripes through its transparent
+  -- margins. Remove each row's shared edge colour, including wall courses
+  -- above a pot; RGB luminance alone cannot distinguish these from leaves.
+  if t.rowBackground then
+    for y=0,H-1 do
+      local i=y*W
+      local r,g,b,a=data:getPixel(ax[i],ay[i])
+      local rr,gg,bb,aa=data:getPixel(ax[i+W-1],ay[i+W-1])
+      if r==rr and g==gg and b==bb and a==aa then
+        for x=0,W-1 do
+          local j=i+x;local cr,cg,cb,ca=data:getPixel(ax[j],ay[j])
+          if cr==r and cg==g and cb==b and ca==a then inside[j]=false;col[j]=WHITE end
+        end
+      end
+    end
   end
 
   -- `scrub` names pixel rects where the drawing paints an object standing
@@ -510,6 +553,7 @@ local function measure(sp, t, plainRear)
     end
   end
 
+  ground=t.groundLine or ground
   local wallH = ground - roofRows
   local ytop = wallH - 1 + t.slab
 
@@ -1129,7 +1173,97 @@ end
 -- pixel that voxel wears, or nil. Build ORDER is expressed as lookup
 -- order -- roof first, so it overwrites the walls it intersects, and walls
 -- are trimmed to its underside so nothing pokes through the surface.
+-- A tree/plant drawing describes its width at every elevation. Revolve
+-- those measured row spans into elliptical sections instead of extending
+-- the entire silhouette by one constant depth (a thick cardboard cutout).
+-- Front, back and newly exposed sides still sample the original row's art.
+local function roundPlantModel(sp, pr,t)
+  local W,D,ground=sp.W,pr.D,pr.ground
+  local rows={}
+  for sy=0,ground-1 do
+    Budget.check()
+    local lo,hi
+    for x=0,W-1 do if sp.inside[sy*W+x]then lo=lo or x;hi=x end end
+    if lo then
+      local r={};rows[sy]=r
+      local centre=(lo+hi+1)/2;local radius=(hi-lo+1)/2
+      local cap=t.nativeCrown and math.min(12,ground*.3)or 0
+      local taper=sy<cap and math.sqrt(math.max(0,1-((cap-sy-.5)/cap)^2))or 1
+      local rz=math.min(D/2,radius*D/W)*taper
+      radius=radius*taper
+      for x=lo,hi do
+        if sp.inside[sy*W+x]and math.abs(x+.5-centre)<=radius then
+          local dx=(x+.5-centre)/radius
+          local half=math.max(.5,rz*math.sqrt(math.max(0,1-dx*dx)))
+          local a=math.max(0,math.ceil(D/2-half-.5));local b=math.min(D-1,math.floor(D/2+half-.5))
+          if a<=b then r[x]={a,b}end
+        end
+      end
+    end
+  end
+  local function ranges(x,y)
+    if y<0 or y>=ground then return end
+    local row=rows[ground-1-y];return row and row[x]
+  end
+  return{W=W,ytop=ground-1,zmin=0,zmax=D-1,ranges=ranges,
+    at=function(x,y,z)local r=ranges(x,y)
+      if r and z>=r[1]and z<=r[2]then return (ground-1-y)*W+x end
+    end}
+end
+
+-- Runtime partitions split the DRAWING, not the house. Every fragment uses
+-- the complete house's datum, depth and roof bands. It emits only surfaces
+-- whose source texel belongs to its atlas. Together the fragments recover
+-- one house, without needing a foreign texture or inventing missing pixels.
+local function nativeBuildingModel(sp,pr,t)
+  local b=t.nativeBands;local W,D=sp.W,b.height
+  local wallH=b.height-b.roof;local slab=t.slab
+  local base=wallH+slab-1
+  local rise=math.min(16,math.floor(D/3),math.floor((b.roof-b.first)/2))
+  local zmax=D-1+(t.frontEave or 0)
+  local function source(sy,x)
+    sy=sy-b.y
+    if sy<0 or sy>=sp.H then return end
+    local i=sy*W+x;if sp.inside[i]then return i,sy end
+  end
+  local function roofHeight(z)return base+math.floor(rise*math.max(0,1-math.abs(2*(z+.5)/D-1)))end
+  local function at(x,y,z)
+    if x<0 or x>=W or y<0 or z<0 or z>zmax then return end
+    local top=roofHeight(z)
+    if y>top-slab and y<=top then
+      local sy=math.min(b.roof-1,b.first+math.floor(math.abs(2*(z+.5)/D-1)*(b.roof-b.first)))
+      return source(sy,x)
+    end
+    if y>top-slab or z>=D then return end
+    local sy=b.height-1-y
+    if sy<b.roof then sy=b.roof+(sy-b.roof)%wallH end
+    local i,localY=source(sy,x);if not i then return end
+    if z==0 and pr.rear then return pr.rear[i]or pr.interior[i]end
+    return z==D-1 and i or pr.interior[i]
+  end
+  local function sideAt(x,y,z,i)
+    if not i or not pr.rear or y>roofHeight(z)-slab then return i end
+    local sy=b.height-1-y;if sy<b.roof then sy=b.roof+(sy-b.roof)%wallH end
+    local _,localY=source(sy,x)
+    return localY and sideMaterialAt(sp,pr.rear,localY,z)or i
+  end
+  local function ranges(x,y)
+    if x<0 or x>=W or y<0 or y>base+rise then return end
+    local runs,start={},nil
+    for z=0,zmax do
+      Budget.tick()
+      if at(x,y,z)then start=start or z
+      elseif start then runs[#runs+1]=start;runs[#runs+1]=z-1;start=nil end
+    end
+    if start then runs[#runs+1]=start;runs[#runs+1]=zmax end
+    return #runs>0 and runs or nil
+  end
+  return{W=W,ytop=base+rise,zmin=0,zmax=zmax,at=at,ranges=ranges,sideAt=sideAt}
+end
+
 local function model(sp, pr, t)
+  if t.nativeBands then return nativeBuildingModel(sp,pr,t) end
+  if t.nativeRound then return roundPlantModel(sp, pr,t) end
   if t.parts then return deskSetModel(sp, pr, t) end
   local W, H, D = sp.W, sp.H, pr.D
   local slab, roofRows = t.slab, t.roofRows
@@ -1171,13 +1305,27 @@ local function model(sp, pr, t)
       roofSy[z] = cyc0 + (df - cyc0) % cycN
     end
   end
+  if t.nativeGable then
+    -- The source's top row is the ridge and its final roof row the eave.
+    -- Map that band once down each slope. Cycling the last rows painted
+    -- repeated dark eaves across the front half of the roof.
+    local first=t.nativeRoofTop or 0
+    for z=rz0,rz1 do
+      roofSy[z]=math.min(roofRows-1,first+math.floor(math.abs(2*(z+.5)/D-1)*(roofRows-first)))
+    end
+  end
 
   local T = {}
   for x = 0, W - 1 do T[x] = ytop - top[x] end
 
+  local rise=t.nativeGable and math.min(16, math.floor(D/3), math.floor(roofRows/2)) or 0
+  local base=ground-roofRows+slab-1
+  if t.nativeGable then ytop=math.max(ytop,base+rise) end
   local function at(x, y, z)
     if x < 0 or x >= W then return nil end
+    if t.planCut and t.planCut[math.floor(z/8)*(W/8)+math.floor(x/8)]then return nil end
     local tx = T[x]
+    if t.nativeGable then tx=base+math.floor(rise*math.max(0,1-math.abs(2*(z+.5)/D-1))) end
 
     -- roof: a solid of constant thickness following the elevation profile
     if top[x] < roofRows
@@ -1220,6 +1368,9 @@ local function model(sp, pr, t)
     -- differ only for furniture standing on open floor (see measure).
     if z < 0 or z >= D then return nil end
     local sy = ground - 1 - y
+    if t.nativeGable and sy<roofRows then
+      sy=roofRows+(sy-roofRows)%math.max(1,ground-roofRows)
+    end
     local i = sy * W + x
     if y == 0 and not sp.inside[i] and sy > 0 and sp.inside[i - W] then
       -- the drawing's last row is the ground the building stands on, so
@@ -1252,6 +1403,7 @@ local function model(sp, pr, t)
     end
 
     local tx = T[x]
+    if t.nativeGable then tx=base+math.floor(rise*math.max(0,1-math.abs(2*(z+.5)/D-1))) end
     if top[x] < roofRows and y > tx - slab and y <= tx
        and z >= rz0 and z <= rz1 then
       return cellTexel
@@ -1261,6 +1413,9 @@ local function model(sp, pr, t)
     end
 
     local sy = ground - 1 - y
+    if t.nativeGable and sy<roofRows then
+      sy=roofRows+(sy-roofRows)%math.max(1,ground-roofRows)
+    end
     local i = sy * W + x
     if y == 0 and not sp.inside[i] and sy > 0 and sp.inside[i - W] then
       sy, i = sy - 1, i - W
@@ -1312,8 +1467,19 @@ local function model(sp, pr, t)
     return front and frontRange or recessedRange
   end
 
+  if t.nativeGable or t.planCut then
+    ranges=function(x,y)
+      local runs,start={},nil
+      for z=rz0,rz1 do
+        if at(x,y,z)~=nil then start=start or z
+        elseif start then runs[#runs+1]=start;runs[#runs+1]=z-1;start=nil end
+      end
+      if start then runs[#runs+1]=start;runs[#runs+1]=rz1 end
+      return #runs>0 and runs or nil
+    end
+  end
   return { at = at, W = W, ytop = ytop,
-           sideAt = sideAt, sideStrip = pr.rear ~= nil,
+           sideAt = not t.planCut and sideAt or nil, sideStrip = not(t.nativeGable or t.planCut) and pr.rear ~= nil,
            ranges = ranges,
            zmin = ledge0 and -2 or 0,
            zmax = math.max(rz1, ledge0 and (D + 1) or 0) }
@@ -1926,6 +2092,7 @@ function Buildings.build(S, map, data, perRow)
   local tileset = map.tileset
   local s = profile()
   local list = s and s.buildings and s.buildings[tileset.id]
+  if map.def.kaOwner=='kasc.sevii-expedition/v1'then list=V.require('SeviiNativeVoxel').templates(map,data)end
   if not list then return end
 
   local atlasW = tileset.imageWidth or 128
@@ -1966,7 +2133,7 @@ function Buildings.build(S, map, data, perRow)
       local first = t.tiles[1][1]
       local built = nil
       local candidateKey = first == nil and missingTile or first
-      local candidates = candidatesByFirst[candidateKey]
+      local candidates = t.positions or candidatesByFirst[candidateKey]
       for ci = 1, candidates and #candidates or 0 do
         Budget.tick()
         local position = candidates[ci]
@@ -2041,6 +2208,7 @@ end
 -- a building claim with height as a full model (skip, never a second
 -- box; see its support branches).
 function Buildings.stamp(S, map, quads, tx, ty, bw, bh, t)
+  local seaWater=t and t.waterUnderlay and V.require('SeviiSeaRocks').waterAt(S,tx,ty,bw,bh)
   local shape = { class = "building", h = (t and t.support) or 0,
                   art = "building", flat = false, authored = true }
   local keep = nil
@@ -2070,6 +2238,17 @@ function Buildings.stamp(S, map, quads, tx, ty, bw, bh, t)
     vote(tx + bw, ty + r)
   end
 
+  if t and t.useWaterGround then
+    for radius=1,6 do
+      local wet
+      for y=ty-radius,ty+bh-1+radius do for x=tx-radius,tx+bw-1+radius do
+        local ns=S.shapeAt[keyOf(x,y)]
+        if ns and ns.class=='water' then wet=S.tileAt[keyOf(x,y)];break end
+      end;if wet then break end end
+      if wet then best=wet;break end
+    end
+  end
+
   -- A building's collision door is the one authored point where gameplay
   -- states exactly which terrace its floor meets. Keep the bottom-left tile
   -- coordinate of every such cell inside the claimed drawing. ChunkMesher
@@ -2093,6 +2272,7 @@ function Buildings.stamp(S, map, quads, tx, ty, bw, bh, t)
           elseif type(map.doorTiles) == "table" then
             door = map.doorTiles[map:cellTile(cx, cy)] and true or false
           end
+          if not door and t and t.nativeGable then door=V.require('KascSeviiScenery').portalAt(map,cx,cy)~=nil end
           if door then
             doorGroundSamples[#doorGroundSamples + 1] = footTx
             doorGroundSamples[#doorGroundSamples + 1] = footTy
@@ -2111,16 +2291,20 @@ function Buildings.stamp(S, map, quads, tx, ty, bw, bh, t)
         -- ground is set now, so the scan's own claim of these tiles has
         -- the building's floor to paint when no flat tile touches a
         -- cluster ringed by its own furniture.
-        S.ground[k] = best or false
+        if not(t and t.planCut)then S.ground[k] = best or false end
       else
         S.shapeAt[k] = shape
         S.skip[k] = true
         S.ground[k] = best or false
+        if seaWater then
+          S.furnitureWater=S.furnitureWater or {};S.furnitureWater[k]=seaWater
+          S.ground[k]=nil
+        end
       end
     end
   end
 
-  local mx, mz = tx * 8, ty * 8
+  local mx, mz = tx * 8, ty * 8+(t and t.offsetZ or 0)
   if #quads == 0 then return end
   local stamps = S.buildingStamps
   if not stamps then
@@ -2131,6 +2315,7 @@ function Buildings.stamp(S, map, quads, tx, ty, bw, bh, t)
     quads = quads, mx = mx, mz = mz,
     tx = tx, ty = ty, bw = bw, bh = bh,
     heightScale = quads.heightScale or 1,
+    nativeSeviiBase = t and t.nativeSourceBase,
     doorGroundSamples = doorGroundSamples,
     northDoor = rearFacadeDoor(map, tx, ty, bw, bh, t),
     gateDoors = GateDoors.forBuilding(map, tx, ty, bw, bh),

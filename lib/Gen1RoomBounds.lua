@@ -8,6 +8,10 @@ function M.forMap(map)
  if cache[map]then return cache[map]end
  local d=map.def;local b={west=0,north=0,east=d.width*32,south=d.height*32}
  cache[map]=b
+ if V and d.kaOwner=='kasc.sevii-expedition/v1'then
+  local sevii=V.require('KascSeviiScenery').bounds(map)
+  if sevii then cache[map]=sevii;return sevii end
+ end
  if d.generation==2 or not map.tileset or not map.tileset.blocks or not map.isWalkableCell
   or not(d.tileset=='FACILITY'or d.tileset=='LOBBY'or map.id=='SILPH_CO_11F'or V.require('Gen1Rooftops').gate(map))
   or map.id=='CELADON_MART_ROOF' then return b end
@@ -33,11 +37,22 @@ function M.floorTiles(map)
  local b=M.forMap(map);local d=map.def
  if b.west==0 and b.north==0 and b.east==d.width*32 and b.south==d.height*32 then return end
  local tiles={}
+ local source=V and d.kaOwner=='kasc.sevii-expedition/v1'and V.require('KascSeviiScenery')
+ if source and not source.profile(map)then source=nil end
  local function fill(x0,z0,x1,z1)
-  for y=z0/8,z1/8-1 do for x=x0/8,x1/8-1 do tiles[(y+64)*4096+x+64]=true end end
+  for y=z0/8,z1/8-1 do for x=x0/8,x1/8-1 do
+   local tag=source and source.token(map,x,y)
+   -- The cutaway opens actual room compartments, not floor under their
+   -- source walls or the black gaps separating disconnected compartments.
+   if not source or(tag~='X'and tag~='V')or source.portalAt(map,math.floor(x/2),math.floor(y/2))
+    or(tag=='X'and map:isWalkableCell(math.floor(x/2),math.floor(y/2)))then
+    tiles[(y+64)*4096+x+64]=true
+   end
+  end end
  end
  fill(b.west,b.north,b.east,b.south)
- for _,w in ipairs(d.warps or{})do
+ local portals=V and d.kaOwner=='kasc.sevii-expedition/v1'and V.require('KascSeviiScenery').warps(map)or d.warps or{}
+ for _,w in ipairs(portals)do
   local x,z=w.x*16,w.y*16
   if x>=b.west and x+16<=b.east then
    if z<b.north then fill(x,z,x+16,b.north)

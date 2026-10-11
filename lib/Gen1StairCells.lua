@@ -1,7 +1,12 @@
 -- Shared classification for native mansion/store stair warps. Tile numbers
 -- alone are insufficient: a real warp and the complete 16px drawing agree.
+local V=...
 local M={}
 function M.classForWarp(map,warp)
+ if map and map.def and map.def.kaOwner=='kasc.sevii-expedition/v1'and V then
+  local tag=V.require('KascSeviiScenery').token(map,warp.x*2,warp.y*2)
+  return ({J='stair_e',N='stair_w',O='stair_down_e',Q='stair_down_w'})[tag]
+ end
  local d=map and map.def
  local silph=d and map.id=='SILPH_CO_11F' and d.tileset=='INTERIOR' and d.width==9 and d.height==9 and warp.destMap=='SILPH_CO_10F'
  if not d or d.generation==2 or (d.tileset~='MANSION' and d.tileset~='LOBBY' and not silph)then return nil end

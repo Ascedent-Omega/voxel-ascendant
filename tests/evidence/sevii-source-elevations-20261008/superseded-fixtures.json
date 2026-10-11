@@ -1,0 +1,7 @@
+{
+  "runs": [
+    "fix-before-quick-source-elevation-before-flat0361-v3",
+    "fix-before-quick-source-elevation-before-voxel0361-v3"
+  ],
+  "error": "QA checked whether the FIXED environment variable existed, so value 0 selected fixed mode. Both runs exited 1 at source movement adapter absent; v4 strictly checks value 1. Verified completed ZIP extracts were reused read-only, with every recorded Lua SHA and original ZIP SHA rechecked. No failed run is counted as a passing baseline."
+}

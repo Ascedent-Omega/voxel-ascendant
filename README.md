@@ -1,3 +1,15 @@
+# Voxel Ascendant 3.0.63-rc.1-sevii – lokaler Sevii-Teststand
+
+Dieser RC baut auf der öffentlichen VASC-Version 3.0.62 auf und gehört zum lokalen KASC 6.7.33-rc.1-sevii. Beide Mods im Testprofil aktualisieren und das Spiel neu starten. Bestehende Spielstände und Optionen behalten. Der Stand ist ein installierbarer Testkandidat, keine öffentliche Veröffentlichung; Doppelkampf-Spezialfälle, mobile HUDs und der letzte GPU-Gesamtlauf bleiben in Prüfung.
+
+Sevii verwendet Kantos Voxel-Architektur, Gras, Möbel und Innen-/Höhlenpanoramen. Die Wälder erhalten verschiedene Laubtöne, Frühlingsblüten, Herbstfarben, Winterlaubfall und unregelmäßige Lichtungen. Normales Voxel funktioniert auch ohne den optionalen Overhaul mit freigestellten Originalpflanzen und räumlicher Quellgrafik.
+
+Die bisherigen Prüfungen von 135 Quellgebieten und 16 Kanto-Referenzen in beiden Modi, 266 Karten, Brückenspuren, Moduswechseln, Kameras, Nacht und tatsächlichen MAP-Kämpfen sowie 31 gezielten Tests sind in `SEVII_VOXEL_QA_DE.md` für Test 7 dokumentiert. Sie müssen für diese Integration und die aktuelle KASC-Version wiederholt werden. Dieser Arbeitsstand enthält keine ROM oder extrahierten Inselbilder und wurde nicht veröffentlicht.
+
+---
+
+Ältere öffentliche VASC-Dokumentation; die Änderungen von 3.0.62 stehen in `RELEASE_NOTES.md`:
+
 # Voxel Ascendant 3.0.61 — Halloween hat hotfix
 
 Halloween witch hats now fit the actual rendered NPC instead of covering the face or floating above the hair. The brim sits in the upper hair, scales to the figure and follows its camera orientation, breathing, walking offsets and seating transform. Hat size stays stable through walking poses.

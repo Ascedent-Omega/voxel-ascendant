@@ -1,0 +1,15 @@
+# Sevii source animation renderer
+
+KASC supplies authenticated original metatile animation streams; VASC formerly rendered their static source atlas. `SeviiMapAnimations` now prepares nearest-filtered GPU atlases from native immutable frame textures and the native `TileRenderer.animClock`. Water/sand update an alternate canvas only when their source frame changes. No GPU readback, per-frame image upload, additional shader sampler or per-frame Lua table construction is used in the animation update.
+
+Flowers and steam retain the existing Kanto thin scenery slab convention, but use exact source overlay frames and source cell placements. Steam replaces the old static puff with its verified original underlay and resolves blocked rock-top height through the existing terrain shape/datum. Flowers refresh their shadow key when alpha changes. Ordinary Kanto maps retain the prior renderer path and shadow key.
+
+Prepared canvases and meshes count toward the existing return-cache budget through an opt-in ownership reader. Eviction releases these resources while retaining Assets-owned native frame images. Required live maps remain pinned. The desktop audit checks 135 preparations and evictions, 2,896 surface streams, 43 foreground streams / 185 source cells, and 768 exact decoded GPU canvas comparisons. Three complete 640-tick cycles forbid new Images, Canvases, Meshes, SpriteBatches and pixel buffers after preparation.
+
+Native drivers require an isolated identity matching `vasc-sevii-*-qa`, the paired mods, `SEVII_QA_OUTPUT`, and `SEVII_KASC_ROOT`. The voxel/world drivers use the repository's common native QA setup. Execute them through the engine's `POKEPORT_DRIVER`; retain completed JSON and terminal markers, not merely process exit zero. The invalid-asset driver intentionally loads a private corrupt-export fixture and requires explicit registration rejection.
+
+Same-coordinate before/after world captures use flowers on Four Island (20,9), steam in Ember Spa (14,9), and the Kindle coast (14,34), at source ticks 17/49 in both modes. Before uses the preceding static bundle with the same other fixes; after uses the authenticated export. Screenshots supplement the exact pixel oracles. The map-entry driver now chooses reachable authored doors, or a real reverse seam, on disconnected fragments; earlier unreachable-door fixture failures remain in the audit.
+
+The latest Kanto comparison preserves 16 complete reference images without cropping, masks or tolerance. The native engine's 1,917 original source files remain unchanged. All checks run on gen1recomp 0.3.61 / LÖVE 11.5 / macOS. Android Adreno 830 execution, the original D11 timeout, mobile FPS/material behavior and the specific Groudon wing/provider state remain open; no desktop allocation check is a mobile performance measurement.
+
+Generated ROM-derived frame PNGs, ROM, saves, raw logs and private paths are excluded from Git evidence. The paired private candidate ZIPs include the derived animation assets and retain original static assets.

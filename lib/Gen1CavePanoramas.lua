@@ -1,4 +1,5 @@
 -- Materials for the actual cave enclosure, never battle-background selection.
+local V=...
 local M={sourceW=960,sourceH=320,textureW=1920,wallPeriod=960,ceilingSize=256}
 M.families={}
 for _,name in ipairs({'seafoam','rock_tunnel','diglett','victory_road','cerulean','mt_moon'})do
@@ -40,6 +41,7 @@ M.extensionMaps={
 function M.materialFor(map)
  local def=map and map.def
  if not def then return nil end
+ if def.kaOwner=='kasc.sevii-expedition/v1'then local p=V.require('KascSeviiScenery').profile(map);if p and p.cave then return 'cave_'..p.cave end end
  if def.runtimeAuthority=='KASC_6_7_STARTER_HABITAT_V2_3'and def.voxelOwner=='kanto_ascendant'
    and (def.tileset=='KA_HABITAT_STONE'or def.tileset=='KA_HABITAT_MYSTIC')then return 'cave_rock_tunnel'end
  if def.tileset=='KA_MOLTRES_VOLCANO_67'and def.kaOwner=='kasc.hoenn-moltres-volcano/v4'

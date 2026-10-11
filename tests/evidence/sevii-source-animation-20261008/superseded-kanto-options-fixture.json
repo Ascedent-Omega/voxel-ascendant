@@ -1,0 +1,70 @@
+{
+  "status": "v17 seeded journey options used redpp instead of baseline gbc and added follower settings; do not claim pixel parity from mismatched fixtures",
+  "current": "kanto-pixel-regression-packaged-animation.json",
+  "rows": [
+    {
+      "map": "GAME_CORNER",
+      "changed_pixels": 323507
+    },
+    {
+      "map": "VIRIDIAN_POKECENTER",
+      "changed_pixels": 2480
+    },
+    {
+      "map": "CERULEAN_CITY",
+      "changed_pixels": 11585
+    },
+    {
+      "map": "ROUTE_12",
+      "changed_pixels": 384396
+    },
+    {
+      "map": "REDS_HOUSE_1F",
+      "changed_pixels": 291
+    },
+    {
+      "map": "ROCK_TUNNEL_1F",
+      "changed_pixels": 4308
+    },
+    {
+      "map": "VERMILION_TRADE_HOUSE",
+      "changed_pixels": 54
+    },
+    {
+      "map": "ROUTE_1",
+      "changed_pixels": 286
+    },
+    {
+      "map": "PALLET_TOWN",
+      "changed_pixels": 117
+    },
+    {
+      "map": "VIRIDIAN_CITY",
+      "changed_pixels": 94
+    },
+    {
+      "map": "MT_MOON_1F",
+      "changed_pixels": 5324
+    },
+    {
+      "map": "ROUTE_23",
+      "changed_pixels": 33620
+    },
+    {
+      "map": "ROUTE_20",
+      "changed_pixels": 788633
+    },
+    {
+      "map": "CINNABAR_ISLAND",
+      "changed_pixels": 14909
+    },
+    {
+      "map": "VIRIDIAN_FOREST",
+      "changed_pixels": 28931
+    },
+    {
+      "map": "SEAFOAM_ISLANDS_1F",
+      "changed_pixels": 11661
+    }
+  ]
+}

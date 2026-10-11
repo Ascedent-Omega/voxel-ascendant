@@ -37,4 +37,19 @@ assert(j.resumes==1,'phone slow upload allowed more work past deadline')
 H.beginFrame(true,false,true);j=job(.0001);local other=job(.0001)
 advance(j);advance(other)
 assert(j.resumes+other.resumes>=79 and j.resumes+other.resumes<=81,'two maps multiplied the loading budget')
+-- A source fragment with ready BODY/aux/atlas is required visible work,
+-- even when sustained 30-Hz frames leave no optional spare-time allowance.
+modules.BackgroundBudget.reset()
+for frame=1,120 do
+ H.beginFrame(false,false,false);j=job(.0001);local other=job(.0001)
+ advance(j,false);local optional=j.resumes
+ advance(j,true);advance(other,true)
+ assert(j.resumes+other.resumes==1,'direct expansion stalled or multiplied foreground slices')
+ if frame%60~=0 then assert(optional==0,'optional throttle unexpectedly disabled')end
+end
+H.beginFrame(false,false,false);j=job(.02);local other=job(.0001)
+advance(j,true);advance(other,true)
+assert(j.resumes==1 and other.resumes==0,'slow required step grew the next budget')
 print('PASS horizon budget: bounded phone/desktop progress, shared deadlines, zero-time yield cap, slow-step stop')
+
+print('PASS ready direct horizons: guaranteed progress at 30 Hz, optional throttle retained, one shared foreground slice and slow-step stop')

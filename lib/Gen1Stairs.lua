@@ -13,6 +13,10 @@ function M.reviewedFlight(map)
  local floor=tonumber(id:match('^ROCKET_HIDEOUT_B([1-4])F$'))
  return floor and d.tileset=='FACILITY'and d.width==15 and d.height==(floor==4 and 12 or 14)or false
 end
+local function warps(map)
+ if map.def.kaOwner=='kasc.sevii-expedition/v1'then return V.require('KascSeviiScenery').warps(map)end
+ return map.def.warps or{}
+end
 M.setting=V.require('ModSetting').new('voxelStairs','STAIRS',{true,false},{'ON','OFF'},true)
 local families={REDS_HOUSE_1=2,REDS_HOUSE_2=2,GATE=2,SHIP=3,
  HOUSE=2,MANSION=2,LOBBY=7,MUSEUM=7,FACILITY=6,INTERIOR=6,
@@ -36,6 +40,10 @@ function M.material(map)
  if not d or d.generation==2 or not M.setting:get() then return nil end
  if M.scripted(map)then return -133 end
  if V.require('Gen1InteriorFloors').profile(map)==54 then return -182 end
+ if d.kaOwner=='kasc.sevii-expedition/v1'then
+  local p=V.require('KascSeviiScenery').profile(map)
+  if p then return p.kind=='room'and (p.theme=='home'or p.theme=='coastal_home'or p.theme=='traditional_home')and -130 or -133 end
+ end
  local f=families[d.tileset]
  return f and -128-f
 end
@@ -118,7 +126,7 @@ function M.claim(S,map)
   end end
  end
  local cells=V.require('Gen1StairCells')
- for _,warp in ipairs(map.def.warps or {})do
+ for _,warp in ipairs(warps(map))do
   local class=cells.classForWarp(map,warp)
   if class then
    local occupied=false
@@ -153,7 +161,7 @@ end
 function M.orient(map,quads,first,cx,cy,s,original,selected)
  -- Shelf stairs and other terrain are authored slopes, not floor warps.
  local warp=false
- for _,w in ipairs(map.def.warps or{})do if w.x==cx and w.y==cy then warp=true;break end end
+ for _,w in ipairs(warps(map))do if w.x==cx and w.y==cy then warp=true;break end end
  if not warp or not M.material(map)then return end
  if not original then
   local east=s.class=='stair_e'or s.class=='stair_down_e'
@@ -391,9 +399,9 @@ function M.flight(map,cx,cy,s)
  end
  if not(s.class=='stair_e'or s.class=='stair_w'or s.class=='stair_down_e'or s.class=='stair_down_w')then return end
  local scripted=false;for _,p in ipairs(M.scripted(map)or{})do if p.x==cx and p.y==cy and p.class==s.class then scripted=true end end
- local warp=scripted;for _,w in ipairs(map.def.warps or{})do if w.x==cx and w.y==cy then warp=true;break end end
+ local warp=scripted;for _,w in ipairs(warps(map))do if w.x==cx and w.y==cy then warp=true;break end end
  if not warp then return end
- for _,w in ipairs(map.def.warps or{})do if w.x==cx and w.y==cy then
+ for _,w in ipairs(warps(map))do if w.x==cx and w.y==cy then
   local shaft=M.silphShaft(map,w)
   if shaft then return {shaft=true,store=false,down=shaft.down,material=-133,trim=-134,
    preferred='south',count=16,depth=.75,rise=shaft.height/16}end

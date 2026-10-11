@@ -6,16 +6,20 @@ local homes={home=true,traditional_home=true,coastal_home=true,daycare=true,cent
 local links,linksOwner
 local cache=setmetatable({},{__mode='k'})
 function M.source(map)
- local profile=map and V.require('Gen1InteriorPanoramas').profiles[map.id]
+ local rooms=V.require('Gen1InteriorPanoramas')
+ local profile=map and (rooms.profileFor and rooms.profileFor(map)or rooms.profiles[map.id])
  local d=map and map.def
- if not(profile and homes[profile.theme]and d and d.generation~=2 and d.tileset==profile.tileset
-  and d.width==profile.width and d.height==profile.height)then return end
+ if not(profile and homes[profile.theme]and d and d.generation~=2 and (d.kaOwner=='kasc.sevii-expedition/v1'or d.tileset==profile.tileset
+  and d.width==profile.width and d.height==profile.height))then return end
  local game=require('src.core.Game');local defs=game.data and game.data.maps
  if not defs then return end
  if linksOwner~=defs then
   linksOwner=defs;links={}
-  for id,def in pairs(defs)do if (def.tileset=='OVERWORLD'or def.tileset=='FOREST'or def.tileset=='PLATEAU')and def.generation~=2 then
-   for _,warp in ipairs(def.warps or{})do
+  for id,def in pairs(defs)do
+   local sevii=def.kaOwner=='kasc.sevii-expedition/v1'and V.require('KascSeviiScenery').profile({id=id,def=def,tileset=game.data.tilesets[def.tileset]})
+   if def.generation~=2 and (def.tileset=='OVERWORLD'or def.tileset=='FOREST'
+     or def.tileset=='PLATEAU'or sevii and sevii.exterior)then
+   for _,warp in ipairs(sevii and def.kaSeviiWarps or def.warps or{})do
     local old=links[warp.destMap]
     if not old or id<old.source then links[warp.destMap]={source=id,x=warp.x*16+8,z=warp.y*16+8}end
    end
@@ -73,7 +77,9 @@ function M.describe(map)
  local placement,model,glazing,floorHeight,floorSpan=V.require('Gen1WindowBindings').facade(map,link,buildings,P)
  if not model or not glazing then return done()end
  local options=V.require('Gen1WindowBindings').options(map)
- local profile=V.require('Gen1InteriorPanoramas').profiles[map.id]
+ local rooms=V.require('Gen1InteriorPanoramas')
+ local profile=rooms.profileFor and rooms.profileFor(map)or rooms.profiles[map.id]
+ if not profile then return done()end
  local H=profile.shellHeight
  local bounds=V.require('Gen1RoomBounds').forMap(map)
  local x0,x1,z0,z1=bounds.west,bounds.east,bounds.north,bounds.south
@@ -139,7 +145,15 @@ function M.describe(map)
   for _,wall in ipairs(V.require('Gen1InteriorLayout').panelsFor(map,profile))do
    if perimeter(map,wall)and wall.edge==p.edge and (not cabins or wall.at==p.at)then
     local runs={{math.max(p.from,wall.from),math.min(p.upto,wall.upto)}}
-    for _,door in ipairs(wall.openings or{})do
+    local cuts={};for _,door in ipairs(wall.openings or{})do cuts[#cuts+1]=door end
+    -- Keep one complete existing wall-panorama motif beside real windows.
+    -- This reserved strip belongs only to the authored Sevii room profile.
+    local feature=profile.wallPanorama
+    if feature and wall.edge==feature.edge then
+     local center=(wall.from+wall.upto)/2
+     cuts[#cuts+1]={from=center-feature.width/2,upto=center+feature.width/2}
+    end
+    for _,door in ipairs(cuts)do
      local nextRuns={}
      for _,run in ipairs(runs)do
       if door.upto<=run[1]or door.from>=run[2]then nextRuns[#nextRuns+1]=run

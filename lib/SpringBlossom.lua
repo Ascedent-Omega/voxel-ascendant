@@ -8,6 +8,9 @@ local G,W
 -- Integer-only positional hash: no regular every-nth-tree spacing and no
 -- global RNG/save state. About one quarter of broadleaf crowns are cherries.
 function B.selected(mapId,x,z)
+ if type(mapId)=='string'and mapId:match('^KA_SEVII_')then
+  mapId,x,z=V.require('SeviiVegetation').coordinates(mapId,x,z)
+ end
  local h=17
  for i=1,#mapId do h=(h*131+mapId:byte(i))%65521 end
  h=(h+math.floor(x)*109+math.floor(z)*181)%65521

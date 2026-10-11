@@ -1,5 +1,6 @@
 -- Native Kanto rooms only. Additive backdrops never edit blocks, collisions,
 -- warps or actors. Camera-facing walls are hidden as complete panels.
+local V=...
 local M = { assets = {}, profiles = {} }
 for _, theme in ipairs({'lab','mart','center','home','traditional_home','coastal_home',
   'daycare','hotel','diner','workshop','museum','elevator',
@@ -147,6 +148,7 @@ end
 function M.profileFor(map)
   local d=map and map.def
   if not d then return nil end
+  if d.kaOwner=='kasc.sevii-expedition/v1'then return V.require('KascSeviiScenery').room(map)end
   local p=M.profiles[tostring(map.id or d.id or '')]
   if p and (not p.owner or d.kaOwner==p.owner)and d.tileset==p.tileset and d.width==p.width and d.height==p.height
       and next(d.connections or {})==nil then

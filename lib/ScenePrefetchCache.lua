@@ -2,6 +2,15 @@
 -- (including in-place neighbour edits), never a concatenated key each frame.
 local M={}
 local directions={'north','south','west','east'}
+-- Equal-sized neighbourhoods can contain different columns after a crossing.
+-- Reuse only when the published scene actually covers every requested map.
+function M.covers(state,maps)
+ if not maps or not maps[state.map.id]then return false end
+ for _,nb in ipairs(state.neighbors or{})do
+  if not maps[nb.map.id]then return false end
+ end
+ return true
+end
 function M.new()
  local entry
  local C={hits=0,builds=0,warmSkips=0,reuses=0}

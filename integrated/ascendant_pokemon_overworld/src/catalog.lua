@@ -62,16 +62,33 @@ function Catalog.dexFor(game, value)
 end
 
 function Catalog.presentationDexFor(game, value)
+  local species = type(value) == 'table' and (value.species or value.pokemonSpecies) or value
+  local exports = game and game.mods and game.mods.exports
+  local kas = exports and exports.kanto_ascendant
+  local world = game and (game.overworld or game.world)
+  local expedition = kas and kas.seviiExpedition
+  local hevo = kas and kas.hevoSpecies
+  local pokemon = game and game.data and game.data.pokemon
+  local definition = type(species) == 'string' and pokemon and pokemon[species]
+  -- Sevii admits the registered owner's canonical identity before renderer
+  -- metadata: #261-279 are save-compatible private slots, not National Dex.
+  -- Scope this new rendering contract to the expedition's owned map registry
+  -- so established Kanto presentation remains unchanged. Do not bound the
+  -- identity to installed artwork: an absent #464 asset must never select #267.
+  if expedition and expedition.maps and world and world.map
+      and expedition.maps[world.map.id] and type(hevo)=='table'
+      and hevo.OWNER=='kasc.hevo-species/v1' and hevo.enabled==true then
+    local identity=hevo.presentationBySpecies and hevo.presentationBySpecies[species]
+    if identity and definition and identity.dex==definition.dex
+        and identity.sourceDex==definition.hevoSourceDex then
+      return identity.sourceDex
+    end
+  end
   -- Private Hoenn candidate. Preserve explicit presentation IDs and all
   -- existing cartridge behavior; backend private dex slots are not National Dex.
   local explicit = type(value) == "table" and Catalog.validPresentationDex(
     value.nationalDex or value.pokemonDex or value.dexNo or value.dex)
   if explicit then return explicit end
-  local species = type(value) == "table" and (value.species or value.pokemonSpecies) or value
-  local pokemon = game and game.data and game.data.pokemon
-  local definition = type(species) == "string" and pokemon and pokemon[species]
-  local exports = game and game.mods and game.mods.exports
-  local kas = exports and exports.kanto_ascendant
   local owner = kas and kas.backendGiftSpecies67
   local sourceDex = definition and tonumber(definition.sourceDex)
   if sourceDex and sourceDex >= 252 and sourceDex <= 386

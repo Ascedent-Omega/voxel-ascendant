@@ -1,0 +1,947 @@
+[
+  {
+    "source": "OneIsland",
+    "type": 1,
+    "weather": 2,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "OneIsland_KindleRoad",
+    "type": 3,
+    "weather": 2,
+    "music": 293,
+    "battleType": 0
+  },
+  {
+    "source": "OneIsland_TreasureBeach",
+    "type": 3,
+    "weather": 2,
+    "music": 293,
+    "battleType": 0
+  },
+  {
+    "source": "OneIsland_PokemonCenter_1F",
+    "type": 8,
+    "weather": 0,
+    "music": 328,
+    "battleType": 0
+  },
+  {
+    "source": "OneIsland_PokemonCenter_2F",
+    "type": 8,
+    "weather": 0,
+    "music": 328,
+    "battleType": 0
+  },
+  {
+    "source": "OneIsland_House1",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "OneIsland_House2",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "OneIsland_Harbor",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_RubyPath_B4F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "type": 3,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_SummitPath_1F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_SummitPath_2F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_SummitPath_3F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_Summit",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_RubyPath_B5F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_RubyPath_1F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_RubyPath_B1F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_RubyPath_B2F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_RubyPath_B3F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_RubyPath_B1F_Stairs",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "MtEmber_RubyPath_B2F_Stairs",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "type": 3,
+    "weather": 11,
+    "music": 287,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_IcefallCave_Entrance",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_IcefallCave_1F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_IcefallCave_B1F",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_IcefallCave_Back",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_RocketWarehouse",
+    "type": 8,
+    "weather": 0,
+    "music": 274,
+    "battleType": 3
+  },
+  {
+    "source": "SixIsland_DottedHole_1F",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_DottedHole_B1F",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_DottedHole_B2F",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_DottedHole_B3F",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_DottedHole_B4F",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_DottedHole_SapphireRoom",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_PatternBush",
+    "type": 3,
+    "weather": 0,
+    "music": 287,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_AlteringCave",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_1F",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_2F",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_3F",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_4F",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_5F",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_6F",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_7F",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_8F",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_Roof",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_Lobby",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "TrainerTower_Elevator",
+    "type": 8,
+    "weather": 0,
+    "music": 344,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Entrance",
+    "type": 4,
+    "weather": 0,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room1",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room2",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room3",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room4",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room5",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room6",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room7",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room8",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room9",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room10",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room11",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room12",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room13",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_LostCave_Room14",
+    "type": 4,
+    "weather": 6,
+    "music": 331,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_MoneanChamber",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 2
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_LiptooChamber",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 2
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_WeepthChamber",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 2
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_DilfordChamber",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 2
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_ScufibChamber",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 2
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_RixyChamber",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 2
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_ViapoisChamber",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 2
+  },
+  {
+    "source": "ThreeIsland_DunsparceTunnel",
+    "type": 4,
+    "weather": 0,
+    "music": 287,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_TanobyKey",
+    "type": 4,
+    "weather": 0,
+    "music": 334,
+    "battleType": 2
+  },
+  {
+    "source": "OneIsland_KindleRoad_EmberSpa",
+    "type": 4,
+    "weather": 0,
+    "music": 308,
+    "battleType": 0
+  },
+  {
+    "source": "TwoIsland",
+    "type": 1,
+    "weather": 2,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland",
+    "type": 1,
+    "weather": 2,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland",
+    "type": 1,
+    "weather": 2,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland",
+    "type": 1,
+    "weather": 2,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland",
+    "type": 1,
+    "weather": 2,
+    "music": 337,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland",
+    "type": 1,
+    "weather": 2,
+    "music": 337,
+    "battleType": 0
+  },
+  {
+    "source": "TwoIsland_CapeBrink",
+    "type": 3,
+    "weather": 2,
+    "music": 293,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_BondBridge",
+    "type": 3,
+    "weather": 2,
+    "music": 293,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_Port",
+    "type": 3,
+    "weather": 2,
+    "music": 293,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_ResortGorgeous",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_WaterLabyrinth",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_Meadow",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_MemorialPillar",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_OutcastIsland",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_GreenPath",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_Entrance",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "type": 3,
+    "weather": 2,
+    "music": 333,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_House_Room1",
+    "type": 8,
+    "weather": 0,
+    "music": 337,
+    "battleType": 1
+  },
+  {
+    "source": "SevenIsland_House_Room2",
+    "type": 8,
+    "weather": 0,
+    "music": 337,
+    "battleType": 1
+  },
+  {
+    "source": "SevenIsland_Mart",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_PokemonCenter_1F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_PokemonCenter_2F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_Harbor",
+    "type": 8,
+    "weather": 0,
+    "music": 337,
+    "battleType": 0
+  },
+  {
+    "source": "TwoIsland_JoyfulGameCorner",
+    "type": 8,
+    "weather": 0,
+    "music": 273,
+    "battleType": 0
+  },
+  {
+    "source": "TwoIsland_House",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "TwoIsland_PokemonCenter_1F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "TwoIsland_PokemonCenter_2F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "TwoIsland_Harbor",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_House1",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_PokemonCenter_1F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_PokemonCenter_2F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_Mart",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_House2",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_House3",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_House4",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_House5",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_PokemonDayCare",
+    "type": 8,
+    "weather": 0,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_PokemonCenter_1F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_PokemonCenter_2F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_House1",
+    "type": 8,
+    "weather": 0,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_LoreleisHouse",
+    "type": 8,
+    "weather": 0,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_Harbor",
+    "type": 8,
+    "weather": 0,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_House2",
+    "type": 8,
+    "weather": 0,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "FourIsland_Mart",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_PokemonCenter_1F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_PokemonCenter_2F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_Harbor",
+    "type": 8,
+    "weather": 0,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_House1",
+    "type": 8,
+    "weather": 0,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_House2",
+    "type": 8,
+    "weather": 0,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_PokemonCenter_1F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_PokemonCenter_2F",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_Harbor",
+    "type": 8,
+    "weather": 0,
+    "music": 337,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_House",
+    "type": 8,
+    "weather": 0,
+    "music": 337,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_Mart",
+    "type": 8,
+    "weather": 0,
+    "music": 303,
+    "battleType": 0
+  },
+  {
+    "source": "ThreeIsland_Harbor",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "FiveIsland_ResortGorgeous_House",
+    "type": 8,
+    "weather": 0,
+    "music": 336,
+    "battleType": 0
+  },
+  {
+    "source": "TwoIsland_CapeBrink_House",
+    "type": 8,
+    "weather": 0,
+    "music": 335,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_WaterPath_House1",
+    "type": 8,
+    "weather": 0,
+    "music": 308,
+    "battleType": 0
+  },
+  {
+    "source": "SixIsland_WaterPath_House2",
+    "type": 8,
+    "weather": 0,
+    "music": 308,
+    "battleType": 0
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_House",
+    "type": 8,
+    "weather": 0,
+    "music": 337,
+    "battleType": 0
+  }
+]

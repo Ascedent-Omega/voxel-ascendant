@@ -727,6 +727,11 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
   -- data.
   local buildingFloors, buildingPlacementBases = {}, {}
   local function doorBase(st)
+    -- Native atlas fragments share the complete source building's proven
+    -- entrance course, including fragments that do not contain its door.
+    if elevation.seviiSource and type(st.nativeSeviiBase)=="number" then
+      return st.nativeSeviiBase
+    end
     local samples = st.doorGroundSamples
     if type(samples) ~= "table" or #samples < 2 then return nil end
     local answer = nil
@@ -1242,8 +1247,9 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
                            8 - (y1 - y0), 8,
                            sideShades(hl, hr, y0, y1, y0 <= nh,
                                       Voxel3D.FACE_SHADE[d]),
-                           inBody and OutdoorScenery.foundationMaterial(map,outdoorProfile,'ground',g,
-                             (S.shapeAt[keyOf(tx+side[1],ty+side[2])]or{}).class))
+                           inBody and ((caveProfile and CaveSurfaces.material(caveProfile,'wall',g,'side',true,tx,ty))
+                             or OutdoorScenery.foundationMaterial(map,outdoorProfile,'ground',g,
+                             (S.shapeAt[keyOf(tx+side[1],ty+side[2])]or{}).class)))
                 end
                 y1 = y0
               end
@@ -1456,8 +1462,9 @@ local function runGeometry(map, bodyOnly, masks, sink, waterSink, stampPlan)
                        8 - (fy1 - fy0), 8,
                        sideShades(hl, hr, fy0, fy1, fy0 <= nh,
                                   Voxel3D.FACE_SHADE[d]),
-                       inBody and OutdoorScenery.foundationMaterial(map,outdoorProfile,s.class,tile,
-                         (S.shapeAt[keyOf(tx+side[1],ty+side[2])]or{}).class))
+                       inBody and ((caveProfile and CaveSurfaces.material(caveProfile,s.class,tile,'side',true,tx,ty))
+                         or OutdoorScenery.foundationMaterial(map,outdoorProfile,s.class,tile,
+                         (S.shapeAt[keyOf(tx+side[1],ty+side[2])]or{}).class)))
               fy1 = fy0
             end
 
@@ -2530,7 +2537,9 @@ function ChunkMesher.build(map, bodyOnly, masks, split)
   local sink = newSink()
   local waterSink = split and newSink() or nil
   runGeometry(map, bodyOnly, masks, sink, waterSink)
-  return sink.finish(), waterSink and waterSink.finish() or nil
+  local mesh,water=sink.finish(),waterSink and waterSink.finish()or nil
+  if not mesh and water then mesh=V.require('TerrainCompletion').complete(mesh,water)end
+  return mesh,water
 end
 
 local function elevationAtWorld(elevation, wx, wz)
@@ -3008,7 +3017,8 @@ local function buildAsyncTerrain(job, useInstances)
   local mesh = sink.finish()
   local water = waterSink.finish()
   if plan then mesh = finishStampPlan(job, mesh, plan) end
-  return mesh, water
+  if not mesh and water then mesh=V.require('TerrainCompletion').complete(mesh,water)end
+  return mesh,water
 end
 
 local function buildJobTerrain(job)

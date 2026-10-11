@@ -1,0 +1,18 @@
+[
+  {
+    "mode": "voxel",
+    "snapshot": "before",
+    "expectedBeforeSoftlock": true,
+    "passed": true,
+    "result": "fix-before-quick-pp-max-owner-voxel0361-v1",
+    "exit": 0
+  },
+  {
+    "mode": "voxel",
+    "snapshot": "after",
+    "expectedBeforeSoftlock": false,
+    "passed": true,
+    "result": "fix-after-quick-pp-max-owner-voxel0361-v1",
+    "exit": 0
+  }
+]

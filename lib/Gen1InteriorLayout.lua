@@ -2,6 +2,10 @@
 -- This module only reads layouts. Collision, doors and actors keep their owner.
 local V = ...
 local M = {}
+local function warps(map)
+ if map.def.kaOwner=='kasc.sevii-expedition/v1'then return V.require('KascSeviiScenery').warps(map)end
+ return map.def.warps or{}
+end
 local function add(out, edge, from, upto, at)
   if upto > from then
     local p={edge=edge,from=from,upto=upto,at=at,openings={}}
@@ -16,7 +20,7 @@ local function perimeter(map,out)
     local horizontal=edge=='north'or edge=='south'
     local near=edge=='north'or edge=='west'
     local niches={}
-    for _,w in ipairs(map.def.warps or{})do
+    for _,w in ipairs(warps(map))do
       local a=(horizontal and w.x or w.y)*16
       local c=(horizontal and w.y or w.x)*16
       local back=near and c or c+16
@@ -329,7 +333,9 @@ function M.panelsFor(map, profile)
   elseif map.id=='SILPH_CO_11F' and d.tileset=='INTERIOR' and map.tileset and map.tileset.blocks then silphOffice(map,out)
   elseif d.tileset=='UNDERGROUND' and map.tileset and map.tileset.blocks then underground(map,out)
   elseif d.tileset=='FACILITY' and map.tileset and map.tileset.blocks then facility(map,out)
-  else perimeter(map,out) end
+  else perimeter(map,out)
+   if d.kaOwner=='kasc.sevii-expedition/v1'then V.require('KascSeviiScenery').partitions(map,out)end
+  end
   local b=V.require('Gen1RoomBounds').forMap(map)
   local clipped={}
   for _,p in ipairs(out)do
@@ -346,7 +352,7 @@ function M.panelsFor(map, profile)
   cornerPiers(map,out)
   local stairPortals={}
   local stairs=V.require('Gen1Stairs')
-  for _,warp in ipairs(d.warps or{})do
+  for _,warp in ipairs(warps(map))do
     local class=stairs.classForWarp(map,warp)
     if class then
       local s={class=class,art='stair',h=16}
@@ -364,7 +370,7 @@ function M.panelsFor(map, profile)
           height=portal.height,open=true,stair=true}
       end
     end
-    for _,warp in ipairs(d.warps or{})do
+    for _,warp in ipairs(warps(map))do
       local along=(horizontal and warp.x or warp.y)*16
       local across=(horizontal and warp.y or warp.x)*16
       local row=p.at-((p.edge=='south' or p.edge=='east')and 16 or 0)

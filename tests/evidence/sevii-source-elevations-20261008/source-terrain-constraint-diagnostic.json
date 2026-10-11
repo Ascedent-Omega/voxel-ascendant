@@ -1,0 +1,1067 @@
+{
+  "completed": true,
+  "sourceROMIdentity": "18a3758ceeef2c77b315144be2c3910d6f1f69fe",
+  "generatorSHA256": "31d726b2a63a6d0441dae319a38d20862032f537a489ca115892b7b90bf083de",
+  "nodes": 179,
+  "conflictingGroups": [
+    [
+      {
+        "source": "SixIsland",
+        "components": 3,
+        "flights": [
+          {
+            "x": 10,
+            "y": 20,
+            "w": 3,
+            "h": 1
+          }
+        ]
+      },
+      {
+        "source": "SixIsland_RuinValley",
+        "components": 3,
+        "flights": [
+          {
+            "x": 28,
+            "y": 13,
+            "w": 2,
+            "h": 1
+          },
+          {
+            "x": 10,
+            "y": 14,
+            "w": 2,
+            "h": 1
+          },
+          {
+            "x": 9,
+            "y": 19,
+            "w": 2,
+            "h": 1
+          },
+          {
+            "x": 33,
+            "y": 26,
+            "w": 2,
+            "h": 1
+          },
+          {
+            "x": 16,
+            "y": 31,
+            "w": 2,
+            "h": 1
+          }
+        ]
+      },
+      {
+        "source": "SixIsland_WaterPath",
+        "components": 4,
+        "flights": [
+          {
+            "x": 8,
+            "y": 54,
+            "w": 2,
+            "h": 1
+          },
+          {
+            "x": 13,
+            "y": 73,
+            "w": 2,
+            "h": 1
+          },
+          {
+            "x": 7,
+            "y": 85,
+            "w": 2,
+            "h": 1
+          }
+        ]
+      }
+    ]
+  ],
+  "rows": [
+    {
+      "source": "FiveIsland",
+      "components": 3,
+      "flights": [
+        {
+          "x": 11,
+          "y": 9,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 79,
+          "lowerComponent": 78
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 6
+    },
+    {
+      "source": "FiveIsland_Harbor",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "FiveIsland_Meadow",
+      "components": 6,
+      "flights": [
+        {
+          "x": 2,
+          "y": 10,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 64,
+          "lowerComponent": 65
+        },
+        {
+          "x": 18,
+          "y": 20,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 64,
+          "lowerComponent": 67
+        },
+        {
+          "x": 4,
+          "y": 24,
+          "w": 1,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 68,
+          "lowerComponent": 69
+        },
+        {
+          "x": 12,
+          "y": 30,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 66,
+          "lowerComponent": 67
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 6
+    },
+    {
+      "source": "FiveIsland_MemorialPillar",
+      "components": 9,
+      "flights": [
+        {
+          "x": 9,
+          "y": 7,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 101,
+          "lowerComponent": 102
+        },
+        {
+          "x": 17,
+          "y": 29,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 101,
+          "lowerComponent": 103
+        },
+        {
+          "x": 5,
+          "y": 46,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 104,
+          "lowerComponent": 106
+        },
+        {
+          "x": 12,
+          "y": 46,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 104,
+          "lowerComponent": 107
+        },
+        {
+          "x": 5,
+          "y": 48,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 106,
+          "lowerComponent": 109
+        },
+        {
+          "x": 15,
+          "y": 49,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 107,
+          "lowerComponent": 105
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 12
+    },
+    {
+      "source": "FiveIsland_ResortGorgeous",
+      "components": 3,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "FiveIsland_WaterLabyrinth",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "FourIsland",
+      "components": 5,
+      "flights": [
+        {
+          "x": 9,
+          "y": 23,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 60,
+          "lowerComponent": 59
+        },
+        {
+          "x": 33,
+          "y": 27,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 60,
+          "lowerComponent": 63
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 6
+    },
+    {
+      "source": "FourIsland_Harbor",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "FourIsland_IcefallCave_Entrance",
+      "components": 10,
+      "flights": [],
+      "waterfallFlights": 1,
+      "minHeight": 0,
+      "maxHeight": 42
+    },
+    {
+      "source": "MtEmber_Exterior",
+      "components": 15,
+      "flights": [
+        {
+          "x": 29,
+          "y": 2,
+          "w": 1,
+          "h": 5,
+          "exportedRise": 6,
+          "upperComponent": 142,
+          "lowerComponent": 144
+        },
+        {
+          "x": 17,
+          "y": 12,
+          "w": 2,
+          "h": 3,
+          "exportedRise": 6,
+          "upperComponent": 145,
+          "lowerComponent": 143
+        },
+        {
+          "x": 29,
+          "y": 12,
+          "w": 1,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 144,
+          "lowerComponent": 145
+        },
+        {
+          "x": 29,
+          "y": 18,
+          "w": 2,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 145,
+          "lowerComponent": 147
+        },
+        {
+          "x": 29,
+          "y": 22,
+          "w": 2,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 147,
+          "lowerComponent": 150
+        },
+        {
+          "x": 29,
+          "y": 30,
+          "w": 2,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 151,
+          "lowerComponent": 148
+        },
+        {
+          "x": 8,
+          "y": 34,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 152,
+          "lowerComponent": 153
+        },
+        {
+          "x": 19,
+          "y": 34,
+          "w": 2,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 148,
+          "lowerComponent": 149
+        },
+        {
+          "x": 25,
+          "y": 34,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 148,
+          "lowerComponent": 154
+        },
+        {
+          "x": 18,
+          "y": 38,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 149,
+          "lowerComponent": 152
+        },
+        {
+          "x": 25,
+          "y": 39,
+          "w": 2,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 154,
+          "lowerComponent": 152
+        },
+        {
+          "x": 32,
+          "y": 39,
+          "w": 2,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 155,
+          "lowerComponent": 152
+        },
+        {
+          "x": 32,
+          "y": 45,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 156,
+          "lowerComponent": 153
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 24
+    },
+    {
+      "source": "MtEmber_Summit",
+      "components": 5,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "OneIsland",
+      "components": 7,
+      "flights": [
+        {
+          "x": 18,
+          "y": 11,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 12,
+          "lowerComponent": 13
+        },
+        {
+          "x": 11,
+          "y": 15,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 12,
+          "lowerComponent": 14
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 6
+    },
+    {
+      "source": "OneIsland_Harbor",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "OneIsland_KindleRoad",
+      "components": 9,
+      "flights": [
+        {
+          "x": 11,
+          "y": 12,
+          "w": 2,
+          "h": 3,
+          "exportedRise": 6,
+          "upperComponent": 128,
+          "lowerComponent": 129
+        },
+        {
+          "x": 14,
+          "y": 107,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 132,
+          "lowerComponent": 134
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 6
+    },
+    {
+      "source": "OneIsland_KindleRoad_EmberSpa",
+      "components": 4,
+      "flights": [
+        {
+          "x": 13,
+          "y": 10,
+          "w": 1,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 95,
+          "lowerComponent": 96
+        },
+        {
+          "x": 21,
+          "y": 10,
+          "w": 1,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 95,
+          "lowerComponent": 97
+        }
+      ],
+      "waterfallFlights": 2,
+      "minHeight": 0,
+      "maxHeight": 36
+    },
+    {
+      "source": "OneIsland_TreasureBeach",
+      "components": 3,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "SevenIsland",
+      "components": 3,
+      "flights": [
+        {
+          "x": 15,
+          "y": 12,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 138,
+          "lowerComponent": 139
+        },
+        {
+          "x": 7,
+          "y": 14,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 138,
+          "lowerComponent": 140
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 18
+    },
+    {
+      "source": "SevenIsland_Harbor",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon",
+      "components": 9,
+      "flights": [
+        {
+          "x": 9,
+          "y": 6,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 162,
+          "lowerComponent": 163
+        },
+        {
+          "x": 13,
+          "y": 8,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 163,
+          "lowerComponent": 165
+        },
+        {
+          "x": 4,
+          "y": 10,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 165,
+          "lowerComponent": 164
+        },
+        {
+          "x": 15,
+          "y": 15,
+          "w": 2,
+          "h": 3,
+          "exportedRise": 6,
+          "upperComponent": 162,
+          "lowerComponent": 166
+        },
+        {
+          "x": 7,
+          "y": 29,
+          "w": 2,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 167,
+          "lowerComponent": 166
+        },
+        {
+          "x": 10,
+          "y": 48,
+          "w": 2,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 167,
+          "lowerComponent": 168
+        },
+        {
+          "x": 13,
+          "y": 68,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 168,
+          "lowerComponent": 169
+        },
+        {
+          "x": 15,
+          "y": 74,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 169,
+          "lowerComponent": 170
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 30
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_Entrance",
+      "components": 4,
+      "flights": [
+        {
+          "x": 15,
+          "y": 19,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 91,
+          "lowerComponent": 92
+        },
+        {
+          "x": 21,
+          "y": 30,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 93,
+          "lowerComponent": 92
+        },
+        {
+          "x": 6,
+          "y": 32,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 92,
+          "lowerComponent": 94
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 12
+    },
+    {
+      "source": "SevenIsland_TanobyRuins",
+      "components": 11,
+      "flights": [
+        {
+          "x": 119,
+          "y": 12,
+          "w": 3,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 118,
+          "lowerComponent": 114
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 12
+    },
+    {
+      "source": "SevenIsland_TrainerTower",
+      "components": 7,
+      "flights": [
+        {
+          "x": 57,
+          "y": 11,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 28,
+          "lowerComponent": 30
+        },
+        {
+          "x": 57,
+          "y": 14,
+          "w": 3,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 30,
+          "lowerComponent": 31
+        },
+        {
+          "x": 52,
+          "y": 31,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 33,
+          "lowerComponent": 32
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 18
+    },
+    {
+      "source": "SixIsland",
+      "components": 3,
+      "flights": [
+        {
+          "x": 10,
+          "y": 20,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 0,
+          "upperComponent": 122,
+          "lowerComponent": 123
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "SixIsland_GreenPath",
+      "components": 5,
+      "flights": [
+        {
+          "x": 38,
+          "y": 13,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 88,
+          "lowerComponent": 89
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 6
+    },
+    {
+      "source": "SixIsland_Harbor",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "SixIsland_OutcastIsland",
+      "components": 4,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "SixIsland_PatternBush",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "SixIsland_RuinValley",
+      "components": 3,
+      "flights": [
+        {
+          "x": 28,
+          "y": 13,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 0,
+          "upperComponent": 38,
+          "lowerComponent": 39
+        },
+        {
+          "x": 10,
+          "y": 14,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 0,
+          "upperComponent": 38,
+          "lowerComponent": 40
+        },
+        {
+          "x": 9,
+          "y": 19,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 0,
+          "upperComponent": 40,
+          "lowerComponent": 38
+        },
+        {
+          "x": 33,
+          "y": 26,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 0,
+          "upperComponent": 38,
+          "lowerComponent": 39
+        },
+        {
+          "x": 16,
+          "y": 31,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 0,
+          "upperComponent": 39,
+          "lowerComponent": 38
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "SixIsland_WaterPath",
+      "components": 7,
+      "flights": [
+        {
+          "x": 8,
+          "y": 24,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 70,
+          "lowerComponent": 71
+        },
+        {
+          "x": 8,
+          "y": 54,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 0,
+          "upperComponent": 72,
+          "lowerComponent": 73
+        },
+        {
+          "x": 13,
+          "y": 73,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 0,
+          "upperComponent": 74,
+          "lowerComponent": 73
+        },
+        {
+          "x": 7,
+          "y": 85,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 0,
+          "upperComponent": 74,
+          "lowerComponent": 76
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 6
+    },
+    {
+      "source": "ThreeIsland",
+      "components": 4,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 6
+    },
+    {
+      "source": "ThreeIsland_BerryForest",
+      "components": 4,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "ThreeIsland_BondBridge",
+      "components": 8,
+      "flights": [
+        {
+          "x": 63,
+          "y": 6,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 171,
+          "lowerComponent": 175
+        },
+        {
+          "x": 49,
+          "y": 8,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 174,
+          "lowerComponent": 173
+        },
+        {
+          "x": 77,
+          "y": 8,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 171,
+          "lowerComponent": 175
+        },
+        {
+          "x": 66,
+          "y": 9,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 175,
+          "lowerComponent": 174
+        },
+        {
+          "x": 88,
+          "y": 9,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 176,
+          "lowerComponent": 177
+        },
+        {
+          "x": 16,
+          "y": 11,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 172,
+          "lowerComponent": 173
+        },
+        {
+          "x": 74,
+          "y": 12,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 175,
+          "lowerComponent": 176
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 24
+    },
+    {
+      "source": "ThreeIsland_Harbor",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "ThreeIsland_Port",
+      "components": 3,
+      "flights": [
+        {
+          "x": 10,
+          "y": 1,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 125,
+          "lowerComponent": 126
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 6
+    },
+    {
+      "source": "TrainerTower_Roof",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    },
+    {
+      "source": "TwoIsland",
+      "components": 9,
+      "flights": [
+        {
+          "x": 36,
+          "y": 1,
+          "w": 2,
+          "h": 2,
+          "exportedRise": 6,
+          "upperComponent": 45,
+          "lowerComponent": 47
+        },
+        {
+          "x": 20,
+          "y": 10,
+          "w": 3,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 47,
+          "lowerComponent": 49
+        }
+      ],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 12
+    },
+    {
+      "source": "TwoIsland_CapeBrink",
+      "components": 4,
+      "flights": [
+        {
+          "x": 6,
+          "y": 19,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 157,
+          "lowerComponent": 158
+        },
+        {
+          "x": 6,
+          "y": 24,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 158,
+          "lowerComponent": 159
+        },
+        {
+          "x": 7,
+          "y": 32,
+          "w": 2,
+          "h": 1,
+          "exportedRise": 6,
+          "upperComponent": 159,
+          "lowerComponent": 160
+        }
+      ],
+      "waterfallFlights": 1,
+      "minHeight": 12,
+      "maxHeight": 30
+    },
+    {
+      "source": "TwoIsland_Harbor",
+      "components": 1,
+      "flights": [],
+      "waterfallFlights": 0,
+      "minHeight": 0,
+      "maxHeight": 0
+    }
+  ],
+  "scope": "Exposes existing original-source terrace solver contradictions; not an independent height oracle or production modification."
+}

@@ -1,0 +1,1 @@
+PASS terrain constraints: original movement layers keep terraces distinct; contradictory seam graph is rejected

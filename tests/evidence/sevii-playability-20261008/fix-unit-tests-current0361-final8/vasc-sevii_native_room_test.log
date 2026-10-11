@@ -1,0 +1,3 @@
+PASS native Sevii room: source wall atlas, closed 48px room, real exit aperture, cutaway bases, mounted picture and floor-only ceiling
+PASS native wall claims preserve source cabinets, plant crowns and pots
+SEVII_FIX_TEST_PASS

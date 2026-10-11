@@ -97,6 +97,8 @@ end
 
 function Weather.isOutdoor(map)
   if not (map and map.def) then return false end
+  local sevii=map.def.kaOwner=='kasc.sevii-expedition/v1'and V.require('KascSeviiScenery').profile(map)
+  if sevii then return sevii.exterior==true end
   if map.id=='KA_HOENN_BIRTH_ISLAND'and V.require('KascBirthIsland').matches(map)then return true end
   if map.id=='KA_MOLTRES_VOLCANO'and V.require('KascVolcano').openSky(map)then return true end
   return defIsOutdoor(map.def) or SCENIC_OUTDOORS[mapId(map)] == true

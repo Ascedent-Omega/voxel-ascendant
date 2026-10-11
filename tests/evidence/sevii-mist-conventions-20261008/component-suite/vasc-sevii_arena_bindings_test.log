@@ -1,0 +1,3 @@
+PASS exact Sevii arena bindings, style and fail-closed owner/backdrop checks
+PASS ARENA backdrop ownership: Sevii Terrarium/discs and Kanto exclusions
+SEVII_FIX_TEST_PASS

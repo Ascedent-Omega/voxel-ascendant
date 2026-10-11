@@ -1,0 +1,2 @@
+PASS Sevii partner overlay isolates shader, clip and blend in all modes
+SEVII_FIX_TEST_PASS

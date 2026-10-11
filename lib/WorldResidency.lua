@@ -9,6 +9,7 @@ M.setting = V.require('ModSetting').new('worldCacheMB', 'MAP CACHE',
   {'auto', 128, 256, 512, 1024, 2048},
   {'AUTO', '128 MB', '256 MB', '512 MB', '1 GB', '2 GB'}, 'auto')
 local serial, used, sizes, retained = 0, {}, {}, {}
+local extraOwners={}
 local platform
 local function mobile()
   if platform == nil then
@@ -52,8 +53,17 @@ function M.measure(entry)
   walk(entry)
   return bytes
 end
+function M.registerOwnedSize(name,read)
+  assert(type(name)=='string'and type(read)=='function')
+  extraOwners[name]=read
+end
 function M.record(id, entry)
-  sizes[id] = math.max(64 * 1024, M.measure(entry))
+  -- Source animation buffers/slabs are owned beside the terrain entry.
+  -- Counting them keeps the existing return-history budget honest; ordinary
+  -- Kanto maps have no source allocation and retain their exact old estimate.
+  local extra=0
+  for _,read in pairs(extraOwners)do extra=extra+read(id)end
+  sizes[id] = math.max(64 * 1024, M.measure(entry)+extra)
 end
 function M.touch(id)
   serial = serial + 1

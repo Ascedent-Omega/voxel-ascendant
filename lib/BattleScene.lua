@@ -250,7 +250,11 @@ local function prefetchArena(state, host)
     -- connection masks and must not make a complete phone arena return nil.
     -- The initial current-only BODY has no receipt and remains rejected here,
     -- so a battle never opens on an unclosed bootstrap edge.
-    if not plan.mobileDirectUnion
+    -- Desktop visibility can omit distant survey neighbours as well. The
+    -- scene's warm receipt proves every neighbour in its actual masked union
+    -- is ready; comparing it with the unfiltered world rejects a complete
+    -- SCENERY-OFF arena even after the same world has been presented.
+    if not plan.mobileDirectUnion and plan.warmComplete ~= true
        and (plan.horizonFallback or not HorizonWall.preferBody(host))
        and #(plan.state.neighbors or {}) ~= #(state.neighbors or {}) then
       return nil
@@ -740,7 +744,8 @@ function BattleScene.presentationFitDistance(arena, textures, map)
   -- Authored paintings already open on their reviewed 3X master and own the
   -- exact clearings/foot positions. The fit floor is for steerable MAP and
   -- DISCS close-ups only.
-  if arena and arena.arenaStyle then return 1 end
+  if arena and arena.arenaStyle
+      and not (textures and (textures.player2 or textures.enemy2)) then return 1 end
   if type(textures) ~= "table" then return 1 end
   local stage = V.require("VoxelBattleStage")
   local actorScale = stage and type(stage.presentationScale) == "function"
@@ -748,11 +753,17 @@ function BattleScene.presentationFitDistance(arena, textures, map)
   local context = battleLayoutContext(arena, map)
   local minimum = arena and arena.map and not arena.discs
     and BattleCam.ZOOM_MIN or 1
+  -- The ordinary fit floor measures each body separately. Four Sevii bodies
+  -- span two ground cells on each side, so their combined field needs more
+  -- optical room even when every species is individually small.
+  if arena and arena.doubleBattle then minimum=math.max(minimum,2.1)end
   local fit = minimum
-  for _, side in ipairs({ "player", "enemy" }) do
+  for _, side in ipairs({ "player", "enemy", "player2", "enemy2" }) do
     local tex = textures[side]
     if tex then
-      local role = BattleScene.actorPresentation(side, tex, actorScale,
+      local role = BattleScene.actorPresentation(
+        side=='player2'and'player'or side=='enemy2'and'enemy'or side,
+        tex, actorScale,
                                                   context)
       local metrics = BattleScene.presentationMetrics(
         tex, role.scale, role.profileObject)
@@ -1053,6 +1064,46 @@ local function presentationLayout(arena, groundY, textures, map, vp)
     end
   end
   if not (textures and layout.player and layout.enemy) then return layout end
+  if arena.doubleBattle and (textures.player2 or textures.enemy2) then
+    for _,side in ipairs({'player','enemy'})do
+      local second=side..'2'
+      local slots=arena[side..'Slots']
+      local centre=layout[side]
+      if centre and type(slots)=='table' and slots[1] and slots[2] then
+        local origin=arena[side]
+        local function placed(index)
+          local point=slots[index]
+          local y=centre[2]
+          if arena.presentationMode=='MAP' and map then
+            local ground=V.require('VoxelScene').groundAt(map,
+              math.floor(point[1]/16),math.floor(point[2]/16))
+            if type(ground)=='number'then y=y+ground-groundY end
+          end
+          return {centre[1]+point[1]-origin[1],y,
+            centre[3]+point[2]-origin[2]}
+        end
+        layout[side]=placed(1)
+        if textures[second] then
+          local leadRole=BattleScene.actorPresentation(side,textures[side],
+            baseScale,context)
+          local role=BattleScene.actorPresentation(side,textures[second],
+            baseScale,context)
+          if arena.terarrium then
+            leadRole.x,leadRole.y=0,0
+            role.x,role.y=0,0
+          end
+          layout[second]=placed(2)
+          layout[second][1]=layout[second][1]+role.x-leadRole.x
+          layout[second][2]=layout[second][2]-role.y+leadRole.y
+          layout.actorScale[second]=role.scale
+          layout.target[second]=role.target
+          layout.flipX[second]=role.flipX
+          layout.profileObject[second]=role.profileObject
+        end
+      end
+    end
+    return layout
+  end
   local playerMetrics = textures.player
     and BattleScene.presentationMetrics(textures.player,
       layout.actorScale.player or baseScale, layout.profileObject.player)
@@ -1096,16 +1147,20 @@ function BattleScene.presentationLayout(arena,groundY,textures,map,vp)
  end
  vp=vp or Voxel3D.vp
  local player=textures and textures.player;local enemy=textures and textures.enemy
+ local player2=textures and textures.player2;local enemy2=textures and textures.enemy2
  for _,entry in ipairs(layoutFrame)do
   if entry.arena==arena and entry.y==groundY and entry.map==map
-      and entry.player==player and entry.enemy==enemy and (entry.vp~=nil)==(vp~=nil)then
+      and entry.player==player and entry.enemy==enemy
+      and entry.player2==player2 and entry.enemy2==enemy2
+      and (entry.vp~=nil)==(vp~=nil)then
    local same=true
    if vp then for i=1,16 do if entry.vp[i]~=vp[i]then same=false;break end end end
    if same then return copyLayout(entry.layout)end
   end
  end
  local result=presentationLayout(arena,groundY,textures,map,vp)
- local entry={arena=arena,y=groundY,map=map,player=player,enemy=enemy,layout=copyLayout(result)}
+ local entry={arena=arena,y=groundY,map=map,player=player,enemy=enemy,
+   player2=player2,enemy2=enemy2,layout=copyLayout(result)}
  if vp then entry.vp={unpack(vp,1,16)}end
  layoutFrame[#layoutFrame+1]=entry
  return result
@@ -1177,18 +1232,19 @@ local function monCards(arena, groundY, textures, map, vp, eye, probe)
                                                  map, vp)
   layout.actorInkWidth={}
   layout.actorInkHeight={}
-  for _, side in ipairs({ "enemy", "player" }) do
-    local tex = textures[side]
+  for _, slot in ipairs({ "enemy", "enemy2", "player", "player2" }) do
+    local side=(slot=='player'or slot=='player2')and'player'or'enemy'
+    local tex = textures[slot]
     local cell = (side == "player") and arena.player or arena.enemy
-    local position = layout[side]
+    local position = layout[slot]
     local cardX, cardY, cardZ = position and position[1],
       position and position[2], position and position[3]
     if tex and tex.canvas and cell and cardX then
       local explicit = type(tex.flipX) == "boolean"
         or type(tex.vascFlipX) == "boolean"
       local mirror
-      if not explicit and type(layout.flipX[side]) == "boolean" then
-        mirror = layout.flipX[side]
+      if not explicit and type(layout.flipX[slot]) == "boolean" then
+        mirror = layout.flipX[slot]
       else
         mirror = BattleScene.textureFlipX(side, tex)
       end
@@ -1199,8 +1255,8 @@ local function monCards(arena, groundY, textures, map, vp, eye, probe)
                         and BattleBillboard.yawToward(
                               cardX, cardZ, { otherX, 0, otherZ })
                         or 0
-      local actorScale = layout.actorScale[side] or baseScale
-      local profileObject = layout.profileObject[side]
+      local actorScale = layout.actorScale[slot] or baseScale
+      local profileObject = layout.profileObject[slot]
       local visibleYaw = BattleBillboard.yawToward(
         cardX, cardZ, eye or Voxel3D.eye)
       local metrics = BattleScene.presentationMetrics(
@@ -1225,12 +1281,12 @@ local function monCards(arena, groundY, textures, map, vp, eye, probe)
         Mat4.translate(cardX,cardY,cardZ),Mat4.rotateY(visibleYaw)),
         Mat4.scale(mirror and -hudScale or hudScale,hudScale,1))
       local inkWidth = tonumber(metrics.worldInkWidth) or BattleScene.CELL
-      layout.actorInkWidth[side]=inkWidth
-      layout.actorInkHeight[side]=tonumber(metrics.worldInkHeight)
+      layout.actorInkWidth[slot]=inkWidth
+      layout.actorInkHeight[slot]=tonumber(metrics.worldInkHeight)
       local contactRadiusX = math.max(2.5, math.min(7.5, inkWidth * .28))
       local contactRadiusZ = math.max(1.8,
         math.min(4.2, contactRadiusX * .58))
-      out[#out + 1] = { side=side, tex = tex.canvas, source=tex,
+      out[#out + 1] = { side=side, slot=slot, tex = tex.canvas, source=tex,
                         metrics=metrics,
                         hudCorners=hudPose and hudPose.corners, hudModel=hudModel,
                         -- Authored backdrops move each reviewed foot mark in
@@ -1320,7 +1376,8 @@ local function actorVisualForCard(card, vp, pw, ph, renderToken)
   end
   return {
     schema="voxel-ascendant/actor-render/v1",
-    side=card.side, renderToken=renderToken,
+    side=card.side, slot=card.slot or card.side,
+    renderToken=renderToken,
     placementSafe=card.placementSafe,
     hull={ left, top, right - left, bottom - top },
     head={ x=(left + right) * .5, y=top },
@@ -1343,7 +1400,7 @@ actorVisualsFor = function(arena, groundY, textures, map, vp, pw, ph,
   for _, card in ipairs(monCards(
       arena, groundY, textures, map, vp, eye, true)) do
     local receipt = actorVisualForCard(card, vp, pw, ph, renderToken)
-    if receipt then visuals[card.side] = receipt end
+    if receipt then visuals[card.slot or card.side] = receipt end
   end
   local okStadium, stadium = pcall(V.require, "Stadium")
   if okStadium and type(stadium) == "table"
@@ -2366,7 +2423,7 @@ local function renderScene(state, arena, textures, token)
     local actorVisuals = {}
     for _, card in ipairs(renderedCards) do
       local receipt = actorVisualForCard(card, vp, pw, ph, token)
-      if receipt then actorVisuals[card.side] = receipt end
+      if receipt then actorVisuals[card.slot or card.side] = receipt end
     end
     local okStadium, stadium = pcall(V.require, "Stadium")
     if okStadium and type(stadium) == "table"
@@ -2378,6 +2435,13 @@ local function renderScene(state, arena, textures, token)
           actorVisuals[side] = receipt
         end
       end
+    end
+    -- Transition covers deliberately render scenery without actor textures.
+    -- Validate all four actors only when rendering the actual battle frame.
+    if arena.doubleBattle and textures then
+      local ready,why=V.require('SeviiDoubleVisual').frameReady(
+        actorVisuals,textures,pw,ph,textures.vascRenderBattle)
+      if not ready then declineReason=why;return end
     end
     V.require('BattleHeroesBridge').reserveHUD(geometry,actorVisuals)
     out = {

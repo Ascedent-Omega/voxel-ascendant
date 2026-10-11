@@ -1,0 +1,5149 @@
+{
+  "romVerified": true,
+  "source": "https://github.com/pret/pokefirered/blob/master/src/tileset_anims.c",
+  "banks": {
+    "flower": {
+      "base": "0x3a722c",
+      "stride": 128,
+      "count": 5,
+      "pointerTable": "0x3a74ac",
+      "codeReference": "0x7002c",
+      "sha256": "3c104d93af7b7cc4fa3d45ed6fabfc577d2a2e561c03f59f5593399ba7cd1cbe"
+    },
+    "water": {
+      "base": "0x3a74c0",
+      "stride": 1536,
+      "count": 8,
+      "pointerTable": "0x3aa4a0",
+      "codeReference": "0x70054",
+      "sha256": "0803d7e31a62dab1dbe2d96b967d62cc46d2daf4db37046021e8802fa16da0a9"
+    },
+    "sand": {
+      "base": "0x3aa4c0",
+      "stride": 576,
+      "count": 8,
+      "pointerTable": "0x3ab6c0",
+      "codeReference": "0x7007c",
+      "sha256": "dfc8c05d0903ee787b30d88474f948af8c95abefbd6dae5e309b8762df402acf"
+    },
+    "steam": {
+      "base": "0x3ac044",
+      "stride": 256,
+      "count": 4,
+      "pointerTable": "0x3ac444",
+      "codeReference": "0x701f8",
+      "sha256": "762acbb677a161f647dcf81f83dc610a7527b1618c805e92750a7aa9c5738ba5"
+    }
+  },
+  "scope": "VRAM animation-range references in both source layers before static composition. Duplicate and occluded references are included; this is not visible pixel count. Other secondary callbacks require their own range analysis. No extracted artwork is exported.",
+  "rows": [
+    {
+      "source": "OneIsland",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 352,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 74,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_ONE",
+          "visiblePhase01Cells": {
+            "water": 74,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "OneIsland_KindleRoad",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 6602,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 1538,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_KINDLE_NORTH",
+          "visiblePhase01Cells": {
+            "water": 889,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_KINDLE",
+          "visiblePhase01Cells": {
+            "water": 649,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "OneIsland_TreasureBeach",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 2436,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 561,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TREASURE",
+          "visiblePhase01Cells": {
+            "water": 561,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "OneIsland_PokemonCenter_1F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_CENTER",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "OneIsland_PokemonCenter_2F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_CENTER_2F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "OneIsland_House1",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_HOUSE1",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "OneIsland_House2",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_HOUSE2",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "OneIsland_Harbor",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 434,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 108,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_HARBOR",
+          "visiblePhase01Cells": {
+            "water": 108,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_RubyPath_B4F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B4_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_Exterior",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y40",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y40",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y40",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_SummitPath_1F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 24,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 6
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 6
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_SummitPath_2F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 72,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 18
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 18
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_SummitPath_3F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 20,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 5
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_3_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 5
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_Summit",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_SUMMIT",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_RubyPath_B5F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B5_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_RubyPath_1F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 48,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 12
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 12
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_RubyPath_B1F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 28,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 7
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 7
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_RubyPath_B2F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 20,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 5
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 5
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_RubyPath_B3F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 104,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 26
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 26
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_RubyPath_B1F_Stairs",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 16,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 4
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F_STAIRS",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 4
+          }
+        }
+      ]
+    },
+    {
+      "source": "MtEmber_RubyPath_B2F_Stairs",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 16,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 4
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F_STAIRS",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 4
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_BerryForest",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y40",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y40",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y40",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_IcefallCave_Entrance",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 140,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 35,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+          "visiblePhase01Cells": {
+            "water": 35,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_IcefallCave_1F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_IcefallCave_B1F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_B1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_IcefallCave_Back",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 969,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 221,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_BACK",
+          "visiblePhase01Cells": {
+            "water": 221,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_RocketWarehouse",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x80701b5",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 6264
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_DottedHole_1F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_DottedHole_B1F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_DottedHole_B2F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_DottedHole_B3F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B3_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_DottedHole_B4F",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_DottedHole_SapphireRoom",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_SAPPHIRE_ROOM",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_PatternBush",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X0_Y16",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y16",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y16",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_AlteringCave",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_ALTERING_CAVE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_1F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_2F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_3F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_3_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_4F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_4_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_5F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_5_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_6F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_6_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_7F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_7_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_8F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_8_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_Roof",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_Lobby",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_LOBBY",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TrainerTower_Elevator",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x80701b5",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 280
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_ELEVATOR",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Entrance",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ENTRANCE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room1",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room2",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM2",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room3",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM3",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room4",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM4",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room5",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM5",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room6",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM6",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room7",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM7",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room8",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM8",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room9",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM9",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room10",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room11",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM11",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room12",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM12",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room13",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM13",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_LostCave_Room14",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM14",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_MoneanChamber",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_MONEAN_CHAMBER",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_LiptooChamber",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_LIPTOO_CHAMBER",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_WeepthChamber",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_WEEPTH_CHAMBER",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_DilfordChamber",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_DILFORD_CHAMBER",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_ScufibChamber",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_SCUFIB_CHAMBER",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_RixyChamber",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_RIXY_CHAMBER",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_ViapoisChamber",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_VIAPOIS_CHAMBER",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_DunsparceTunnel",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_DUNSPARCE_TUNNEL",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_TanobyKey",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_TANOBY_KEY",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "OneIsland_KindleRoad_EmberSpa",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x8070219",
+      "usedReferences": {
+        "water": 64,
+        "sand": 0,
+        "flower": 0,
+        "steam": 116,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 16,
+        "sand": 0,
+        "flower": 0,
+        "steam": 29
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA",
+          "visiblePhase01Cells": {
+            "water": 16,
+            "sand": 0,
+            "flower": 0,
+            "steam": 29
+          }
+        }
+      ]
+    },
+    {
+      "source": "TwoIsland",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 64,
+        "sand": 898,
+        "flower": 16,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 213,
+        "flower": 4,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TWO",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 72,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_TWO_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_TWO_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 141,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_TWO_X24_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 4,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 16,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 4,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 2,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 2,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 66,
+        "sand": 1610,
+        "flower": 44,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 383,
+        "flower": 11,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 383,
+            "flower": 11,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 1330,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 285,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE",
+          "visiblePhase01Cells": {
+            "water": 118,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 167,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 64,
+        "sand": 673,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 162,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 27,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 135,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 64,
+        "sand": 672,
+        "flower": 36,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 166,
+        "flower": 9,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 77,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 7,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 89,
+            "flower": 2,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TwoIsland_CapeBrink",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 40,
+        "sand": 1557,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 10,
+        "sand": 377,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 240,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 1,
+            "sand": 123,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 9,
+            "sand": 10,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 4,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_BondBridge",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 1716,
+        "sand": 0,
+        "flower": 48,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 400,
+        "sand": 0,
+        "flower": 12,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 3,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 164,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 1,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 4,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y10",
+          "visiblePhase01Cells": {
+            "water": 145,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y10",
+          "visiblePhase01Cells": {
+            "water": 91,
+            "sand": 0,
+            "flower": 2,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 2,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_Port",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 64,
+        "sand": 2158,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 518,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_PORT",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 32,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_PORT_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 76,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_PORT_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 183,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_PORT_X24_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 227,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_ResortGorgeous",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 5304,
+        "sand": 0,
+        "flower": 24,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 1218,
+        "sand": 0,
+        "flower": 6,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS",
+          "visiblePhase01Cells": {
+            "water": 229,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 115,
+            "sand": 0,
+            "flower": 6,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y0",
+          "visiblePhase01Cells": {
+            "water": 237,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 238,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10",
+          "visiblePhase01Cells": {
+            "water": 185,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y10",
+          "visiblePhase01Cells": {
+            "water": 214,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_WaterLabyrinth",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 6343,
+        "sand": 0,
+        "flower": 16,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 1374,
+        "sand": 0,
+        "flower": 4,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH",
+          "visiblePhase01Cells": {
+            "water": 203,
+            "sand": 0,
+            "flower": 1,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 211,
+            "sand": 0,
+            "flower": 3,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y10",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y10",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_Meadow",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 1795,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 400,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW",
+          "visiblePhase01Cells": {
+            "water": 110,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 44,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 65,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 181,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_MemorialPillar",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 4525,
+        "sand": 0,
+        "flower": 16,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 1037,
+        "sand": 0,
+        "flower": 4,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR",
+          "visiblePhase01Cells": {
+            "water": 191,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 191,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 174,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 212,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y40",
+          "visiblePhase01Cells": {
+            "water": 80,
+            "sand": 0,
+            "flower": 4,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y50",
+          "visiblePhase01Cells": {
+            "water": 189,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_OutcastIsland",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 7428,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 1678,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND",
+          "visiblePhase01Cells": {
+            "water": 236,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 142,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 130,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 225,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y40",
+          "visiblePhase01Cells": {
+            "water": 225,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y50",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y60",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y70",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_GreenPath",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 4154,
+        "sand": 0,
+        "flower": 24,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 938,
+        "sand": 0,
+        "flower": 6,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH",
+          "visiblePhase01Cells": {
+            "water": 227,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 187,
+            "sand": 0,
+            "flower": 1,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y0",
+          "visiblePhase01Cells": {
+            "water": 81,
+            "sand": 0,
+            "flower": 1,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 238,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+          "visiblePhase01Cells": {
+            "water": 157,
+            "sand": 0,
+            "flower": 2,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+          "visiblePhase01Cells": {
+            "water": 48,
+            "sand": 0,
+            "flower": 2,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_WaterPath",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 4999,
+        "sand": 0,
+        "flower": 16,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 1120,
+        "sand": 0,
+        "flower": 4,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH",
+          "visiblePhase01Cells": {
+            "water": 153,
+            "sand": 0,
+            "flower": 1,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 67,
+            "sand": 0,
+            "flower": 3,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 133,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 202,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40",
+          "visiblePhase01Cells": {
+            "water": 170,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y50",
+          "visiblePhase01Cells": {
+            "water": 113,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y60",
+          "visiblePhase01Cells": {
+            "water": 70,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y70",
+          "visiblePhase01Cells": {
+            "water": 73,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80",
+          "visiblePhase01Cells": {
+            "water": 79,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y90",
+          "visiblePhase01Cells": {
+            "water": 60,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_RuinValley",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y30",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_TrainerTower",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 16520,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 4083,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 223,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y0",
+          "visiblePhase01Cells": {
+            "water": 13,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y0",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y0",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y10",
+          "visiblePhase01Cells": {
+            "water": 235,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y10",
+          "visiblePhase01Cells": {
+            "water": 116,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y10",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y10",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y20",
+          "visiblePhase01Cells": {
+            "water": 239,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20",
+          "visiblePhase01Cells": {
+            "water": 208,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y20",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y30",
+          "visiblePhase01Cells": {
+            "water": 192,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y30",
+          "visiblePhase01Cells": {
+            "water": 14,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y30",
+          "visiblePhase01Cells": {
+            "water": 203,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y30",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_Entrance",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 1185,
+        "flower": 20,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 277,
+        "flower": 5,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 148,
+            "flower": 3,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 49,
+            "flower": 2,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 30,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 50,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 323,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 73,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y20",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y30",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y40",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y50",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y60",
+          "visiblePhase01Cells": {
+            "water": 1,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y70",
+          "visiblePhase01Cells": {
+            "water": 72,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_TanobyRuins",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 11033,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 2550,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+          "visiblePhase01Cells": {
+            "water": 211,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y0",
+          "visiblePhase01Cells": {
+            "water": 185,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0",
+          "visiblePhase01Cells": {
+            "water": 194,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0",
+          "visiblePhase01Cells": {
+            "water": 206,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y0",
+          "visiblePhase01Cells": {
+            "water": 194,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y0",
+          "visiblePhase01Cells": {
+            "water": 213,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10",
+          "visiblePhase01Cells": {
+            "water": 214,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y10",
+          "visiblePhase01Cells": {
+            "water": 226,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y10",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y10",
+          "visiblePhase01Cells": {
+            "water": 240,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y10",
+          "visiblePhase01Cells": {
+            "water": 211,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y10",
+          "visiblePhase01Cells": {
+            "water": 216,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_House_Room1",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM1",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_House_Room2",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM2",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_Mart",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_MART",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_PokemonCenter_1F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_PokemonCenter_2F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_Harbor",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 434,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 108,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+          "visiblePhase01Cells": {
+            "water": 108,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TwoIsland_JoyfulGameCorner",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TWO_ISLAND_JOYFUL_GAME_CORNER",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TwoIsland_House",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TWO_ISLAND_HOUSE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TwoIsland_PokemonCenter_1F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TwoIsland_PokemonCenter_2F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TwoIsland_Harbor",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 434,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 108,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+          "visiblePhase01Cells": {
+            "water": 108,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_House1",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE1",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_PokemonCenter_1F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_PokemonCenter_2F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_Mart",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_MART",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_House2",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE2",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_House3",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE3",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_House4",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE4",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_House5",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE5",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_PokemonDayCare",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_POKEMON_DAY_CARE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_PokemonCenter_1F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_PokemonCenter_2F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_House1",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_HOUSE1",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_LoreleisHouse",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_LORELEIS_HOUSE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_Harbor",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 434,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 108,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+          "visiblePhase01Cells": {
+            "water": 108,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_House2",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_HOUSE2",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FourIsland_Mart",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_MART",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_PokemonCenter_1F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_PokemonCenter_2F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_Harbor",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 434,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 108,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+          "visiblePhase01Cells": {
+            "water": 108,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_House1",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_HOUSE1",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_House2",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_HOUSE2",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_PokemonCenter_1F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_1_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_PokemonCenter_2F",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_2_F",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_Harbor",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 434,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 108,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+          "visiblePhase01Cells": {
+            "water": 108,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_House",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_HOUSE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_Mart",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_MART",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "ThreeIsland_Harbor",
+      "primaryCallback": "0x80700b9",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 434,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 108,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+          "visiblePhase01Cells": {
+            "water": 108,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "FiveIsland_ResortGorgeous_House",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_HOUSE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "TwoIsland_CapeBrink_House",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_HOUSE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_WaterPath_House1",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE1",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SixIsland_WaterPath_House2",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE2",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_House",
+      "primaryCallback": "0x0",
+      "secondaryCallback": "0x0",
+      "usedReferences": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0,
+        "otherSecondary": 0
+      },
+      "visiblePhase01Cells": {
+        "water": 0,
+        "sand": 0,
+        "flower": 0,
+        "steam": 0
+      },
+      "runtimeRegions": [
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_HOUSE",
+          "visiblePhase01Cells": {
+            "water": 0,
+            "sand": 0,
+            "flower": 0,
+            "steam": 0
+          }
+        }
+      ]
+    }
+  ],
+  "sourceMapCount": 135,
+  "affectedSourceCounts": {
+    "water": 31,
+    "sand": 7,
+    "flower": 11,
+    "steam": 10,
+    "otherSecondary": 2
+  },
+  "visiblePhase01SourceCounts": {
+    "water": 26,
+    "sand": 7,
+    "flower": 11,
+    "steam": 10
+  }
+}

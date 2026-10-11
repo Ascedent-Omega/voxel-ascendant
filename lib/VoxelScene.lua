@@ -217,7 +217,7 @@ end
 -- A rooftop has no enclosing room to hide unfinished surroundings. Wait for
 -- the painted skyline, with a longer terminal-failure safety deadline on phones.
 function VoxelScene.revealTimeout(state)
-  if state and state.map and HorizonWall.enabled()
+  if state and state.map and HorizonWall.enabled(state.map)
       and V.require('Gen1Rooftops').matches(state.map) then
     local progress
     if MOBILE_RUNTIME and type(HorizonWall.cacheStatus)=='function' then
@@ -235,7 +235,7 @@ function VoxelScene.readyForReveal(state)
   local weatherCover=V.require('WeatherCover')
   if weatherCover.pending and weatherCover.pending()then return false end
   if state and state.map and not V.require('SilphFountains').prepared(state.map) then return false end
-  if MOBILE_RUNTIME and state and state.map and HorizonWall.enabled()
+  if MOBILE_RUNTIME and state and state.map and HorizonWall.enabled(state.map)
       and (V.require('SilphWindows').enabled(state.map)
            or V.require('Gen1Rooftops').matches(state.map)) then
     local status=MobileSceneryGate.status(state.map)
@@ -993,6 +993,11 @@ local function directIds(state)
       ordered[#ordered + 1] = i
     end
   end
+  local neighborhood=V.require('VisibleNeighborhood')
+  local required=not MOBILE_RUNTIME and neighborhood.requiredIds and neighborhood.requiredIds(state)or{}
+  for i,nb in ipairs(state.neighbors or{})do
+    if required[nb.map.id]and not ids[nb.map.id]then ids[nb.map.id]=true;ordered[#ordered+1]=i end
+  end
   return ids, ordered
 end
 
@@ -1039,8 +1044,7 @@ function VoxelScene.resumeNeighborhoodReady(state)
   -- optional gate preparation, eviction or invalidation can change them.
   if not ChunkMesher.auxReady(state.map) or not atlasPrepared(state.map) then return false end
   state=V.require('VisibleNeighborhood').apply(state)
-  local direct={}
-  for _,connection in pairs(state.map.def.connections or{}) do direct[connection.map]=true end
+  local direct=directIds(state)
   for _,nb in ipairs(state.neighbors or{}) do
     if direct[nb.map.id] and (not ChunkMesher.ready(nb.map,true)
         or not ChunkMesher.auxReady(nb.map) or not atlasPrepared(nb.map)) then return false end
@@ -1050,9 +1054,9 @@ function VoxelScene.resumeNeighborhoodReady(state)
   -- strand a valid save behind a failed expansion or full-ring fallback.
   if HorizonWall.cacheStatus({map=state.map,neighbors={},worldMaps=state.worldMaps}).failed then return true end
   local missing=false
-  for _,connection in pairs(state.map.def.connections or{}) do
+  for id in pairs(direct) do
     for _,nb in ipairs(state.neighbors or{}) do
-      if nb.map.id==connection.map and not(activeUnion and activeUnion.ids[nb.map.id]) then
+      if nb.map.id==id and not(activeUnion and activeUnion.ids[nb.map.id]) then
         missing=true
         local future=copySet(activeUnion and activeUnion.ids or {[state.map.id]=true})
         future[nb.map.id]=true
@@ -1455,7 +1459,14 @@ local function semanticPlan(state, nbMesh, nbWater, approachedIndex)
         -- Do not grow the retained set with new branches: it is one previous
         -- scene only, and retires atomically when this replacement is ready.
         local nextPlan = drawPlan(state, nbMesh, nbWater)
-        local _, nextReady = HorizonWall.meshes(nextPlan.state)
+        -- A retained source scene can contain a column outside today's
+        -- neighbourhood. Its replacement must receive the required build
+        -- slice too; otherwise the early handoff return prevents the source
+        -- batch below from ever advancing after crossing into a new root.
+        local def = state.map.def
+        local sourceReplacement = def and def.outdoor
+          and def.kaOwner == 'kasc.sevii-expedition/v1'
+        local _, nextReady = HorizonWall.meshes(nextPlan.state, sourceReplacement)
         local visible = nextReady and nextPlan or retained
         setActive(visible.state, visible.maps)
         return visible, true, false
@@ -1475,6 +1486,29 @@ local function semanticPlan(state, nbMesh, nbWater, approachedIndex)
     -- failed, stop staging wider variants and let prefetch switch atomically
     -- to the established FULL-ring path.
     if buildFailed then return plan, false, true end
+  end
+
+  -- Small Sevii source partitions often expose four to eight required
+  -- neighbours together. Building a new panorama for every single addition
+  -- wastes the shared foreground slice on several intermediate unions.
+  -- Retain the closed current scene while their bodies warm, then build the
+  -- complete required source neighbourhood once, with the same time budget.
+  local def=state.map.def
+  if def and def.kaOwner=='kasc.sevii-expedition/v1'and def.outdoor then
+    local required,order=directIds(state)
+    local futureIds=copySet(activeUnion.ids);local waiting,missing=false,false
+    for _,i in ipairs(order)do local nb=state.neighbors[i]
+      if not visuallyReady(nb,i,nbMesh)then waiting=true end
+      if not futureIds[nb.map.id]then missing=true;futureIds[nb.map.id]=true end
+    end
+    if missing then
+      if waiting then return plan,horizonReady,false end
+      local futureState=stateForIds(state,futureIds)
+      local _,ready=HorizonWall.meshes(futureState,true)
+      if not ready then return plan,horizonReady,false end
+      local futurePlan=planForIds(state,nbMesh,nbWater,futureIds)
+      if futurePlan then plan,horizonReady=futurePlan,true;setActive(state,plan.maps)end
+    end
   end
 
   -- Keep one root-independent seam answer warm: current + the approached
@@ -1534,7 +1568,9 @@ local function semanticPlan(state, nbMesh, nbWater, approachedIndex)
     futureIds[state.neighbors[candidateIndex].map.id] = true
     local futureState = stateForIds(state, futureIds)
     if futureState then
-      local _, ready = HorizonWall.meshes(futureState)
+      local nb=state.neighbors[candidateIndex]
+      local required=directIds(state)[nb.map.id]and visuallyReady(nb,candidateIndex,nbMesh)or false
+      local _, ready = HorizonWall.meshes(futureState,required)
       if ready and visuallyReady(state.neighbors[candidateIndex],
                                   candidateIndex, nbMesh) then
         local futurePlan = planForIds(state, nbMesh, nbWater, futureIds)
@@ -1777,7 +1813,7 @@ local function prefetchScene(state)
   -- The first four values are BattleScene's established, sparse/index-aligned
   -- contract. The fifth is overworld-private and safe for old Lua callers to
   -- ignore.
-  plan.warmComplete=complete and #plan.state.neighbors==#(state.neighbors or{})
+  plan.warmComplete=complete and V.require('ScenePrefetchCache').covers(state,plan.maps)
   return terrain, nbMesh, water, nbWater, plan
 end
 
@@ -1930,7 +1966,7 @@ function VoxelScene.stageMobileScenery(state)
   local resource = MobileSceneryGate.nextResource(map)
   if resource == "horizon" then
     if type(HorizonWall.enabled) == "function"
-        and HorizonWall.enabled() == false then
+        and HorizonWall.enabled(map) == false then
       mobileSceneryHorizonMap, mobileSceneryHorizon = map, {}
       MobileSceneryGate.noteResource(map, "horizon", true,
         "disabled-by-user-setting")
@@ -2596,7 +2632,7 @@ end
 -- most of a dialog, a menu, or any moment standing still.
 local sigBuf = {}
 local function shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh,
-                               policy, horizon, static)
+                               policy, horizon, static, state)
   local n = 0
   local function put(v)
     n = n + 1
@@ -2623,6 +2659,15 @@ local function shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh,
   put(VoxelItems.resourceVersion or 0)
   put(VoxelItems.setting:get() and "voxel-items" or "native-items")
   put(tostring(terrain))
+  if state then
+    local source=V.require('SeviiMapAnimations')
+    local revision=source.shadowRevision(state.map)
+    if revision then put(state.map.id);put(revision)end
+    if state.neighbors then for _,nb in ipairs(state.neighbors)do
+      revision=source.shadowRevision(nb.map)
+      if revision then put(nb.map.id);put(revision)end
+    end end
+  end
   for i = 1, #nbMesh do put(tostring(nbMesh[i])) end
   for _, rim in ipairs(horizon or {}) do
     if rim.castsShadow then
@@ -2674,7 +2719,7 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
   end
   if not ShadowMap.available() then return end
   local sig = shadowSignature(terrain, nbMesh, posed, cx, cy, vw, vh,
-                              policy, horizon)
+                              policy, horizon, nil, state)
   local caveWalls=V.require('Gen1CaveWalls').amount(state.map,Voxel.level)
   local snowBurial=':buriedFlowers:'..tostring(V.require('DeepSnow').buriesFlowers(state.map))
   sig=sig..':caveWalls:'..caveWalls..snowBurial
@@ -2683,7 +2728,7 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
     sig=sig..":heal:"..tostring(state.healAnim.lit)..":"..tostring(state.healAnim.visible)
   end
   if not ShadowMap.stale(sig) then return end
-  local staticKey=shadowSignature(terrain,nbMesh,{},cx,cy,vw,vh,policy,horizon,true)..':walls:'..caveWalls..snowBurial
+  local staticKey=shadowSignature(terrain,nbMesh,{},cx,cy,vw,vh,policy,horizon,true,state)..':walls:'..caveWalls..snowBurial
   if state.sightSignature then staticKey=staticKey..state.sightSignature end
   local harbor=V.require('Gen1Harbor')
   if state.healAnim or harbor.kind(state.map)then staticKey=nil end
@@ -2734,9 +2779,12 @@ local function castShadows(state, terrain, nbMesh, posed, cx, cy, vw, vh,
   if policy.casters == "objects" then ShadowMap.sprites(true) end
   ShadowMap.draw(ChunkMesher.flowers(state.map), atlasFor(state.map),
                  ShadowMap.snugStatic(nil))
+  V.require('SeviiMapAnimations').draw(state.map,nil,nil,ShadowMap.snugStatic(nil),true)
   for _, nb in ipairs(state.neighbors or {}) do
     ShadowMap.draw(ChunkMesher.flowers(nb.map), atlasFor(nb.map),
                    ShadowMap.snugStatic(Mat4.translationFor(nb,nb.ox, 0, nb.oy)))
+    V.require('SeviiMapAnimations').draw(nb.map,nil,nil,
+      ShadowMap.snugStatic(Mat4.translationFor(nb,nb.ox,0,nb.oy)),true)
   end
   -- From here down it is the CAST, marked as such in the map (see
   -- ShadowMap.sprites) so water can decline them: everything the world casts
@@ -3087,7 +3135,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- Canvas could detach the active world target on the first frame, leaving
   -- no background or isolated black fragments until later frames recovered.
   local sceneryEnabled = (not MOBILE_RUNTIME or mobileScenery)
-                         and HorizonWall.enabled()
+                         and HorizonWall.enabled(state.map)
   if not MOBILE_RUNTIME or mobileScenery then
     -- While P1 is merely preparing, disabling PanoramaBackdrop would reset
     -- its terminal-attempt latch and turn a failed upload into a retry loop.
@@ -3203,6 +3251,13 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
 
   local shCx, shCy = FirstPerson.shadowCenter(cx, cy, renderVh)
   if FirstPerson.cardBlend()>.99 then shCx,shCy=cx,cy end
+  -- Source atlas writes finish before either sun/world target is bound.
+  -- Both eyes, terrain and casters consume the same prepared phase.
+  local sourceAnimations=V.require('SeviiMapAnimations')
+  sourceAnimations.update(state.map)
+  if drawState.neighbors then
+    for _,nb in ipairs(drawState.neighbors)do sourceAnimations.update(nb.map)end
+  end
   ShadowMap.protected(castShadows,drawState, terrain, drawMesh, posed, shCx, shCy,
               renderVw, renderVh,
               atlasFor, water, drawWater, shadowPolicy, horizon)
@@ -3266,7 +3321,7 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
       -- blocked cells otherwise punch sky-shaped holes above arena props.
       -- Whole-roof cutaway was already decided by cutawayRimVisible above.
       Voxel3D.towerBackdrop(V.require("TowerAtmosphere").active(state.map))
-      local unmaskedCeiling = (completeArenaCeiling or rim.class=="interior_ceiling") and rim.kind == "ground" or rim.kind=="arena_floor"
+      local unmaskedCeiling = (completeArenaCeiling or rim.class=="interior_ceiling") and rim.kind == "ground" or rim.kind=="arena_floor" or rim.unmaskedRoom==true
       if unmaskedCeiling then Voxel3D.roomVisibility(nil) end
       -- The cold Route 8 seam proxy samples the current Route 8 atlas instead
       -- of retaining a duplicate $39 texture.  All ordinary horizon parts
@@ -3465,10 +3520,13 @@ renderWorld = function(state, w, h, vw, vh, paletteFor)
   -- through the same snugged transform the sun stored them with
   Voxel3D.draw(ChunkMesher.flowers(state.map), atlasFor(state.map), nil,
                fpull, ShadowMap.snugStatic(nil))
+  sourceAnimations.draw(state.map,nil,fpull,ShadowMap.snugStatic(nil))
   for _, nb in ipairs(drawState.neighbors or {}) do
     Voxel3D.draw(ChunkMesher.flowers(nb.map), atlasFor(nb.map),
                  Mat4.translationFor(nb,nb.ox, 0, nb.oy), fpull,
                  ShadowMap.snugStatic(Mat4.translationFor(nb,nb.ox, 0, nb.oy)))
+    sourceAnimations.draw(nb.map,Mat4.translationFor(nb,nb.ox,0,nb.oy),fpull,
+      ShadowMap.snugStatic(Mat4.translationFor(nb,nb.ox,0,nb.oy)))
   end
 
   -- Transparent panes are drawn after opaque actors/furniture, depth-tested

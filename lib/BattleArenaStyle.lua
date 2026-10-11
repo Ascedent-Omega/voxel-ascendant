@@ -69,6 +69,8 @@ local EXACT = {
 
 local function family(map)
   local id = tostring(map and map.id or "")
+  local sevii = V.require('SeviiArenaBindings').styleFor(map)
+  if sevii then return sevii end
   if EXACT[id] then return EXACT[id] end
   if id:match("^KA_JOHTO_SILVER_") then return "johto_silver" end
   if id:match("^KA_JOHTO_KRIS_") then return "johto_crystal" end

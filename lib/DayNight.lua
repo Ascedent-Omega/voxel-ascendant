@@ -441,6 +441,7 @@ end
 DayNight.CANOPY = { VIRIDIAN_FOREST = true }
 
 function DayNight.isCanopy(map)
+ if map and map.def and map.def.kaOwner=='kasc.sevii-expedition/v1'then local p=V.require('KascSeviiScenery').profile(map);if p then return p.kind=='canopy'end end
   local id = map and (map.id or (map.def and map.def.id))
   return (id and DayNight.CANOPY[id]) and true or false
 end

@@ -1,0 +1,2 @@
+PASS mist prewarm: relevant room before lighting, one selected shader per step, dark/off, failure and retry
+SEVII_FIX_TEST_PASS

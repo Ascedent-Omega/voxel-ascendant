@@ -14,6 +14,9 @@ function S.sheds(id,x,z)
 end
 local variants=setmetatable({},{__mode='k'})
 function S.kind(P,kind,id,x,z)
+ if type(id)=='string'and id:match('^KA_SEVII_')then
+  id,x,z=V.require('SeviiVegetation').coordinates(id,x,z)
+ end
  local source=P.models[kind]
  if not(source and source.seasonalFoliage and source.leafColors and S.winter() and S.sheds(id,x,z))then return kind end
  local winterKind=kind..'_bare_winter'

@@ -1,0 +1,112 @@
+{
+  "completed": true,
+  "receipts": [
+    {
+      "fixture": "fix-after-quick-mist-beforevoxel0361-v1",
+      "packages": {
+        "kanto_ascendant": {
+          "file": "Kanto-Ascendant-6.7.33-rc.17-sevii.zip",
+          "sha256": "ca49089e2b0d9aabdf18b942896c28f290bf7ec67097efec50ae81c0c8974217"
+        },
+        "VOXEL_ASCENDANT": {
+          "file": "Voxel-Ascendant-3.0.63-rc.15-sevii.zip",
+          "sha256": "9ead071898379a6676dae5acdd8ec5ee3c0b7f6200ff96d00c325e69f2ae26c1"
+        }
+      },
+      "driverSha256": "832b92fc536a9cde932e93b6d068c864ced63f39787c1536ce33ebd842fa63cf",
+      "completed": true,
+      "exit": 0,
+      "camera": 1,
+      "apiRows": 266,
+      "frames": 40,
+      "scope": "Actual packaged native map presentation: five Sevii families and five Kanto references, DAY/NIGHT and dynamic lights ON/OFF, same coordinates with fixed clocks. All 266 source-family mist API resolutions sampled separately; this is the mist cause scope, not the entire setting/preset/geometry matrix."
+    },
+    {
+      "fixture": "fix-after-quick-mist-aftervoxel0361-v1",
+      "packages": {
+        "kanto_ascendant": {
+          "file": "Kanto-Ascendant-6.7.33-rc.17-sevii.zip",
+          "sha256": "ca49089e2b0d9aabdf18b942896c28f290bf7ec67097efec50ae81c0c8974217"
+        },
+        "VOXEL_ASCENDANT": {
+          "file": "Voxel-Ascendant-3.0.63-rc.16-sevii.zip",
+          "sha256": "f716c367bf0464ccc4673d5445b5a97814208a83e9cd846a1caa2b239298fc91"
+        }
+      },
+      "driverSha256": "832b92fc536a9cde932e93b6d068c864ced63f39787c1536ce33ebd842fa63cf",
+      "completed": true,
+      "exit": 0,
+      "camera": 1,
+      "apiRows": 266,
+      "frames": 40,
+      "scope": "Actual packaged native map presentation: five Sevii families and five Kanto references, DAY/NIGHT and dynamic lights ON/OFF, same coordinates with fixed clocks. All 266 source-family mist API resolutions sampled separately; this is the mist cause scope, not the entire setting/preset/geometry matrix."
+    },
+    {
+      "fixture": "fix-after-quick-mist-beforeflat0361-v1",
+      "packages": {
+        "kanto_ascendant": {
+          "file": "Kanto-Ascendant-6.7.33-rc.17-sevii.zip",
+          "sha256": "ca49089e2b0d9aabdf18b942896c28f290bf7ec67097efec50ae81c0c8974217"
+        },
+        "VOXEL_ASCENDANT": {
+          "file": "Voxel-Ascendant-3.0.63-rc.15-sevii.zip",
+          "sha256": "9ead071898379a6676dae5acdd8ec5ee3c0b7f6200ff96d00c325e69f2ae26c1"
+        }
+      },
+      "driverSha256": "832b92fc536a9cde932e93b6d068c864ced63f39787c1536ce33ebd842fa63cf",
+      "completed": true,
+      "exit": 0,
+      "camera": 0,
+      "apiRows": 266,
+      "frames": 40,
+      "scope": "Actual packaged native map presentation: five Sevii families and five Kanto references, DAY/NIGHT and dynamic lights ON/OFF, same coordinates with fixed clocks. All 266 source-family mist API resolutions sampled separately; this is the mist cause scope, not the entire setting/preset/geometry matrix."
+    },
+    {
+      "fixture": "fix-after-quick-mist-afterflat0361-v1",
+      "packages": {
+        "kanto_ascendant": {
+          "file": "Kanto-Ascendant-6.7.33-rc.17-sevii.zip",
+          "sha256": "ca49089e2b0d9aabdf18b942896c28f290bf7ec67097efec50ae81c0c8974217"
+        },
+        "VOXEL_ASCENDANT": {
+          "file": "Voxel-Ascendant-3.0.63-rc.16-sevii.zip",
+          "sha256": "f716c367bf0464ccc4673d5445b5a97814208a83e9cd846a1caa2b239298fc91"
+        }
+      },
+      "driverSha256": "832b92fc536a9cde932e93b6d068c864ced63f39787c1536ce33ebd842fa63cf",
+      "completed": true,
+      "exit": 0,
+      "camera": 0,
+      "apiRows": 266,
+      "frames": 40,
+      "scope": "Actual packaged native map presentation: five Sevii families and five Kanto references, DAY/NIGHT and dynamic lights ON/OFF, same coordinates with fixed clocks. All 266 source-family mist API resolutions sampled separately; this is the mist cause scope, not the entire setting/preset/geometry matrix."
+    }
+  ],
+  "engine": "gen1recomp 0.3.61 / 7ac15ebbf78b298344e15db72406ff37e94099f6",
+  "sourceFamilyApiRowsPerFixture": 266,
+  "changedApiFamilies": {
+    "water": 142,
+    "cave": 47,
+    "mountain": 10,
+    "canopy": 15
+  },
+  "numericCaveCanopyMismatchesBefore": 62,
+  "numericCaveCanopyMismatchesAfter": 0,
+  "customExteriorMistProfilesRemoved": 152,
+  "roomPolicy": "52 source families covered in component cases with live controlled lighting; one native Center room shown DAY/NIGHT with actual lighting ON/OFF. Uses actual active shell height.",
+  "voxelFramesBeforeAfter": 40,
+  "flatFramesBeforeAfter": 40,
+  "flatPixelIdentical": 40,
+  "fixedKantoReferenceMaps": 16,
+  "fixedKantoReferenceMapsIdentical": 16,
+  "extraKantoLightDayFramesIdentical": 20,
+  "componentTestsPassed": 58,
+  "gpuTestsPassed": 4,
+  "gpuScope": "Desktop GPU, including mobile shader code-path simulation; no original Adreno 830 device verification",
+  "engineFilesUnchanged": 1917,
+  "installed": false,
+  "fullGeometryComplete": false,
+  "fullSettingsComplete": false,
+  "fullMasterGoalComplete": false,
+  "flatScope": "Real 2D images/input; atmosphere/light API calls in a flat fixture are auxiliary 3D queries and do not prove lit-room presentation."
+}

@@ -5,6 +5,7 @@ for _,platform in ipairs({'Windows','Android','iOS'}) do
     graphics={newImage=function()return {}end}}
   local modules={
     CanvasPresentation={OS=platform},
+    RasterResources=assert(loadfile('lib/RasterResources.lua'))(),
     ModSetting={new=function()return {get=function()return true end,setGate=function()end}end},
     LocalLightGrid={prepare=function()attempts=attempts+1;error('GPU texture allocation rejected')end},
     Diagnostics={write=function(event,fields)events[#events+1]={event,fields}end},

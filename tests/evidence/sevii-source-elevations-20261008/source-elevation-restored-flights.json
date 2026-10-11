@@ -1,0 +1,250 @@
+[
+  {
+    "source": "OneIsland_KindleRoad",
+    "x": 12,
+    "y": 85,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 73,
+    "lowerComponent": 71,
+    "before": null
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "x": 13,
+    "y": 20,
+    "w": 1,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 96,
+    "lowerComponent": 95,
+    "before": null
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_Entrance",
+    "x": 11,
+    "y": 13,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 102,
+    "lowerComponent": 101,
+    "before": null
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_Entrance",
+    "x": 8,
+    "y": 23,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 103,
+    "lowerComponent": 104,
+    "before": null
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_Entrance",
+    "x": 14,
+    "y": 29,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 105,
+    "lowerComponent": 104,
+    "before": null
+  },
+  {
+    "source": "SixIsland",
+    "x": 10,
+    "y": 20,
+    "w": 3,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 127,
+    "lowerComponent": 128,
+    "before": {
+      "x": 10,
+      "y": 20,
+      "w": 3,
+      "h": 1,
+      "exportedRise": 0,
+      "upperComponent": 122,
+      "lowerComponent": 123
+    }
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "x": 28,
+    "y": 13,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 142,
+    "lowerComponent": 143,
+    "before": {
+      "x": 28,
+      "y": 13,
+      "w": 2,
+      "h": 1,
+      "exportedRise": 0,
+      "upperComponent": 38,
+      "lowerComponent": 39
+    }
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "x": 10,
+    "y": 14,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 141,
+    "lowerComponent": 144,
+    "before": {
+      "x": 10,
+      "y": 14,
+      "w": 2,
+      "h": 1,
+      "exportedRise": 0,
+      "upperComponent": 38,
+      "lowerComponent": 40
+    }
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "x": 9,
+    "y": 19,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 144,
+    "lowerComponent": 140,
+    "before": {
+      "x": 9,
+      "y": 19,
+      "w": 2,
+      "h": 1,
+      "exportedRise": 0,
+      "upperComponent": 40,
+      "lowerComponent": 38
+    }
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "x": 33,
+    "y": 26,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 142,
+    "lowerComponent": 146,
+    "before": {
+      "x": 33,
+      "y": 26,
+      "w": 2,
+      "h": 1,
+      "exportedRise": 0,
+      "upperComponent": 38,
+      "lowerComponent": 39
+    }
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "x": 27,
+    "y": 30,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 146,
+    "lowerComponent": 145,
+    "before": null
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "x": 16,
+    "y": 31,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 143,
+    "lowerComponent": 140,
+    "before": {
+      "x": 16,
+      "y": 31,
+      "w": 2,
+      "h": 1,
+      "exportedRise": 0,
+      "upperComponent": 39,
+      "lowerComponent": 38
+    }
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "x": 12,
+    "y": 6,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 147,
+    "lowerComponent": 148,
+    "before": null
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "x": 8,
+    "y": 54,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 151,
+    "lowerComponent": 152,
+    "before": {
+      "x": 8,
+      "y": 54,
+      "w": 2,
+      "h": 1,
+      "exportedRise": 0,
+      "upperComponent": 72,
+      "lowerComponent": 73
+    }
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "x": 13,
+    "y": 73,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 153,
+    "lowerComponent": 152,
+    "before": {
+      "x": 13,
+      "y": 73,
+      "w": 2,
+      "h": 1,
+      "exportedRise": 0,
+      "upperComponent": 74,
+      "lowerComponent": 73
+    }
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "x": 7,
+    "y": 85,
+    "w": 2,
+    "h": 1,
+    "exportedRise": 6,
+    "upperComponent": 153,
+    "lowerComponent": 155,
+    "before": {
+      "x": 7,
+      "y": 85,
+      "w": 2,
+      "h": 1,
+      "exportedRise": 0,
+      "upperComponent": 74,
+      "lowerComponent": 76
+    }
+  }
+]

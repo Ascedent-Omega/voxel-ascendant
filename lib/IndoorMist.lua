@@ -10,9 +10,25 @@ local cave={color={.43,.47,.50},density=.015,height=38}
 local town={color={.43,.44,.49},density=.009,height=48}
 local forest={color={.43,.49,.44},density=.009,height=44}
 local outdoorTint={}
+local roomTint={.37,.39,.43}
+local seviiRooms=setmetatable({},{__mode='k'})
 local function isForest(map)
  local d=map and map.def
+ if d and d.generation~=2 and d.kaOwner=='kasc.sevii-expedition/v1'then
+  local p=V.require('KascSeviiScenery').profile(map)
+  return p and p.kind=='canopy' or false
+ end
  return d and d.generation~=2 and (map.id or d.id)=='VIRIDIAN_FOREST'
+end
+local function roomMist(map,cache)
+ local L=V.require('LocalLights')
+ local indoor=L.active() and L.current().map==map and L.current().interior
+ if not indoor then return end
+ if not cache then return {color={.37,.39,.43},density=.0015,height=indoor.profile.shellHeight}end
+ local mist=seviiRooms[map]
+ if not mist then mist={color=roomTint,density=.0015};seviiRooms[map]=mist end
+ mist.height=indoor.profile.shellHeight
+ return mist
 end
 function M.tint(map,normal,x,z)
  local forestMap=isForest(map)
@@ -31,6 +47,16 @@ end
 function M.profile(map,dark)
  local d=map and map.def
  if not d or dark then return nil end
+ if d.kaOwner=='kasc.sevii-expedition/v1'then
+  local p=V.require('KascSeviiScenery').profile(map)
+  if not p then return nil end
+  -- Source families select the existing Kanto atmosphere. Ordinary towns,
+  -- coastlines and mountains have no additional blanket of coloured mist.
+  if p.kind=='cave'then return cave end
+  if p.kind=='canopy'then return forest end
+  if p.kind=='room'then return roomMist(map,true)end
+  return nil
+ end
  if map.id=='KA_HOENN_BIRTH_ISLAND'and V.require('KascBirthIsland').matches(map)then return V.require('KascBirthIsland').mist(map)end
  if map.id=='KA_HEVO_RAYQUAZA_CHAMBER'then return V.require('KascSkySanctum').mist(map)end
  if d.runtimeAuthority=='KASC_6_7_STARTER_HABITAT_V2_3'then return V.require('KascHabitatScenery').mist(map)end
@@ -47,9 +73,7 @@ function M.profile(map,dark)
  elseif d.tileset=='CAVERN'then
   return cave
  end
- local L=V.require('LocalLights')
- local indoor=L.active() and L.current().map==map and L.current().interior
- if indoor then return {color={.37,.39,.43},density=.0015,height=indoor.profile.shellHeight} end
+ return roomMist(map,false)
 end
 -- Pivoted inverse handles both perspective and orthographic camera modes.
 function M.inverse(m)
