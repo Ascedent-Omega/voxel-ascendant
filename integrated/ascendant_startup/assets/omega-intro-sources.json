@@ -1,0 +1,29 @@
+{
+  "gif": {
+    "url": "https://klipy.com/gifs/eye-omega",
+    "asset_url": "https://static2.klipy.com/ii/4e7bea9f7a3371424e6c16ebc93252fe/b2/04/U9R7bmDGwrRetV.gif",
+    "sha256": "57e0594631a8a815cde3b88c4193721477992c2630f07f9a4d8bf66e0556836f"
+  },
+  "gamecube_audio": {
+    "url": "https://www.myinstants.com/en/instant/gamecube-startup/",
+    "asset_url": "https://www.myinstants.com/media/sounds/gamecube-startup.mp3",
+    "sha256": "8dc69d56f5b6d04dc07c1c9587a55055d124c8cd8e925761047bb05af405e95f",
+    "seconds": 7.2359183673469385,
+    "playback_seconds": 2.5,
+    "tempo_multiplier": 2.8943673469387754
+  },
+  "wordmark": "OASC rc120 integrated/ascendant_startup/assets/support-omegadias.png",
+  "lugia": "Bundled Cobblemon 0249_lugia geometry/texture + air_fly + poser sine wing flap, 48 frames per 0.9s",
+  "cry": "KASC 6.7.32 assets/audio/johto_cries/249.ogg",
+  "wind": "Original synthesized wind sweep",
+  "assets": {
+    "lugia-flight-atlas.png": "9f51d82c48502d946c23a6357d4e40b5daa76ffa175a68a68f6d0c0f21635de7",
+    "lugia-cry.ogg": "950e01681ce4185d918016c4be5e15394ae8656bbc285db65fb4556906e92f49",
+    "lugia-whoosh.wav": "d4de8720f0e7d5b0f0cd84542874897224471af5d7fa10ff8730d4790343b4bc",
+    "omega-eye-1.png": "39e2afa3033f55ada8d5a202418352cff1fc8a50f991174179ca4fce54912e71",
+    "gamecube-startup.ogg": "7064d0d857665a1b348f6e790343fe4e9b5d4762047117cc76f7f9b5e175e1d4",
+    "omega-eye-2.png": "4fe091efc03524b7ac3357ca7783d90d0c3d24a6788f44d850a006732c522e99",
+    "omega-eye-3.png": "896943125fdbd6a699429ab2067bd80fda1aa5f2f62a73609ddfc016c1bfbbdc",
+    "support-omegadias.png": "b07ed5c49238fed54b486c8b2ce8724c70e51e545eafb92f04466aaffbbc417f"
+  }
+}

@@ -1,37 +1,81 @@
 -- Rendered from the existing Cobblemon models; no live 3D loading at startup.
-local M={duration=11.6,logoAt=6.16}
+local M={duration=15.6,logoAt=6.16,cryAt=9.8,flyAt=10.2,eyeAt=13.1,eyeSeconds=2.5,eyeRate=6.54/2.5}
 local function clamp(t)return math.max(0,math.min(1,t))end
 local function smooth(t)t=clamp(t);return t*t*(3-2*t)end
 local function mix(a,b,t)return a+(b-a)*t end
 function M.new(read)
- local self={images={},quads={},duration=M.duration};local Ball=assert((loadstring or load)(assert(read('VoxelBall.lua'))))()
+ local self={images={},quads={},lugiaQuads={},eyeQuads={},sounds={},played={},volume=0,duration=M.duration};local Ball=assert((loadstring or load)(assert(read('VoxelBall.lua'))))()
+ local Eye=assert((loadstring or load)(assert(read('OmegaEye.lua'))))()
  local ok,err=pcall(function()
-  for _,name in ipairs{'ascendant-start','pikachu-atlas','eevee-atlas','mew-atlas'}do
+  for _,name in ipairs{'ascendant-start','pikachu-atlas','eevee-atlas','mew-atlas','lugia-flight-atlas','support-omegadias','omega-eye-1','omega-eye-2','omega-eye-3'}do
    local fd=love.filesystem.newFileData(assert(read('assets/'..name..'.png')),name..'.png')
    local yes,img=pcall(love.graphics.newImage,fd);fd:release();assert(yes,img)
    self.images[name]=img;img:setFilter('linear','linear')
   end
   for i=0,63 do self.quads[i]=love.graphics.newQuad((i%8)*256,math.floor(i/8)*256,256,256,2048,2048)end
+  for i=0,47 do self.lugiaQuads[i]=love.graphics.newQuad((i%8)*384,math.floor(i/8)*384,384,384,3072,2304)end
+  for i=0,#Eye.durations-1 do self.eyeQuads[i]=love.graphics.newQuad((i%8)*240,math.floor((i%32)/8)*240,240,i>=54 and 195 or 240,1920,960)end
+  self.titleFont=love.graphics.newFont(34);self.teamFont=love.graphics.newFont(30)
+  self.eyeShader=love.graphics.newShader([[vec4 effect(vec4 color,Image tex,vec2 uv,vec2 screen){vec4 c=Texel(tex,uv);return vec4(vec3(1.0)-c.rgb,c.a)*color;}]])
+
  end)
  function self:release()
-  if self.sound then self.sound:stop();self.sound:release();self.sound=nil end
+  for _,source in pairs(self.sounds)do source:stop();source:release()end;self.sounds={};self.sound=nil
   for _,img in pairs(self.images)do img:release()end;self.images={}
-  for _,q in pairs(self.quads)do q:release()end;self.quads={}
+  for _,quads in ipairs{self.quads,self.lugiaQuads,self.eyeQuads}do for _,q in pairs(quads)do q:release()end end;self.quads={};self.lugiaQuads={};self.eyeQuads={}
+  if self.titleFont then self.titleFont:release();self.titleFont=nil end
+  if self.teamFont then self.teamFont:release();self.teamFont=nil end
+  if self.eyeShader then self.eyeShader:release();self.eyeShader=nil end
  end
  if not ok then self:release();error(err)end
- -- Audio is optional: a device without an audio backend still gets the intro.
- pcall(function()
-  local fd=love.filesystem.newFileData(assert(read('assets/ascendant-chime.wav')),'ascendant-chime.wav')
-  local yes,s=pcall(love.audio.newSource,fd,'static');fd:release();assert(yes,s);self.sound=s
- end)
- function self:play(volume)if self.sound and volume>0 then self.sound:setVolume(volume);self.sound:play()end end
+ -- Each cue follows displayed animation time, including after a slow preload.
+ -- Audio remains optional on devices without an audio backend.
+ local cues={{'chime','ascendant-chime.wav',0,.8},{'cry','lugia-cry.ogg',M.cryAt,1},
+  {'wind','lugia-whoosh.wav',10.65,.85},{'gamecube','gamecube-startup.ogg',M.eyeAt,.85}}
+ for _,cue in ipairs(cues)do
+  pcall(function()
+   local fd=love.filesystem.newFileData(assert(read('assets/'..cue[2])),cue[2])
+   local yes,source=pcall(love.audio.newSource,fd,'static');fd:release();assert(yes,source)
+   self.sounds[cue[1]]=source
+  end)
+ end
+ self.sound=self.sounds.chime
+ function self:setVolume(volume)
+  self.volume=math.max(0,math.min(1,volume or 0))
+  for _,cue in ipairs(cues)do local source=self.sounds[cue[1]];if source then source:setVolume(self.volume*cue[4])end end
+ end
+ function self:play(volume)self.enabled=true;self:setVolume(volume)end
+ function self:syncAudio(t)
+  for _,cue in ipairs(cues)do
+   local source=self.sounds[cue[1]]
+   if source and self.played[cue[1]] and source:isPlaying()then
+    local at=math.max(0,t-cue[3])
+    if at<source:getDuration('seconds')then pcall(source.seek,source,at,'seconds')else source:stop()end
+   end
+  end
+ end
+ function self:updateAudio(t)
+  if not self.enabled then return end
+  for _,cue in ipairs(cues)do
+   if t>=cue[3] and not self.played[cue[1]]then
+    self.played[cue[1]]=true
+    local source=self.sounds[cue[1]]
+    if source and self.volume>0 then source:setVolume(self.volume*cue[4]);source:play()end
+   end
+  end
+ end
  function self:draw(t,w,h,animationTime)
   animationTime=animationTime or t
+  self:updateAudio(animationTime)
+  self.lastTime=t
   local g=love.graphics;g.push('all');g.setCanvas();g.origin();g.setShader();g.setScissor();g.setDepthMode();if g.setStencilMode then g.setStencilMode()else g.setStencilTest()end;g.setBlendMode('alpha')
   g.setColor(0,0,0,1);g.rectangle('fill',0,0,w,h)
   local scale=math.min(w/1280,h/720);g.translate((w-1280*scale)/2,(h-720*scale)/2);g.scale(scale)
-  local appear=smooth(t/.35);local fade=1-smooth((t-11)/.6);local alpha=appear*fade
+  local appear=smooth(t/.35);local fade=1-smooth((t-(M.duration-.6))/.6);local alpha=appear*fade
   local roll=smooth((t-.2)/4.6);local turn=smooth((t-4.85)/.9);local reveal=smooth((t-M.logoAt)/.48)
+  local sweep=smooth((t-10.85)/1.05)
+  if t<12.1 then
+  g.push();g.translate(640+1800*sweep,360-220*sweep);g.rotate(-.16*sweep);g.translate(-640,-360)
   -- Quiet pool of light anchors the two balls without a loading bar or UI.
   for i=18,1,-1 do
    g.setColor(.055,.13,.30,.008*alpha);g.ellipse('fill',640,mix(595,671,reveal),230+i*20,6+i*1.8)
@@ -86,6 +130,46 @@ function M.new(read)
    g.setBlendMode('alpha','premultiplied');g.setColor(a,a,a,a)
    g.draw(self.images['mew-atlas'],self.quads[f],x-128*k,feet-241*k,0,k,k)
    g.setBlendMode('alpha')
+  end
+  g.pop()
+  end
+  -- Authored Cobblemon air_fly pose with the poser's sine wing flap, baked
+  -- ahead of time. Startup never loads a live model or a game renderer.
+  if t>=M.flyAt and t<13.1 then
+   local flight=clamp((t-M.flyAt)/2.5)
+   local x=mix(-650,2000,smooth(flight));local y=350-110*math.sin(flight*math.pi)
+   local k=2.4+1.1*math.sin(flight*math.pi)
+   local frame=math.floor((animationTime-M.flyAt)/.9*48)%48
+   local a=smooth((t-M.flyAt)/.15)*fade
+   -- A soft blue slipstream passes with Lugia, then clears with the old logo.
+   for i=1,8 do
+    g.setColor(.22,.52,1,.025*a*(1-i/9));g.setLineWidth(12-i)
+    g.line(x-450-i*20,y+80+i*8,x-80,y+25+i*4)
+   end
+   g.setBlendMode('alpha','premultiplied');g.setColor(a,a,a,a)
+   g.draw(self.images['lugia-flight-atlas'],self.lugiaQuads[frame],x,y,-.08,k,k,192,192)
+   g.setBlendMode('alpha')
+  end
+  if t>=M.eyeAt then
+   local a=smooth((t-M.eyeAt)/.15)*fade
+   g.setFont(self.titleFont);g.setColor(.86,.92,1,a);g.printf('Continued by',0,125,1280,'center')
+   local img=self.images['support-omegadias'];local iw,ih=img:getDimensions();local k=630/iw
+   g.setColor(1,1,1,a);g.draw(img,640,260,0,k,k,iw/2,ih/2)
+
+  end
+  if t>=M.eyeAt then
+   local a=smooth((t-M.eyeAt)/.12)*fade
+   local elapsed=math.max(0,animationTime-M.eyeAt)*M.eyeRate;local frame=Eye.holdFrame
+   if elapsed<6.54 then
+    local cursor=0
+    for i,seconds in ipairs(Eye.durations)do cursor=cursor+seconds;if elapsed<cursor then frame=i-1;break end end
+   end
+   local page=math.floor(frame/32)+1
+   -- Crop only the original sliding caption; retain the eye's animation.
+   g.setShader(self.eyeShader);g.setColor(1,1,1,a)
+   g.draw(self.images['omega-eye-'..page],self.eyeQuads[frame],508,366,0,1.1,1.1);g.setShader()
+   local caption=smooth((elapsed-4.2)/.4)*a
+   g.setFont(self.teamFont);g.setColor(1,1,1,caption);g.printf('Omega Ascendant Team',0,626,1280,'center')
   end
   g.pop()
  end

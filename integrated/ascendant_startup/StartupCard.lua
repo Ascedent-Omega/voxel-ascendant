@@ -127,7 +127,7 @@ function M.attach(mod,prefix)
      self.prepared=entered and not self.reportPending and self.queue:ready()and not self.nativePending
     end
     local now=love.timer.getTime();local t=animationTime
-    if skipAt and scene.sound then scene.sound:setVolume((self.volume or 0)*math.max(0,1-(now-skipAt)/.09))end
+    if skipAt and scene.setVolume then scene:setVolume((self.volume or 0)*math.max(0,1-(now-skipAt)/.09))end
     if (self.reportPending or(self.queue:ready()and not self.nativePending))and (skipAt or t>=Scene.duration-.6)then finishAt=finishAt or now end
     -- Required native preparation has no elapsed-time escape: slower devices
     -- keep the logo until the actual destination is ready. Optional jobs own
@@ -155,7 +155,7 @@ function M.attach(mod,prefix)
      -- Long synchronous engine work must not skip the walk/turn sequence.
      animationTime=animationTime+math.min(.1,math.max(0,gap))
      state.maxFrameSeconds=math.max(state.maxFrameSeconds or 0,gap)
-     if gap>.25 and scene.sound then pcall(scene.sound.seek,scene.sound,animationTime,'seconds')end
+     if gap>.25 and scene.syncAudio then pcall(scene.syncAudio,scene,animationTime)end
      if gap>.25 then record('[Ascendant entry] slow frame '..string.format('%.3fs',gap)..' phase='..tostring(state.progress))end
     end
     lastDraw=now
