@@ -1,6 +1,6 @@
 {
   "id": "VOXEL_ASCENDANT",
-  "version": "3.0.62",
+  "version": "3.0.63",
   "api": 2,
   "modkit": "1.0.0",
   "local_candidate": false,
@@ -157,18 +157,18 @@
     },
     {
       "path": "QA-REPORT.md",
-      "bytes": 16478,
-      "sha256": "fab1fb42079cded0858031cfe509918abf4237bf374f2b7b26b32ac798582d29"
+      "bytes": 1052,
+      "sha256": "9bbbe1dbb09bbe5803311ba089ede65e98c472bd092c225d87b51c14fdf700e3"
     },
     {
       "path": "README.md",
-      "bytes": 37382,
-      "sha256": "dcc939145c998a4c780d6b9b9c196225c13314fa202889bb9dcdf5e4c84c6216"
+      "bytes": 38940,
+      "sha256": "cefc88e3896e5ee2c5bf25ff66ee76f6fc9ce887281e1d80cc2712b74534eb33"
     },
     {
       "path": "RELEASE_NOTES.md",
-      "bytes": 9120,
-      "sha256": "15629b193311fd2542a3886b1aba73fb10369391416cf71898679aedca5a24e7"
+      "bytes": 1520,
+      "sha256": "d0a5db50c2838dbffdbf3dd700f5e554d04be639e751988e89333843ab100c38"
     },
     {
       "path": "RELEASE_NOTES_3.0.25.md",
@@ -124037,13 +124037,18 @@
     },
     {
       "path": "integrated/ascendant_startup/IntroScene.lua",
-      "bytes": 5379,
-      "sha256": "018586b3405ab0952c3c6c8de9a08a80ab3907152c7e807f3363fb88478c462c"
+      "bytes": 10508,
+      "sha256": "9fb937b445bf6f74b0d37d3533a8132ed392ed4588cf25dbfbc0f3bc14da42c8"
     },
     {
       "path": "integrated/ascendant_startup/NativePreload.lua",
       "bytes": 1348,
       "sha256": "3a8f979dc5176c63dc052ea52a42a0907c6a3b435027977966d583471a91d04e"
+    },
+    {
+      "path": "integrated/ascendant_startup/OmegaEye.lua",
+      "bytes": 1344,
+      "sha256": "cd377618f579c304aaabcdf7abd61c33379fe3311cae8a67b13b9f08a892669e"
     },
     {
       "path": "integrated/ascendant_startup/PreloadQueue.lua",
@@ -124052,13 +124057,13 @@
     },
     {
       "path": "integrated/ascendant_startup/README.md",
-      "bytes": 1783,
-      "sha256": "ea288b91353f441bc784d988783a285d2bbd9e558db7f8935b17291b608269c2"
+      "bytes": 3273,
+      "sha256": "d5460932780877f0e265e1b1ed2115a2dffcafdfa687edcb128b51c9298180af"
     },
     {
       "path": "integrated/ascendant_startup/StartupCard.lua",
-      "bytes": 12866,
-      "sha256": "5ea134e410df5c6abd2602ac77aecf2051c4421ec718f19c6eecb9df6ec43d65"
+      "bytes": 12851,
+      "sha256": "94074a4b71977944ddc59bb846bedd4b0a2f258efb0044a382a57d0879ab5f82"
     },
     {
       "path": "integrated/ascendant_startup/VascPreload.lua",
@@ -124086,14 +124091,59 @@
       "sha256": "1fe52380123d70a43dc14fdbba7b9d6434f5be2d34173950f5fdec356f0751d9"
     },
     {
+      "path": "integrated/ascendant_startup/assets/gamecube-startup.ogg",
+      "bytes": 89064,
+      "sha256": "046ba59850f25fc56bb7242aa0a6d03e3c4347dd1f5fdc91106d98eb1a72435d"
+    },
+    {
+      "path": "integrated/ascendant_startup/assets/lugia-cry.ogg",
+      "bytes": 10085,
+      "sha256": "950e01681ce4185d918016c4be5e15394ae8656bbc285db65fb4556906e92f49"
+    },
+    {
+      "path": "integrated/ascendant_startup/assets/lugia-flight-atlas.png",
+      "bytes": 763800,
+      "sha256": "9f51d82c48502d946c23a6357d4e40b5daa76ffa175a68a68f6d0c0f21635de7"
+    },
+    {
+      "path": "integrated/ascendant_startup/assets/lugia-whoosh.wav",
+      "bytes": 264644,
+      "sha256": "d4de8720f0e7d5b0f0cd84542874897224471af5d7fa10ff8730d4790343b4bc"
+    },
+    {
       "path": "integrated/ascendant_startup/assets/mew-atlas.png",
       "bytes": 57263,
       "sha256": "d1b5cd1f45013da9d1a82d189bdb7e78545c53216960aadbf79b753f24e3508a"
     },
     {
+      "path": "integrated/ascendant_startup/assets/omega-eye-1.png",
+      "bytes": 81229,
+      "sha256": "39e2afa3033f55ada8d5a202418352cff1fc8a50f991174179ca4fce54912e71"
+    },
+    {
+      "path": "integrated/ascendant_startup/assets/omega-eye-2.png",
+      "bytes": 112968,
+      "sha256": "4fe091efc03524b7ac3357ca7783d90d0c3d24a6788f44d850a006732c522e99"
+    },
+    {
+      "path": "integrated/ascendant_startup/assets/omega-eye-3.png",
+      "bytes": 91217,
+      "sha256": "896943125fdbd6a699429ab2067bd80fda1aa5f2f62a73609ddfc016c1bfbbdc"
+    },
+    {
+      "path": "integrated/ascendant_startup/assets/omega-intro-sources.json",
+      "bytes": 1817,
+      "sha256": "b11e4cd5ddacb9cbf81ee9a5195a847ced1c799d6c9367a9631a0e63c776bc65"
+    },
+    {
       "path": "integrated/ascendant_startup/assets/pikachu-atlas.png",
       "bytes": 229367,
       "sha256": "6d69a3fb68cf5d8a8ba86ffbe6f7733b4164d01aeb06200152bb5d798295aa0d"
+    },
+    {
+      "path": "integrated/ascendant_startup/assets/support-omegadias.png",
+      "bytes": 838013,
+      "sha256": "b07ed5c49238fed54b486c8b2ce8724c70e51e545eafb92f04466aaffbbc417f"
     },
     {
       "path": "integrated/battle_heroes/Art.lua",
@@ -134982,8 +135032,8 @@
     },
     {
       "path": "manifest.json",
-      "bytes": 22822,
-      "sha256": "33aac5e3300550ec702e2b242e15cb33b6f5fe597223327014f6ade273033255"
+      "bytes": 22827,
+      "sha256": "80c0a97610bf76cbc5ffde4b30825aee962d9a4afc94f2bcfdff51b7753833db"
     },
     {
       "path": "mod.card",
@@ -134992,8 +135042,8 @@
     },
     {
       "path": "runtime-receipt.json",
-      "bytes": 5714047,
-      "sha256": "ba6887fa7c1892330755a6fbcf0ba913eceda15c59b8ba17f966576002566cc9"
+      "bytes": 5716192,
+      "sha256": "504fc241706cc880dafb2de14a9cb7fa8d08647f6504ed2036c393ace76cabb8"
     },
     {
       "path": "scripts/prepare_cobblemon_binary.py",
@@ -136586,6 +136636,16 @@
       "sha256": "36bf4b0b355e41404896337c61b1f67431b45294802e89bc1fb714b8e857e019"
     },
     {
+      "path": "tests/omega_intro_lifecycle_test.lua",
+      "bytes": 2914,
+      "sha256": "33d6edcf4a290c452862d1b6734a281ecf84572d91ee6d0dcf5b0103dd48def1"
+    },
+    {
+      "path": "tests/omega_intro_native_test.lua",
+      "bytes": 3483,
+      "sha256": "271d32f420d87f3a03f514ec07b11e2b3006cd32f012a5400fe7ea6704042f22"
+    },
+    {
       "path": "tests/opaque_materials_test.lua",
       "bytes": 3517,
       "sha256": "f841e5b916060446ac6a8bbfdc11fea2a6e6fd843f4d116ff204d3254d9b9bb8"
@@ -137446,9 +137506,7 @@
       "sha256": "5bc0ed91c0ce60535d58ad2bf5d465199a32ae9acf56dd8f18fd350f10b9d019"
     }
   ],
-  "base_archive_sha256": "1ccd4448b352022d21b2eeded409e663dd851e97ca6772a2fe2c005866aae712",
-  "source_snapshot_sha256": "c8ed50383848f1284f481b849ccf6bde0862f70aa647e8dd95025849dbef1d6b",
-  "source_commit": "55f33e832520261d18d7618326cab0dc6415c972",
-  "source_candidate_version": "3.0.60-rc.1",
-  "source_candidate_sha256": "ae2aaaeda4592981974e4a4ebe90d58a74fa11ddffbe05d070edfe3dbf54d21b"
+  "base_archive_sha256": "4b7e444de690ca20336996ddb72636b5ad20d6128a12001b7e089049c0124de3",
+  "source_snapshot_sha256": "980994d3f59ed7ed63b7b1c08aaca95190b55b42971f295e000fd57337ff1763",
+  "source_commit": "19f9a44b63d1c7ae2185ee2dc9e16d8820252da7"
 }
