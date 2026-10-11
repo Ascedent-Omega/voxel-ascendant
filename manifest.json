@@ -1,8 +1,8 @@
 {
   "id": "VOXEL_ASCENDANT",
   "name": "Voxel Ascendant",
-  "version": "3.0.62",
-  "github": "Roxas2712/voxel-ascendant",
+  "version": "3.0.63",
+  "github": "Ascedent-Omega/voxel-ascendant",
   "api": 2,
   "entry": "main.lua",
   "profile": "content",

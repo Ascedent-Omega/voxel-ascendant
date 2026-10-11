@@ -1,80 +1,13 @@
-# Voxel Ascendant 3.0.62 — windows, guardhouse maps and video polish
+# Voxel Ascendant 3.0.63 — Omega continuation intro
 
-Connects previously missing native building interiors to their real outdoor facade, including Celadon Hotel and diner, Museum, mansion floors, Cinnabar lab annexes, Indigo Plateau, Safari huts and the S.S. Anne. Ship cabins keep their six separate native room boundaries. Flat guardhouse windows remain painted and contribute daylight and night lighting. The Lavender Pokémon Tower remains closed, with no new interior windows.
+Replaces the shared New Game / Continue intro in the complete 3.0.62 baseline.
 
-Guardhouse artwork now shows the existing illustrated Kanto and Sevii Smart Maps for all seven islands. Approaching a map offers a small English/German prompt; A opens a read-only viewer, directions select places, A zooms, SELECT shows place information and START switches regions; B returns or closes it. Native NPC/sign interactions retain priority. No item, destination or island is unlocked.
+- Preserves the Roxas2712 opening, followed by a Cobblemon Lugia flyby and Lugia cry that sweep the original scene away.
+- Shows “Continued by” with Omega Dias' existing OASC wordmark and the white Eye Omega animation together on black.
+- “Omega Ascendant Team” replaces the original GIF caption. Eye, Omega, triangle and blink poses follow the GameCube startup tones; the finished logo and caption settle on the final chord.
+- The complete GameCube startup sound retains its original tempo and pitch. The animation follows the audible sample cursor and holds the finished logo through the decay.
+- Both mods use the same intro and retain shared ownership, SFX volume, mute, skip and native preparation behavior.
 
-Includes the complete public 3.0.61 Halloween fix and the previously tested video polish: lower starter posters in ball order, shallow compact stairs, timed Mew wish window with Nugget/Elixir/Ultra Ball, loading translations, Center sitter artwork and seats, upholstered Center/Hotel couch, hotel receptionist depth correction and observation HUD fixes. Tested with current public KASC 6.7.32; this release does not require a new KASC package.
+Install the complete ZIP by replacing the existing mod copy. Keep saves and settings. Update both mods together: [kanto-ascendant 6.7.33](https://github.com/Ascedent-Omega/kanto-ascendant/releases/tag/v6.7.33). No separate intro mod is needed.
 
-Earlier candidate notes below are historical.
-
----
-
-# Voxel Ascendant 3.0.62-rc.2 — upholstered Center couch
-
-Replaces the shared native couch extrusion with an authored blue upholstered voxel sofa: two seat/back cushions, stepped armrests and recessed feet. Exact full drawing recognition covers eleven Pokémon Centers and Celadon Hotel. Native collision and the 8px seat anchor remain unchanged. Furniture ownership explicitly preserves only the original seated man; other overlapping figures keep their existing protection. Furniture OFF restores native terrain; walking-sprite OFF keeps the original seated-person art on the new couch.
-
-Builds on the complete 3.0.62-rc.1 online merge. Fourteen focused regressions pass. Native LÖVE census identifies all twelve placements, with HD/Voxel/Cobble rendering in Viridian Center and Celadon Hotel, plus both OFF fallbacks. The packaged candidate is checked again independently before delivery. Physical mobile testing, subjective lift listening and a human HD in-game download catalog remain open. Local candidate; no public release.
-
----
-
-# Voxel Ascendant 3.0.62-rc.1 - current online release plus video polish
-
-Merges public VASC 3.0.61 (68e33c32, Halloween crown-contact fix) with the complete local 3.0.61-rc.6 video-polish candidate. The posed accessory anchor and scoped hotel counter depth bias share the final actor transform and pull value, keeping both fixes. Public base archive SHA256 was checked against the current GitHub release checksum.
-
-Includes English/German loading, previous language/cyclist/seat fixes, lower starter posters in ball order, compact shallow stairs, Mew wish window and fair rewards, Center sitter art, quiet Silph glass lift, iOS observation HUD and hotel reception correction. Paired KASC 6.7.33-rc.1 already builds on current public KASC 6.7.32. Optional HD Characters 1.0.0-rc.1 remains a separate tested ZIP import; its in-game download catalog entry is still absent.
-
-Focused merged regressions, native hats/hotel/HD and complete archive verification are recorded with the delivered bundle. Historical QA below preserves earlier scopes. Physical mobile and subjective lift listening remain open. Local combined candidate, no public release.
-
----
-
-# Voxel Ascendant 3.0.61-rc.6 — hotel reception correction
-
-The Prismania/Celadon hotel receptionist remains on her native floor cell behind the reception desk. A scoped depth-bias correction lets the opaque counter hide her legs instead of drawing them over the tabletop. Native position, floor height, collision and across-counter dialogue are preserved. The guard checks the original hotel and exact counter tiles; other rooms, moving actors and changed layouts retain their existing draw behavior.
-
-Voxel and Cobble pass four native camera angles and dialogue. Four focused regressions pass. The shared sitter recognition covers all twelve current placements: eleven Pokémon Centers and this hotel; hotel Voxel/Cobble/OFF rendering additionally checked. Builds on the complete rc.5 candidate. Physical mobile and optional HD-pack scene acceptance remain open; no public release.
-
----
-
-# Voxel Ascendant 3.0.61-rc.5 — local completion
-
-Replaces the tile-authored Center sitter with separate Voxel-HD and Cobble artwork. Cobble follows the existing roster/Bedrock rig and transparent export workflow, including eye/lid blinking. The temporary hand-built substitute was discarded. Fixed cushion anchor and walking OFF fallback are retained; three Centers per style verified. HD retains its existing source when its optional pack is available.
-
-The Voxel Silph glass lift uses a quiet, fading motor loop instead of repeated collision SFX, keeping the arrival chime and native sounds for other lifts/glass OFF. Native ride and focused checks pass. All 30 registered outfit recipes are now distinct from original in each of HD, Voxel, Cobble and 2D. The actual bedroom south window was captured unobstructed. Eight focused regressions pass. See QA-REPORT.md and the full video audit for evidence and limitations; physical iPhone/iPad acceptance remains open. No public release.
-
----
-
-# Voxel Ascendant 3.0.61-rc.4 — local follow-up
-
-Fixes vertically mirrored Mew choice/prompt and binocular help on the iOS final composite. Focused regressions and native iOS policy landscape/portrait wish flow pass. Prepared mobile sky already existed; physical device acceptance remains open. Review identifies the old Center sitter in Voxel/Cobble, verifies 30 distinct HD outfit recipes and visible animated Nidoking send-out, and narrows the Silph sound to the lift's 100 Collision triggers pending listening. Full evidence and limitations: QA-REPORT.md and docs/VIDEO_FEEDBACK_20260930.md. No public release.
-
----
-
-# Voxel Ascendant 3.0.61-rc.3 — local video polish candidate
-
-This candidate builds on 3.0.61-rc.2. That base already contains the loading/language fix, Cobble cyclists and older-card seat compatibility; those are retained, not newly implemented here. Public release remains 3.0.60.
-
-- Larger, wrapping English/German binocular instructions, composed after world blur.
-- Larger Safari ball counter and action labels.
-- Compact, shallower Museum/Tower/Rocket flights with unchanged native routes.
-- Three large lab scrolls on one wall in native starter-ball order: Charmander, Squirtle, Bulbasaur. Scrolls lowered, excess wall height reduced, bookcases unchanged. Uses the existing artwork.
-- More recognizable museum orbiter and small Cerulean Gym floor/wall refinements.
-- Temporary dinner plates, soup, cutlery and cups after Mother's native heal.
-- Separate Mewtwo constellation. Rare six-second, world-projected Mew star outline at night; timely A while looking towards it opens a small window over the sky. Choose one Nugget, Elixir or Ultra Ball per appearance. No Master Ball reward. Native interactions retain priority; cancel/full-bag/reload behavior protected.
-- Updates the obsolete window-landmark test stub to the current existing API.
-
-23 regression checks and targeted native desktop interaction/rendering/save-load checks passed. Physical mobile testing remains open; the follow-up rc.4 review confirms staged mobile sky is already available. No public release or installed-game update performed. The additional volcano extension is excluded: the existing KASC volcano already covers the user's request.
-
----
-
-# Voxel Ascendant 3.0.60 — Pyro MAP battle and Sea Terrarium
-
-- Pyro/Blaine's volcano MAP battle now places both Pokémon on the central Pokéball marking, with the trainers just outside it. The camera leaves the surrounding lava visible.
-- The suspended platform remains visible during MAP battles, and four cached lava fountains animate outside the court.
-- Adds ODias' Sea Terrarium with a submerged reef, separate Pokémon shelves and trainer pillars, transparent animated water, original credits and both camera perspectives.
-- Sea scenery applies to surfing encounters on Routes 12, 13, 19, 20, 21, Pallet Town, Cinnabar Island and Vermilion City. Land, inland water, interiors, Gen 2 and fishing from land retain their existing scenes.
-- Includes all public 3.0.59 changes, including the Gorochu Crystal colour fix. No changes to Pokémon stats, abilities or battle rules.
-
-**Update together with [KASC 6.7.32](https://github.com/Roxas2712/kanto-ascendant/releases/tag/v6.7.32)** for the narrower platform. Replace the existing mod copies and keep saves/settings.
-
-Promoted from the tested 3.0.60-rc.1 candidate with identical runtime code and assets. Native desktop battles, both Sea cameras, moves/attack rendering, GL/GLES shader validation, Lua syntax, archive CRC and file-hash checks passed. Physical mobile devices were not tested; the portrait touch preview is a layout check.
+Validation: native LOVE 11.5/12 scene and audio checks, cue and audio-cursor synchronization, terminal logo hold, portrait drawing, resource cleanup, both mod ownership orders, Gen1/Gen2 entry lifecycle, mandatory readiness after long loads, skip and EN/DE startup labels. Source syntax, ZIP integrity and file receipts are checked before publication. Physical mobile/NX tests have not been run for this intro update.
