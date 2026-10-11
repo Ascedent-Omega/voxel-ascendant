@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "checks": 37,
+  "scope": "Public screen registry rejects duplicate register; companion explicitly overrides existing TownMap and preserves all flight gating/control assertions. Native before failure retained in flight_map v4 both views.",
+  "log": "PASS Sevii fly map: 37 checks\nSEVII_FIX_TEST_PASS\n"
+}

@@ -51,10 +51,14 @@ function M.profile(map)
  local wallOn=V.require('HorizonWall').enabled()
  local floorOn=V.require('Gen1InteriorFloors').setting:get()==true
  if not(wallOn or floorOn)or not M.texture(true)then return nil end
- return {id=id,walls=wallOn,floors=floorOn,map=map,markedFloor=P.extensionMaps[mapId]~=nil}
+ return {sevii=map.def.kaOwner=='kasc.sevii-expedition/v1',id=id,walls=wallOn,floors=floorOn,map=map,markedFloor=P.extensionMaps[mapId]~=nil}
 end
 function M.material(p,class,tile,face,synthetic,tx,ty)
  if not p then return nil end
+ if p.sevii then
+  if class=='wall'and not p.walls or class~='wall'and not p.floors then return nil end
+  return V.require('KascSeviiScenery').caveMaterial(p.map,class,tile,face)
+ end
  if p.walls and class=='wall' and walls[tile]then return -(face=='side' and 200 or 210)-p.id end
  if face=='side' then return nil end
  -- Extension maps use complete native blocks as ice, bridge, switch and
@@ -86,6 +90,20 @@ M.GLSL=[[
     } else if(code>210.0) {
       family=code-210.0;
       uv=vec2(caveMirror(world.x/64.0),caveMirror(world.z/64.0));
+    }
+    // Sevii's actual glacier uses clear blue ice and a frosted cap. Family
+    // seven is presentation-only; Kanto Seafoam's rock family stays intact.
+    if(family==7.0) {
+      vec2 cell=floor(world.xz/2.0);
+      float grain=fract(sin(dot(cell,vec2(127.1,311.7)))*43758.5453);
+      if(code>210.0) {
+        vec3 frost=mix(vec3(0.74,0.86,0.91),vec3(0.90,0.96,0.98),grain*0.45+0.45);
+        return vec4(frost,1.0);
+      }
+      float seam=step(0.84,fract((world.x+world.z+floor(world.y/4.0)*2.0)/14.0));
+      float band=mod(floor(world.y/3.0),4.0)/4.0;
+      vec3 ice=mix(vec3(0.34,0.57,0.73),vec3(0.65,0.82,0.91),band*0.6+grain*0.2);
+      return vec4(mix(ice,vec3(0.27,0.47,0.66),seam*0.35),1.0);
     }
     vec2 halfPixel=0.5/max(caveSurfaceSize,vec2(1.0));
     uv.x=mix(halfPixel.x,1.0-halfPixel.x,uv.x);

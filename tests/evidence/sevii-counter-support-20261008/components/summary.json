@@ -1,0 +1,32 @@
+[
+  {
+    "test": "sevii_counter_support_test.lua",
+    "passed": true,
+    "exit": 0,
+    "seconds": 1.0849921703338623
+  },
+  {
+    "test": "sevii_scenery_test.lua",
+    "passed": true,
+    "exit": 0,
+    "seconds": 1.3816466331481934
+  },
+  {
+    "test": "sevii_features_test.lua",
+    "passed": true,
+    "exit": 0,
+    "seconds": 0.7387559413909912
+  },
+  {
+    "test": "sevii_native_room_test.lua",
+    "passed": true,
+    "exit": 0,
+    "seconds": 0.48320817947387695
+  },
+  {
+    "test": "sevii_floor_test.lua",
+    "passed": true,
+    "exit": 0,
+    "seconds": 0.45754218101501465
+  }
+]

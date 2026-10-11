@@ -66,7 +66,9 @@ local function mesh()
 end
 local batchG={canInstance=function()return true end,newMesh=function()allocations=allocations+1;return mesh()end}
 love.graphics.newMesh=function()return {setVertices=function()uploads=uploads+1 end,release=function()end}end
-local batch=assert(loadfile('lib/VoxelPropBatch.lua'))({require=function(n)assert(n=='Voxel3D');return batchG end})
+local batch=assert(loadfile('lib/VoxelPropBatch.lua'))({require=function(n)
+ if n=='DeepSnow'then return{buriesFlowers=function()return false end}end
+ assert(n=='Voxel3D');return batchG end})
 local original={getVertexCount=function()return 4 end,getVertex=function()return 0,0,0,0,0,1 end,getVertexMap=function()return {1,2,3,1,3,4}end}
 local green={seasonalFoliage=true};local pink={seasonalFoliage=true,blossomSource={8,25,8}}
 local function each(_,draw)

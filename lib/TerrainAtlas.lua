@@ -668,6 +668,8 @@ function TerrainAtlas.animate(map, colors, base, baked)
 end
 
 function TerrainAtlas.forMap(map, colors)
+  local source=V.require('SeviiMapAnimations')
+  if source.active(map)then return source.atlas(map)end
   local base, baked = staticAtlas(map, colors)
   if not base then return nil end
   return TerrainAtlas.animate(map, colors, base, baked) or base
@@ -686,6 +688,8 @@ local function prewarmEligible(map)
 end
 
 function TerrainAtlas.prepared(map)
+  local source=V.require('SeviiMapAnimations')
+  if source.active(map)then return source.prepared(map)end
   if not prewarmEligible(map) then return true end
   local entry=animated[animationKey(map,nil)]
   if entry==nil then return false end
@@ -697,6 +701,8 @@ function TerrainAtlas.prepared(map)
 end
 
 function TerrainAtlas.prepare(map)
+  local source=V.require('SeviiMapAnimations')
+  if source.active(map)then return source.prepare(map)end
   if TerrainAtlas.prepared(map) then return true end
   local key=animationKey(map,nil)
   local entry=animated[key]
@@ -763,6 +769,7 @@ end
 -- per map ever entered, and each pins the engine's own baked ImageData
 -- alive behind it.
 function TerrainAtlas.setLive(live)
+  V.require('SeviiMapAnimations').setLive()
   local retained=V.require("WorldResidency").retained()
   for key, entry in pairs(animated) do
     if entry and entry.mapId
@@ -775,6 +782,7 @@ function TerrainAtlas.setLive(live)
 end
 
 function TerrainAtlas.invalidate()
+  V.require('SeviiMapAnimations').invalidate()
   TerrainAtlas.cacheRevision=(TerrainAtlas.cacheRevision or 0)+1
   cache = {}
   cacheData = {}

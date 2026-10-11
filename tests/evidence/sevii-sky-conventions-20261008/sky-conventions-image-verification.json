@@ -1,0 +1,1144 @@
+{
+  "affectedMaps": [
+    "KA_SEVII_FIVE_ISLAND_HARBOR",
+    "KA_SEVII_FOUR_ISLAND_HARBOR",
+    "KA_SEVII_HARBOR",
+    "KA_SEVII_SEVEN_ISLAND_HARBOR",
+    "KA_SEVII_SIX_ISLAND_HARBOR",
+    "KA_SEVII_THREE_ISLAND_HARBOR",
+    "KA_SEVII_TRAINER_TOWER_ROOF",
+    "KA_SEVII_TWO_ISLAND_HARBOR"
+  ],
+  "voxel": {
+    "before": "fix-after-quick-sky-beforevoxel0361-v2",
+    "after": "fix-after-quick-sky-aftervoxel0361-v2",
+    "checked": 44,
+    "images": [
+      {
+        "map": "KA_SEVII_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_HARBOR-day-on.png",
+        "changedPixels": 834825,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_HARBOR-day-off.png",
+        "changedPixels": 290922,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_HARBOR-night-on.png",
+        "changedPixels": 835999,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_HARBOR-night-off.png",
+        "changedPixels": 822872,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_TWO_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 834826,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_TWO_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 290922,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_TWO_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 836000,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_TWO_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 823112,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_THREE_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 834825,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_THREE_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 290922,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_THREE_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 835999,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_THREE_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 822872,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_FOUR_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 834825,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_FOUR_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 290922,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_FOUR_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 835999,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_FOUR_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 822872,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_FIVE_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 834826,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_FIVE_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 290922,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_FIVE_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 836000,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_FIVE_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 823112,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_SIX_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 834826,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_SIX_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 290922,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_SIX_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 836000,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_SIX_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 823112,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_SEVEN_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 834826,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_SEVEN_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 290922,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_SEVEN_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 836000,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_SEVEN_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 823112,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_TRAINER_TOWER_ROOF-day-on.png",
+        "changedPixels": 835311,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_TRAINER_TOWER_ROOF-day-off.png",
+        "changedPixels": 53690,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_TRAINER_TOWER_ROOF-night-on.png",
+        "changedPixels": 836000,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_TRAINER_TOWER_ROOF-night-off.png",
+        "changedPixels": 828516,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "VERMILION_DOCK",
+        "day": "day",
+        "light": true,
+        "image": "sky-VERMILION_DOCK-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "VERMILION_DOCK",
+        "day": "day",
+        "light": false,
+        "image": "sky-VERMILION_DOCK-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "VERMILION_DOCK",
+        "day": "night",
+        "light": true,
+        "image": "sky-VERMILION_DOCK-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "VERMILION_DOCK",
+        "day": "night",
+        "light": false,
+        "image": "sky-VERMILION_DOCK-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "SS_ANNE_BOW",
+        "day": "day",
+        "light": true,
+        "image": "sky-SS_ANNE_BOW-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "SS_ANNE_BOW",
+        "day": "day",
+        "light": false,
+        "image": "sky-SS_ANNE_BOW-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "SS_ANNE_BOW",
+        "day": "night",
+        "light": true,
+        "image": "sky-SS_ANNE_BOW-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "SS_ANNE_BOW",
+        "day": "night",
+        "light": false,
+        "image": "sky-SS_ANNE_BOW-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "CELADON_MART_ROOF",
+        "day": "day",
+        "light": true,
+        "image": "sky-CELADON_MART_ROOF-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "CELADON_MART_ROOF",
+        "day": "day",
+        "light": false,
+        "image": "sky-CELADON_MART_ROOF-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "CELADON_MART_ROOF",
+        "day": "night",
+        "light": true,
+        "image": "sky-CELADON_MART_ROOF-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "CELADON_MART_ROOF",
+        "day": "night",
+        "light": false,
+        "image": "sky-CELADON_MART_ROOF-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      }
+    ],
+    "unchanged": 12
+  },
+  "flat": {
+    "before": "fix-after-quick-sky-beforeflat0361-v2",
+    "after": "fix-after-quick-sky-afterflat0361-v2",
+    "checked": 44,
+    "images": [
+      {
+        "map": "KA_SEVII_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_HARBOR-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_HARBOR-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_HARBOR-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_HARBOR-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_TWO_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_TWO_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_TWO_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_TWO_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_THREE_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_THREE_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_THREE_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_THREE_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_FOUR_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_FOUR_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_FOUR_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_FOUR_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_FIVE_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_FIVE_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_FIVE_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_FIVE_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_SIX_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_SIX_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_SIX_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_SIX_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_SEVEN_ISLAND_HARBOR-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_SEVEN_ISLAND_HARBOR-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_SEVEN_ISLAND_HARBOR-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_SEVEN_ISLAND_HARBOR-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+        "day": "day",
+        "light": true,
+        "image": "sky-KA_SEVII_TRAINER_TOWER_ROOF-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+        "day": "day",
+        "light": false,
+        "image": "sky-KA_SEVII_TRAINER_TOWER_ROOF-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+        "day": "night",
+        "light": true,
+        "image": "sky-KA_SEVII_TRAINER_TOWER_ROOF-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+        "day": "night",
+        "light": false,
+        "image": "sky-KA_SEVII_TRAINER_TOWER_ROOF-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "VERMILION_DOCK",
+        "day": "day",
+        "light": true,
+        "image": "sky-VERMILION_DOCK-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "VERMILION_DOCK",
+        "day": "day",
+        "light": false,
+        "image": "sky-VERMILION_DOCK-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "VERMILION_DOCK",
+        "day": "night",
+        "light": true,
+        "image": "sky-VERMILION_DOCK-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "VERMILION_DOCK",
+        "day": "night",
+        "light": false,
+        "image": "sky-VERMILION_DOCK-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "SS_ANNE_BOW",
+        "day": "day",
+        "light": true,
+        "image": "sky-SS_ANNE_BOW-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "SS_ANNE_BOW",
+        "day": "day",
+        "light": false,
+        "image": "sky-SS_ANNE_BOW-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "SS_ANNE_BOW",
+        "day": "night",
+        "light": true,
+        "image": "sky-SS_ANNE_BOW-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "SS_ANNE_BOW",
+        "day": "night",
+        "light": false,
+        "image": "sky-SS_ANNE_BOW-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "CELADON_MART_ROOF",
+        "day": "day",
+        "light": true,
+        "image": "sky-CELADON_MART_ROOF-day-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "CELADON_MART_ROOF",
+        "day": "day",
+        "light": false,
+        "image": "sky-CELADON_MART_ROOF-day-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "CELADON_MART_ROOF",
+        "day": "night",
+        "light": true,
+        "image": "sky-CELADON_MART_ROOF-night-on.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "map": "CELADON_MART_ROOF",
+        "day": "night",
+        "light": false,
+        "image": "sky-CELADON_MART_ROOF-night-off.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      }
+    ],
+    "unchanged": 44
+  },
+  "kanto": {
+    "before": "fix-after-quick-kanto-mist-after0361-v1",
+    "after": "fix-after-quick-kanto-sky-after0361-v1",
+    "checked": 16,
+    "passed": true,
+    "images": [
+      {
+        "image": "kanto-CERULEAN_CITY.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-CINNABAR_ISLAND.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-GAME_CORNER.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-MT_MOON_1F.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-PALLET_TOWN.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-REDS_HOUSE_1F.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-ROCK_TUNNEL_1F.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-ROUTE_1.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-ROUTE_12.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-ROUTE_20.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-ROUTE_23.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-SEAFOAM_ISLANDS_1F.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-VERMILION_TRADE_HOUSE.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-VIRIDIAN_CITY.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-VIRIDIAN_FOREST.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      },
+      {
+        "image": "kanto-VIRIDIAN_POKECENTER.png",
+        "changedPixels": 0,
+        "dimensions": [
+          1100,
+          760
+        ]
+      }
+    ]
+  },
+  "archiveChanged": [
+    "lib/HorizonWall.lua",
+    "manifest.json"
+  ],
+  "rawPNGFullRGBA": true,
+  "masked": false,
+  "tolerance": 0,
+  "engineFilesUnchanged": 1917,
+  "skyMismatchesBefore": 8,
+  "skyMismatchesAfter": 0,
+  "weatherPolicyQueriesPerFixture": 1596,
+  "weatherPolicyUnchanged": true
+}

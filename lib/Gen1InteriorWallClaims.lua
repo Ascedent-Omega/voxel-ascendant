@@ -34,7 +34,7 @@ local function lanceFrame(map,x,y)
 end
 function M.claim(S,map)
  local H=V.require("HorizonWall")
- local p=H.enabled() and H.interiorProfileFor(map)
+ local p=H.enabled(map) and H.interiorProfileFor(map)
  if not (p and p.nativeRoomPanels) then return end
  S.interiorWallClaims={}
  local tw,th=map.def.width*4,map.def.height*4
@@ -42,6 +42,14 @@ function M.claim(S,map)
  -- Layout owns the replacement faces, including indented room outlines and
  -- the two sides of facility partitions. Claim only the narrow native wall
  -- course beside a real panel; an unrelated internal wall must remain.
+ local protected={}
+ if p.nativeSourceWalls then
+  for _,prop in ipairs(V.require("KascSeviiScenery").profile(map).props or {})do
+   for y=(prop.y-(prop.nativeAbove or 0))*2,(prop.y+prop.h)*2-1 do
+    for x=prop.x*2,(prop.x+prop.w)*2-1 do protected[key(x,y)]=true end
+   end
+  end
+ end
  local covered={}
  local panels=V.require('Gen1InteriorLayout').panelsFor(map,p)
  S.interiorFloorTiles=V.require('Gen1RoomBounds').floorTiles(map)
@@ -60,9 +68,12 @@ function M.claim(S,map)
   local lance=lanceFrame(map,x,y)
   local frame=lance and lanceWall[(S.tileAt or{})[k]]
   local corner=lance and shape and shape.class=='void'and (S.tileAt or{})[k]==15
-  if (covered[k] or y<4 or y>=th-2 or x<2 or x>=tw-2 or frame or corner) and shape and (shape.class=='wall' or special or corner)
+  local sevii=map.def.kaOwner=='kasc.sevii-expedition/v1'and V.require('KascSeviiScenery').profile(map)
+  local seviiWall=sevii and sevii.kind=='room'and V.require('KascSeviiScenery').token(map,x,y)=='X'
+  if (seviiWall or covered[k] or y<4 or y>=th-2 or x<2 or x>=tw-2 or frame or corner) and shape and (shape.class=='wall' or special or corner or seviiWall and shape.flat)
       and (map.def.tileset~='FACILITY' or facilityWall[(S.tileAt or {})[k]])
       and (map.id~='SILPH_CO_11F' or officeWall[(S.tileAt or {})[k]] or special)
+      and not protected[k]
       and not (S.voxelFurnitureClaims and S.voxelFurnitureClaims[k]) then
    -- A low native wall face would sit in front of the new full-height wall.
    S.interiorWallClaims[k]=true

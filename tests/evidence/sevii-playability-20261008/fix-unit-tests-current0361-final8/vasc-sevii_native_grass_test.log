@@ -1,0 +1,3 @@
+PASS Sevii RGB grass: shared Kanto mesh, free blade silhouette, no floor sheets, native spacing/height, foreign masks and encounter ownership
+PASS full Sevii grass: exact existing Kanto tuft geometry/material/shading, shared placements and independent original mode
+SEVII_FIX_TEST_PASS

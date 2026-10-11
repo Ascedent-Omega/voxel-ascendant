@@ -1,0 +1,4385 @@
+{
+  "completed": true,
+  "engine": "gen1recomp 0.3.61 / 7ac15ebbf78b298344e15db72406ff37e94099f6",
+  "runtime": "L\u00d6VE 11.5 / macOS",
+  "packages": [
+    {
+      "file": "Kanto-Ascendant-6.7.33-rc.14-sevii.zip",
+      "version": "6.7.33-rc.14-sevii",
+      "sha256": "9d4574a5a9f63944e44cf93807ae64d64309f8751398b9bc99c8f4830466ec34"
+    },
+    {
+      "file": "Voxel-Ascendant-3.0.63-rc.9-sevii.zip",
+      "version": "3.0.63-rc.9-sevii",
+      "sha256": "4c3c4cd67f91fd356d2440f5b90debde75da3f7bf994783d79e1f46f6614202d"
+    }
+  ],
+  "animatedMaps": [
+    "KA_SEVII_FIVE",
+    "KA_SEVII_FIVE_ISLAND_HARBOR",
+    "KA_SEVII_FIVE_ISLAND_MEADOW",
+    "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y10",
+    "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+    "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y30",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y10",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y20",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y30",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y40",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y50",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X0_Y10",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y0",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y10",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X0_Y10",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y10",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y10",
+    "KA_SEVII_FIVE_X0_Y10",
+    "KA_SEVII_FOUR",
+    "KA_SEVII_FOUR_ISLAND_HARBOR",
+    "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_BACK",
+    "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+    "KA_SEVII_HARBOR",
+    "KA_SEVII_KINDLE",
+    "KA_SEVII_KINDLE_NORTH",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_1_F",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F_STAIRS",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F_STAIRS",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F",
+    "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F",
+    "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F",
+    "KA_SEVII_MT_EMBER_SUMMIT_PATH_3_F",
+    "KA_SEVII_ONE",
+    "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA",
+    "KA_SEVII_SEVEN",
+    "KA_SEVII_SEVEN_ISLAND_HARBOR",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y10",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y30",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y60",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y70",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y0",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y0",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y0",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y20",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y30",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y0",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y20",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y30",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y0",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y30",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y0",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y30",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y0",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y10",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y20",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y30",
+    "KA_SEVII_SEVEN_X0_Y10",
+    "KA_SEVII_SIX",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X0_Y10",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y0",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y0",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+    "KA_SEVII_SIX_ISLAND_HARBOR",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y10",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y30",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y40",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y50",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y60",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y70",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y20",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y30",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y50",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y60",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y70",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y90",
+    "KA_SEVII_SIX_X0_Y10",
+    "KA_SEVII_SIX_X0_Y20",
+    "KA_SEVII_THREE",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X0_Y10",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y0",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y10",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y10",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y0",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y10",
+    "KA_SEVII_THREE_ISLAND_HARBOR",
+    "KA_SEVII_THREE_ISLAND_PORT",
+    "KA_SEVII_THREE_ISLAND_PORT_X0_Y10",
+    "KA_SEVII_THREE_ISLAND_PORT_X24_Y0",
+    "KA_SEVII_THREE_ISLAND_PORT_X24_Y10",
+    "KA_SEVII_THREE_X0_Y10",
+    "KA_SEVII_TREASURE",
+    "KA_SEVII_TWO",
+    "KA_SEVII_TWO_ISLAND_CAPE_BRINK",
+    "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y10",
+    "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y20",
+    "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y30",
+    "KA_SEVII_TWO_ISLAND_HARBOR",
+    "KA_SEVII_TWO_X0_Y10",
+    "KA_SEVII_TWO_X24_Y10"
+  ],
+  "source": {
+    "completed": true,
+    "sourceMaps": 135,
+    "affectedSources": 42,
+    "sampledStates": 7227,
+    "foregroundBackgrounds": 58,
+    "coverage": {
+      "horizontal": 818,
+      "vertical": 559,
+      "palettesOver6": 407
+    },
+    "mapsUnchanged": true,
+    "staticTilesetsUnchanged": true,
+    "staticPNGsUnchanged": true,
+    "scope": "Exact BPRD ROM identity and authenticated pointer/frame banks; all distinct exported source states versus original static compositor with independently replayed wrapping callback schedule. No ROM or artwork is published.",
+    "rows": [
+      {
+        "source": "OneIsland",
+        "animatedMetatiles": 24,
+        "sampledStates": 181
+      },
+      {
+        "source": "OneIsland_KindleRoad",
+        "animatedMetatiles": 59,
+        "sampledStates": 468
+      },
+      {
+        "source": "OneIsland_TreasureBeach",
+        "animatedMetatiles": 49,
+        "sampledStates": 385
+      },
+      {
+        "source": "OneIsland_PokemonCenter_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "OneIsland_PokemonCenter_2F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "OneIsland_House1",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "OneIsland_House2",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "OneIsland_Harbor",
+        "animatedMetatiles": 11,
+        "sampledStates": 88
+      },
+      {
+        "source": "MtEmber_RubyPath_B4F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "MtEmber_Exterior",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "MtEmber_SummitPath_1F",
+        "animatedMetatiles": 5,
+        "sampledStates": 20
+      },
+      {
+        "source": "MtEmber_SummitPath_2F",
+        "animatedMetatiles": 4,
+        "sampledStates": 16
+      },
+      {
+        "source": "MtEmber_SummitPath_3F",
+        "animatedMetatiles": 4,
+        "sampledStates": 16
+      },
+      {
+        "source": "MtEmber_Summit",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "MtEmber_RubyPath_B5F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "MtEmber_RubyPath_1F",
+        "animatedMetatiles": 4,
+        "sampledStates": 16
+      },
+      {
+        "source": "MtEmber_RubyPath_B1F",
+        "animatedMetatiles": 5,
+        "sampledStates": 20
+      },
+      {
+        "source": "MtEmber_RubyPath_B2F",
+        "animatedMetatiles": 4,
+        "sampledStates": 16
+      },
+      {
+        "source": "MtEmber_RubyPath_B3F",
+        "animatedMetatiles": 6,
+        "sampledStates": 24
+      },
+      {
+        "source": "MtEmber_RubyPath_B1F_Stairs",
+        "animatedMetatiles": 3,
+        "sampledStates": 12
+      },
+      {
+        "source": "MtEmber_RubyPath_B2F_Stairs",
+        "animatedMetatiles": 4,
+        "sampledStates": 16
+      },
+      {
+        "source": "ThreeIsland_BerryForest",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_IcefallCave_Entrance",
+        "animatedMetatiles": 3,
+        "sampledStates": 12
+      },
+      {
+        "source": "FourIsland_IcefallCave_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_IcefallCave_B1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_IcefallCave_Back",
+        "animatedMetatiles": 16,
+        "sampledStates": 118
+      },
+      {
+        "source": "FiveIsland_RocketWarehouse",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_DottedHole_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_DottedHole_B1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_DottedHole_B2F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_DottedHole_B3F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_DottedHole_B4F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_DottedHole_SapphireRoom",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_PatternBush",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_AlteringCave",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_2F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_3F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_4F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_5F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_6F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_7F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_8F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_Roof",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_Lobby",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TrainerTower_Elevator",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Entrance",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room1",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room2",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room3",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room4",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room5",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room6",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room7",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room8",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room9",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room10",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room11",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room12",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room13",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_LostCave_Room14",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_TanobyRuins_MoneanChamber",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_TanobyRuins_LiptooChamber",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_TanobyRuins_WeepthChamber",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_TanobyRuins_DilfordChamber",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_TanobyRuins_ScufibChamber",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_TanobyRuins_RixyChamber",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_TanobyRuins_ViapoisChamber",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "ThreeIsland_DunsparceTunnel",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_SevaultCanyon_TanobyKey",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "OneIsland_KindleRoad_EmberSpa",
+        "animatedMetatiles": 11,
+        "sampledStates": 44
+      },
+      {
+        "source": "TwoIsland",
+        "animatedMetatiles": 28,
+        "sampledStates": 210
+      },
+      {
+        "source": "ThreeIsland",
+        "animatedMetatiles": 1,
+        "sampledStates": 5
+      },
+      {
+        "source": "FourIsland",
+        "animatedMetatiles": 30,
+        "sampledStates": 226
+      },
+      {
+        "source": "FiveIsland",
+        "animatedMetatiles": 43,
+        "sampledStates": 333
+      },
+      {
+        "source": "SevenIsland",
+        "animatedMetatiles": 30,
+        "sampledStates": 229
+      },
+      {
+        "source": "SixIsland",
+        "animatedMetatiles": 27,
+        "sampledStates": 202
+      },
+      {
+        "source": "TwoIsland_CapeBrink",
+        "animatedMetatiles": 17,
+        "sampledStates": 124
+      },
+      {
+        "source": "ThreeIsland_BondBridge",
+        "animatedMetatiles": 50,
+        "sampledStates": 394
+      },
+      {
+        "source": "ThreeIsland_Port",
+        "animatedMetatiles": 39,
+        "sampledStates": 301
+      },
+      {
+        "source": "FiveIsland_ResortGorgeous",
+        "animatedMetatiles": 33,
+        "sampledStates": 261
+      },
+      {
+        "source": "FiveIsland_WaterLabyrinth",
+        "animatedMetatiles": 28,
+        "sampledStates": 221
+      },
+      {
+        "source": "FiveIsland_Meadow",
+        "animatedMetatiles": 33,
+        "sampledStates": 264
+      },
+      {
+        "source": "FiveIsland_MemorialPillar",
+        "animatedMetatiles": 51,
+        "sampledStates": 401
+      },
+      {
+        "source": "SixIsland_OutcastIsland",
+        "animatedMetatiles": 49,
+        "sampledStates": 384
+      },
+      {
+        "source": "SixIsland_GreenPath",
+        "animatedMetatiles": 49,
+        "sampledStates": 389
+      },
+      {
+        "source": "SixIsland_WaterPath",
+        "animatedMetatiles": 38,
+        "sampledStates": 301
+      },
+      {
+        "source": "SixIsland_RuinValley",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_TrainerTower",
+        "animatedMetatiles": 46,
+        "sampledStates": 361
+      },
+      {
+        "source": "SevenIsland_SevaultCanyon_Entrance",
+        "animatedMetatiles": 21,
+        "sampledStates": 165
+      },
+      {
+        "source": "SevenIsland_SevaultCanyon",
+        "animatedMetatiles": 15,
+        "sampledStates": 120
+      },
+      {
+        "source": "SevenIsland_TanobyRuins",
+        "animatedMetatiles": 45,
+        "sampledStates": 356
+      },
+      {
+        "source": "SevenIsland_House_Room1",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_House_Room2",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_Mart",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_PokemonCenter_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_PokemonCenter_2F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_Harbor",
+        "animatedMetatiles": 11,
+        "sampledStates": 88
+      },
+      {
+        "source": "TwoIsland_JoyfulGameCorner",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TwoIsland_House",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TwoIsland_PokemonCenter_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TwoIsland_PokemonCenter_2F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TwoIsland_Harbor",
+        "animatedMetatiles": 11,
+        "sampledStates": 88
+      },
+      {
+        "source": "ThreeIsland_House1",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "ThreeIsland_PokemonCenter_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "ThreeIsland_PokemonCenter_2F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "ThreeIsland_Mart",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "ThreeIsland_House2",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "ThreeIsland_House3",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "ThreeIsland_House4",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "ThreeIsland_House5",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_PokemonDayCare",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_PokemonCenter_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_PokemonCenter_2F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_House1",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_LoreleisHouse",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_Harbor",
+        "animatedMetatiles": 11,
+        "sampledStates": 88
+      },
+      {
+        "source": "FourIsland_House2",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FourIsland_Mart",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_PokemonCenter_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_PokemonCenter_2F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_Harbor",
+        "animatedMetatiles": 11,
+        "sampledStates": 88
+      },
+      {
+        "source": "FiveIsland_House1",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "FiveIsland_House2",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_PokemonCenter_1F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_PokemonCenter_2F",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_Harbor",
+        "animatedMetatiles": 11,
+        "sampledStates": 88
+      },
+      {
+        "source": "SixIsland_House",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_Mart",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "ThreeIsland_Harbor",
+        "animatedMetatiles": 11,
+        "sampledStates": 88
+      },
+      {
+        "source": "FiveIsland_ResortGorgeous_House",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "TwoIsland_CapeBrink_House",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_WaterPath_House1",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SixIsland_WaterPath_House2",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      },
+      {
+        "source": "SevenIsland_SevaultCanyon_House",
+        "animatedMetatiles": 0,
+        "sampledStates": 0
+      }
+    ]
+  },
+  "native": {
+    "flat": {
+      "streams": 3176,
+      "maps": [
+        {
+          "map": "KA_SEVII_CENTER",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_CENTER_2F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE",
+          "claimedSlots": 230,
+          "samples": 486,
+          "streams": 34
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+          "claimedSlots": 88,
+          "samples": 196,
+          "streams": 14
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_HOUSE1",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_HOUSE2",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ENTRANCE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM10",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM11",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM12",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM13",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM14",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM2",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM3",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM4",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM5",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM6",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM7",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM8",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM9",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW",
+          "claimedSlots": 269,
+          "samples": 508,
+          "streams": 32
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y10",
+          "claimedSlots": 160,
+          "samples": 340,
+          "streams": 23
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+          "claimedSlots": 244,
+          "samples": 452,
+          "streams": 27
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y30",
+          "claimedSlots": 340,
+          "samples": 563,
+          "streams": 29
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR",
+          "claimedSlots": 497,
+          "samples": 774,
+          "streams": 36
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y10",
+          "claimedSlots": 347,
+          "samples": 552,
+          "streams": 26
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y20",
+          "claimedSlots": 508,
+          "samples": 737,
+          "streams": 30
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y30",
+          "claimedSlots": 482,
+          "samples": 772,
+          "streams": 38
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y40",
+          "claimedSlots": 209,
+          "samples": 487,
+          "streams": 38
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y50",
+          "claimedSlots": 488,
+          "samples": 705,
+          "streams": 28
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_2_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS",
+          "claimedSlots": 386,
+          "samples": 667,
+          "streams": 36
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_HOUSE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X0_Y10",
+          "claimedSlots": 343,
+          "samples": 552,
+          "streams": 27
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0",
+          "claimedSlots": 263,
+          "samples": 508,
+          "streams": 33
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10",
+          "claimedSlots": 285,
+          "samples": 502,
+          "streams": 28
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y0",
+          "claimedSlots": 532,
+          "samples": 749,
+          "streams": 28
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y10",
+          "claimedSlots": 468,
+          "samples": 717,
+          "streams": 32
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH",
+          "claimedSlots": 448,
+          "samples": 690,
+          "streams": 33
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X0_Y10",
+          "claimedSlots": 600,
+          "samples": 842,
+          "streams": 33
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0",
+          "claimedSlots": 336,
+          "samples": 489,
+          "streams": 20
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y10",
+          "claimedSlots": 480,
+          "samples": 633,
+          "streams": 20
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0",
+          "claimedSlots": 448,
+          "samples": 601,
+          "streams": 20
+        },
+        {
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y10",
+          "claimedSlots": 448,
+          "samples": 601,
+          "streams": 20
+        },
+        {
+          "map": "KA_SEVII_FIVE_X0_Y10",
+          "claimedSlots": 534,
+          "samples": 861,
+          "streams": 46
+        },
+        {
+          "map": "KA_SEVII_FOUR",
+          "claimedSlots": 630,
+          "samples": 973,
+          "streams": 48
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+          "claimedSlots": 88,
+          "samples": 196,
+          "streams": 14
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_HOUSE1",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_HOUSE2",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_B1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_BACK",
+          "claimedSlots": 376,
+          "samples": 627,
+          "streams": 35
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+          "claimedSlots": 76,
+          "samples": 115,
+          "streams": 10
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_LORELEIS_HOUSE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_MART",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_2_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_FOUR_ISLAND_POKEMON_DAY_CARE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_HARBOR",
+          "claimedSlots": 88,
+          "samples": 196,
+          "streams": 14
+        },
+        {
+          "map": "KA_SEVII_HOUSE1",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_HOUSE2",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_KINDLE",
+          "claimedSlots": 1048,
+          "samples": 1401,
+          "streams": 46
+        },
+        {
+          "map": "KA_SEVII_KINDLE_NORTH",
+          "claimedSlots": 1316,
+          "samples": 1662,
+          "streams": 45
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y40",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y40",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y0",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y40",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_1_F",
+          "claimedSlots": 44,
+          "samples": 108,
+          "streams": 16
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F",
+          "claimedSlots": 28,
+          "samples": 108,
+          "streams": 20
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F_STAIRS",
+          "claimedSlots": 16,
+          "samples": 64,
+          "streams": 12
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F",
+          "claimedSlots": 20,
+          "samples": 84,
+          "streams": 16
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F_STAIRS",
+          "claimedSlots": 16,
+          "samples": 80,
+          "streams": 16
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F",
+          "claimedSlots": 96,
+          "samples": 192,
+          "streams": 24
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B4_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B5_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_SUMMIT",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F",
+          "claimedSlots": 24,
+          "samples": 104,
+          "streams": 20
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F",
+          "claimedSlots": 60,
+          "samples": 124,
+          "streams": 16
+        },
+        {
+          "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_3_F",
+          "claimedSlots": 20,
+          "samples": 84,
+          "streams": 16
+        },
+        {
+          "map": "KA_SEVII_ONE",
+          "claimedSlots": 265,
+          "samples": 549,
+          "streams": 38
+        },
+        {
+          "map": "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA",
+          "claimedSlots": 176,
+          "samples": 343,
+          "streams": 42
+        },
+        {
+          "map": "KA_SEVII_SEVEN",
+          "claimedSlots": 84,
+          "samples": 234,
+          "streams": 19
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+          "claimedSlots": 88,
+          "samples": 196,
+          "streams": 14
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM1",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM2",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_MART",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_2_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE",
+          "claimedSlots": 299,
+          "samples": 517,
+          "streams": 29
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y10",
+          "claimedSlots": 179,
+          "samples": 335,
+          "streams": 21
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20",
+          "claimedSlots": 64,
+          "samples": 176,
+          "streams": 14
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y30",
+          "claimedSlots": 152,
+          "samples": 303,
+          "streams": 19
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_HOUSE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_TANOBY_KEY",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y10",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y30",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y40",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y50",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y60",
+          "claimedSlots": 4,
+          "samples": 34,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y70",
+          "claimedSlots": 252,
+          "samples": 439,
+          "streams": 24
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+          "claimedSlots": 565,
+          "samples": 858,
+          "streams": 38
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_DILFORD_CHAMBER",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_LIPTOO_CHAMBER",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_MONEAN_CHAMBER",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_RIXY_CHAMBER",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_SCUFIB_CHAMBER",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_VIAPOIS_CHAMBER",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_WEEPTH_CHAMBER",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10",
+          "claimedSlots": 449,
+          "samples": 726,
+          "streams": 36
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y0",
+          "claimedSlots": 365,
+          "samples": 558,
+          "streams": 25
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y10",
+          "claimedSlots": 345,
+          "samples": 530,
+          "streams": 24
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y0",
+          "claimedSlots": 515,
+          "samples": 772,
+          "streams": 33
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y10",
+          "claimedSlots": 346,
+          "samples": 563,
+          "streams": 28
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0",
+          "claimedSlots": 561,
+          "samples": 828,
+          "streams": 35
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y10",
+          "claimedSlots": 253,
+          "samples": 430,
+          "streams": 23
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0",
+          "claimedSlots": 490,
+          "samples": 755,
+          "streams": 34
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y10",
+          "claimedSlots": 410,
+          "samples": 611,
+          "streams": 26
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y0",
+          "claimedSlots": 441,
+          "samples": 666,
+          "streams": 29
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y10",
+          "claimedSlots": 442,
+          "samples": 659,
+          "streams": 28
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y10",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y20",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y30",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y0",
+          "claimedSlots": 74,
+          "samples": 178,
+          "streams": 13
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y10",
+          "claimedSlots": 236,
+          "samples": 435,
+          "streams": 26
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y20",
+          "claimedSlots": 243,
+          "samples": 436,
+          "streams": 25
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y30",
+          "claimedSlots": 182,
+          "samples": 401,
+          "streams": 29
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y0",
+          "claimedSlots": 34,
+          "samples": 113,
+          "streams": 10
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y10",
+          "claimedSlots": 312,
+          "samples": 554,
+          "streams": 32
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20",
+          "claimedSlots": 373,
+          "samples": 586,
+          "streams": 28
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y30",
+          "claimedSlots": 35,
+          "samples": 195,
+          "streams": 21
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y0",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y10",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20",
+          "claimedSlots": 64,
+          "samples": 104,
+          "streams": 5
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y30",
+          "claimedSlots": 162,
+          "samples": 302,
+          "streams": 18
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y0",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y10",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y20",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y30",
+          "claimedSlots": 16,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SEVEN_X0_Y10",
+          "claimedSlots": 410,
+          "samples": 732,
+          "streams": 44
+        },
+        {
+          "map": "KA_SEVII_SIX",
+          "claimedSlots": 131,
+          "samples": 302,
+          "streams": 22
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_ALTERING_CAVE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B2_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B3_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_SAPPHIRE_ROOM",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH",
+          "claimedSlots": 421,
+          "samples": 686,
+          "streams": 34
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X0_Y10",
+          "claimedSlots": 490,
+          "samples": 731,
+          "streams": 31
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y0",
+          "claimedSlots": 605,
+          "samples": 857,
+          "streams": 35
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+          "claimedSlots": 396,
+          "samples": 623,
+          "streams": 31
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y0",
+          "claimedSlots": 167,
+          "samples": 376,
+          "streams": 29
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+          "claimedSlots": 72,
+          "samples": 188,
+          "streams": 16
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+          "claimedSlots": 88,
+          "samples": 196,
+          "streams": 14
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_HOUSE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_MART",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND",
+          "claimedSlots": 488,
+          "samples": 721,
+          "streams": 30
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y10",
+          "claimedSlots": 460,
+          "samples": 777,
+          "streams": 42
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+          "claimedSlots": 358,
+          "samples": 656,
+          "streams": 39
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y30",
+          "claimedSlots": 636,
+          "samples": 873,
+          "streams": 31
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y40",
+          "claimedSlots": 472,
+          "samples": 709,
+          "streams": 31
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y50",
+          "claimedSlots": 528,
+          "samples": 705,
+          "streams": 23
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y60",
+          "claimedSlots": 416,
+          "samples": 569,
+          "streams": 20
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y70",
+          "claimedSlots": 480,
+          "samples": 633,
+          "streams": 20
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X0_Y16",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y0",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y16",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y0",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y16",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_2_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y10",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y30",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y0",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y10",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y30",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH",
+          "claimedSlots": 470,
+          "samples": 745,
+          "streams": 38
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE1",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE2",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+          "claimedSlots": 199,
+          "samples": 457,
+          "streams": 35
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y20",
+          "claimedSlots": 427,
+          "samples": 688,
+          "streams": 34
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y30",
+          "claimedSlots": 412,
+          "samples": 625,
+          "streams": 28
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40",
+          "claimedSlots": 384,
+          "samples": 552,
+          "streams": 22
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y50",
+          "claimedSlots": 275,
+          "samples": 475,
+          "streams": 26
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y60",
+          "claimedSlots": 272,
+          "samples": 448,
+          "streams": 23
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y70",
+          "claimedSlots": 260,
+          "samples": 466,
+          "streams": 27
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80",
+          "claimedSlots": 277,
+          "samples": 490,
+          "streams": 28
+        },
+        {
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y90",
+          "claimedSlots": 160,
+          "samples": 314,
+          "streams": 20
+        },
+        {
+          "map": "KA_SEVII_SIX_X0_Y10",
+          "claimedSlots": 28,
+          "samples": 48,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_SIX_X0_Y20",
+          "claimedSlots": 278,
+          "samples": 541,
+          "streams": 38
+        },
+        {
+          "map": "KA_SEVII_THREE",
+          "claimedSlots": 8,
+          "samples": 28,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y40",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y0",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y40",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y0",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y40",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE",
+          "claimedSlots": 12,
+          "samples": 32,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X0_Y10",
+          "claimedSlots": 17,
+          "samples": 42,
+          "streams": 5
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y0",
+          "claimedSlots": 532,
+          "samples": 765,
+          "streams": 30
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y10",
+          "claimedSlots": 298,
+          "samples": 539,
+          "streams": 31
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y0",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y10",
+          "claimedSlots": 236,
+          "samples": 449,
+          "streams": 29
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y0",
+          "claimedSlots": 4,
+          "samples": 24,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y10",
+          "claimedSlots": 8,
+          "samples": 28,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_DUNSPARCE_TUNNEL",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+          "claimedSlots": 88,
+          "samples": 196,
+          "streams": 14
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE1",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE2",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE3",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE4",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_HOUSE5",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_MART",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_2_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_PORT",
+          "claimedSlots": 88,
+          "samples": 230,
+          "streams": 18
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_PORT_X0_Y10",
+          "claimedSlots": 430,
+          "samples": 761,
+          "streams": 45
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_PORT_X24_Y0",
+          "claimedSlots": 184,
+          "samples": 390,
+          "streams": 26
+        },
+        {
+          "map": "KA_SEVII_THREE_ISLAND_PORT_X24_Y10",
+          "claimedSlots": 252,
+          "samples": 428,
+          "streams": 22
+        },
+        {
+          "map": "KA_SEVII_THREE_X0_Y10",
+          "claimedSlots": 8,
+          "samples": 28,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_THREE_X0_Y20",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_THREE_X0_Y30",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_2_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_3_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_4_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_5_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_6_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_7_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_8_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_ELEVATOR",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_LOBBY",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TRAINER_TOWER_ROOF",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TREASURE",
+          "claimedSlots": 1176,
+          "samples": 1650,
+          "streams": 64
+        },
+        {
+          "map": "KA_SEVII_TWO",
+          "claimedSlots": 210,
+          "samples": 405,
+          "streams": 26
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK",
+          "claimedSlots": 48,
+          "samples": 96,
+          "streams": 6
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_HOUSE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y10",
+          "claimedSlots": 309,
+          "samples": 497,
+          "streams": 24
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y20",
+          "claimedSlots": 44,
+          "samples": 115,
+          "streams": 14
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y30",
+          "claimedSlots": 8,
+          "samples": 40,
+          "streams": 4
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+          "claimedSlots": 88,
+          "samples": 196,
+          "streams": 14
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_HOUSE",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_JOYFUL_GAME_CORNER",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_1_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_2_F",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TWO_X0_Y10",
+          "claimedSlots": 324,
+          "samples": 594,
+          "streams": 36
+        },
+        {
+          "map": "KA_SEVII_TWO_X24_Y0",
+          "claimedSlots": 0,
+          "samples": 0,
+          "streams": 0
+        },
+        {
+          "map": "KA_SEVII_TWO_X24_Y10",
+          "claimedSlots": 12,
+          "samples": 32,
+          "streams": 4
+        }
+      ],
+      "samples": 59716,
+      "completed": true,
+      "animatedMaps": 135,
+      "scope": "Native TileRenderer.drawTile GPU output, every stream image and every claimed tile slot; exact decoded RGBA comparison. QA clock changes are restored. No engine file changes and no mobile performance claim.",
+      "claimedSlots": 36443
+    },
+    "voxel": {
+      "foregroundCells": 185,
+      "canvasComparisons": 768,
+      "scope": "All source animation GPU atlases at native ticks 0/17/33/79/127/639 versus decoded native frame data. Foreground meshes checked against exact source cell identities, immutable textures and clock sequences. Native world screenshots are a separate visual check; no Android execution.",
+      "completed": true,
+      "maps": [
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 34
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_FIVE_ISLAND_HARBOR",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 14
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 32
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 23
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 27
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 29
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 36
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 26
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 30
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 38
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 5,
+          "ownedBytes": 2454016,
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y40",
+          "vertices": 17568,
+          "cells": 4,
+          "surface": 34
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y50",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 28
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 36
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 27
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 5,
+          "ownedBytes": 2894592,
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0",
+          "vertices": 26352,
+          "cells": 6,
+          "surface": 29
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 28
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 28
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 32
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 5,
+          "ownedBytes": 1137792,
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH",
+          "vertices": 4392,
+          "cells": 1,
+          "surface": 29
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 5,
+          "ownedBytes": 1840512,
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X0_Y10",
+          "vertices": 13176,
+          "cells": 3,
+          "surface": 29
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 20
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 20
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 20
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 20
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_FIVE_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 46
+        },
+        {
+          "resourceEvictionPassed": true,
+          "paints": 106,
+          "map": "KA_SEVII_FOUR",
+          "cycleRetainedLuaKiB": -629.1484375,
+          "ownedBytes": 7797120,
+          "fullCycleWithoutResourceAllocation": true,
+          "foreground": 1,
+          "surface": 44,
+          "cells": 11,
+          "vertices": 48312
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_FOUR_ISLAND_HARBOR",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 14
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1572864,
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_BACK",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 35
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 2097152,
+          "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 10
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_HARBOR",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 14
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 3407872,
+          "map": "KA_SEVII_KINDLE",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 46
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 3407872,
+          "map": "KA_SEVII_KINDLE_NORTH",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 45
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 2,
+          "paints": 1,
+          "ownedBytes": 3726848,
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_1_F",
+          "vertices": 40032,
+          "cells": 12,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 2,
+          "paints": 1,
+          "ownedBytes": 2261376,
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F",
+          "vertices": 23352,
+          "cells": 7,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 2,
+          "paints": 1,
+          "ownedBytes": 1198592,
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F_STAIRS",
+          "vertices": 13344,
+          "cells": 4,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 2,
+          "paints": 1,
+          "ownedBytes": 1727616,
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F",
+          "vertices": 16680,
+          "cells": 5,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 2,
+          "paints": 1,
+          "ownedBytes": 1198592,
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F_STAIRS",
+          "vertices": 13344,
+          "cells": 4,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 2,
+          "paints": 1,
+          "ownedBytes": 7856384,
+          "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F",
+          "vertices": 86736,
+          "cells": 26,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 2,
+          "paints": 1,
+          "ownedBytes": 1994496,
+          "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F",
+          "vertices": 20016,
+          "cells": 6,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 2,
+          "paints": 1,
+          "ownedBytes": 6376704,
+          "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F",
+          "vertices": 60048,
+          "cells": 18,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 2,
+          "paints": 1,
+          "ownedBytes": 1727616,
+          "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_3_F",
+          "vertices": 16680,
+          "cells": 5,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1835008,
+          "map": "KA_SEVII_ONE",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 38
+        },
+        {
+          "resourceEvictionPassed": true,
+          "paints": 45,
+          "map": "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA",
+          "cycleRetainedLuaKiB": -230.5625,
+          "ownedBytes": 10098816,
+          "fullCycleWithoutResourceAllocation": true,
+          "foreground": 2,
+          "surface": 10,
+          "cells": 29,
+          "vertices": 96744
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_SEVEN",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 19
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 14
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 6,
+          "ownedBytes": 1840512,
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE",
+          "vertices": 13176,
+          "cells": 3,
+          "surface": 25
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 6,
+          "ownedBytes": 1489152,
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y10",
+          "vertices": 8784,
+          "cells": 2,
+          "surface": 17
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 14
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 19
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y60",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y70",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 24
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 38
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 36
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 25
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 24
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 33
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 28
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 35
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 23
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 34
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 26
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 29
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 28
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 13
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 26
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 25
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 29
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 10
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 32
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 28
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 21
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 5
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 18
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_SEVEN_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 44
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 22
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 34
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 31
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 5,
+          "ownedBytes": 1399936,
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y0",
+          "vertices": 4392,
+          "cells": 1,
+          "surface": 31
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 5,
+          "ownedBytes": 1489152,
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+          "vertices": 8784,
+          "cells": 2,
+          "surface": 27
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 5,
+          "ownedBytes": 875648,
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y0",
+          "vertices": 4392,
+          "cells": 1,
+          "surface": 25
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 6,
+          "ownedBytes": 1227008,
+          "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+          "vertices": 8784,
+          "cells": 2,
+          "surface": 12
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SIX_ISLAND_HARBOR",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 14
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 30
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 42
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 39
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 31
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y40",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 31
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y50",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 23
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y60",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 20
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y70",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 20
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 6,
+          "ownedBytes": 1399936,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH",
+          "vertices": 4392,
+          "cells": 1,
+          "surface": 34
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 5,
+          "ownedBytes": 2102656,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+          "vertices": 13176,
+          "cells": 3,
+          "surface": 31
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 34
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 28
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 22
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y50",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 26
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y60",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 23
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y70",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 27
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 28
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y90",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 20
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 0,
+          "ownedBytes": 2459520,
+          "map": "KA_SEVII_SIX_X0_Y10",
+          "vertices": 30744,
+          "cells": 7,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 6,
+          "ownedBytes": 1489152,
+          "map": "KA_SEVII_SIX_X0_Y20",
+          "vertices": 8784,
+          "cells": 2,
+          "surface": 34
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 0,
+          "ownedBytes": 702720,
+          "map": "KA_SEVII_THREE",
+          "vertices": 8784,
+          "cells": 2,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 0,
+          "ownedBytes": 1054080,
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE",
+          "vertices": 13176,
+          "cells": 3,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 3,
+          "ownedBytes": 1929728,
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X0_Y10",
+          "vertices": 17568,
+          "cells": 4,
+          "surface": 1
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 1048576,
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 30
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 31
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 5,
+          "ownedBytes": 1489152,
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y10",
+          "vertices": 8784,
+          "cells": 2,
+          "surface": 25
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 0,
+          "ownedBytes": 351360,
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y0",
+          "vertices": 4392,
+          "cells": 1,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 0,
+          "ownedBytes": 702720,
+          "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y10",
+          "vertices": 8784,
+          "cells": 2,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_THREE_ISLAND_HARBOR",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 14
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_THREE_ISLAND_PORT",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 18
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_THREE_ISLAND_PORT_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 45
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_THREE_ISLAND_PORT_X24_Y0",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 26
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_THREE_ISLAND_PORT_X24_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 22
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 0,
+          "ownedBytes": 702720,
+          "map": "KA_SEVII_THREE_X0_Y10",
+          "vertices": 8784,
+          "cells": 2,
+          "surface": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "paints": 45,
+          "map": "KA_SEVII_TREASURE",
+          "cycleRetainedLuaKiB": -265.1484375,
+          "ownedBytes": 2621440,
+          "fullCycleWithoutResourceAllocation": true,
+          "foreground": 0,
+          "surface": 64,
+          "cells": 0,
+          "vertices": 0
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_TWO",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 26
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 262144,
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 6
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 24
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y20",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 14
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y30",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 4
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 5,
+          "ownedBytes": 524288,
+          "map": "KA_SEVII_TWO_ISLAND_HARBOR",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 14
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 0,
+          "paints": 6,
+          "ownedBytes": 786432,
+          "map": "KA_SEVII_TWO_X0_Y10",
+          "vertices": 0,
+          "cells": 0,
+          "surface": 36
+        },
+        {
+          "resourceEvictionPassed": true,
+          "foreground": 1,
+          "paints": 0,
+          "ownedBytes": 1405440,
+          "map": "KA_SEVII_TWO_X24_Y10",
+          "vertices": 17568,
+          "cells": 4,
+          "surface": 0
+        }
+      ],
+      "surfaceStreams": 2896,
+      "foregroundStreams": 43
+    },
+    "world": {
+      "flat": {
+        "completed": true,
+        "camera": 0,
+        "cases": [
+          {
+            "x": 20,
+            "y": 9,
+            "map": "KA_SEVII_FOUR",
+            "captures": [
+              17,
+              49
+            ],
+            "kind": "flowers"
+          },
+          {
+            "x": 14,
+            "y": 9,
+            "map": "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA",
+            "captures": [
+              17,
+              49
+            ],
+            "kind": "steam"
+          },
+          {
+            "x": 14,
+            "y": 34,
+            "map": "KA_SEVII_KINDLE",
+            "captures": [
+              17,
+              49
+            ],
+            "kind": "coast"
+          }
+        ],
+        "scope": "Real native world frames at identical source coordinates, fixed native animation clock; QA teleports/party and off-weather. No mobile performance claim."
+      },
+      "voxel": {
+        "completed": true,
+        "camera": 1,
+        "scope": "Real native world frames at identical source coordinates, fixed native animation clock; QA teleports/party and off-weather. No mobile performance claim.",
+        "cases": [
+          {
+            "captures": [
+              17,
+              49
+            ],
+            "x": 20,
+            "y": 9,
+            "surface": 44,
+            "foreground": 1,
+            "map": "KA_SEVII_FOUR",
+            "kind": "flowers",
+            "paints": 269
+          },
+          {
+            "captures": [
+              17,
+              49
+            ],
+            "x": 14,
+            "y": 9,
+            "surface": 10,
+            "foreground": 2,
+            "map": "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA",
+            "kind": "steam",
+            "paints": 13
+          },
+          {
+            "captures": [
+              17,
+              49
+            ],
+            "x": 14,
+            "y": 34,
+            "surface": 46,
+            "foreground": 0,
+            "map": "KA_SEVII_KINDLE",
+            "kind": "coast",
+            "paints": 19
+          }
+        ]
+      }
+    }
+  },
+  "kanto": {
+    "passed": true,
+    "maps": 16,
+    "rows": [
+      {
+        "map": "GAME_CORNER",
+        "file": "kanto-GAME_CORNER.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "VIRIDIAN_POKECENTER",
+        "file": "kanto-VIRIDIAN_POKECENTER.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "CERULEAN_CITY",
+        "file": "kanto-CERULEAN_CITY.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "ROUTE_12",
+        "file": "kanto-ROUTE_12.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "REDS_HOUSE_1F",
+        "file": "kanto-REDS_HOUSE_1F.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "ROCK_TUNNEL_1F",
+        "file": "kanto-ROCK_TUNNEL_1F.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "VERMILION_TRADE_HOUSE",
+        "file": "kanto-VERMILION_TRADE_HOUSE.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "ROUTE_1",
+        "file": "kanto-ROUTE_1.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "PALLET_TOWN",
+        "file": "kanto-PALLET_TOWN.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "VIRIDIAN_CITY",
+        "file": "kanto-VIRIDIAN_CITY.png",
+        "before": "fix-before-quick-kanto-viridian0361-final-v10",
+        "after": "fix-after-quick-kanto-viridian0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "MT_MOON_1F",
+        "file": "kanto-MT_MOON_1F.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "ROUTE_23",
+        "file": "kanto-ROUTE_23.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "ROUTE_20",
+        "file": "kanto-ROUTE_20.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "CINNABAR_ISLAND",
+        "file": "kanto-CINNABAR_ISLAND.png",
+        "before": "fix-before-quick-kanto-cinnabar0361-final-v10",
+        "after": "fix-after-quick-kanto-cinnabar0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "VIRIDIAN_FOREST",
+        "file": "kanto-VIRIDIAN_FOREST.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      },
+      {
+        "map": "SEAFOAM_ISLANDS_1F",
+        "file": "kanto-SEAFOAM_ISLANDS_1F.png",
+        "before": "fix-before-quick-kanto0361-final-v9",
+        "after": "fix-after-quick-kanto0361-packaged-animation-v18",
+        "size": [
+          1100,
+          760
+        ],
+        "changed_pixels": 0,
+        "identical": true
+      }
+    ],
+    "scope": "Actual RC14/RC9 ZIPs; identical baseline gbc options, fixed native/render clocks, RNG and actors, 450 presented frames per reference; isolated matched-history Viridian/Cinnabar fixtures; entire RGBA images, no mask/crop/tolerance."
+  },
+  "mapEntryVoxel": {
+    "KA_SEVII_CENTER": "PASS physical entry and exit",
+    "KA_SEVII_CENTER_2F": "PASS physical entry and exit",
+    "KA_SEVII_FIVE": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_HARBOR": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_HOUSE1": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_HOUSE2": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ENTRANCE": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM10": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM11": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM12": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM13": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM14": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM2": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM3": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM4": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM5": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM6": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM7": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM8": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM9": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEADOW": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y40": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y50": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_1_F": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_2_F": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_HOUSE": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y0": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y10": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y10": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y10": "PASS physical entry and exit",
+    "KA_SEVII_FIVE_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_FOUR": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_HARBOR": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_HOUSE1": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_HOUSE2": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_B1_F": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_BACK": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_LORELEIS_HOUSE": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_MART": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_1_F": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_2_F": "PASS physical entry and exit",
+    "KA_SEVII_FOUR_ISLAND_POKEMON_DAY_CARE": "PASS physical entry and exit",
+    "KA_SEVII_HARBOR": "PASS physical entry and exit",
+    "KA_SEVII_HOUSE1": "PASS physical entry and exit",
+    "KA_SEVII_HOUSE2": "PASS physical entry and exit",
+    "KA_SEVII_KINDLE": "PASS physical entry and exit",
+    "KA_SEVII_KINDLE_NORTH": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_EXTERIOR": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y40": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y20": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y40": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y0": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y20": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y40": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_1_F": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F_STAIRS": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F_STAIRS": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B4_F": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_RUBY_PATH_B5_F": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_SUMMIT": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F": "PASS physical entry and exit",
+    "KA_SEVII_MT_EMBER_SUMMIT_PATH_3_F": "PASS physical entry and exit",
+    "KA_SEVII_ONE": "PASS physical entry and exit",
+    "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_HARBOR": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM1": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM2": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_MART": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_1_F": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_2_F": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_HOUSE": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_TANOBY_KEY": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y40": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y50": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y60": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y70": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_DILFORD_CHAMBER": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_LIPTOO_CHAMBER": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_MONEAN_CHAMBER": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_RIXY_CHAMBER": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_SCUFIB_CHAMBER": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_VIAPOIS_CHAMBER": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_WEEPTH_CHAMBER": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SEVEN_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SIX": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_ALTERING_CAVE": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_1_F": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B1_F": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B2_F": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B3_F": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_SAPPHIRE_ROOM": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_HARBOR": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_HOUSE": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_MART": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y40": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y50": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y60": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y70": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_PATTERN_BUSH": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X0_Y16": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y16": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y16": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_1_F": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_2_F": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_RUIN_VALLEY": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE1": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE2": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y50": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y60": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y70": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80": "PASS physical entry and exit",
+    "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y90": "PASS physical entry and exit",
+    "KA_SEVII_SIX_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_SIX_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_THREE": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BERRY_FOREST": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y40": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y20": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y40": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y0": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y20": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y40": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y10": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y0": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y10": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y0": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y10": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_DUNSPARCE_TUNNEL": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_HARBOR": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_HOUSE1": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_HOUSE2": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_HOUSE3": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_HOUSE4": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_HOUSE5": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_THREE_ISLAND_MART": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_1_F": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_2_F": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_PORT": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_PORT_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_PORT_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_THREE_ISLAND_PORT_X24_Y10": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_THREE_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_THREE_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_THREE_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_1_F": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_2_F": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_3_F": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_4_F": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_5_F": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_6_F": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_7_F": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_8_F": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_ELEVATOR": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_LOBBY": "PASS physical entry and exit",
+    "KA_SEVII_TRAINER_TOWER_ROOF": "PASS physical entry and exit",
+    "KA_SEVII_TREASURE": "PASS physical entry and exit",
+    "KA_SEVII_TWO": "PASS physical entry and exit",
+    "KA_SEVII_TWO_ISLAND_CAPE_BRINK": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_TWO_ISLAND_CAPE_BRINK_HOUSE": "PASS physical entry and exit",
+    "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y20": "PASS physical entry and exit",
+    "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y30": "PASS physical entry and exit",
+    "KA_SEVII_TWO_ISLAND_HARBOR": "PASS physical entry and exit",
+    "KA_SEVII_TWO_ISLAND_HOUSE": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_TWO_ISLAND_JOYFUL_GAME_CORNER": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_1_F": "PASS physical entry and exit",
+    "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_2_F": "PASS physical entry and exit",
+    "KA_SEVII_TWO_X0_Y10": "PASS physical entry and exit",
+    "KA_SEVII_TWO_X24_Y0": "PASS physical entry and exit",
+    "KA_SEVII_TWO_X24_Y10": "PASS physical entry and exit"
+  },
+  "preserved": {
+    "maps": true,
+    "nonAnimationTilesetFields": true,
+    "staticPNGBytes": true,
+    "engineSources": 1917
+  },
+  "limitations": [
+    "Android Adreno 830 D11/material/FPS untested",
+    "Groudon wing/provider state unassigned",
+    "Authentic missing follower art unprovided",
+    "Representative world angles and documented main/optional QA fixtures; no full continuous resource-balance claim"
+  ]
+}

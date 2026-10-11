@@ -16,6 +16,7 @@ M.stone=S.new('outdoorStone','ROCKS + FENCES',{true,false},{'ON','OFF'})
 function M.profile(map)
  local d=map and map.def
  if not d or not M.ground:get()then return nil end
+ if d.kaOwner=='kasc.sevii-expedition/v1'then local p=V.require('KascSeviiScenery').profile(map);if p and p.exterior then return 'kasc_sevii'end end
  if map.id=='KANTO_ASCENDANT_DRIFTGLASS' and V.require('KascDriftglass').matches(map)then return 'kasc_driftglass' end
  if map.id=='KA_HOENN_BIRTH_ISLAND'and V.require('KascBirthIsland').matches(map)then return 'kasc_birth'end
  if map.id=='KA_HEVO_RAYQUAZA_CHAMBER'and V.require('KascSkySanctum').matches(map)then return 'kasc_sky'end
@@ -73,6 +74,7 @@ local function checkerPaving(map,x,y)
 end
 function M.material(map,profile,tile,x,y)
  if not profile then return nil end
+ if profile=='kasc_sevii'then return V.require('KascSeviiScenery').material(map,tile,x,y)end
  if profile=='kasc_driftglass' and (tile==35 or tile==44 or tile==48 or tile==57)then return -160 end
  if profile=='kasc_legend'then return V.require('KascLegendAtmosphere').material(map,x,y)end
  if profile=='kasc_birth'then return V.require('KascBirthIsland').material(map,x,y)end
@@ -144,6 +146,7 @@ local waterTiles={
  PLATEAU={[20]=true,[31]=true,[50]=true,[51]=true},
 }
 function M.waterMaterial(map,profile,class,tile)
+ if profile=='kasc_sevii'and class=='water'then return -174 end
  if class=='water'and tile==20 and map and map.id=='SILPH_CO_1F'and V.require('SilphFountains').matches(map)then return -174 end
  if profile=='kasc_habitat'and class=='water'then return -174 end
  local d=map and map.def
@@ -156,6 +159,7 @@ end
 function M.bankMaterial(map,profile,class,tile,neighborClass)
  if not profile or not map or not map.def or map.def.generation==2
   or neighborClass~='water' or (class~='ground'and class~='grass')then return nil end
+ if profile=='kasc_sevii'and V.require('KascSeviiScenery').material(map,tile)==-130 then return -130 end
  if tile==60 and map.def.tileset=='OVERWORLD'then return map.id=='ROUTE_20' and -167 or -130 end
  -- Existing signed coastal lips carry their old shore-water art rather
  -- than the adjacent dry ground tile. They are still bank geometry.
@@ -190,6 +194,11 @@ function M.foundationMaterial(map,profile,class,tile,neighborClass)
  local bank=M.bankMaterial(map,profile,class,tile,neighborClass)
  if bank then return bank end
  local d=map and map.def
+ if profile=='kasc_sevii'and M.stone:get()and class~='water'then
+  local s=V.require('KascSeviiScenery');local p=s.profile(map)
+  local tag=s.token(map,nil,nil,tile)
+  if p and p.source~='TrainerTower_Roof'and tag and tag:match('^[GgTCDL]$')then return V.require('SeviiLandscape').stoneMaterial(p)end
+ end
  if profile and d and d.generation~=2 and M.stone:get()
     and (d.tileset=='OVERWORLD' or d.tileset=='FOREST' or d.tileset=='PLATEAU')
     and class~='water' then return -175 end
@@ -273,6 +282,12 @@ function M.jumpLip(direction,tx,ty,h,push)
 end
 function M.wallMaterial(map,class,tile,face)
  if not map or not map.def or map.def.generation==2 or not M.stone:get()then return nil end
+ if M.profile(map)=='kasc_sevii'and(class=='wall'or class=='ledge')then
+  local s=V.require('KascSeviiScenery');local p=s.profile(map);local tag=s.token(map,nil,nil,tile)
+  if p and(tag=='C'or tag=='L')then
+   return class=='ledge'and face=='top'and V.require('SeviiLandscape').groundMaterial(p,'G')or V.require('SeviiLandscape').stoneMaterial(p)
+  end
+ end
  if map.def.tileset=='FOREST' and safariMaps[map.id]
     and ((class=='wall' and safariHillWalls[tile])or(class=='ledge' and tile==46))then
   return face=='top' and -176 or -175
@@ -322,12 +337,15 @@ function M.safariRockCrown(map,class,tile,tx,ty,h,push)
  return true
 end
 function M.grassGroups(map,groups)
- if not M.profile(map)then return groups end
+ local profile=M.profile(map);if not profile then return groups end
+ local tuft=profile=='kasc_sevii'and V.require('Structures').kantoGrassTemplate()or nil
+ if tuft then return V.require('SeviiLandscape').grassGroups(V.require('KascSeviiScenery').profile(map),map,groups,tuft)end
  local result={}
  for _,group in ipairs(groups)do
   local quads={}
-  for _,q in ipairs(group.quads or{})do
-   -- Retain exactly the native silhouette, feet occlusion and instancing.
+  for _,q in ipairs(tuft or group.quads or{})do
+   -- Sevii uses the existing Kanto tuft, with the same native four placements.
+   -- Other atlases retain their silhouettes, feet occlusion and instancing.
    local copy={};for k,v in pairs(q)do copy[k]=v end
    copy.uv={{-166,0},{-166,0},{-166,0},{-166,0}};quads[#quads+1]=copy
   end

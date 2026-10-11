@@ -1,0 +1,47 @@
+[
+  {
+    "run": "fix-after-quick-source-style-before-arena0361-v1",
+    "error": "driver error: ...stigations/sevii-parity-20261007/source-style-driver.lua:49: battle menu absent KA_SEVII_ONE",
+    "reason": "v1 QA omitted native introduction input; v2-v4 incorrectly required authored ARENA artwork on unreviewed maps. Explicit DISCS recovery is preserved, not suppressed."
+  },
+  {
+    "run": "fix-after-quick-source-style-before-discs0361-v1",
+    "error": "driver error: ...stigations/sevii-parity-20261007/source-style-driver.lua:49: battle menu absent KA_SEVII_ONE",
+    "reason": "v1 QA omitted native introduction input; v2-v4 incorrectly required authored ARENA artwork on unreviewed maps. Explicit DISCS recovery is preserved, not suppressed."
+  },
+  {
+    "run": "fix-after-quick-source-style-before-terrarium0361-v1",
+    "error": "driver error: ...stigations/sevii-parity-20261007/source-style-driver.lua:49: battle menu absent KA_SEVII_ONE",
+    "reason": "v1 QA omitted native introduction input; v2-v4 incorrectly required authored ARENA artwork on unreviewed maps. Explicit DISCS recovery is preserved, not suppressed."
+  },
+  {
+    "run": "fix-after-quick-source-style-after-arena0361-v1",
+    "error": "driver error: ...stigations/sevii-parity-20261007/source-style-driver.lua:49: battle menu absent KA_SEVII_ONE",
+    "reason": "v1 QA omitted native introduction input; v2-v4 incorrectly required authored ARENA artwork on unreviewed maps. Explicit DISCS recovery is preserved, not suppressed."
+  },
+  {
+    "run": "fix-after-quick-source-style-after-discs0361-v1",
+    "error": "driver error: ...stigations/sevii-parity-20261007/source-style-driver.lua:49: battle menu absent KA_SEVII_ONE",
+    "reason": "v1 QA omitted native introduction input; v2-v4 incorrectly required authored ARENA artwork on unreviewed maps. Explicit DISCS recovery is preserved, not suppressed."
+  },
+  {
+    "run": "fix-after-quick-source-style-after-terrarium0361-v1",
+    "error": "driver error: ...stigations/sevii-parity-20261007/source-style-driver.lua:49: battle menu absent KA_SEVII_ONE",
+    "reason": "v1 QA omitted native introduction input; v2-v4 incorrectly required authored ARENA artwork on unreviewed maps. Explicit DISCS recovery is preserved, not suppressed."
+  },
+  {
+    "run": "fix-after-quick-source-style-after-arena0361-v2",
+    "error": "driver error: ...stigations/sevii-parity-20261007/source-style-driver.lua:51: portable stage mismatch KA_SEVII_ONE",
+    "reason": "v1 QA omitted native introduction input; v2-v4 incorrectly required authored ARENA artwork on unreviewed maps. Explicit DISCS recovery is preserved, not suppressed."
+  },
+  {
+    "run": "fix-after-quick-source-style-after-arena0361-v3",
+    "error": "driver error: ...stigations/sevii-parity-20261007/source-style-driver.lua:51: portable stage mismatch KA_SEVII_ONE DISCS",
+    "reason": "v1 QA omitted native introduction input; v2-v4 incorrectly required authored ARENA artwork on unreviewed maps. Explicit DISCS recovery is preserved, not suppressed."
+  },
+  {
+    "run": "fix-after-quick-source-style-after-arena0361-v4",
+    "error": "driver error: ...stigations/sevii-parity-20261007/source-style-driver.lua:51: portable stage mismatch KA_SEVII_ONE DISCS",
+    "reason": "v1 QA omitted native introduction input; v2-v4 incorrectly required authored ARENA artwork on unreviewed maps. Explicit DISCS recovery is preserved, not suppressed."
+  }
+]

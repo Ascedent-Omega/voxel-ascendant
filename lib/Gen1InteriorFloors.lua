@@ -48,6 +48,7 @@ function M.profile(map)
   return families[p.theme]
 end
 function M.material(map,profile,tile,synthetic)
+  if map and map.def and map.def.kaOwner=='kasc.sevii-expedition/v1'then return M.setting:get()and V.require('KascSeviiScenery').material(map,tile)or nil end
   if not profile then return nil end
   -- Hidden maze barriers need the same material as the ordinary floor,
   -- otherwise the 3D floor finish would outline the puzzle solution.

@@ -1,0 +1,5521 @@
+[
+  {
+    "source": "OneIsland_PokemonCenter_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_CENTER_2F",
+          "dir": "up",
+          "source": "KA_SEVII_CENTER_2F",
+          "toX": 1,
+          "toY": 6,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_CENTER",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_CENTER"
+  },
+  {
+    "source": "OneIsland_PokemonCenter_2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_CENTER",
+          "dir": "up",
+          "source": "KA_SEVII_CENTER",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 6,
+          "target": "KA_SEVII_CENTER_2F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_CENTER_2F"
+  },
+  {
+    "source": "FiveIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_FIVE no physical path from 0,9 to 18,6",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_X0_Y10",
+          "target": "KA_SEVII_FIVE",
+          "toX": 0,
+          "toY": 9
+        }
+      },
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_FIVE no physical path from 0,0 to 18,6",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y10",
+          "target": "KA_SEVII_FIVE",
+          "toX": 0,
+          "toY": 0
+        }
+      },
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_FIVE no physical path from 23,0 to 18,6",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_MEADOW",
+          "target": "KA_SEVII_FIVE",
+          "toX": 23,
+          "toY": 0
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_1_F",
+          "toX": 18,
+          "toY": 7,
+          "x": 7,
+          "y": 7,
+          "target": "KA_SEVII_FIVE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE"
+  },
+  {
+    "source": "FiveIsland_Harbor",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_X0_Y10",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_X0_Y10",
+          "toX": 8,
+          "toY": 3,
+          "x": 12,
+          "y": 3,
+          "target": "KA_SEVII_FIVE_ISLAND_HARBOR",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_HARBOR"
+  },
+  {
+    "source": "FiveIsland_House1",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE",
+          "toX": 4,
+          "toY": 6,
+          "x": 12,
+          "y": 7,
+          "target": "KA_SEVII_FIVE_ISLAND_HOUSE1",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_HOUSE1"
+  },
+  {
+    "source": "FiveIsland_House2",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_FIVE_ISLAND_HOUSE2"
+  },
+  {
+    "source": "FiveIsland_LostCave_Entrance",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "toX": 5,
+          "toY": 6,
+          "x": 8,
+          "y": 3,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ENTRANCE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ENTRANCE"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room1",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ENTRANCE",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM10",
+          "toX": 5,
+          "toY": 2,
+          "x": 5,
+          "y": 7,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room10",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM9",
+          "toX": 5,
+          "toY": 7,
+          "x": 5,
+          "y": 2,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM10",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM10"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room11",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM2",
+          "toX": 5,
+          "toY": 2,
+          "x": 5,
+          "y": 7,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM11",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM11"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room12",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM4",
+          "toX": 5,
+          "toY": 7,
+          "x": 5,
+          "y": 2,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM12",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM12"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room13",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM6",
+          "toX": 2,
+          "toY": 6,
+          "x": 8,
+          "y": 6,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM13",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM13"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room14",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM8",
+          "toX": 8,
+          "toY": 6,
+          "x": 2,
+          "y": 6,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM14",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM14"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room2",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "toX": 2,
+          "toY": 6,
+          "x": 8,
+          "y": 6,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM2",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM2"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room3",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM2",
+          "toX": 5,
+          "toY": 7,
+          "x": 5,
+          "y": 2,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM3",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM3"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room4",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM12",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM3",
+          "toX": 5,
+          "toY": 2,
+          "x": 5,
+          "y": 7,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM4",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM4"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room5",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM4",
+          "toX": 5,
+          "toY": 2,
+          "x": 5,
+          "y": 7,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM5",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM5"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room6",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM5",
+          "toX": 2,
+          "toY": 6,
+          "x": 8,
+          "y": 6,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM6",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM6"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room7",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM6",
+          "toX": 8,
+          "toY": 6,
+          "x": 2,
+          "y": 6,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM7",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM7"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room8",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM7",
+          "toX": 5,
+          "toY": 2,
+          "x": 5,
+          "y": 7,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM8",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM8"
+  },
+  {
+    "source": "FiveIsland_LostCave_Room9",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM10",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM8",
+          "toX": 2,
+          "toY": 6,
+          "x": 8,
+          "y": 6,
+          "target": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM9",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM9"
+  },
+  {
+    "source": "FiveIsland_Meadow",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_FIVE",
+          "target": "KA_SEVII_FIVE_ISLAND_MEADOW",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEADOW"
+  },
+  {
+    "source": "FiveIsland_Meadow",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+          "target": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y10",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y10"
+  },
+  {
+    "source": "FiveIsland_Meadow",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+          "toX": 12,
+          "toY": 2,
+          "x": 24,
+          "y": 24,
+          "target": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20"
+  },
+  {
+    "source": "FiveIsland_Meadow",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 4,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+          "target": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y30",
+          "toX": 4,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y30"
+  },
+  {
+    "source": "FiveIsland_MemorialPillar",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+          "target": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR"
+  },
+  {
+    "source": "FiveIsland_MemorialPillar",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y30",
+          "target": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y10"
+  },
+  {
+    "source": "FiveIsland_MemorialPillar",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y30",
+          "target": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y20",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y20"
+  },
+  {
+    "source": "FiveIsland_MemorialPillar",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y20",
+          "target": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y30",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y30"
+  },
+  {
+    "source": "FiveIsland_MemorialPillar",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y50",
+          "target": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y40",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y40"
+  },
+  {
+    "source": "FiveIsland_MemorialPillar",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y40",
+          "target": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y50",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_MEMORIAL_PILLAR_X0_Y50"
+  },
+  {
+    "source": "FiveIsland_PokemonCenter_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE",
+          "toX": 7,
+          "toY": 7,
+          "x": 18,
+          "y": 7,
+          "target": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_1_F"
+  },
+  {
+    "source": "FiveIsland_PokemonCenter_2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_1_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_POKEMON_CENTER_2_F"
+  },
+  {
+    "source": "FiveIsland_ResortGorgeous",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X0_Y10",
+          "target": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS"
+  },
+  {
+    "source": "FiveIsland_ResortGorgeous_House",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0",
+          "toX": 4,
+          "toY": 6,
+          "x": 15,
+          "y": 9,
+          "target": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_HOUSE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_HOUSE"
+  },
+  {
+    "source": "FiveIsland_ResortGorgeous",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0",
+          "target": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X0_Y10",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X0_Y10"
+  },
+  {
+    "source": "FiveIsland_ResortGorgeous",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0 no physical path from 0,9 to 15,8",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10",
+          "target": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0",
+          "toX": 0,
+          "toY": 9
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_HOUSE",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_HOUSE",
+          "toX": 15,
+          "toY": 9,
+          "x": 4,
+          "y": 6,
+          "target": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y0"
+  },
+  {
+    "source": "FiveIsland_ResortGorgeous",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X0_Y10",
+          "target": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10"
+  },
+  {
+    "source": "FiveIsland_ResortGorgeous",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y10",
+          "target": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y0",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y0"
+  },
+  {
+    "source": "FiveIsland_ResortGorgeous",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ii-playability-20261007/tests/sevii_map_entry_driver.lua:45: incoming edge reached KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X24_Y10",
+          "target": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ENTRANCE",
+          "dir": "down",
+          "source": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ENTRANCE",
+          "toX": 16,
+          "toY": 4,
+          "x": 5,
+          "y": 7,
+          "target": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y10",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS_X48_Y10"
+  },
+  {
+    "source": "FiveIsland_RocketWarehouse",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_MEADOW_X0_Y20",
+          "toX": 24,
+          "toY": 24,
+          "x": 12,
+          "y": 2,
+          "target": "KA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE"
+  },
+  {
+    "source": "FiveIsland_WaterLabyrinth",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0",
+          "target": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH",
+          "toX": 23,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH"
+  },
+  {
+    "source": "FiveIsland_WaterLabyrinth",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH",
+          "target": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X0_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X0_Y10"
+  },
+  {
+    "source": "FiveIsland_WaterLabyrinth",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0",
+          "target": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0",
+          "toX": 23,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0"
+  },
+  {
+    "source": "FiveIsland_WaterLabyrinth",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0",
+          "target": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y10"
+  },
+  {
+    "source": "FiveIsland_WaterLabyrinth",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X24_Y0",
+          "target": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0"
+  },
+  {
+    "source": "FiveIsland_WaterLabyrinth",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y0",
+          "target": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_ISLAND_WATER_LABYRINTH_X48_Y10"
+  },
+  {
+    "source": "FiveIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FIVE_ISLAND_HARBOR",
+          "dir": "up",
+          "source": "KA_SEVII_FIVE_ISLAND_HARBOR",
+          "toX": 12,
+          "toY": 3,
+          "x": 8,
+          "y": 3,
+          "target": "KA_SEVII_FIVE_X0_Y10",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FIVE_X0_Y10"
+  },
+  {
+    "source": "FourIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+          "dir": "down",
+          "source": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+          "toX": 38,
+          "toY": 13,
+          "x": 17,
+          "y": 29,
+          "target": "KA_SEVII_FOUR",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR"
+  },
+  {
+    "source": "FourIsland_Harbor",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR",
+          "dir": "down",
+          "source": "KA_SEVII_FOUR",
+          "toX": 8,
+          "toY": 3,
+          "x": 10,
+          "y": 27,
+          "target": "KA_SEVII_FOUR_ISLAND_HARBOR",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_HARBOR"
+  },
+  {
+    "source": "FourIsland_House1",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR",
+          "toX": 4,
+          "toY": 6,
+          "x": 25,
+          "y": 15,
+          "target": "KA_SEVII_FOUR_ISLAND_HOUSE1",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_HOUSE1"
+  },
+  {
+    "source": "FourIsland_House2",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR",
+          "toX": 4,
+          "toY": 6,
+          "x": 25,
+          "y": 27,
+          "target": "KA_SEVII_FOUR_ISLAND_HOUSE2",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_HOUSE2"
+  },
+  {
+    "source": "FourIsland_IcefallCave_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_BACK",
+          "dir": "down",
+          "source": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_BACK",
+          "toX": 3,
+          "toY": 7,
+          "x": 12,
+          "y": 22,
+          "target": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F"
+  },
+  {
+    "source": "FourIsland_IcefallCave_B1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F",
+          "toX": 11,
+          "toY": 12,
+          "x": 12,
+          "y": 13,
+          "target": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_B1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_B1_F"
+  },
+  {
+    "source": "FourIsland_IcefallCave_Back",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F",
+          "toX": 12,
+          "toY": 22,
+          "x": 3,
+          "y": 7,
+          "target": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_BACK",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_BACK"
+  },
+  {
+    "source": "FourIsland_IcefallCave_Entrance",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR",
+          "toX": 17,
+          "toY": 29,
+          "x": 38,
+          "y": 13,
+          "target": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE"
+  },
+  {
+    "source": "FourIsland_LoreleisHouse",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR",
+          "toX": 4,
+          "toY": 6,
+          "x": 33,
+          "y": 24,
+          "target": "KA_SEVII_FOUR_ISLAND_LORELEIS_HOUSE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_LORELEIS_HOUSE"
+  },
+  {
+    "source": "FourIsland_Mart",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR",
+          "toX": 4,
+          "toY": 6,
+          "x": 22,
+          "y": 27,
+          "target": "KA_SEVII_FOUR_ISLAND_MART",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_MART"
+  },
+  {
+    "source": "FourIsland_PokemonCenter_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_2_F",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_2_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_1_F"
+  },
+  {
+    "source": "FourIsland_PokemonCenter_2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_1_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_POKEMON_CENTER_2_F"
+  },
+  {
+    "source": "FourIsland_PokemonDayCare",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_FOUR",
+          "dir": "up",
+          "source": "KA_SEVII_FOUR",
+          "toX": 4,
+          "toY": 6,
+          "x": 12,
+          "y": 14,
+          "target": "KA_SEVII_FOUR_ISLAND_POKEMON_DAY_CARE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_FOUR_ISLAND_POKEMON_DAY_CARE"
+  },
+  {
+    "source": "OneIsland_Harbor",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_ONE",
+          "dir": "down",
+          "source": "KA_SEVII_ONE",
+          "toX": 8,
+          "toY": 3,
+          "x": 12,
+          "y": 17,
+          "target": "KA_SEVII_HARBOR",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_HARBOR"
+  },
+  {
+    "source": "OneIsland_House1",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_ONE",
+          "dir": "up",
+          "source": "KA_SEVII_ONE",
+          "toX": 4,
+          "toY": 6,
+          "x": 19,
+          "y": 10,
+          "target": "KA_SEVII_HOUSE1",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_HOUSE1"
+  },
+  {
+    "source": "OneIsland_House2",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_ONE",
+          "dir": "up",
+          "source": "KA_SEVII_ONE",
+          "toX": 4,
+          "toY": 6,
+          "x": 8,
+          "y": 12,
+          "target": "KA_SEVII_HOUSE2",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_HOUSE2"
+  },
+  {
+    "source": "OneIsland_KindleRoad",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 8,
+          "dir": "down",
+          "y": 69,
+          "source": "KA_SEVII_KINDLE_NORTH",
+          "target": "KA_SEVII_KINDLE",
+          "toX": 8,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_KINDLE"
+  },
+  {
+    "source": "OneIsland_KindleRoad",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA",
+          "dir": "down",
+          "source": "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA",
+          "toX": 15,
+          "toY": 59,
+          "x": 13,
+          "y": 35,
+          "target": "KA_SEVII_KINDLE_NORTH",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_KINDLE_NORTH"
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 13,
+          "source": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0",
+          "target": "KA_SEVII_MT_EMBER_EXTERIOR",
+          "toX": 23,
+          "toY": 13
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR"
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y40",
+          "toX": 8,
+          "toY": 19,
+          "x": 8,
+          "y": 0,
+          "target": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y20",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y20"
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 8,
+          "dir": "down",
+          "y": 19,
+          "source": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y20",
+          "target": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y40",
+          "toX": 8,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR_X0_Y40"
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0 no physical path from 5,19 to 15,19",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 5,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y20",
+          "target": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0",
+          "toX": 5,
+          "toY": 19
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_SUMMIT",
+          "dir": "down",
+          "source": "KA_SEVII_MT_EMBER_SUMMIT",
+          "toX": 5,
+          "toY": 8,
+          "x": 9,
+          "y": 14,
+          "target": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0"
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "status": "PASS physical entry and exit",
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y20",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "source": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0",
+          "kind": "seam",
+          "toY": 0,
+          "dir": "down",
+          "x": 5,
+          "y": 19,
+          "toX": 5,
+          "target": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y20"
+        }
+      }
+    ]
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_KINDLE_NORTH",
+          "dir": "up",
+          "source": "KA_SEVII_KINDLE_NORTH",
+          "toX": 4,
+          "toY": 7,
+          "x": 11,
+          "y": 7,
+          "target": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y40",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y40"
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y0"
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 4,
+          "source": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y20",
+          "target": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y20",
+          "toX": 0,
+          "toY": 4
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y20"
+  },
+  {
+    "source": "MtEmber_Exterior",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR_X48_Y40"
+  },
+  {
+    "source": "MtEmber_RubyPath_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F",
+          "dir": "right",
+          "source": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F",
+          "toX": 1,
+          "toY": 2,
+          "x": 8,
+          "y": 21,
+          "target": "KA_SEVII_MT_EMBER_RUBY_PATH_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_RUBY_PATH_1_F"
+  },
+  {
+    "source": "MtEmber_RubyPath_B1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_RUBY_PATH_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_MT_EMBER_RUBY_PATH_1_F",
+          "toX": 8,
+          "toY": 21,
+          "x": 1,
+          "y": 2,
+          "target": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F"
+  },
+  {
+    "source": "MtEmber_RubyPath_B1F_Stairs",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F",
+          "dir": "left",
+          "source": "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F",
+          "toX": 4,
+          "toY": 2,
+          "x": 20,
+          "y": 19,
+          "target": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F_STAIRS",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B1_F_STAIRS"
+  },
+  {
+    "source": "MtEmber_RubyPath_B2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F",
+          "dir": "up",
+          "source": "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F",
+          "toX": 13,
+          "toY": 8,
+          "x": 1,
+          "y": 5,
+          "target": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F"
+  },
+  {
+    "source": "MtEmber_RubyPath_B2F_Stairs",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_RUBY_PATH_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_MT_EMBER_RUBY_PATH_1_F",
+          "toX": 2,
+          "toY": 4,
+          "x": 24,
+          "y": 6,
+          "target": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F_STAIRS",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F_STAIRS"
+  },
+  {
+    "source": "MtEmber_RubyPath_B3F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F",
+          "dir": "down",
+          "source": "KA_SEVII_MT_EMBER_RUBY_PATH_B2_F",
+          "toX": 1,
+          "toY": 5,
+          "x": 13,
+          "y": 8,
+          "target": "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B3_F"
+  },
+  {
+    "source": "MtEmber_RubyPath_B4F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_RUBY_PATH_B5_F",
+          "dir": "up",
+          "source": "KA_SEVII_MT_EMBER_RUBY_PATH_B5_F",
+          "toX": 14,
+          "toY": 13,
+          "x": 11,
+          "y": 8,
+          "target": "KA_SEVII_MT_EMBER_RUBY_PATH_B4_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B4_F"
+  },
+  {
+    "source": "MtEmber_RubyPath_B5F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_RUBY_PATH_B4_F",
+          "dir": "down",
+          "source": "KA_SEVII_MT_EMBER_RUBY_PATH_B4_F",
+          "toX": 11,
+          "toY": 8,
+          "x": 14,
+          "y": 13,
+          "target": "KA_SEVII_MT_EMBER_RUBY_PATH_B5_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_RUBY_PATH_B5_F"
+  },
+  {
+    "source": "MtEmber_Summit",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0",
+          "dir": "up",
+          "source": "KA_SEVII_MT_EMBER_EXTERIOR_X24_Y0",
+          "toX": 9,
+          "toY": 14,
+          "x": 5,
+          "y": 8,
+          "target": "KA_SEVII_MT_EMBER_SUMMIT",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_SUMMIT"
+  },
+  {
+    "source": "MtEmber_SummitPath_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F",
+          "dir": "down",
+          "source": "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F",
+          "toX": 11,
+          "toY": 2,
+          "x": 8,
+          "y": 38,
+          "target": "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F"
+  },
+  {
+    "source": "MtEmber_SummitPath_2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_MT_EMBER_SUMMIT_PATH_1_F",
+          "toX": 8,
+          "toY": 38,
+          "x": 11,
+          "y": 2,
+          "target": "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F"
+  },
+  {
+    "source": "MtEmber_SummitPath_3F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F",
+          "dir": "up",
+          "source": "KA_SEVII_MT_EMBER_SUMMIT_PATH_2_F",
+          "toX": 2,
+          "toY": 3,
+          "x": 39,
+          "y": 7,
+          "target": "KA_SEVII_MT_EMBER_SUMMIT_PATH_3_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_MT_EMBER_SUMMIT_PATH_3_F"
+  },
+  {
+    "source": "OneIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_HOUSE1",
+          "dir": "down",
+          "source": "KA_SEVII_HOUSE1",
+          "toX": 19,
+          "toY": 10,
+          "x": 4,
+          "y": 6,
+          "target": "KA_SEVII_ONE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_ONE"
+  },
+  {
+    "source": "OneIsland_KindleRoad_EmberSpa",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_KINDLE_NORTH",
+          "dir": "up",
+          "source": "KA_SEVII_KINDLE_NORTH",
+          "toX": 13,
+          "toY": 35,
+          "x": 15,
+          "y": 59,
+          "target": "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_ONE_ISLAND_KINDLE_ROAD_EMBER_SPA"
+  },
+  {
+    "source": "SevenIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ii-playability-20261007/tests/sevii_map_entry_driver.lua:45: incoming edge reached KA_SEVII_SEVEN_ISLAND_MART",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 5,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_X0_Y10",
+          "target": "KA_SEVII_SEVEN",
+          "toX": 5,
+          "toY": 9
+        }
+      },
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_SEVEN no physical path from 7,0 to 11,9",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 7,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y30",
+          "target": "KA_SEVII_SEVEN",
+          "toX": 7,
+          "toY": 0
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_1_F",
+          "toX": 12,
+          "toY": 4,
+          "x": 7,
+          "y": 7,
+          "target": "KA_SEVII_SEVEN",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN"
+  },
+  {
+    "source": "SevenIsland_Harbor",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_X0_Y10",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_X0_Y10",
+          "toX": 8,
+          "toY": 3,
+          "x": 16,
+          "y": 2,
+          "target": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_HARBOR"
+  },
+  {
+    "source": "SevenIsland_House_Room1",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM2",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM2",
+          "toX": 4,
+          "toY": 2,
+          "x": 3,
+          "y": 2,
+          "target": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM1",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM1"
+  },
+  {
+    "source": "SevenIsland_House_Room2",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM1",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM1",
+          "toX": 3,
+          "toY": 2,
+          "x": 4,
+          "y": 2,
+          "target": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM2",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM2"
+  },
+  {
+    "source": "SevenIsland_Mart",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_SEVEN_ISLAND_MART"
+  },
+  {
+    "source": "SevenIsland_PokemonCenter_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_2_F",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_2_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_1_F"
+  },
+  {
+    "source": "SevenIsland_PokemonCenter_2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_1_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_POKEMON_CENTER_2_F"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 8,
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON",
+          "toX": 0,
+          "toY": 8
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_Entrance",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 7,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_X0_Y10",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE",
+          "toX": 7,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_Entrance",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 4,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y10",
+          "toX": 4,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y10"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_Entrance",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 8,
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20",
+          "toX": 23,
+          "toY": 8
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_Entrance",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 4,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y30",
+          "toX": 4,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_ENTRANCE_X0_Y30"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_House",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y60",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y60",
+          "toX": 4,
+          "toY": 6,
+          "x": 14,
+          "y": 2,
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_HOUSE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_HOUSE"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon_TanobyKey",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y10",
+          "toX": 7,
+          "toY": 12,
+          "x": 7,
+          "y": 8,
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_TANOBY_KEY",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_TANOBY_KEY"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_TANOBY_KEY",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_TANOBY_KEY",
+          "toX": 7,
+          "toY": 8,
+          "x": 7,
+          "y": 12,
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y10",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y10"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 2,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y30",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y20",
+          "toX": 2,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y20"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 3,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y40",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y30",
+          "toX": 3,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y30"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 3,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y30",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y40",
+          "toX": 3,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y40"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 10,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y40",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y50",
+          "toX": 10,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y50"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_HOUSE",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y50",
+          "toX": 9,
+          "toY": 0,
+          "x": 9,
+          "y": 9,
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y60",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y60"
+  },
+  {
+    "source": "SevenIsland_SevaultCanyon",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y70",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y70"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS no physical path from 0,9 to 11,6",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10",
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+          "toX": 0,
+          "toY": 9
+        }
+      },
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS no physical path from 23,2 to 11,6",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 2,
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+          "toX": 23,
+          "toY": 2
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_VIAPOIS_CHAMBER",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_VIAPOIS_CHAMBER",
+          "toX": 11,
+          "toY": 7,
+          "x": 11,
+          "y": 14,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_DilfordChamber",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y10",
+          "toX": 11,
+          "toY": 14,
+          "x": 20,
+          "y": 2,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_DILFORD_CHAMBER",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_DILFORD_CHAMBER"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_LiptooChamber",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y10",
+          "toX": 11,
+          "toY": 14,
+          "x": 7,
+          "y": 1,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_LIPTOO_CHAMBER",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_LIPTOO_CHAMBER"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_MoneanChamber",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y10",
+          "toX": 11,
+          "toY": 14,
+          "x": 0,
+          "y": 1,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_MONEAN_CHAMBER",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_MONEAN_CHAMBER"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_RixyChamber",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10",
+          "toX": 11,
+          "toY": 14,
+          "x": 12,
+          "y": 6,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_RIXY_CHAMBER",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_RIXY_CHAMBER"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_ScufibChamber",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_SCUFIB_CHAMBER"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_ViapoisChamber",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+          "toX": 11,
+          "toY": 14,
+          "x": 11,
+          "y": 7,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_VIAPOIS_CHAMBER",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_VIAPOIS_CHAMBER"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins_WeepthChamber",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0",
+          "dir": "up",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0",
+          "toX": 11,
+          "toY": 14,
+          "x": 16,
+          "y": 9,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_WEEPTH_CHAMBER",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_WEEPTH_CHAMBER"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_RIXY_CHAMBER",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_RIXY_CHAMBER",
+          "toX": 12,
+          "toY": 6,
+          "x": 11,
+          "y": 14,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y0",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y0"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_MONEAN_CHAMBER",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y0",
+          "toX": 6,
+          "toY": 0,
+          "x": 6,
+          "y": 9,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y10",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y10"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y0",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS",
+          "kind": "seam",
+          "toY": 2,
+          "dir": "right",
+          "x": 23,
+          "y": 2,
+          "toX": 0,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y0"
+        }
+      }
+    ]
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_DILFORD_CHAMBER",
+          "dir": "right",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X0_Y10",
+          "toX": 0,
+          "toY": 0,
+          "x": 23,
+          "y": 0,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y10",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X24_Y10"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_SEVAULT_CANYON_X0_Y70",
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y10"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0 no physical path from 0,0 to 16,8",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0",
+          "toX": 0,
+          "toY": 0
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_WEEPTH_CHAMBER",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_WEEPTH_CHAMBER",
+          "toX": 16,
+          "toY": 9,
+          "x": 11,
+          "y": 14,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y0"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X48_Y10",
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X72_Y10"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X120_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y0",
+          "toX": 23,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y0"
+  },
+  {
+    "source": "SevenIsland_TanobyRuins",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_LIPTOO_CHAMBER",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y0",
+          "toX": 0,
+          "toY": 0,
+          "x": 0,
+          "y": 9,
+          "target": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y10",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TANOBY_RUINS_X96_Y10"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER",
+          "toX": 23,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y10"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y30",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y20",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y20"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y30",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y30",
+          "toX": 23,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y30"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y0",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y0"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y10"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 1,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y20",
+          "toX": 23,
+          "toY": 1
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y20"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X0_Y30",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y30",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X24_Y30"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_LOBBY",
+          "dir": "down",
+          "source": "KA_SEVII_TRAINER_TOWER_LOBBY",
+          "toX": 10,
+          "toY": 8,
+          "x": 9,
+          "y": 14,
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y0",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y0"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y10",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y10"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20",
+          "toX": 23,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y30",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y30"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y0",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y0"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y10",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y10"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X48_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y30",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y30"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y10",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y0",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y0"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y0",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y10"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y20",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y20",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y20"
+  },
+  {
+    "source": "SevenIsland_TrainerTower",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X72_Y30",
+          "target": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y30",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_ISLAND_TRAINER_TOWER_X96_Y30"
+  },
+  {
+    "source": "SevenIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SEVEN_ISLAND_HARBOR",
+          "dir": "down",
+          "source": "KA_SEVII_SEVEN_ISLAND_HOUSE_ROOM1",
+          "toX": 11,
+          "toY": 0,
+          "x": 4,
+          "y": 6,
+          "target": "KA_SEVII_SEVEN_X0_Y10",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SEVEN_X0_Y10"
+  },
+  {
+    "source": "SixIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 8,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40",
+          "target": "KA_SEVII_SIX",
+          "toX": 23,
+          "toY": 8
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX"
+  },
+  {
+    "source": "SixIsland_AlteringCave",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+          "toX": 18,
+          "toY": 21,
+          "x": 7,
+          "y": 2,
+          "target": "KA_SEVII_SIX_ISLAND_ALTERING_CAVE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_ALTERING_CAVE"
+  },
+  {
+    "source": "SixIsland_DottedHole_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y20",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F",
+          "toX": 6,
+          "toY": 8,
+          "x": 6,
+          "y": 2,
+          "target": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_1_F"
+  },
+  {
+    "source": "SixIsland_DottedHole_B1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B2_F",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B2_F",
+          "toX": 6,
+          "toY": 2,
+          "x": 6,
+          "y": 8,
+          "target": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B1_F"
+  },
+  {
+    "source": "SixIsland_DottedHole_B2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B1_F",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B1_F",
+          "toX": 6,
+          "toY": 8,
+          "x": 6,
+          "y": 2,
+          "target": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B2_F"
+  },
+  {
+    "source": "SixIsland_DottedHole_B3F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F",
+          "toX": 11,
+          "toY": 6,
+          "x": 6,
+          "y": 8,
+          "target": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B3_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B3_F"
+  },
+  {
+    "source": "SixIsland_DottedHole_B4F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_SAPPHIRE_ROOM",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_SAPPHIRE_ROOM",
+          "toX": 6,
+          "toY": 8,
+          "x": 5,
+          "y": 10,
+          "target": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F"
+  },
+  {
+    "source": "SixIsland_DottedHole_SapphireRoom",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F",
+          "dir": "down",
+          "source": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_B4_F",
+          "toX": 5,
+          "toY": 10,
+          "x": 6,
+          "y": 8,
+          "target": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_SAPPHIRE_ROOM",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_SAPPHIRE_ROOM"
+  },
+  {
+    "source": "SixIsland_GreenPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 2,
+          "source": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y0",
+          "target": "KA_SEVII_SIX_ISLAND_GREEN_PATH",
+          "toX": 23,
+          "toY": 2
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH"
+  },
+  {
+    "source": "SixIsland_GreenPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X0_Y10",
+          "toX": 23,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X0_Y10"
+  },
+  {
+    "source": "SixIsland_GreenPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y0",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y0"
+  },
+  {
+    "source": "SixIsland_GreenPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X0_Y16",
+          "dir": "down",
+          "source": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X0_Y16",
+          "toX": 21,
+          "toY": 1,
+          "x": 3,
+          "y": 9,
+          "target": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10"
+  },
+  {
+    "source": "SixIsland_GreenPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 22,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y0",
+          "toX": 22,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y0"
+  },
+  {
+    "source": "SixIsland_GreenPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10 no physical path from 0,8 to 15,0",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 8,
+          "source": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+          "toX": 0,
+          "toY": 8
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y16",
+          "dir": "left",
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+          "toX": 23,
+          "toY": 0,
+          "x": 0,
+          "y": 0,
+          "target": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10"
+  },
+  {
+    "source": "SixIsland_Harbor",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_X0_Y20",
+          "dir": "down",
+          "source": "KA_SEVII_SIX_X0_Y20",
+          "toX": 8,
+          "toY": 3,
+          "x": 11,
+          "y": 2,
+          "target": "KA_SEVII_SIX_ISLAND_HARBOR",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_HARBOR"
+  },
+  {
+    "source": "SixIsland_House",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_X0_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_X0_Y10",
+          "toX": 4,
+          "toY": 6,
+          "x": 16,
+          "y": 8,
+          "target": "KA_SEVII_SIX_ISLAND_HOUSE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_HOUSE"
+  },
+  {
+    "source": "SixIsland_Mart",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_X0_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_X0_Y10",
+          "toX": 4,
+          "toY": 6,
+          "x": 20,
+          "y": 2,
+          "target": "KA_SEVII_SIX_ISLAND_MART",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_MART"
+  },
+  {
+    "source": "SixIsland_OutcastIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND"
+  },
+  {
+    "source": "SixIsland_OutcastIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND",
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y10",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y10"
+  },
+  {
+    "source": "SixIsland_OutcastIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20 no physical path from 0,9 to 7,1",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y30",
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+          "toX": 0,
+          "toY": 9
+        }
+      },
+      {
+        "error": "...ty-20261007/tests/habitat_playthrough/drivers/common.lua:142: KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20 no physical path from 0,0 to 7,1",
+        "passed": false,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+          "toX": 0,
+          "toY": 0
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_ALTERING_CAVE",
+          "dir": "down",
+          "source": "KA_SEVII_SIX_ISLAND_ALTERING_CAVE",
+          "toX": 7,
+          "toY": 2,
+          "x": 18,
+          "y": 21,
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20"
+  },
+  {
+    "source": "SixIsland_OutcastIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y20",
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y30",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y30"
+  },
+  {
+    "source": "SixIsland_OutcastIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 2,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y30",
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y40",
+          "toX": 2,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y40"
+  },
+  {
+    "source": "SixIsland_OutcastIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y40",
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y50",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y50"
+  },
+  {
+    "source": "SixIsland_OutcastIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y50",
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y60",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y60"
+  },
+  {
+    "source": "SixIsland_OutcastIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 2,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_GREEN_PATH",
+          "target": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y70",
+          "toX": 2,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_OUTCAST_ISLAND_X0_Y70"
+  },
+  {
+    "source": "SixIsland_PatternBush",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 4,
+          "source": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y0",
+          "target": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH",
+          "toX": 19,
+          "toY": 4
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH"
+  },
+  {
+    "source": "SixIsland_PatternBush",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X24_Y10",
+          "toX": 4,
+          "toY": 9,
+          "x": 21,
+          "y": 1,
+          "target": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X0_Y16",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X0_Y16"
+  },
+  {
+    "source": "SixIsland_PatternBush",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 4,
+          "source": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y0",
+          "target": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y0",
+          "toX": 19,
+          "toY": 4
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y0"
+  },
+  {
+    "source": "SixIsland_PatternBush",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 15,
+          "source": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y0",
+          "target": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y16",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y16"
+  },
+  {
+    "source": "SixIsland_PatternBush",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 19,
+          "dir": "right",
+          "y": 4,
+          "source": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X20_Y0",
+          "target": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y0",
+          "toX": 0,
+          "toY": 4
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y0"
+  },
+  {
+    "source": "SixIsland_PatternBush",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+          "toX": 15,
+          "toY": 9,
+          "x": 15,
+          "y": 1,
+          "target": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y16",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_PATTERN_BUSH_X40_Y16"
+  },
+  {
+    "source": "SixIsland_PokemonCenter_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_X0_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_X0_Y10",
+          "toX": 7,
+          "toY": 7,
+          "x": 11,
+          "y": 2,
+          "target": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_1_F"
+  },
+  {
+    "source": "SixIsland_PokemonCenter_2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_1_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_2_F"
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 6,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY",
+          "toX": 6,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY"
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 5,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y20",
+          "target": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y10",
+          "toX": 5,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y10"
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 5,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y20",
+          "toX": 5,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y20"
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 6,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y20",
+          "target": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y30",
+          "toX": 6,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y30"
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80",
+          "target": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y0",
+          "toX": 23,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y0"
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y90",
+          "target": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y10",
+          "toX": 23,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y10"
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_DOTTED_HOLE_1_F",
+          "dir": "right",
+          "source": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y20",
+          "toX": 0,
+          "toY": 5,
+          "x": 23,
+          "y": 5,
+          "target": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y20",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y20"
+  },
+  {
+    "source": "SixIsland_RuinValley",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X0_Y30",
+          "target": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y30",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_RUIN_VALLEY_X24_Y30"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH"
+  },
+  {
+    "source": "SixIsland_WaterPath_House1",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+          "toX": 3,
+          "toY": 6,
+          "x": 5,
+          "y": 4,
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE1",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE1"
+  },
+  {
+    "source": "SixIsland_WaterPath_House2",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE2"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_WATER_PATH_HOUSE1",
+          "dir": "right",
+          "source": "KA_SEVII_SIX_ISLAND_GREEN_PATH_X48_Y10",
+          "toX": 0,
+          "toY": 0,
+          "x": 23,
+          "y": 0,
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 2,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y10",
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y20",
+          "toX": 2,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y20"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 9,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40",
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y30",
+          "toX": 9,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y30"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 8,
+          "source": "KA_SEVII_SIX",
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40",
+          "toX": 0,
+          "toY": 8
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 2,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y40",
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y50",
+          "toX": 2,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y50"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 8,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y50",
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y60",
+          "toX": 8,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y60"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 7,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80",
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y70",
+          "toX": 7,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y70"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y90",
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80",
+          "toX": 0,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80"
+  },
+  {
+    "source": "SixIsland_WaterPath",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y80",
+          "target": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y90",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_ISLAND_WATER_PATH_X0_Y90"
+  },
+  {
+    "source": "SixIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_X0_Y20",
+          "toX": 10,
+          "toY": 9,
+          "x": 10,
+          "y": 0,
+          "target": "KA_SEVII_SIX_X0_Y10",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_X0_Y10"
+  },
+  {
+    "source": "SixIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_SIX_ISLAND_HARBOR",
+          "dir": "up",
+          "source": "KA_SEVII_SIX_ISLAND_HARBOR",
+          "toX": 11,
+          "toY": 2,
+          "x": 8,
+          "y": 3,
+          "target": "KA_SEVII_SIX_X0_Y20",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_SIX_X0_Y20"
+  },
+  {
+    "source": "ThreeIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_HOUSE2",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_X0_Y10",
+          "toX": 0,
+          "toY": 9,
+          "x": 0,
+          "y": 0,
+          "target": "KA_SEVII_THREE",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE"
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 5,
+          "source": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y0",
+          "target": "KA_SEVII_THREE_ISLAND_BERRY_FOREST",
+          "toX": 23,
+          "toY": 5
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST"
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 3,
+          "dir": "down",
+          "y": 19,
+          "source": "KA_SEVII_THREE_ISLAND_BERRY_FOREST",
+          "target": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y20",
+          "toX": 3,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y20"
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 18,
+          "dir": "down",
+          "y": 19,
+          "source": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y20",
+          "target": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y40",
+          "toX": 18,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X0_Y40"
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 5,
+          "source": "KA_SEVII_THREE_ISLAND_BERRY_FOREST",
+          "target": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y0",
+          "toX": 0,
+          "toY": 5
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y0"
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 19,
+          "source": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y0",
+          "target": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y20",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y20"
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE",
+          "toX": 19,
+          "toY": 0,
+          "x": 12,
+          "y": 7,
+          "target": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y40",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y40"
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y0"
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 3,
+          "source": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y20",
+          "target": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y20",
+          "toX": 0,
+          "toY": 3
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y20"
+  },
+  {
+    "source": "ThreeIsland_BerryForest",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X48_Y40"
+  },
+  {
+    "source": "ThreeIsland_BondBridge",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_BERRY_FOREST_X24_Y40",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X0_Y10",
+          "toX": 10,
+          "toY": 9,
+          "x": 10,
+          "y": 0,
+          "target": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE"
+  },
+  {
+    "source": "ThreeIsland_BondBridge",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 10,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE",
+          "target": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X0_Y10",
+          "toX": 10,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X0_Y10"
+  },
+  {
+    "source": "ThreeIsland_BondBridge",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 6,
+          "source": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y0",
+          "target": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y0",
+          "toX": 23,
+          "toY": 6
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y0"
+  },
+  {
+    "source": "ThreeIsland_BondBridge",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 1,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y0",
+          "target": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y10",
+          "toX": 1,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y10"
+  },
+  {
+    "source": "ThreeIsland_BondBridge",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 23,
+          "dir": "right",
+          "y": 6,
+          "source": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X24_Y0",
+          "target": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y0",
+          "toX": 0,
+          "toY": 6
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y0"
+  },
+  {
+    "source": "ThreeIsland_BondBridge",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 3,
+          "source": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y10",
+          "target": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y10",
+          "toX": 23,
+          "toY": 3
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X48_Y10"
+  },
+  {
+    "source": "ThreeIsland_BondBridge",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 7,
+          "source": "KA_SEVII_THREE",
+          "target": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y0",
+          "toX": 23,
+          "toY": 7
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y0"
+  },
+  {
+    "source": "ThreeIsland_BondBridge",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "left",
+          "y": 0,
+          "source": "KA_SEVII_THREE_X0_Y10",
+          "target": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y10",
+          "toX": 23,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_BOND_BRIDGE_X72_Y10"
+  },
+  {
+    "source": "ThreeIsland_DunsparceTunnel",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_PORT_X24_Y0",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_ISLAND_PORT_X24_Y0",
+          "toX": 25,
+          "toY": 4,
+          "x": 14,
+          "y": 6,
+          "target": "KA_SEVII_THREE_ISLAND_DUNSPARCE_TUNNEL",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_DUNSPARCE_TUNNEL"
+  },
+  {
+    "source": "ThreeIsland_Harbor",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_PORT_X0_Y10",
+          "dir": "down",
+          "source": "KA_SEVII_THREE_ISLAND_PORT_X0_Y10",
+          "toX": 8,
+          "toY": 3,
+          "x": 12,
+          "y": 2,
+          "target": "KA_SEVII_THREE_ISLAND_HARBOR",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_HARBOR"
+  },
+  {
+    "source": "ThreeIsland_House1",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_X0_Y30",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_X0_Y30",
+          "toX": 4,
+          "toY": 6,
+          "x": 3,
+          "y": 2,
+          "target": "KA_SEVII_THREE_ISLAND_HOUSE1",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_HOUSE1"
+  },
+  {
+    "source": "ThreeIsland_House2",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE",
+          "dir": "up",
+          "source": "KA_SEVII_THREE",
+          "toX": 4,
+          "toY": 6,
+          "x": 4,
+          "y": 7,
+          "target": "KA_SEVII_THREE_ISLAND_HOUSE2",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_HOUSE2"
+  },
+  {
+    "source": "ThreeIsland_House3",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE",
+          "dir": "up",
+          "source": "KA_SEVII_THREE",
+          "toX": 4,
+          "toY": 6,
+          "x": 12,
+          "y": 7,
+          "target": "KA_SEVII_THREE_ISLAND_HOUSE3",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_HOUSE3"
+  },
+  {
+    "source": "ThreeIsland_House4",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_X0_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_X0_Y10",
+          "toX": 4,
+          "toY": 6,
+          "x": 12,
+          "y": 3,
+          "target": "KA_SEVII_THREE_ISLAND_HOUSE4",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_HOUSE4"
+  },
+  {
+    "source": "ThreeIsland_House5",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_THREE_ISLAND_HOUSE5"
+  },
+  {
+    "source": "ThreeIsland_Mart",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_X0_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_X0_Y10",
+          "toX": 4,
+          "toY": 6,
+          "x": 18,
+          "y": 3,
+          "target": "KA_SEVII_THREE_ISLAND_MART",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_MART"
+  },
+  {
+    "source": "ThreeIsland_PokemonCenter_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_2_F",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_2_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_1_F"
+  },
+  {
+    "source": "ThreeIsland_PokemonCenter_2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_1_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_2_F"
+  },
+  {
+    "source": "ThreeIsland_Port",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_DUNSPARCE_TUNNEL",
+          "dir": "down",
+          "source": "KA_SEVII_THREE_X0_Y30",
+          "toX": 10,
+          "toY": 0,
+          "x": 10,
+          "y": 9,
+          "target": "KA_SEVII_THREE_ISLAND_PORT",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_PORT"
+  },
+  {
+    "source": "ThreeIsland_Port",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_HARBOR",
+          "dir": "up",
+          "source": "KA_SEVII_THREE_ISLAND_HARBOR",
+          "toX": 12,
+          "toY": 2,
+          "x": 8,
+          "y": 3,
+          "target": "KA_SEVII_THREE_ISLAND_PORT_X0_Y10",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_PORT_X0_Y10"
+  },
+  {
+    "source": "ThreeIsland_Port",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_DUNSPARCE_TUNNEL",
+          "dir": "down",
+          "source": "KA_SEVII_THREE_ISLAND_DUNSPARCE_TUNNEL",
+          "toX": 14,
+          "toY": 6,
+          "x": 25,
+          "y": 4,
+          "target": "KA_SEVII_THREE_ISLAND_PORT_X24_Y0",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_ISLAND_PORT_X24_Y0"
+  },
+  {
+    "source": "ThreeIsland_Port",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_THREE_ISLAND_PORT_X24_Y10"
+  },
+  {
+    "source": "ThreeIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_MART",
+          "dir": "down",
+          "source": "KA_SEVII_THREE",
+          "toX": 0,
+          "toY": 0,
+          "x": 0,
+          "y": 9,
+          "target": "KA_SEVII_THREE_X0_Y10",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_X0_Y10"
+  },
+  {
+    "source": "ThreeIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "down",
+          "source": "KA_SEVII_THREE_X0_Y10",
+          "toX": 7,
+          "toY": 0,
+          "x": 7,
+          "y": 9,
+          "target": "KA_SEVII_THREE_X0_Y20",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_X0_Y20"
+  },
+  {
+    "source": "ThreeIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_THREE_ISLAND_HOUSE1",
+          "dir": "down",
+          "source": "KA_SEVII_THREE_ISLAND_HOUSE1",
+          "toX": 3,
+          "toY": 2,
+          "x": 4,
+          "y": 6,
+          "target": "KA_SEVII_THREE_X0_Y30",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_THREE_X0_Y30"
+  },
+  {
+    "source": "TrainerTower_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_2_F",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_2_F",
+          "toX": 15,
+          "toY": 7,
+          "x": 4,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_1_F"
+  },
+  {
+    "source": "TrainerTower_2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_1_F",
+          "toX": 4,
+          "toY": 7,
+          "x": 15,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_2_F"
+  },
+  {
+    "source": "TrainerTower_3F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_4_F",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_4_F",
+          "toX": 15,
+          "toY": 7,
+          "x": 4,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_3_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_3_F"
+  },
+  {
+    "source": "TrainerTower_4F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_5_F",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_5_F",
+          "toX": 15,
+          "toY": 7,
+          "x": 4,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_4_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_4_F"
+  },
+  {
+    "source": "TrainerTower_5F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_4_F",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_4_F",
+          "toX": 4,
+          "toY": 7,
+          "x": 15,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_5_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_5_F"
+  },
+  {
+    "source": "TrainerTower_6F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_5_F",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_5_F",
+          "toX": 4,
+          "toY": 7,
+          "x": 15,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_6_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_6_F"
+  },
+  {
+    "source": "TrainerTower_7F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_8_F",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_8_F",
+          "toX": 15,
+          "toY": 7,
+          "x": 4,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_7_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_7_F"
+  },
+  {
+    "source": "TrainerTower_8F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_ROOF",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_ROOF",
+          "toX": 15,
+          "toY": 7,
+          "x": 4,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_8_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_8_F"
+  },
+  {
+    "source": "TrainerTower_Elevator",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_LOBBY",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_LOBBY",
+          "toX": 2,
+          "toY": 4,
+          "x": 17,
+          "y": 9,
+          "target": "KA_SEVII_TRAINER_TOWER_ELEVATOR",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_ELEVATOR"
+  },
+  {
+    "source": "TrainerTower_Lobby",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_1_F",
+          "toX": 9,
+          "toY": 3,
+          "x": 4,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_LOBBY",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_LOBBY"
+  },
+  {
+    "source": "TrainerTower_Roof",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TRAINER_TOWER_8_F",
+          "dir": "up",
+          "source": "KA_SEVII_TRAINER_TOWER_8_F",
+          "toX": 4,
+          "toY": 7,
+          "x": 15,
+          "y": 7,
+          "target": "KA_SEVII_TRAINER_TOWER_ROOF",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TRAINER_TOWER_ROOF"
+  },
+  {
+    "source": "OneIsland_TreasureBeach",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 0,
+          "dir": "down",
+          "y": 19,
+          "source": "KA_SEVII_ONE",
+          "target": "KA_SEVII_TREASURE",
+          "toX": 0,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_TREASURE"
+  },
+  {
+    "source": "TwoIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "left",
+          "source": "KA_SEVII_TWO_X24_Y0",
+          "toX": 23,
+          "toY": 8,
+          "x": 0,
+          "y": 8,
+          "target": "KA_SEVII_TWO",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO"
+  },
+  {
+    "source": "TwoIsland_CapeBrink",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK"
+  },
+  {
+    "source": "TwoIsland_CapeBrink_House",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y10",
+          "dir": "up",
+          "source": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y10",
+          "toX": 4,
+          "toY": 6,
+          "x": 12,
+          "y": 7,
+          "target": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_HOUSE",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_HOUSE"
+  },
+  {
+    "source": "TwoIsland_CapeBrink",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_HOUSE",
+          "dir": "up",
+          "source": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y20",
+          "toX": 6,
+          "toY": 9,
+          "x": 6,
+          "y": 0,
+          "target": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y10",
+          "kind": "seam"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y10"
+  },
+  {
+    "source": "TwoIsland_CapeBrink",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 7,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y30",
+          "target": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y20",
+          "toX": 7,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y20"
+  },
+  {
+    "source": "TwoIsland_CapeBrink",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 12,
+          "dir": "up",
+          "y": 0,
+          "source": "KA_SEVII_TWO_X24_Y0",
+          "target": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y30",
+          "toX": 12,
+          "toY": 9
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO_ISLAND_CAPE_BRINK_X0_Y30"
+  },
+  {
+    "source": "TwoIsland_Harbor",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TWO",
+          "dir": "down",
+          "source": "KA_SEVII_TWO",
+          "toX": 8,
+          "toY": 3,
+          "x": 10,
+          "y": 7,
+          "target": "KA_SEVII_TWO_ISLAND_HARBOR",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO_ISLAND_HARBOR"
+  },
+  {
+    "source": "TwoIsland_House",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_TWO_ISLAND_HOUSE"
+  },
+  {
+    "source": "TwoIsland_JoyfulGameCorner",
+    "status": "no walkable incoming edge; scenery-only or needs separate puzzle route",
+    "attempts": [],
+    "map": "KA_SEVII_TWO_ISLAND_JOYFUL_GAME_CORNER"
+  },
+  {
+    "source": "TwoIsland_PokemonCenter_1F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_2_F",
+          "dir": "up",
+          "source": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_2_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_1_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_1_F"
+  },
+  {
+    "source": "TwoIsland_PokemonCenter_2F",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "exitMap": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_1_F",
+          "dir": "up",
+          "source": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_1_F",
+          "toX": 1,
+          "toY": 7,
+          "x": 1,
+          "y": 7,
+          "target": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_2_F",
+          "kind": "door"
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO_ISLAND_POKEMON_CENTER_2_F"
+  },
+  {
+    "source": "TwoIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 15,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_TWO",
+          "target": "KA_SEVII_TWO_X0_Y10",
+          "toX": 15,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO_X0_Y10"
+  },
+  {
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "edge": {
+          "target": "KA_SEVII_TWO_X24_Y0",
+          "x": 23,
+          "y": 8,
+          "toX": 0,
+          "toY": 8,
+          "dir": "right",
+          "kind": "seam",
+          "source": "KA_SEVII_TWO"
+        },
+        "passed": true
+      }
+    ],
+    "map": "KA_SEVII_TWO_X24_Y0",
+    "source": "TwoIsland"
+  },
+  {
+    "source": "TwoIsland",
+    "status": "PASS physical entry and exit",
+    "attempts": [
+      {
+        "error": "...ii-playability-20261007/tests/sevii_map_entry_driver.lua:56: no authored return edge",
+        "passed": false,
+        "edge": {
+          "kind": "door",
+          "x": 4,
+          "dir": "down",
+          "y": 6,
+          "source": "KA_SEVII_TWO_ISLAND_HOUSE",
+          "target": "KA_SEVII_TWO_X24_Y10",
+          "toX": 9,
+          "toY": 0
+        }
+      },
+      {
+        "error": "...ii-playability-20261007/tests/sevii_map_entry_driver.lua:56: no authored return edge",
+        "passed": false,
+        "edge": {
+          "kind": "door",
+          "x": 5,
+          "dir": "left",
+          "y": 7,
+          "source": "KA_SEVII_TWO_ISLAND_HOUSE",
+          "target": "KA_SEVII_TWO_X24_Y10",
+          "toX": 9,
+          "toY": 0
+        }
+      },
+      {
+        "error": "...ii-playability-20261007/tests/sevii_map_entry_driver.lua:56: no authored return edge",
+        "passed": false,
+        "edge": {
+          "kind": "door",
+          "x": 3,
+          "dir": "right",
+          "y": 7,
+          "source": "KA_SEVII_TWO_ISLAND_HOUSE",
+          "target": "KA_SEVII_TWO_X24_Y10",
+          "toX": 9,
+          "toY": 0
+        }
+      },
+      {
+        "passed": true,
+        "edge": {
+          "kind": "seam",
+          "x": 4,
+          "dir": "down",
+          "y": 9,
+          "source": "KA_SEVII_TWO_X24_Y0",
+          "target": "KA_SEVII_TWO_X24_Y10",
+          "toX": 4,
+          "toY": 0
+        }
+      }
+    ],
+    "map": "KA_SEVII_TWO_X24_Y10"
+  }
+]

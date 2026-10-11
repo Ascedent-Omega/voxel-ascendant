@@ -81,7 +81,13 @@ function M.maps(entry,defs)
  local out={}
  local radius=M.radius(entry)
  for id,d in pairs(defs)do
-  if d.generation~=2 and (d.tileset=='OVERWORLD'or d.tileset=='FOREST'or d.tileset=='PLATEAU')then
+  local sevii
+  if d.kaOwner=='kasc.sevii-expedition/v1'then
+   local game=require('src.core.Game')
+   sevii=V.require('KascSeviiScenery').profile({id=id,def=d,tileset=game.data.tilesets[d.tileset]})
+  end
+  if d.generation~=2 and (d.tileset=='OVERWORLD'or d.tileset=='FOREST'or d.tileset=='PLATEAU'
+    or sevii and sevii.exterior)then
    local p=Place.position(id,defs)
    if p and p.anchor==origin.anchor then
     local x,z=p.x-origin.x,p.y-origin.y
@@ -259,7 +265,7 @@ function M.geometry(entry,defs,emit,yieldStep)
     elseif occupied[ty*4096+tx]then color=C.stone or 14
     elseif tree or cls=='grass'or cls=='flower'then color=C.leaf or 12
     elseif map:isWalkableCell(math.floor(tx/2),math.floor(ty/2))then
-     local material=detail.material(map,true,t,tx,ty)
+     local material=detail.material(map,detail.profile and detail.profile(map)or true,t,tx,ty)
      color=M.groundColor(material,C)
     end
     if run and run.color==color and run.tree==tree then run.w=run.w+step

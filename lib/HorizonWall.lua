@@ -540,7 +540,7 @@ HorizonWall.IMAGE_EXTRA_VRAM = HorizonWall.REGIONAL_VRAM
 -- cacheStatus() and stateKey(), and clear the old epoch exactly once when it
 -- changes.  The initial read merely establishes the baseline.
 local sceneryEpochValue, outdoorEpochValue
-function HorizonWall.enabled()
+function HorizonWall.enabled(map)
   local value = HorizonWall.setting:get()
   local outdoorValue=V.require('OutdoorHorizon').setting:get()
   if sceneryEpochValue ~= nil and (value ~= sceneryEpochValue or outdoorValue~=outdoorEpochValue)
@@ -549,7 +549,9 @@ function HorizonWall.enabled()
   end
   sceneryEpochValue = value
   outdoorEpochValue = outdoorValue
-  return value ~= "off"
+  return value ~= "off" or (map and map.def and map.def.kaOwner == "kasc.sevii-expedition/v1"
+    and (V.require("SeviiNativeRoom").profile(map) ~= nil
+      or (function()local p=V.require('KascSeviiScenery').profile(map);return p and p.kind=='cave'end)())) or false
 end
 
 local MOUNTAIN_MAPS = {
@@ -1879,6 +1881,10 @@ end
 -- Public fail-closed semantic probe shared with InteriorCutaway. A malformed
 -- map without a definition is never accepted as an editor-owned room.
 function HorizonWall.isOutdoorMap(map)
+  if map and map.def and map.def.kaOwner=='kasc.sevii-expedition/v1'then
+    local p=V.require('KascSeviiScenery').profile(map)
+    if p then return p.exterior==true end
+  end
   return not (map and type(map.def) == "table") or isOutdoor(map.def)
 end
 
@@ -1901,6 +1907,7 @@ end
 function HorizonWall.classFor(map)
   local def = map and map.def or {}
   local id, tileset = tostring(map and map.id or def.id or ""), def.tileset
+  if def.kaOwner=='kasc.sevii-expedition/v1'then local p=V.require('KascSeviiScenery').profile(map);if p then return p.kind=='room'and'interior'or p.kind end end
   if id=='KA_HOENN_BIRTH_ISLAND'and V.require('KascBirthIsland').matches(map)then return 'water'end
   if id=='KANTO_ASCENDANT_DRIFTGLASS'and V.require('KascDriftglass').matches(map)then return 'water'end
   -- Tileset semantics are authoritative for enclosed caves. This keeps future
@@ -2025,6 +2032,9 @@ function HorizonWall.interiorProfileFor(map)
   if HorizonWall.isOutdoorMap(map)
      or HorizonWall.classFor(map) ~= "interior" then return nil end
   local def = map.def or {}
+  if HorizonWall.setting:get() == "off" and def.kaOwner == "kasc.sevii-expedition/v1" then
+    return V.require("SeviiNativeRoom").profile(map)
+  end
   local id = tostring(map.id or def.id or "")
   local profile = HorizonWall.INTERIOR_PROFILES[id]
   if profile == nil then profile = nativeInteriorProfile(map) end
@@ -2032,7 +2042,7 @@ function HorizonWall.interiorProfileFor(map)
 end
 
 function HorizonWall.hasInteriorShell(map)
-  return HorizonWall.enabled() and HorizonWall.interiorProfileFor(map) ~= nil
+  return HorizonWall.enabled(map) and HorizonWall.interiorProfileFor(map) ~= nil
 end
 
 local function defaultEdgeKind(class)
@@ -2152,6 +2162,13 @@ end
 function HorizonWall.hasSky(map)
   if V.require('SilphWindows').enabled(map)then return true end
   if not (map and map.def) then return false end
+  -- Imported quays and the tower roof retain their source indoor metadata.
+  -- Use the same admitted exterior contract as Weather for their sky/day rig;
+  -- a forest canopy still closes the sky, like native Viridian Forest.
+  if map.def.kaOwner=='kasc.sevii-expedition/v1'then
+    local p=V.require('KascSeviiScenery').profile(map)
+    if p then return p.exterior==true and p.kind~='canopy' end
+  end
   if map.id=='KA_HOENN_BIRTH_ISLAND'and V.require('KascBirthIsland').matches(map)then return true end
   local profile = HorizonWall.profileFor(map)
   return isOutdoor(map.def)
@@ -2165,7 +2182,7 @@ end
 -- blocks from becoming walls, this removes the most expensive cold-build
 -- portion and lets the panorama exist immediately with the map body.
 function HorizonWall.preferBody(map)
-  if not HorizonWall.enabled() then return false end
+  if not HorizonWall.enabled(map) then return false end
   if HorizonWall.interiorProfileFor(map) then return true end
   local class = HorizonWall.classFor(map)
   return class ~= "interior"
@@ -3192,7 +3209,15 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
     local placements={}
     local feature={} -- one continuous, unmirrored source section per bearing
     for _,panel in ipairs(panels)do
-      local placement=finish.placement(panel,profile.theme,H)
+      local surface=panel
+      if profile.wallPanorama and panel.edge==profile.wallPanorama.edge then
+        surface={};for k,v in pairs(panel)do surface[k]=v end
+        surface.openings={};for _,door in ipairs(panel.openings)do surface.openings[#surface.openings+1]=door end
+        for _,pane in ipairs(V.require('SilphWindows').panelApertures(entry.map,panel,H))do
+          surface.openings[#surface.openings+1]={from=pane.from,upto=pane.upto}
+        end
+      end
+      local placement=finish.placement(surface,profile.theme,H)
       placements[panel]=placement
       if placement and (not feature[panel.edge]
           or placement.width>placements[feature[panel.edge]].width) then
@@ -3217,7 +3242,8 @@ local function interiorShellGeometryFor(entry, profile, cooperativeStep)
       local glass,windowFrame
       if glazing then glass={family='silph_glass',kind='window_glass',vertices={},indices={},interiorPanel=panel};groups[#groups+1]=glass
        windowFrame={family='silph_frame',vertices={},indices={},interiorPanel=panel};groups[#groups+1]=windowFrame end
-      local showArt=not glazing and placement and feature[panel.edge]==panel
+      local showArt=(not glazing or profile.wallPanorama and panel.edge==profile.wallPanorama.edge)
+        and placement and feature[panel.edge]==panel
       local labPosters=V.require('LabPosters')
       local groupedPosters=labPosters.matches(entry.map)
       if groupedPosters then showArt=false end
@@ -3560,9 +3586,16 @@ local function geometryFor(entry, own, rects, cooperativeStep,
                            sharedRuralTerminals, worldMaps, seaOnly)
   local class = HorizonWall.classFor(entry.map)
   if seaOnly and isEnclosure(class) then return nil end
+  if class == 'cave' and entry.map.def.kaOwner == 'kasc.sevii-expedition/v1' then
+    local enclosure=V.require('SeviiCaveEnclosure').geometry(entry,cooperativeStep,rects,own,HorizonWall.setting:get()=='off')
+    if enclosure then return enclosure end
+  end
   if class == "interior" then
-    return interiorShellGeometryFor(
-      entry, HorizonWall.interiorProfileFor(entry.map), cooperativeStep)
+    local profile = HorizonWall.interiorProfileFor(entry.map)
+    if profile and profile.nativeSourceWalls then
+      return V.require("SeviiNativeRoom").geometry(entry, profile, cooperativeStep)
+    end
+    return interiorShellGeometryFor(entry, profile, cooperativeStep)
   end
   local material = HorizonWall.materialFor(entry.map)
   local profile = HorizonWall.profileFor(entry.map)
@@ -6136,7 +6169,7 @@ local function geometryFor(entry, own, rects, cooperativeStep,
 end
 
 function HorizonWall.geometry(state, seaOnly)
-  if not HorizonWall.enabled()
+  if not HorizonWall.enabled(state and state.map)
      or not (state and state.map and state.map.def and state.map.tileset) then
     return {}
   end
@@ -7572,12 +7605,13 @@ local function forestGateFacadeTexture()
 end
 
 function HorizonWall.prewarm(map)
-  if not HorizonWall.enabled() or not map then return true end
+  if not HorizonWall.enabled(map) or not map then return true end
   if V.require('OutdoorHorizon').active(map,HorizonWall)then return true end
   local class = HorizonWall.classFor(map)
   if class == "interior" then
     local profile = HorizonWall.interiorProfileFor(map)
     if not profile then return true end
+    if profile.nativeSourceWalls then return V.require("SeviiNativeRoom").texture(map) ~= nil end
 
     -- A generated interior uses two independently authored materials.  Treat
     -- both as structural: unlike optional outdoor props, a missing wall or
@@ -7793,7 +7827,7 @@ end
 
 local function stateKey(state, maps, canonical)
   local parts = { tostring(TileRenderer.voidFill or "trees"),
-                  HorizonWall.enabled() and "full" or "off",
+                  HorizonWall.enabled(state.map) and (HorizonWall.setting:get() == "off" and "native-room" or "full") or "off",
                   V.require('OutdoorHorizon').setting:get(), V.require('CinnabarVolcano').setting:get(), tostring(V.require('SilphWindows').enabled(state.map)),
                   V.require('Gen1LavenderTower').setting:get(),
                   tostring(V.require('Gen1OutdoorScenery').ground:get()),
@@ -7824,7 +7858,7 @@ local function addressOf(state)
   local revision = WorldPlacement.revision and WorldPlacement.revision(state.worldMaps)
   local scenery = V.require('Gen1OutdoorScenery')
   return addressCache.get(state, revision, TileRenderer.voidFill or 'trees',
-    HorizonWall.enabled(), V.require('OutdoorHorizon').setting:get(), V.require('CinnabarVolcano').setting:get(), tostring(V.require('SilphWindows').enabled(state.map)),
+    HorizonWall.enabled(state.map), V.require('OutdoorHorizon').setting:get(), V.require('CinnabarVolcano').setting:get(), tostring(V.require('SilphWindows').enabled(state.map)),
     V.require('Gen1LavenderTower').setting:get(), scenery.ground:get(),
     scenery.trees:get(), V.require('Gen1PalletVillage').buildings:get(),
     V.require('VoxelItems').setting:get(), V.require('SeasonalTrees').winter())
@@ -8093,15 +8127,15 @@ local function newBuildJob(key, maps, worldMaps)
         -- Canvas is bound; the next resume starts only after state is restored.
         local wallTextures = {}
         for groupIndex, group in ipairs(built.wallGroups or {}) do
-          wallTextures[groupIndex] = skylineTexture(group.family)
+          wallTextures[groupIndex] = group.texture or skylineTexture(group.family)
         end
         local floorTexture = #built.groundVertices > 0
                              and groundTexture(built.material) or nil
         local ceilingTexture
         if #(built.ceilingVertices or {}) > 0 then
-          local family = built.ceilingFamily or built.material
-          ceilingTexture = family:sub(1, 7) == "editor:"
-            and skylineTexture(family) or groundTexture(family)
+          local family = built.ceilingTextureFamily or built.ceilingFamily or built.material
+          ceilingTexture = built.ceilingTexture or (family:sub(1, 7) == "editor:"
+            and skylineTexture(family) or groundTexture(family))
         end
         local treeTexture = #built.foregroundVertices > 0
                             and foregroundTreeTexture(built.class) or nil
@@ -8120,8 +8154,12 @@ local function newBuildJob(key, maps, worldMaps)
                       group.shape, group.castsShadow)
             end
           else
+            local before=#job.meshes
             addPart(group.kind or "wall", group.family, group.vertices, group.indices,
                     texture, built.ox, built.oy, nil, nil, nil, group.interiorPanel, group.slidingDoor, group.doorView)
+            if group.unmaskedRoom and #job.meshes>before then
+              job.meshes[#job.meshes].unmaskedRoom=true
+            end
           end
         end
         addPart("ground", built.class, built.groundVertices,
@@ -8254,11 +8292,12 @@ local function finishJob(job)
   return entry
 end
 
-local frameRemaining,frameResumes
+local frameRemaining,frameResumes,frameAdvanced
 function HorizonWall.beginFrame(covered,loading,mobile)
   -- All update/draw probes share one budget. Previously each probe resumed
   -- the same build again, so staging a neighbour multiplied foreground work.
   local hidden=covered or loading
+  frameAdvanced=false
   -- Phones need guaranteed bounded progress even at 30 Hz. Applying the
   -- desktop spare-time throttle here would pause required window construction
   -- for 59 frames out of 60. All callers share this single frame allowance.
@@ -8266,7 +8305,14 @@ function HorizonWall.beginFrame(covered,loading,mobile)
     or V.require('BackgroundBudget').allowance(hidden and .008 or .001,hidden)
   frameResumes=hidden and 128 or mobile and 8 or 1
 end
-local function advanceJob(job)
+local function advanceJob(job,required)
+  -- A ready direct map needs its enclosure before it can become visible.
+  -- Spare-time throttling must not hide that map indefinitely at 30 Hz.
+  -- Grant one existing foreground slice, shared by all probes this frame;
+  -- optional scenery and any frame which already advanced stay unchanged.
+  if required and frameResumes and not frameAdvanced and frameRemaining<=0 then
+    frameRemaining=.001
+  end
   if frameResumes and (frameResumes<=0 or frameRemaining<=0)then return nil,false end
   -- Fine-grained uploads can yield much earlier than the time deadline.
   -- Spend the covered budget on multiple slices; the cap also bounds jobs
@@ -8276,6 +8322,7 @@ local function advanceJob(job)
     if frameResumes and (frameResumes<=0 or frameRemaining<=0)then break end
     if coroutine.status(job.co) == "dead" then return finishJob(job), true end
     job.resumes = job.resumes + 1
+    frameAdvanced=true
     if frameResumes then frameResumes=frameResumes-1 end
     local started=frameRemaining and love.timer.getTime()
     local ok = coroutine.resume(job.co)
@@ -8290,7 +8337,7 @@ local function advanceJob(job)
 end
 
 function HorizonWall.ready(state)
-  if not HorizonWall.enabled() then return true end
+  if not HorizonWall.enabled(state and state.map) then return true end
   return readyCaches[addressOf(state)]~=nil
 end
 
@@ -8298,7 +8345,7 @@ end
 -- key may have been evicted and rebuilt since a mobile scene was staged;
 -- readiness alone does not validate handles retained from that old entry.
 function HorizonWall.cachedMeshes(state)
-  if not HorizonWall.enabled() or not (state and state.map) then return {} end
+  if not HorizonWall.enabled(state and state.map) or not (state and state.map) then return {} end
   local key, _, baseX, baseY = addressOf(state)
   local entry = readyCaches[key]
   if entry then return touch(entry, baseX, baseY) end
@@ -8317,7 +8364,7 @@ end
 -- the exact current/retained plan is ready, still progressing, or absent
 -- without changing the state it is trying to diagnose.
 function HorizonWall.cacheStatus(state)
-  if not HorizonWall.enabled() or not (state and state.map) then
+  if not HorizonWall.enabled(state and state.map) or not (state and state.map) then
     return { enabled = false, ready = true, pending = false,
              failed = false, resumes = 0, maps = 0 }
   end
@@ -8334,8 +8381,8 @@ function HorizonWall.cacheStatus(state)
   }
 end
 
-function HorizonWall.meshes(state)
-  if not HorizonWall.enabled() or not (state and state.map) then
+function HorizonWall.meshes(state,required)
+  if not HorizonWall.enabled(state and state.map) or not (state and state.map) then
     return {}, true, false
   end
   local key, maps, baseX, baseY, _, worldMaps = addressOf(state)
@@ -8357,7 +8404,7 @@ function HorizonWall.meshes(state)
   useSerial = useSerial + 1
   job.used = useSerial
   trimPending(key)
-  local built, done = advanceJob(job)
+  local built, done = advanceJob(job,required)
   if built and done then return touch(built, baseX, baseY), true, false end
   if failed(key) then return {}, false, true end
   -- A pending address must never borrow the most recently completed address.
@@ -8373,7 +8420,7 @@ end
 -- cannot coexist within the cache budget, discard the optional allocation and
 -- leave the normal destination build/reveal path available for the actual warp.
 function HorizonWall.prepareOptional(state, visibleState, preparedStates)
-  if not HorizonWall.enabled() then return {},true,false end
+  if not HorizonWall.enabled(state and state.map) then return {},true,false end
   local visibleKey=addressOf(visibleState)
   if not readyCaches[visibleKey] then return {},false,false end
   local previous=optionalPreparation

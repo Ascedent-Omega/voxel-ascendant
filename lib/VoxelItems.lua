@@ -48,6 +48,8 @@ for _,entry in ipairs({{'walnut',99,70,54},{'oak',177,137,88},{'navy',40,62,85},
     {'purple',117,78,143},{'sage',179,201,169},{'silver',159,180,181},
     {'clay',171,85,62},{'slate',80,102,118},{'roofGreen',69,105,86},
     {'leafDark',47,92,57},{'leaf',72,124,67},{'leafLight',109,155,76},
+    {'forestDeepDark',37,78,54},{'forestDeep',55,106,64},{'forestDeepLight',88,139,74},
+    {'forestSunDark',66,103,53},{'forestSun',93,137,63},{'forestSunLight',133,174,83},
     {'warmBrick',181,147,116},{'stone',146,153,145},
     {'oldTimber',112,87,64},{'oldBeam',67,50,41},{'oldBoard',133,108,79},
     {'oldShingle',75,67,57},{'paperWindow',205,182,130},
@@ -60,7 +62,8 @@ for _,entry in ipairs({{'walnut',99,70,54},{'oak',177,137,88},{'navy',40,62,85},
     {'hauntedWeathered',128,130,133},{'hauntedSlate',55,58,74},{'hauntedGlass',112,133,119},{'silphGlass',113,178,199},{'pumpkin',235,113,23},{'pumpkinRib',194,72,13},
     {'palmBark',139,105,63},{'palmWood',181,144,86},{'palmCoconut',113,79,45},
     {'palmDark',62,116,71},{'palmLeaf',80,144,74},{'palmLight',119,167,82},
-    {'clinicUpholstery',120,177,195},{'clinicCushion',164,206,218},{'clinicSeam',98,145,162}})do
+    {'clinicUpholstery',120,177,195},{'clinicCushion',164,206,218},{'clinicSeam',98,145,162},
+    {'iceDeep',73,120,158},{'iceMid',112,158,189},{'iceLight',173,207,224},{'iceFrost',219,236,242}})do
   palette[#palette+1]={entry[2],entry[3],entry[4]};P.decorColors[entry[1]]=#palette
 end
 P.palette = palette
@@ -107,6 +110,9 @@ end
 function P.kind(def,seed)
   if not P.setting:get() then return nil end
   if not def or def.walker or (def.frames or 1) ~= 1 then return nil end
+  if type(seed)=='string'and seed:match('^KA_SEVII_')then
+    local kind=V.require('KascSeviiScenery').objectKind(P,def,seed);if kind then return kind end
+  end
   if def.id=='SPRITE_KA_PRISM_SEAM'and type(seed)=='string'then
     local id,index=seed:match('^(.-)_obj_(%d+)$')
     local d=id and require('src.core.Data').maps[id]

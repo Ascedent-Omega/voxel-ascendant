@@ -462,6 +462,8 @@ end
 -- `shapes` is the table forMap returned for this map; `tile` is
 -- map:tileAt(tx, ty), passed in because every caller already has it.
 function TileShape.at(map, shapes, tile, tx, ty)
+  local sevii=V.require("KascSeviiScenery").shape(map,tile,tx,ty)
+  if sevii then return sevii end
   -- FACILITY pins $14 as dry display flooring globally. Only the verified
   -- Silph lobby pool uses its native water footprint and reflective sink.
   if tile==20 and map.id=='SILPH_CO_1F' and V.require('SilphFountains').matches(map) then

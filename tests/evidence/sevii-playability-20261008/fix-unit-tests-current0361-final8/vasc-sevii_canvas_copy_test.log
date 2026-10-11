@@ -1,0 +1,2 @@
+PASS Sevii partner canvas isolates GPU state and restores on error
+SEVII_FIX_TEST_PASS

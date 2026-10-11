@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "exit": 0,
+  "output": "PASS original movement elevations: unequal layers block, 0/15 destination exceptions, existing collision and foreign/Kanto ownership preserved, strict metadata; uninitialized journey helper respects source cliff\nSEVII_FIX_TEST_PASS\n",
+  "scope": "Supplementary source-elevation unit rerun after correcting the QA helper's missing Q.K initialization. Earlier 56-module suite remains separate.",
+  "supersededFixture": "First added helper unit lacked HABITAT_QA_ROOT; it failed explicitly. The unit now scopes a temporary getenv stub and restores it before checking routing."
+}

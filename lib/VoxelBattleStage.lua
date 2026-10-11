@@ -676,7 +676,12 @@ end
 
 local function authoredSpec(arena)
   local style=arena and arena.arenaStyle
-  local spec=style and (REVIEWED_BACKDROPS[style.mapId] or AUTHORED_BACKDROPS[style.id])
+  -- A reviewed painting belongs to the ARENA stage. Terrarium and discs
+  -- render their own terrain even when the source map has such a painting.
+  if not style then return nil end
+  local sevii=arena and arena.map and V.require('SeviiArenaBindings').forMap(arena.map,REVIEWED_BACKDROPS)
+  local spec=sevii and sevii.spec
+    or style and (REVIEWED_BACKDROPS[style.mapId] or AUTHORED_BACKDROPS[style.id])
   if not spec then return nil end
   if validatedSpecs[spec]==nil then validatedSpecs[spec]=validateSpec(spec) or false end
   return validatedSpecs[spec] or nil
@@ -1475,12 +1480,36 @@ local function each(arena, groundY, fn, cards)
       Mat4.scale(44, 1, 62)))
     return
   end
+  if arena.doubleBattle then
+    local drawn={}
+    for _,card in ipairs(cards or {})do
+      local slot=card.slot
+      if (slot=='player'or slot=='player2'or slot=='enemy'or slot=='enemy2')
+          and card.shadowFoot then
+        local foot=card.shadowFoot
+        fn(VoxelBattleStage.matrix(foot[1],foot[2],foot[3],
+          VoxelBattleStage.radiusFor(nil)))
+        drawn[slot]=true
+      end
+    end
+    for _,side in ipairs({'player','enemy'})do
+      local slots=arena[side..'Slots']
+      for index,point in ipairs(slots or{})do
+        local slot=index==1 and side or side..'2'
+        if not drawn[slot]then
+          fn(VoxelBattleStage.matrix(point[1],groundY,point[2],
+            VoxelBattleStage.radiusFor(nil)))
+        end
+      end
+    end
+  else
   for _, side in ipairs({ "enemy", "player" }) do
     local cell = arena[side]
     if cell then
       fn(VoxelBattleStage.matrix(cell[1], groundY, cell[2],
                                  VoxelBattleStage.radiusFor(nil)))
     end
+  end
   end
   -- Separate small ground patches for visible trainers. Reuse the selected
   -- disk material and quad; Pokemon platforms keep their original size.

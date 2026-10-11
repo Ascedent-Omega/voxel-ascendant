@@ -1,0 +1,655 @@
+{
+  "fix-before-quick-intro0361-v2": [],
+  "fix-after-quick-intro0361": [],
+  "fix-before-quick-stationescape0361-v3": [],
+  "fix-after-quick-stationescape0361": [
+    "SEVII_STATION_ESCAPE_NATIVE_PASS"
+  ],
+  "fix-before-quick-species0361": [
+    "SEVII_SPECIES_NATIVE_PASS\t19\t19"
+  ],
+  "fix-after-quick-species0361": [
+    "SEVII_SPECIES_NATIVE_PASS\t19\t0"
+  ],
+  "fix-after-quick-animations-all19-flat0361-v3": [
+    "SEVII_NATIVE_ANIMATION_RENDER_PASS\t19\t0"
+  ],
+  "fix-after-quick-animations-all19-voxel0361-v3": [
+    "SEVII_NATIVE_ANIMATION_RENDER_PASS\t19\t1"
+  ],
+  "fix-before-battle-ruby-arena0361": [
+    "SEVII_SOURCE_ORACLE_PASS\t8660"
+  ],
+  "fix-after-battle-ruby-arena0361-v2": [
+    "SEVII_SOURCE_ORACLE_PASS\t8660",
+    "SEVII_STAGE_OWNERSHIP_PASS\tarena\truby-map-battle\tKA_SEVII_MT_EMBER_RUBY_PATH_1_F\t92\t0",
+    "SEVII_FULL_VOXEL_AUDIT_PASS\t266\t73868\t22529\t38"
+  ],
+  "fix-after-battle-icefall-arena0361-v2": [
+    "SEVII_SOURCE_ORACLE_PASS\t8660",
+    "SEVII_STAGE_OWNERSHIP_PASS\tarena\tice-map-battle\tKA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_1_F\t92\t0",
+    "SEVII_FULL_VOXEL_AUDIT_PASS\t266\t73868\t22529\t38"
+  ],
+  "fix-after-battle-double-arena0361-v3": [
+    "SEVII_NATIVE_DOUBLE_RENDER_PASS"
+  ],
+  "fix-after-battle-double-discs0361-v3": [
+    "SEVII_NATIVE_DOUBLE_RENDER_PASS"
+  ],
+  "fix-after-battle-double-map0361-v5": [
+    "SEVII_NATIVE_DOUBLE_RENDER_PASS"
+  ],
+  "fix-after-battle-double-terrarium0361-v5": [
+    "SEVII_NATIVE_DOUBLE_RENDER_PASS"
+  ],
+  "fix-after-parity-all-sources-paired0361": [
+    "SEVII_SOURCE_ORACLE_PASS\t8660",
+    "SEVII_PARITY_QUALITY_PASS\t135\t16\tfull"
+  ],
+  "fix-after-journey-continuous-flat0361-final-v6": [
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t0\tKA_SEVII_ONE",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t0\tKA_SEVII_TWO_ISLAND_JOYFUL_GAME_CORNER",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t0\tKA_SEVII_TWO_ISLAND_JOYFUL_GAME_CORNER",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t2\t296\tsteps\t14\tseams\t6\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t0\tKA_SEVII_THREE_ISLAND_HOUSE2",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t3\t889\tsteps\t53\tseams\t12\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t0\tKA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t4\t1126\tsteps\t58\tseams\t23\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t0\tKA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t5\t1300\tsteps\t64\tseams\t27\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t0\tKA_SEVII_SIX_ISLAND_DOTTED_HOLE_1_F",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t6\t1539\tsteps\t78\tseams\t31\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t0\tVERMILION_CITY",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t7\t2644\tsteps\t150\tseams\t51\tdoors",
+    "SEVII_JOURNEY_RETURN_VIEW_PASS\t0",
+    "SEVII_JOURNEY_RETURN_VIEW_PASS\t0"
+  ],
+  "fix-after-journey-continuous-voxel0361-final-v5": [
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t1\tKA_SEVII_ONE",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t1\tKA_SEVII_TWO_ISLAND_JOYFUL_GAME_CORNER",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t1\tKA_SEVII_TWO_ISLAND_JOYFUL_GAME_CORNER",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t2\t296\tsteps\t14\tseams\t6\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t1\tKA_SEVII_THREE_ISLAND_HOUSE2",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t3\t889\tsteps\t53\tseams\t12\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t1\tKA_SEVII_FOUR_ISLAND_ICEFALL_CAVE_ENTRANCE",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t4\t1126\tsteps\t58\tseams\t23\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t1\tKA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t5\t1300\tsteps\t64\tseams\t27\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t1\tKA_SEVII_SIX_ISLAND_DOTTED_HOLE_1_F",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t6\t1539\tsteps\t78\tseams\t31\tdoors",
+    "SEVII_JOURNEY_VIEW_LOAD_PASS\t1\tVERMILION_CITY",
+    "SEVII_CONTINUOUS_CHAPTER_PASS\t7\t2644\tsteps\t150\tseams\t51\tdoors",
+    "SEVII_JOURNEY_RETURN_VIEW_PASS\t1",
+    "SEVII_JOURNEY_RETURN_VIEW_PASS\t1"
+  ],
+  "fix-after-quick-trainers-native-flat0361-v4": [
+    "SEVII_NATIVE_TRAINER_PASS\t1\tBEACH\tMYSTIC_WATER",
+    "SEVII_NATIVE_TRAINER_PASS\t2\tVOLCANO\tCHARCOAL",
+    "SEVII_NATIVE_TRAINER_PASS\t3\tCAPE\tSHARP_BEAK",
+    "SEVII_NATIVE_TRAINER_PASS\t4\tSQUARE\tPOLKADOT_BOW",
+    "SEVII_NATIVE_TRAINER_PASS\t5\tBRIDGE\tMIRACLE_SEED",
+    "SEVII_NATIVE_TRAINER_PASS\t6\tGARDEN\tLIECHI_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t7\tDAYCARE\tLUM_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t8\tICE\tGANLON_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t9\tRESORT\tSALAC_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t10\tMEMORIAL\tSPELL_TAG",
+    "SEVII_NATIVE_TRAINER_PASS\t11\tGREEN\tSILVERPOWDER",
+    "SEVII_NATIVE_TRAINER_PASS\t12\tRUINS\tPETAYA_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t13\tCANYON\tAPICOT_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t14\tTOWER\tCHOICE_BAND",
+    "SEVII_NATIVE_TRAINERS_PASS\t14 victories, one natural blackout, one full-HP win, 13 accelerated HP fixtures, full-Bag retry, no duplicates, save/reload"
+  ],
+  "fix-after-quick-trainers-native-voxel0361-v5": [
+    "SEVII_NATIVE_TRAINER_PASS\t1\tBEACH\tMYSTIC_WATER",
+    "SEVII_NATIVE_TRAINER_PASS\t2\tVOLCANO\tCHARCOAL",
+    "SEVII_NATIVE_TRAINER_PASS\t3\tCAPE\tSHARP_BEAK",
+    "SEVII_NATIVE_TRAINER_PASS\t4\tSQUARE\tPOLKADOT_BOW",
+    "SEVII_NATIVE_TRAINER_PASS\t5\tBRIDGE\tMIRACLE_SEED",
+    "SEVII_NATIVE_TRAINER_PASS\t6\tGARDEN\tLIECHI_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t7\tDAYCARE\tLUM_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t8\tICE\tGANLON_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t9\tRESORT\tSALAC_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t10\tMEMORIAL\tSPELL_TAG",
+    "SEVII_NATIVE_TRAINER_PASS\t11\tGREEN\tSILVERPOWDER",
+    "SEVII_NATIVE_TRAINER_PASS\t12\tRUINS\tPETAYA_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t13\tCANYON\tAPICOT_BERRY",
+    "SEVII_NATIVE_TRAINER_PASS\t14\tTOWER\tCHOICE_BAND",
+    "SEVII_NATIVE_TRAINERS_PASS\t14 victories, one natural blackout, one full-HP win, 13 accelerated HP fixtures, full-Bag retry, no duplicates, save/reload"
+  ],
+  "fix-after-quick-tower-native-flat0361-v3": [
+    "SEVII_TOWER_FLOOR_PASS\t1\tBLACKGLASSES",
+    "SEVII_TOWER_FLOOR_PASS\t2\tSOFT_SAND",
+    "SEVII_TOWER_FLOOR_PASS\t3\tMAGNET",
+    "SEVII_TOWER_FLOOR_PASS\t4\tNEVERMELTICE",
+    "SEVII_TOWER_FLOOR_PASS\t5\tFOCUS_BAND",
+    "SEVII_TOWER_FLOOR_PASS\t6\tSCOPE_LENS",
+    "SEVII_TOWER_FLOOR_PASS\t7\tLEFTOVERS",
+    "SEVII_TOWER_FLOOR_PASS\t8\tLIGHT_BALL",
+    "SEVII_NATIVE_TOWER_PASS\teight authored-team victories, one natural blackout, ordered stairs up/down, rewards, mid-climb save, roof title, return outside; shortened enemy HP on wins, healthy level-100 team and fixed RNG fixtures"
+  ],
+  "fix-after-quick-tower-native-voxel0361-v3": [
+    "SEVII_TOWER_FLOOR_PASS\t1\tBLACKGLASSES",
+    "SEVII_TOWER_FLOOR_PASS\t2\tSOFT_SAND",
+    "SEVII_TOWER_FLOOR_PASS\t3\tMAGNET",
+    "SEVII_TOWER_FLOOR_PASS\t4\tNEVERMELTICE",
+    "SEVII_TOWER_FLOOR_PASS\t5\tFOCUS_BAND",
+    "SEVII_TOWER_FLOOR_PASS\t6\tSCOPE_LENS",
+    "SEVII_TOWER_FLOOR_PASS\t7\tLEFTOVERS",
+    "SEVII_TOWER_FLOOR_PASS\t8\tLIGHT_BALL",
+    "SEVII_NATIVE_TOWER_PASS\teight authored-team victories, one natural blackout, ordered stairs up/down, rewards, mid-climb save, roof title, return outside; shortened enemy HP on wins, healthy level-100 team and fixed RNG fixtures"
+  ],
+  "double-cover-before": [],
+  "fix-after-quick-events-eon-sevii-flat0361-v6": [
+    "SEVII_EON_NATIVE_CAPTURE_RELOAD_PASS\tLATIAS\tKA_SEVII_ONE",
+    "SEVII_EON_NATIVE_CAPTURE_RELOAD_PASS\tLATIOS\tKA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS",
+    "SEVII_EON_LEGACY_PASS",
+    "SEVII_EON_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-eon-sevii-voxel0361-v7": [
+    "SEVII_EON_NATIVE_CAPTURE_RELOAD_PASS\tLATIAS\tKA_SEVII_ONE",
+    "SEVII_EON_NATIVE_CAPTURE_RELOAD_PASS\tLATIOS\tKA_SEVII_FIVE_ISLAND_RESORT_GORGEOUS",
+    "SEVII_EON_LEGACY_PASS",
+    "SEVII_EON_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-mysteries-flat0361-final-v3": [
+    "SEVII_MYSTERY_WALK_PUZZLE_FLEE_PASS\t363\t2\t8",
+    "SEVII_NATIVE_HEATRAN_MYSTERY_PASS\t656\t4\t16"
+  ],
+  "fix-after-quick-events-mysteries-voxel0361-final-v4": [
+    "SEVII_MYSTERY_WALK_PUZZLE_FLEE_PASS\t363\t2\t8",
+    "SEVII_NATIVE_HEATRAN_MYSTERY_PASS\t656\t4\t16"
+  ],
+  "fix-after-quick-events-trainer_profiles-flat0361-final-v5": [
+    "SEVII_TRAINER_PROFILES_PASS\t264\tslots across Gen1-4, no unsupported move placeholders, deferred reward, profile change, reload, cancel, checkpoint guard, abandoned battle reload"
+  ],
+  "fix-after-quick-events-medicine-flat0361-final-v5": [
+    "SEVII_NATIVE_MEDICINE_PASS\tseven purchases; seven actual field uses; seven actual battle turns; heal, cure, revive, friendship and save/load"
+  ],
+  "fix-after-quick-events-trainer_profiles-voxel0361-final-v5": [
+    "SEVII_TRAINER_PROFILES_PASS\t264\tslots across Gen1-4, no unsupported move placeholders, deferred reward, profile change, reload, cancel, checkpoint guard, abandoned battle reload"
+  ],
+  "fix-after-quick-events-legacy_access-voxel0361-final-v5": [
+    "SEVII_NATIVE_LEGACY_ACCESS_PASS\t7\t14\t16\tfirst-cycle-find-shop-reload-rematch"
+  ],
+  "fix-after-quick-events-guardians-flat0361-final-v2": [
+    "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tUXIE",
+    "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tMESPRIT",
+    "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tAZELF",
+    "SEVII_NATIVE_LAKE_GUARDIANS_PASS\t3\t1420\t76\t27\t5"
+  ],
+  "fix-after-quick-events-services-flat0361-final-v2": [
+    "SEVII_ISLAND_SERVICES_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-services_regression-flat0361-final-v2": [
+    "SEVII_SERVICES_PASS\tshop buy/sell\thouse PC collision\tCenter PC access\tcamera persistence"
+  ],
+  "fix-after-quick-events-field_flutes-flat0361-final-v2": [
+    "SEVII_FIELD_FLUTES_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-regi_seals-regirock-flat0361-final-v2": [
+    "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGIROCK",
+    "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGIROCK"
+  ],
+  "fix-after-quick-events-regi_seals-regice-flat0361-final-v2": [
+    "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGICE",
+    "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGICE"
+  ],
+  "fix-after-quick-events-regi_seals-registeel-flat0361-final-v2": [
+    "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGISTEEL",
+    "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGISTEEL"
+  ],
+  "fix-after-quick-events-guardians-voxel0361-final-v2": [
+    "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tUXIE",
+    "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tMESPRIT",
+    "SEVII_GUARDIAN_CAPTURE_RELOAD_PASS\tAZELF",
+    "SEVII_NATIVE_LAKE_GUARDIANS_PASS\t3\t1420\t76\t27\t5"
+  ],
+  "fix-after-quick-events-services_regression-voxel0361-final-v2": [
+    "SEVII_SERVICES_PASS\tshop buy/sell\thouse PC collision\tCenter PC access\tcamera persistence"
+  ],
+  "fix-after-quick-events-field_flutes-voxel0361-final-v2": [
+    "SEVII_FIELD_FLUTES_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-dreams-voxel0361-final-v2": [
+    "SEVII_DREAM_CAPTURE_RELOAD_PASS\tCRESSELIA",
+    "SEVII_DREAM_CAPTURE_RELOAD_PASS\tDARKRAI",
+    "SEVII_NATIVE_MOONLIT_NIGHT_PASS\t2\t897\t50\t40\t1"
+  ],
+  "fix-after-quick-events-giant-voxel0361-final-v2": [
+    "SEVII_NATIVE_SLEEPING_GIANT_PASS\t1119\t62\t18\t1"
+  ],
+  "fix-after-quick-events-regi_seals-regirock-voxel0361-final-v2": [
+    "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGIROCK",
+    "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGIROCK"
+  ],
+  "fix-after-quick-events-regi_seals-regice-voxel0361-final-v2": [
+    "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGICE",
+    "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGICE"
+  ],
+  "fix-after-quick-events-regi_seals-registeel-voxel0361-final-v2": [
+    "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGISTEEL",
+    "SEVII_REGI_TANOBY_CAPTURE_NATIVE_PASS\tREGISTEEL"
+  ],
+  "fix-after-quick-events-old_legends-flat0361-final-v1": [
+    "SEVII_OLD_LEGENDS_PASS\t9"
+  ],
+  "fix-after-quick-events-regi_seals-flat0361-final-v1": [
+    "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGIROCK"
+  ],
+  "fix-after-quick-events-dreams-flat0361-final-v1": [
+    "SEVII_DREAM_CAPTURE_RELOAD_PASS\tCRESSELIA",
+    "SEVII_DREAM_CAPTURE_RELOAD_PASS\tDARKRAI",
+    "SEVII_NATIVE_MOONLIT_NIGHT_PASS\t2\t897\t50\t40\t1"
+  ],
+  "fix-after-quick-events-giant-flat0361-final-v1": [
+    "SEVII_NATIVE_SLEEPING_GIANT_PASS\t1119\t62\t18\t1"
+  ],
+  "fix-after-quick-events-jirachi_convergence-flat0361-final-v1": [
+    "SEVII_JIRACHI_CONVERGENCE_ONLY_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-garden-flat0361-final-v1": [
+    "SEVII_GARDEN_CAPTURE_RELOAD_PASS\tSHAYMIN",
+    "SEVII_NATIVE_GARDEN_PASS\t1764\t110\t14\t1"
+  ],
+  "fix-after-quick-events-nursery-flat0361-final-v1": [
+    "SEVII_NATIVE_NURSERY_PASS"
+  ],
+  "fix-after-quick-events-services-flat0361-final-v1": [
+    "SEVII_ISLAND_SERVICES_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-ruins-flat0361-final-v1": [
+    "SEVII_NATIVE_RUINS_PASS\tfour real floors, wrong exit, reload, visible Giratina, no battle, report"
+  ],
+  "fix-after-quick-events-rocket_transition-flat0361-final-v1": [
+    "SEVII_ROCKET_RETIRED_PROMPT_PASS",
+    "SEVII_ROCKET_UNOWNED_PENDING_RELOAD_PASS",
+    "SEVII_ROCKET_TRANSITION_PASS"
+  ],
+  "fix-after-quick-events-legend_history-flat0361-final-v1": [
+    "SEVII_HISTORY_GIFT_RELEASE_RELOAD_PASS",
+    "SEVII_HISTORY_FAILED_SAVE_RETRY_PASS",
+    "SEVII_HISTORY_NATIVE_CAPTURE_PASS\tKA_GIFT_NAT_485",
+    "SEVII_HISTORY_NATIVE_CAPTURE_PASS\tMOLTRES",
+    "SEVII_LEGEND_HISTORY_PASS"
+  ],
+  "fix-after-quick-events-legend_policy-flat0361-final-v1": [
+    "SEVII_LEGEND_POLICY_PASS\t6\tGiratina profiles; direct gifts, code preflight, pending retention, ordinary PC delivery, historical ownership, Master Ball guard"
+  ],
+  "fix-after-quick-events-evolution_all_items-flat0361-final-v1": [
+    "SEVII_EVOLUTION_FIND_PASS\tPRISM_SCALE",
+    "SEVII_EVOLUTION_FIND_PASS\tDEEP_SEA_TOOTH",
+    "SEVII_EVOLUTION_FIND_PASS\tDEEP_SEA_SCALE",
+    "SEVII_EVOLUTION_FIND_PASS\tPROTECTOR",
+    "SEVII_EVOLUTION_FIND_PASS\tMAGMARIZER",
+    "SEVII_EVOLUTION_FIND_PASS\tRAZOR_FANG",
+    "SEVII_EVOLUTION_FIND_PASS\tELECTIRIZER",
+    "SEVII_EVOLUTION_FIND_PASS\tRAZOR_CLAW",
+    "SEVII_EVOLUTION_FIND_PASS\tDUBIOUS_DISC",
+    "SEVII_EVOLUTION_FIND_PASS\tSHINY_STONE",
+    "SEVII_EVOLUTION_FIND_PASS\tDUSK_STONE",
+    "SEVII_EVOLUTION_FIND_PASS\tDAWN_STONE",
+    "SEVII_EVOLUTION_FIND_PASS\tREAPER_CLOTH",
+    "SEVII_EVOLUTION_FIND_PASS\tOVAL_STONE",
+    "SEVII_EVOLUTION_FIND_PASS\tMAGNETIC_CORE",
+    "SEVII_EVOLUTION_SHOP_PASS\tPRISM_SCALE",
+    "SEVII_EVOLUTION_SHOP_PASS\tDEEP_SEA_TOOTH",
+    "SEVII_EVOLUTION_SHOP_PASS\tDEEP_SEA_SCALE",
+    "SEVII_EVOLUTION_SHOP_PASS\tPROTECTOR",
+    "SEVII_EVOLUTION_SHOP_PASS\tMAGMARIZER",
+    "SEVII_EVOLUTION_SHOP_PASS\tRAZOR_FANG",
+    "SEVII_EVOLUTION_SHOP_PASS\tELECTIRIZER",
+    "SEVII_EVOLUTION_SHOP_PASS\tRAZOR_CLAW",
+    "SEVII_EVOLUTION_SHOP_PASS\tDUBIOUS_DISC",
+    "SEVII_EVOLUTION_SHOP_PASS\tSHINY_STONE",
+    "SEVII_EVOLUTION_SHOP_PASS\tDUSK_STONE",
+    "SEVII_EVOLUTION_SHOP_PASS\tDAWN_STONE",
+    "SEVII_EVOLUTION_SHOP_PASS\tREAPER_CLOTH",
+    "SEVII_EVOLUTION_SHOP_PASS\tOVAL_STONE",
+    "SEVII_EVOLUTION_SHOP_PASS\tMAGNETIC_CORE",
+    "SEVII_EVOLUTION_ALL_ITEMS_PASS\t15"
+  ],
+  "fix-after-quick-events-breeding_audit-flat0361-final-v1": [
+    "SEVII_LEGEND_BREEDING_AUDIT_PASS\t24\t0"
+  ],
+  "fix-after-quick-events-gs_ball-flat0361-final-v1": [
+    "SEVII_NATIVE_GS_BALL_PASS"
+  ],
+  "fix-after-quick-events-zinc-flat0361-final-v1": [
+    "SEVII_NATIVE_ZINC_PASS\tpurchase, Zinc and Calcium Bag use, bred stats, Oak trial, save/load"
+  ],
+  "fix-after-quick-events-medicine-flat0361-final-v1": [
+    "SEVII_NATIVE_MEDICINE_PASS\tseven purchases; seven actual field uses; seven actual battle turns; heal, cure, revive, friendship and save/load"
+  ],
+  "fix-after-quick-events-level_scaling-flat0361-final-v1": [
+    "SEVII_NATIVE_LEVEL_SCALING_PASS\t13\tferries\t80\twild\t90\ttrainer\t92\tlegend"
+  ],
+  "fix-after-quick-events-ngplus_legend-flat0361-final-v1": [
+    "SEVII_NATIVE_NGPLUS_LEGENDS_PASS\t1"
+  ],
+  "fix-after-quick-events-ngplus_menu-flat0361-final-v1": [
+    "SEVII_NATIVE_NGPLUS_MENU_PASS"
+  ],
+  "fix-after-quick-events-moltres_continuity-flat0361-final-v1": [
+    "SEVII_NATIVE_MOLTRES_CONTINUITY_PASS"
+  ],
+  "fix-after-quick-events-old_legends-voxel0361-final-v1": [
+    "SEVII_OLD_LEGENDS_PASS\t9"
+  ],
+  "fix-after-quick-events-regi_seals-voxel0361-final-v1": [
+    "SEVII_REGI_TANOBY_BATTLE_NATIVE_PASS\tREGIROCK"
+  ],
+  "fix-after-quick-events-jirachi_convergence-voxel0361-final-v1": [
+    "SEVII_JIRACHI_CONVERGENCE_ONLY_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-garden-voxel0361-final-v1": [
+    "SEVII_GARDEN_CAPTURE_RELOAD_PASS\tSHAYMIN",
+    "SEVII_NATIVE_GARDEN_PASS\t1764\t110\t14\t1"
+  ],
+  "fix-after-quick-events-nursery-voxel0361-final-v1": [
+    "SEVII_NATIVE_NURSERY_PASS"
+  ],
+  "fix-after-quick-events-ruins-voxel0361-final-v1": [
+    "SEVII_NATIVE_RUINS_PASS\tfour real floors, wrong exit, reload, visible Giratina, no battle, report"
+  ],
+  "fix-after-quick-events-rematch-voxel0361-final-v1": [
+    "SEVII_NATIVE_REMATCH_PASS\t75\t77\t1"
+  ],
+  "fix-after-quick-events-rocket_transition-voxel0361-final-v1": [
+    "SEVII_ROCKET_RETIRED_PROMPT_PASS",
+    "SEVII_ROCKET_UNOWNED_PENDING_RELOAD_PASS",
+    "SEVII_ROCKET_TRANSITION_PASS"
+  ],
+  "fix-after-quick-events-time_space-voxel0361-final-v1": [
+    "SEVII_TIME_SPACE_CAPTURE_RELOAD_PASS\tDIALGA",
+    "SEVII_TIME_SPACE_CAPTURE_RELOAD_PASS\tPALKIA",
+    "SEVII_NATIVE_TIME_SPACE_PASS\t1892\t92\t39\t1"
+  ],
+  "fix-after-quick-events-weather_seals-voxel0361-final-v1": [
+    "SEVII_WEATHER_BATTLE_NATIVE_PASS\tRED",
+    "SEVII_WEATHER_SEALS_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-legend_history-voxel0361-final-v1": [
+    "SEVII_HISTORY_GIFT_RELEASE_RELOAD_PASS",
+    "SEVII_HISTORY_FAILED_SAVE_RETRY_PASS",
+    "SEVII_HISTORY_NATIVE_CAPTURE_PASS\tKA_GIFT_NAT_485",
+    "SEVII_HISTORY_NATIVE_CAPTURE_PASS\tMOLTRES",
+    "SEVII_LEGEND_HISTORY_PASS"
+  ],
+  "fix-after-quick-events-legend_policy-voxel0361-final-v1": [
+    "SEVII_LEGEND_POLICY_PASS\t6\tGiratina profiles; direct gifts, code preflight, pending retention, ordinary PC delivery, historical ownership, Master Ball guard"
+  ],
+  "fix-after-quick-events-evolution_all_items-voxel0361-final-v1": [
+    "SEVII_EVOLUTION_FIND_PASS\tPRISM_SCALE",
+    "SEVII_EVOLUTION_FIND_PASS\tDEEP_SEA_TOOTH",
+    "SEVII_EVOLUTION_FIND_PASS\tDEEP_SEA_SCALE",
+    "SEVII_EVOLUTION_FIND_PASS\tPROTECTOR",
+    "SEVII_EVOLUTION_FIND_PASS\tMAGMARIZER",
+    "SEVII_EVOLUTION_FIND_PASS\tRAZOR_FANG",
+    "SEVII_EVOLUTION_FIND_PASS\tELECTIRIZER",
+    "SEVII_EVOLUTION_FIND_PASS\tRAZOR_CLAW",
+    "SEVII_EVOLUTION_FIND_PASS\tDUBIOUS_DISC",
+    "SEVII_EVOLUTION_FIND_PASS\tSHINY_STONE",
+    "SEVII_EVOLUTION_FIND_PASS\tDUSK_STONE",
+    "SEVII_EVOLUTION_FIND_PASS\tDAWN_STONE",
+    "SEVII_EVOLUTION_FIND_PASS\tREAPER_CLOTH",
+    "SEVII_EVOLUTION_FIND_PASS\tOVAL_STONE",
+    "SEVII_EVOLUTION_FIND_PASS\tMAGNETIC_CORE",
+    "SEVII_EVOLUTION_SHOP_PASS\tPRISM_SCALE",
+    "SEVII_EVOLUTION_SHOP_PASS\tDEEP_SEA_TOOTH",
+    "SEVII_EVOLUTION_SHOP_PASS\tDEEP_SEA_SCALE",
+    "SEVII_EVOLUTION_SHOP_PASS\tPROTECTOR",
+    "SEVII_EVOLUTION_SHOP_PASS\tMAGMARIZER",
+    "SEVII_EVOLUTION_SHOP_PASS\tRAZOR_FANG",
+    "SEVII_EVOLUTION_SHOP_PASS\tELECTIRIZER",
+    "SEVII_EVOLUTION_SHOP_PASS\tRAZOR_CLAW",
+    "SEVII_EVOLUTION_SHOP_PASS\tDUBIOUS_DISC",
+    "SEVII_EVOLUTION_SHOP_PASS\tSHINY_STONE",
+    "SEVII_EVOLUTION_SHOP_PASS\tDUSK_STONE",
+    "SEVII_EVOLUTION_SHOP_PASS\tDAWN_STONE",
+    "SEVII_EVOLUTION_SHOP_PASS\tREAPER_CLOTH",
+    "SEVII_EVOLUTION_SHOP_PASS\tOVAL_STONE",
+    "SEVII_EVOLUTION_SHOP_PASS\tMAGNETIC_CORE",
+    "SEVII_EVOLUTION_ALL_ITEMS_PASS\t15"
+  ],
+  "fix-after-quick-events-breeding_audit-voxel0361-final-v1": [
+    "SEVII_LEGEND_BREEDING_AUDIT_PASS\t24\t0"
+  ],
+  "fix-after-quick-events-gs_ball-voxel0361-final-v1": [
+    "SEVII_NATIVE_GS_BALL_PASS"
+  ],
+  "fix-after-quick-events-zinc-voxel0361-final-v1": [
+    "SEVII_NATIVE_ZINC_PASS\tpurchase, Zinc and Calcium Bag use, bred stats, Oak trial, save/load"
+  ],
+  "fix-after-quick-events-balls-voxel0361-final-v1": [
+    "SEVII_BALL_TIMER_ITEM_TURNS_PASS\t2",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tNET_BALL\t3",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tNEST_BALL\t3.5",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tREPEAT_BALL\t3",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tTIMER_BALL\t1",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tPREMIER_BALL\t1",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tDIVE_BALL\t1",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tLUXURY_BALL\t1",
+    "SEVII_NATIVE_RESEARCH_BALLS_PASS\t7"
+  ],
+  "fix-after-quick-events-fluffy_tail-voxel0361-final-v1": [
+    "SEVII_NATIVE_FLUFFY_TAIL_PASS"
+  ],
+  "fix-after-quick-events-dive_ball-voxel0361-final-v1": [
+    "SEVII_NATIVE_DIVE_BALL_PASS\tHUNTAIL\tMAGIKARP"
+  ],
+  "fix-after-quick-events-walking_encounters-voxel0361-final-v1": [
+    "SEVII_NATIVE_WALKING_ENCOUNTERS_PASS\t3"
+  ],
+  "fix-after-quick-events-services-voxel0361-final-v3": [
+    "SEVII_ISLAND_SERVICES_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-balance-flat0361-final-v1": [
+    "SEVII_BALANCE_PROBE_FINISHED\t22\t22"
+  ],
+  "fix-after-quick-events-legacy_access-flat0361-final-v6": [
+    "SEVII_NATIVE_LEGACY_ACCESS_PASS\t7\t14\t16\tfirst-cycle-find-shop-reload-rematch"
+  ],
+  "fix-after-quick-events-hoenn_continuity-capture-flat0361-final-v6": [
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tGROUDON",
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tKYOGRE",
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tRAYQUAZA",
+    "SEVII_CURRENT_HOENN_CONTINUITY_PASS\tcapture"
+  ],
+  "fix-after-quick-events-hoenn_continuity-capture-voxel0361-final-v6": [
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tGROUDON",
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tKYOGRE",
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\tcapture\tRAYQUAZA",
+    "SEVII_CURRENT_HOENN_CONTINUITY_PASS\tcapture"
+  ],
+  "fix-after-quick-events-hoenn_continuity-witness-flat0361-final-v6": [
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tGROUDON",
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tKYOGRE",
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tRAYQUAZA",
+    "SEVII_CURRENT_HOENN_CONTINUITY_PASS\twitness"
+  ],
+  "fix-after-quick-events-hoenn_continuity-witness-voxel0361-final-v6": [
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tGROUDON",
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tKYOGRE",
+    "SEVII_CURRENT_HOENN_WEATHER_PASS\twitness\tRAYQUAZA",
+    "SEVII_CURRENT_HOENN_CONTINUITY_PASS\twitness"
+  ],
+  "fix-after-quick-events-balance-voxel0361-final-v1": [
+    "SEVII_BALANCE_PROBE_FINISHED\t22\t22"
+  ],
+  "fix-after-quick-events-population-flat0361-final-v7": [
+    "SEVII_PURCHASED_BERRY_NATIVE_EFFECT_PASS\tLiechi: shop, equipment, reload, attack boost, consumption, reload",
+    "SEVII_NATIVE_POPULATION_PASS\t40\tresident conversations; seven purchases, seven PCs, seven journals, full-Bag retry, saved rewards, Gen2/3 berry purchases"
+  ],
+  "fix-after-quick-events-legend_catalog-flat0361-final-v7": [
+    "SEVII_LEGEND_SOURCE_AUDIT_PASS\t23\tidentities; live owners, forms and gift profiles; detached per-run reset observed"
+  ],
+  "fix-after-quick-events-visible-flat0361-final-v7": [
+    "SEVII_VISIBLE_AUTHORED_ROOM_EXCLUSION_PASS\tKA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+    "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tTURTWIG\tAMBIPOM",
+    "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tSNORUNT\tSNORUNT",
+    "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tFEEBAS\tFEEBAS",
+    "SEVII_NATIVE_VISIBLE_CONTACT_PASS\t3"
+  ],
+  "fix-after-quick-events-flight_map-flat0361-final-v7": [
+    "SEVII_NATIVE_FLIGHT_MAP_PASS\t7"
+  ],
+  "fix-after-quick-events-legend_catalog-voxel0361-final-v7": [
+    "SEVII_LEGEND_SOURCE_AUDIT_PASS\t23\tidentities; live owners, forms and gift profiles; detached per-run reset observed"
+  ],
+  "fix-after-quick-events-visible-voxel0361-final-v7": [
+    "SEVII_VISIBLE_AUTHORED_ROOM_EXCLUSION_PASS\tKA_SEVII_FIVE_ISLAND_ROCKET_WAREHOUSE",
+    "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tTURTWIG\tTREECKO",
+    "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tSNORUNT\tWEAVILE",
+    "SEVII_VISIBLE_CONTACT_CAPTURE_PASS\tFEEBAS\tFEEBAS",
+    "SEVII_NATIVE_VISIBLE_CONTACT_PASS\t3"
+  ],
+  "fix-after-quick-events-testimonies-voxel0361-final-v7": [
+    "SEVII_TESTIMONIES_CAPTURE_RELOAD_PASS\tARCEUS",
+    "SEVII_NATIVE_TESTIMONIES_PASS\t1780\t64\t72\t8"
+  ],
+  "fix-after-quick-events-recovery-flat0361-final-v8": [
+    "SEVII_PP_MAX_CANCEL_PASS",
+    "SEVII_PP_MAX_CHOSEN_MOVE_AND_MENU_RETURN_PASS",
+    "SEVII_PP_MAX_MAXED_REFUSAL_AND_MENU_RETURN_PASS",
+    "SEVII_RECOVERY_FLUTE_PASS\tBLUE_FLUTE",
+    "SEVII_RECOVERY_FLUTE_PASS\tYELLOW_FLUTE",
+    "SEVII_RECOVERY_FLUTE_PASS\tRED_FLUTE",
+    "SEVII_NATIVE_RECOVERY_PASS"
+  ],
+  "fix-after-quick-events-population-voxel0361-final-v8": [
+    "SEVII_PURCHASED_BERRY_NATIVE_EFFECT_PASS\tLiechi: shop, equipment, reload, attack boost, consumption, reload",
+    "SEVII_NATIVE_POPULATION_PASS\t40\tresident conversations; seven purchases, seven PCs, seven journals, full-Bag retry, saved rewards, Gen2/3 berry purchases"
+  ],
+  "fix-after-quick-events-medicine-flat0361-final-v4": [
+    "SEVII_NATIVE_MEDICINE_PASS\tseven purchases; seven actual field uses; seven actual battle turns; heal, cure, revive, friendship and save/load"
+  ],
+  "fix-after-quick-events-finds-flat0361-final-v4": [
+    "SEVII_NATIVE_FINDS_APRICORN_PASS\tseven purchases/formulas; 14 full-Bag retries, pickups, sales and persistent receipts; purchased Friend Ball real capture/reload"
+  ],
+  "fix-after-quick-events-balls-flat0361-final-v4": [
+    "SEVII_BALL_TIMER_ITEM_TURNS_PASS\t2",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tNET_BALL\t3",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tNEST_BALL\t3.5",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tREPEAT_BALL\t3",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tTIMER_BALL\t1",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tPREMIER_BALL\t1",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tDIVE_BALL\t1",
+    "SEVII_BALL_PURCHASE_CAPTURE_RELOAD_PASS\tLUXURY_BALL\t1",
+    "SEVII_NATIVE_RESEARCH_BALLS_PASS\t7"
+  ],
+  "fix-after-quick-events-fluffy_tail-flat0361-final-v4": [
+    "SEVII_NATIVE_FLUFFY_TAIL_PASS"
+  ],
+  "fix-after-quick-events-dive_ball-flat0361-final-v4": [
+    "SEVII_NATIVE_DIVE_BALL_PASS\tHUNTAIL\tMAGIKARP"
+  ],
+  "fix-after-quick-events-walking_encounters-flat0361-final-v4": [
+    "SEVII_NATIVE_WALKING_ENCOUNTERS_PASS\t3"
+  ],
+  "fix-after-quick-events-regi_return-flat0361-final-v4": [
+    "SEVII_REGI_RETURN_CAPTURE_PASS\tREGIROCK",
+    "SEVII_REGI_RETURN_CAPTURE_PASS\tREGICE",
+    "SEVII_REGI_RETURN_CAPTURE_PASS\tREGISTEEL",
+    "SEVII_REGI_RETURN_CAPTURE_PASS\tREGIGIGAS",
+    "SEVII_NATIVE_REGI_RETURN_PASS\t1695\t100\t26\t4"
+  ],
+  "fix-after-quick-events-tidal-flat0361-final-v4": [
+    "SEVII_TIDAL_CAPTURE_RELOAD_PASS\tPHIONE",
+    "SEVII_TIDAL_CAPTURE_RELOAD_PASS\tMANAPHY",
+    "SEVII_NATIVE_TIDAL_RETURN_PASS\t1358\t76\t18\t1"
+  ],
+  "fix-after-quick-events-aftermath-flat0361-final-v4": [
+    "SEVII_NATIVE_AFTERMATH_PASS\tfixed story stones resist Strength; German finale labels rendered"
+  ],
+  "fix-after-quick-events-lucky_egg-flat0361-final-v4": [
+    "SEVII_NATIVE_LUCKY_EGG_PASS"
+  ],
+  "fix-after-quick-events-weather_seals-red-flat0361-final-v4": [
+    "SEVII_WEATHER_BATTLE_NATIVE_PASS\tRED",
+    "SEVII_WEATHER_CAPTURE_NATIVE_PASS\tRED",
+    "SEVII_WEATHER_SEALS_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-time_space-flat0361-final-v4": [
+    "SEVII_TIME_SPACE_CAPTURE_RELOAD_PASS\tDIALGA",
+    "SEVII_TIME_SPACE_CAPTURE_RELOAD_PASS\tPALKIA",
+    "SEVII_NATIVE_TIME_SPACE_PASS\t1892\t92\t39\t1"
+  ],
+  "fix-after-quick-events-testimonies-flat0361-final-v4": [
+    "SEVII_TESTIMONIES_CAPTURE_RELOAD_PASS\tARCEUS",
+    "SEVII_NATIVE_TESTIMONIES_PASS\t1780\t64\t72\t8"
+  ],
+  "fix-after-quick-events-rematch-flat0361-final-v4": [
+    "SEVII_NATIVE_REMATCH_PASS\t75\t77\t1"
+  ],
+  "fix-after-quick-events-medicine-voxel0361-final-v4": [
+    "SEVII_NATIVE_MEDICINE_PASS\tseven purchases; seven actual field uses; seven actual battle turns; heal, cure, revive, friendship and save/load"
+  ],
+  "fix-after-quick-events-finds-voxel0361-final-v4": [
+    "SEVII_NATIVE_FINDS_APRICORN_PASS\tseven purchases/formulas; 14 full-Bag retries, pickups, sales and persistent receipts; purchased Friend Ball real capture/reload"
+  ],
+  "fix-after-quick-events-regi_return-voxel0361-final-v4": [
+    "SEVII_REGI_RETURN_CAPTURE_PASS\tREGIROCK",
+    "SEVII_REGI_RETURN_CAPTURE_PASS\tREGICE",
+    "SEVII_REGI_RETURN_CAPTURE_PASS\tREGISTEEL",
+    "SEVII_REGI_RETURN_CAPTURE_PASS\tREGIGIGAS",
+    "SEVII_NATIVE_REGI_RETURN_PASS\t1695\t100\t26\t4"
+  ],
+  "fix-after-quick-events-tidal-voxel0361-final-v4": [
+    "SEVII_TIDAL_CAPTURE_RELOAD_PASS\tPHIONE",
+    "SEVII_TIDAL_CAPTURE_RELOAD_PASS\tMANAPHY",
+    "SEVII_NATIVE_TIDAL_RETURN_PASS\t1358\t76\t18\t1"
+  ],
+  "fix-after-quick-events-aftermath-voxel0361-final-v4": [
+    "SEVII_NATIVE_AFTERMATH_PASS\tfixed story stones resist Strength; German finale labels rendered"
+  ],
+  "fix-after-quick-events-lucky_egg-voxel0361-final-v4": [
+    "SEVII_NATIVE_LUCKY_EGG_PASS"
+  ],
+  "fix-after-quick-events-weather_seals-red-voxel0361-final-v4": [
+    "SEVII_WEATHER_BATTLE_NATIVE_PASS\tRED",
+    "SEVII_WEATHER_CAPTURE_NATIVE_PASS\tRED",
+    "SEVII_WEATHER_SEALS_NATIVE_PASS"
+  ],
+  "fix-after-quick-events-level_scaling-voxel0361-final-v1": [
+    "SEVII_NATIVE_LEVEL_SCALING_PASS\t13\tferries\t80\twild\t90\ttrainer\t92\tlegend"
+  ],
+  "fix-after-quick-events-trainer_profiles-voxel0361-final-v1": [
+    "SEVII_TRAINER_PROFILES_PASS\t264\tslots across Gen1-4, no unsupported move placeholders, deferred reward, profile change, reload, cancel, checkpoint guard, abandoned battle reload"
+  ],
+  "fix-after-quick-events-ngplus_legend-voxel0361-final-v1": [
+    "SEVII_NATIVE_NGPLUS_LEGENDS_PASS\t1"
+  ],
+  "fix-after-quick-events-ngplus_menu-voxel0361-final-v1": [
+    "SEVII_NATIVE_NGPLUS_MENU_PASS"
+  ],
+  "fix-after-quick-events-moltres_continuity-voxel0361-final-v1": [
+    "SEVII_NATIVE_MOLTRES_CONTINUITY_PASS"
+  ],
+  "fix-after-quick-events-legacy_access-voxel0361-final-v1": [
+    "SEVII_NATIVE_LEGACY_ACCESS_PASS\t7\t14\t16\tfirst-cycle-find-shop-reload-rematch"
+  ],
+  "fix-after-quick-events-recovery-voxel0361-final-v8": [
+    "SEVII_PP_MAX_CANCEL_PASS",
+    "SEVII_PP_MAX_CHOSEN_MOVE_AND_MENU_RETURN_PASS",
+    "SEVII_PP_MAX_MAXED_REFUSAL_AND_MENU_RETURN_PASS",
+    "SEVII_RECOVERY_FLUTE_PASS\tBLUE_FLUTE",
+    "SEVII_RECOVERY_FLUTE_PASS\tYELLOW_FLUTE",
+    "SEVII_RECOVERY_FLUTE_PASS\tRED_FLUTE",
+    "SEVII_NATIVE_RECOVERY_PASS"
+  ],
+  "fix-after-quick-events-flight_map-voxel0361-final-v8": [
+    "SEVII_NATIVE_FLIGHT_MAP_PASS\t7"
+  ],
+  "fix-before-quick-pp-max-owner-flat0361-v1": [
+    "SEVII_PP_MAX_OWNER_BEFORE_REPRODUCED"
+  ],
+  "fix-after-quick-pp-max-owner-flat0361-v1": [
+    "SEVII_PP_MAX_OWNER_NATIVE_PASS"
+  ],
+  "fix-before-quick-pp-max-owner-voxel0361-v1": [
+    "SEVII_PP_MAX_OWNER_BEFORE_REPRODUCED"
+  ],
+  "fix-after-quick-pp-max-owner-voxel0361-v1": [
+    "SEVII_PP_MAX_OWNER_NATIVE_PASS"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "run": "fix-after-quick-map-animation-proof-voxel0361-v5",
+  "status": "QA driver unsupported L\u00d6VE 11.5 isReleased method; resource ownership assertions had passed until that probe; not a production failure",
+  "current": "fix-after-quick-packaged-animation-voxel0361-v1",
+  "retained_error": "driver error: ...1007/tests/sevii_native_voxel_animation_proof_driver.lua:75: attempt to call method 'isReleased' (a nil value)"
+}

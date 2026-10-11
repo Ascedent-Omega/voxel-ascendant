@@ -1,0 +1,15 @@
+PASS Sevii native art: exact ownership, roof/facade bands, coloured cutouts, independent chair parts, shallow devices, cache and partition bounds
+PASS native renderer: solid coloured façade, sloped roof occupancy, exact interval exposure, real mesh and open plant silhouette
+PASS native ferry: water removed from hull, gangway volume cut, native floor and warp ownership retained
+PASS clipped native deck: exact occupied intervals and retained shell
+PASS native potted plants: multicoloured rug margins removed, crown and pot retained as a round source volume
+PASS native refinements: rounded crown/trunk depth, exact plant shell, unlisted bank-wave cutout and facade-only gable
+PASS native roof material: one source band per slope and ridge at summit
+PASS Center source margin: terrain course excluded from roof material
+PASS native source partitions: complete-house volume, disjoint source surfaces, exact atlas bands, shared depth/origin and proven entrance course
+PASS native roof palette: neighbouring ground cannot erase matching red roof texels
+PASS native foliage: enclosed crown fill, external margin cut and grass blades without blue-green floor slabs
+PASS native crown: curved top in width and depth, broad foliage below and original texture ownership
+PASS normal Sevii boulders: blocked source role, isolated original colors, elliptical volume, free silhouette and actual mesh
+PASS ocean rocks: whole 32px silhouette, round actual mesh, wave cutout, real water underlay and scaled Kanto replacement
+SEVII_FIX_TEST_PASS

@@ -222,6 +222,11 @@ local function find(map,buildingsOnly)
   if not buildingsOnly and found[map] then return found[map] end
   local result,used={},{}
   if not map or not map.def then return result end
+  if map.def.kaOwner=='kasc.sevii-expedition/v1' and V.require('KascSeviiScenery').profile(map)then
+    local props=V.require('KascSeviiScenery').find(P,map,buildingsOnly)
+    if not buildingsOnly then found[map]=props end
+    return props
+  end
   local habitat=map.def.runtimeAuthority=='KASC_6_7_STARTER_HABITAT_V2_3'and V.require('KascHabitatScenery').profile(map)
   if map.def.generation==2 and not habitat then return result end
   local tw,th=map.def.width*4,map.def.height*4
@@ -314,6 +319,10 @@ function F.find(map)return find(map,false)end
 -- every foreground mountain/torch model in distant, unloaded maps.
 function F.findBuildings(map)return find(map,true)end
 local function floorTile(map,x,y)
+  if map.def.kaOwner=='kasc.sevii-expedition/v1'then
+    local native=V.require('SeviiFloor').tile(map,x,y)
+    if native~=nil then return native end
+  end
   if map.def.tileset=='CEMETERY' then return 1 end
   if map.def.tileset=='INTERIOR' then return 31 end
   if map.def.tileset=='CLUB' then return (x+y)%2==0 and 15 or 31 end
@@ -377,6 +386,7 @@ function F.claim(S,map,peekTerrain)
       end end
     elseif p.claimed and not p.keepTerrain then
       local claimX,claimY=p.claimTx or p.tx,p.claimTy or p.ty
+      local seaWater=model and model.waterUnderlay and V.require('SeviiSeaRocks').waterAt(S,claimX,claimY,p.w,p.h)
       for dy=0,p.h-1 do for dx=0,p.w-1 do
         local k=key(claimX+dx,claimY+dy)
         S.voxelFurnitureClaims[k]=true
@@ -387,6 +397,7 @@ function F.claim(S,map,peekTerrain)
         if model and model.replacesGround then S.ground[k]=model.groundAt(dx*8,dy*8)
         else S.ground[k]=p.groundTile or floorTile(map,p.tx+dx,p.ty+dy)end
         S.shapeAt[k]={class='building',h=0,art='building',flat=false,authored=true}
+        if seaWater then S.furnitureWater[k]=seaWater;S.ground[k]=nil end
         -- A bridge rail replaces a native bank tree, but its open footprint
         -- must contain the adjoining river, not a raised floor painted blue.
         -- Require a real water neighbour; dry landing cells stay dry.

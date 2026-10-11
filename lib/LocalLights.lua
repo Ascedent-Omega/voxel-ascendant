@@ -122,8 +122,10 @@ function M.sky(map, outdoor, weather, enabled)
   local x,z,moon=M.shearAt(D.rigTime())
   local length=math.sqrt(x*x+1+z*z)
   local overcast=weather=='rain' or weather=='storm' or weather=='fog' or weather=='snow'
+  local sevii=map and map.def and map.def.kaOwner=='kasc.sevii-expedition/v1'
+    and V.require('SeviiVegetation').lighting(map)
   return {direction={-x/length,1/length,-z/length,D.strengthAt(D.time())*(overcast and .2 or 1)},
-    canopy=D.isCanopy(map) and 1 or 0,moon=moon and 1 or 0}
+    canopy=sevii and 2 or D.isCanopy(map) and 1 or 0,forest=sevii,moon=moon and 1 or 0}
 end
 function M.clear(suppressed) frame={lights={},blockers={},suppressed=suppressed} end
 function M.current() return frame end
@@ -325,6 +327,17 @@ uniform vec4 localMosaicLampColor;
 
 uniform vec4 localSkyDir;
 uniform vec3 localSkyState; // enabled, canopy, wind clock
+uniform vec4 localForestArea; // source origin X/Z, source width/depth
+uniform float localForestLeaves;
+float localForestHash(vec2 p) {
+  p=fract(p*vec2(.1031,.11369));
+  p+=dot(p,p.yx+19.19);return fract(p.x*p.y);
+}
+float localForestNoise(vec2 p) {
+  vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);
+  return mix(mix(localForestHash(i),localForestHash(i+vec2(1,0)),f.x),
+    mix(localForestHash(i+vec2(0,1)),localForestHash(i+vec2(1,1)),f.x),f.y);
+}
 uniform vec3 localSceneTint;
 uniform Image localStageAO;
 uniform vec4 localStageOrigin;
@@ -342,8 +355,22 @@ float localSurfaceShade(float original, vec3 n, vec3 world) {
   float direct=max(0.0,dot(n,localSkyDir.xyz))*localSkyDir.w;
   if(localSkyState.y>.5 && world.y<45.0) {
     vec2 q=(world.xz+localSkyDir.xz*(48.0-world.y)/max(.2,localSkyDir.y))*.13;
-    float leaves=sin(q.x+sin(q.y*.71)+localSkyState.z*.24)*sin(q.y-localSkyState.z*.17);
-    direct*=.25+.75*smoothstep(-.15,.6,leaves);
+    if(localSkyState.y>1.5) {
+      vec2 source=world.xz+localForestArea.xy;
+      vec2 projected=source+localSkyDir.xz*(28.0-world.y)/max(.2,localSkyDir.y);
+      vec2 uv=projected/localForestArea.zw;
+      float cover=0.0;
+      if(uv.x>=0.0 && uv.y>=0.0 && uv.x<=1.0 && uv.y<=1.0)
+        cover=Texel(localMosaicArt,uv).r*localForestLeaves;
+      vec2 drift=vec2(localSkyState.z*.16,-localSkyState.z*.11);
+      float broad=localForestNoise(projected*.022+drift*.12);
+      float gaps=localForestNoise(projected*.095+drift+broad*2.0);
+      float shade=mix(.28,.92,smoothstep(.24,.76,gaps*.72+broad*.28));
+      direct*=mix(1.0,shade,cover);
+    } else {
+      float leaves=sin(q.x+sin(q.y*.71)+localSkyState.z*.24)*sin(q.y-localSkyState.z*.17);
+      direct*=.25+.75*smoothstep(-.15,.6,leaves);
+    }
   }
   return .38+.78*direct;
 }
@@ -565,6 +592,7 @@ function M.send(shader, enabled)
   if previous and previous.frame==frame and previous.enabled==enabled then return false end
   local lights=enabled and frame.lights or {}
   local sky=enabled and frame.sky
+  local forest=sky and sky.forest
   -- Water uses its own wave normals; localSurfaceShade also replaces its
   -- fixed face light. All programs explicitly reset their previous scene.
   if shader:hasUniform('localMosaicWater')then shader:send('localMosaicWater',0)end
@@ -576,11 +604,17 @@ function M.send(shader, enabled)
       shader:send('localMosaicLampColor',mosaic and mosaic.lampColor or {0,0,0,0})
       shader:send('localMosaicLampArea',mosaic and mosaic.lampArea or {0,0,1,160})
     end
-    shader:send('localMosaicArt',mosaic and mosaic.texture or emptyWall())
+    -- Gym artwork and outdoor canopy are mutually exclusive. Reuse the
+    -- sampler to keep the complete world shader within the 16-unit budget.
+    shader:send('localMosaicArt',mosaic and mosaic.texture or forest and forest.texture or emptyWall())
   end
   if shader:hasUniform('localSkyDir') then shader:send('localSkyDir',sky and sky.direction or {0,1,0,0}) end
   if shader:hasUniform('localSkyState') then
     shader:send('localSkyState',{sky and 1 or 0,sky and sky.canopy or 0,V.require('Sky').clock or 0})
+  end
+  if shader:hasUniform('localForestArea')then
+    shader:send('localForestArea',forest and forest.area or {0,0,1,1})
+    shader:send('localForestLeaves',forest and forest.leaves or 0)
   end
   if shader:hasUniform('localSceneTint') then
     shader:send('localSceneTint',enabled and frame.tint or {1,1,1})

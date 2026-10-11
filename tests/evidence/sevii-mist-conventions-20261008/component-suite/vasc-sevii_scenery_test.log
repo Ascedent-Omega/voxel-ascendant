@@ -1,0 +1,5 @@
+PASS Sevii: 266 exact atlas contracts; foreign/Gen2/corrupt maps excluded; water, warps and outside bounds; closed-room ownership
+PASS Sevii: appropriate interactive object families; living actor owner retained
+PASS native tree courses: three-column forest crowns, separate repeating border crowns and original complete tree footprint
+PASS full grass ground: existing Kanto meadow/forest materials across every exact exterior atlas
+SEVII_FIX_TEST_PASS

@@ -1,7 +1,7 @@
 {
   "id": "VOXEL_ASCENDANT",
   "name": "Voxel Ascendant",
-  "version": "3.0.62",
+  "version": "3.0.63-rc.17-sevii",
   "github": "Roxas2712/voxel-ascendant",
   "api": 2,
   "entry": "main.lua",
@@ -155,7 +155,7 @@
     "compute"
   ],
   "affects_link": false,
-  "experimental": false,
+  "experimental": true,
   "description": "One autonomous Voxel Ascendant package for Kanto and Johto with isolated feature segments, the converged M10 mobile world/neighbor fix, staged M11 smartphone geometry and sky, mobile-safe battles, weather, scenery and first/third person cameras.",
   "optional_imports": [
     {

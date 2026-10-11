@@ -21,7 +21,7 @@ function M.signature(cards,token,textures,modelsStanding)
    local ok,value=pcall(identity.typeOf,identity,'Image');immutable=ok and value==true
   end
   if not immutable or source.inkTransient then dynamic=true end
-  parts[#parts+1]=tostring(card.side)
+  parts[#parts+1]=tostring(card.slot or card.side)
   parts[#parts+1]=tostring(card.tex)
   parts[#parts+1]=tostring(identity)
   for _,n in ipairs(card.shadowModel or{})do parts[#parts+1]=tostring(n)end

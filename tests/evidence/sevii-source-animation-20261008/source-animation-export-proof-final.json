@@ -1,0 +1,693 @@
+{
+  "completed": true,
+  "sourceMaps": 135,
+  "affectedSources": 42,
+  "sampledStates": 7227,
+  "foregroundBackgrounds": 58,
+  "coverage": {
+    "horizontal": 818,
+    "vertical": 559,
+    "palettesOver6": 407
+  },
+  "mapsUnchanged": true,
+  "staticTilesetsUnchanged": true,
+  "staticPNGsUnchanged": true,
+  "scope": "Exact BPRD ROM identity and authenticated pointer/frame banks; all distinct exported source states versus original static compositor with independently replayed wrapping callback schedule. No ROM or artwork is published.",
+  "rows": [
+    {
+      "source": "OneIsland",
+      "animatedMetatiles": 24,
+      "sampledStates": 181
+    },
+    {
+      "source": "OneIsland_KindleRoad",
+      "animatedMetatiles": 59,
+      "sampledStates": 468
+    },
+    {
+      "source": "OneIsland_TreasureBeach",
+      "animatedMetatiles": 49,
+      "sampledStates": 385
+    },
+    {
+      "source": "OneIsland_PokemonCenter_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "OneIsland_PokemonCenter_2F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "OneIsland_House1",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "OneIsland_House2",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "OneIsland_Harbor",
+      "animatedMetatiles": 11,
+      "sampledStates": 88
+    },
+    {
+      "source": "MtEmber_RubyPath_B4F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "MtEmber_Exterior",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "MtEmber_SummitPath_1F",
+      "animatedMetatiles": 5,
+      "sampledStates": 20
+    },
+    {
+      "source": "MtEmber_SummitPath_2F",
+      "animatedMetatiles": 4,
+      "sampledStates": 16
+    },
+    {
+      "source": "MtEmber_SummitPath_3F",
+      "animatedMetatiles": 4,
+      "sampledStates": 16
+    },
+    {
+      "source": "MtEmber_Summit",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "MtEmber_RubyPath_B5F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "MtEmber_RubyPath_1F",
+      "animatedMetatiles": 4,
+      "sampledStates": 16
+    },
+    {
+      "source": "MtEmber_RubyPath_B1F",
+      "animatedMetatiles": 5,
+      "sampledStates": 20
+    },
+    {
+      "source": "MtEmber_RubyPath_B2F",
+      "animatedMetatiles": 4,
+      "sampledStates": 16
+    },
+    {
+      "source": "MtEmber_RubyPath_B3F",
+      "animatedMetatiles": 6,
+      "sampledStates": 24
+    },
+    {
+      "source": "MtEmber_RubyPath_B1F_Stairs",
+      "animatedMetatiles": 3,
+      "sampledStates": 12
+    },
+    {
+      "source": "MtEmber_RubyPath_B2F_Stairs",
+      "animatedMetatiles": 4,
+      "sampledStates": 16
+    },
+    {
+      "source": "ThreeIsland_BerryForest",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_IcefallCave_Entrance",
+      "animatedMetatiles": 3,
+      "sampledStates": 12
+    },
+    {
+      "source": "FourIsland_IcefallCave_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_IcefallCave_B1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_IcefallCave_Back",
+      "animatedMetatiles": 16,
+      "sampledStates": 118
+    },
+    {
+      "source": "FiveIsland_RocketWarehouse",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_DottedHole_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_DottedHole_B1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_DottedHole_B2F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_DottedHole_B3F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_DottedHole_B4F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_DottedHole_SapphireRoom",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_PatternBush",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_AlteringCave",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_2F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_3F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_4F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_5F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_6F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_7F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_8F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_Roof",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_Lobby",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TrainerTower_Elevator",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Entrance",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room1",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room2",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room3",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room4",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room5",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room6",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room7",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room8",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room9",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room10",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room11",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room12",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room13",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_LostCave_Room14",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_MoneanChamber",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_LiptooChamber",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_WeepthChamber",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_DilfordChamber",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_ScufibChamber",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_RixyChamber",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_TanobyRuins_ViapoisChamber",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "ThreeIsland_DunsparceTunnel",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_TanobyKey",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "OneIsland_KindleRoad_EmberSpa",
+      "animatedMetatiles": 11,
+      "sampledStates": 44
+    },
+    {
+      "source": "TwoIsland",
+      "animatedMetatiles": 28,
+      "sampledStates": 210
+    },
+    {
+      "source": "ThreeIsland",
+      "animatedMetatiles": 1,
+      "sampledStates": 5
+    },
+    {
+      "source": "FourIsland",
+      "animatedMetatiles": 30,
+      "sampledStates": 226
+    },
+    {
+      "source": "FiveIsland",
+      "animatedMetatiles": 43,
+      "sampledStates": 333
+    },
+    {
+      "source": "SevenIsland",
+      "animatedMetatiles": 30,
+      "sampledStates": 229
+    },
+    {
+      "source": "SixIsland",
+      "animatedMetatiles": 27,
+      "sampledStates": 202
+    },
+    {
+      "source": "TwoIsland_CapeBrink",
+      "animatedMetatiles": 17,
+      "sampledStates": 124
+    },
+    {
+      "source": "ThreeIsland_BondBridge",
+      "animatedMetatiles": 50,
+      "sampledStates": 394
+    },
+    {
+      "source": "ThreeIsland_Port",
+      "animatedMetatiles": 39,
+      "sampledStates": 301
+    },
+    {
+      "source": "FiveIsland_ResortGorgeous",
+      "animatedMetatiles": 33,
+      "sampledStates": 261
+    },
+    {
+      "source": "FiveIsland_WaterLabyrinth",
+      "animatedMetatiles": 28,
+      "sampledStates": 221
+    },
+    {
+      "source": "FiveIsland_Meadow",
+      "animatedMetatiles": 33,
+      "sampledStates": 264
+    },
+    {
+      "source": "FiveIsland_MemorialPillar",
+      "animatedMetatiles": 51,
+      "sampledStates": 401
+    },
+    {
+      "source": "SixIsland_OutcastIsland",
+      "animatedMetatiles": 49,
+      "sampledStates": 384
+    },
+    {
+      "source": "SixIsland_GreenPath",
+      "animatedMetatiles": 49,
+      "sampledStates": 389
+    },
+    {
+      "source": "SixIsland_WaterPath",
+      "animatedMetatiles": 38,
+      "sampledStates": 301
+    },
+    {
+      "source": "SixIsland_RuinValley",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_TrainerTower",
+      "animatedMetatiles": 46,
+      "sampledStates": 361
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_Entrance",
+      "animatedMetatiles": 21,
+      "sampledStates": 165
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon",
+      "animatedMetatiles": 15,
+      "sampledStates": 120
+    },
+    {
+      "source": "SevenIsland_TanobyRuins",
+      "animatedMetatiles": 45,
+      "sampledStates": 356
+    },
+    {
+      "source": "SevenIsland_House_Room1",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_House_Room2",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_Mart",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_PokemonCenter_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_PokemonCenter_2F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_Harbor",
+      "animatedMetatiles": 11,
+      "sampledStates": 88
+    },
+    {
+      "source": "TwoIsland_JoyfulGameCorner",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TwoIsland_House",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TwoIsland_PokemonCenter_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TwoIsland_PokemonCenter_2F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TwoIsland_Harbor",
+      "animatedMetatiles": 11,
+      "sampledStates": 88
+    },
+    {
+      "source": "ThreeIsland_House1",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "ThreeIsland_PokemonCenter_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "ThreeIsland_PokemonCenter_2F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "ThreeIsland_Mart",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "ThreeIsland_House2",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "ThreeIsland_House3",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "ThreeIsland_House4",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "ThreeIsland_House5",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_PokemonDayCare",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_PokemonCenter_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_PokemonCenter_2F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_House1",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_LoreleisHouse",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_Harbor",
+      "animatedMetatiles": 11,
+      "sampledStates": 88
+    },
+    {
+      "source": "FourIsland_House2",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FourIsland_Mart",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_PokemonCenter_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_PokemonCenter_2F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_Harbor",
+      "animatedMetatiles": 11,
+      "sampledStates": 88
+    },
+    {
+      "source": "FiveIsland_House1",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "FiveIsland_House2",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_PokemonCenter_1F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_PokemonCenter_2F",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_Harbor",
+      "animatedMetatiles": 11,
+      "sampledStates": 88
+    },
+    {
+      "source": "SixIsland_House",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_Mart",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "ThreeIsland_Harbor",
+      "animatedMetatiles": 11,
+      "sampledStates": 88
+    },
+    {
+      "source": "FiveIsland_ResortGorgeous_House",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "TwoIsland_CapeBrink_House",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_WaterPath_House1",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SixIsland_WaterPath_House2",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    },
+    {
+      "source": "SevenIsland_SevaultCanyon_House",
+      "animatedMetatiles": 0,
+      "sampledStates": 0
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "expectedFailure": true,
+  "exit": 1,
+  "scope": "Current strengthened owner contract against immutable complete KASC RC8 source",
+  "log": "...sevii-playability-20261007/tests/sevii_recovery_test.lua:18: native party picker owns the held move menu so result handling can close it\nstack traceback:\n\t[C]: in function 'assert'\n\t...sevii-playability-20261007/tests/sevii_recovery_test.lua:18: in function 'check'\n\t...sevii-playability-20261007/tests/sevii_recovery_test.lua:66: in main chunk\n\t[C]: in function 'dofile'\n\tmain.lua:4: in function <main.lua:4>\n\t[C]: in function 'xpcall'\n\tmain.lua:4: in main chunk\n\t[C]: in function 'require'\n\t[love \"boot.lua\"]:323: in function <[love \"boot.lua\"]:126>\n\t[C]: in function 'xpcall'\n\t[love \"boot.lua\"]:362: in function <[love \"boot.lua\"]:355>\n\t[C]: in function 'xpcall'\n\t[love \"boot.lua\"]:377: in function <[love \"boot.lua\"]:344>\n"
+}

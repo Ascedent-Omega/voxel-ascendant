@@ -2102,12 +2102,14 @@ function OverworldBattle.recoveryStageIndex(arena)
   return 1
 end
 
-function OverworldBattle.stageFor(state, plan, bypassPreflight)
+function OverworldBattle.stageFor(state, plan, bypassPreflight, battle)
   local mode = plan and plan.mode or selectedBattleMode()
   local terrarium=plan and (plan.terarrium or plan.mode=="terarrium") or (not plan and OverworldBattle.setting:get()=="terarrium")
   local camera=plan and plan.terarriumCamera
+  local doubleLayout=V.require('SeviiDoubleVisual').layoutFor(state,battle)
+  if battle and battle.doubleBattle==true and not doubleLayout then return nil end
   local key = stageRequestKey(state, terrarium and ("terarrium:"..tostring(camera or (V.require("TerarriumHost").service.cameraMode and V.require("TerarriumHost").service.cameraMode()))) or mode)
-  if not bypassPreflight and staged.ready and staged.key == key then
+  if not doubleLayout and not bypassPreflight and staged.ready and staged.key == key then
     local arena = staged.arena
     staged = { key=nil, ready=false, arena=nil }
     return arena ~= false and arena or nil
@@ -2117,7 +2119,29 @@ function OverworldBattle.stageFor(state, plan, bypassPreflight)
   local requested = ({"MAP", "TERRARIUM", "ARENA", "DISCS"})[first]
   local reason = "selected-stage-unavailable"
   local placementReview
-  if first == 1 then
+  if doubleLayout and first==1 then
+    local arena=V.require('SeviiDoubleVisual').mapArena(state.map,doubleLayout)
+    local map=state.map
+    local scene=V.require('VoxelScene')
+    local ground=scene.groundAt(map,doubleLayout.center.x,doubleLayout.center.y)
+    local rig=ground and V.require('BattleCam').rig(arena,ground,true)
+    local safe=rig and rig.eye and BattleArena.cameraClear(map,rig.eye)
+    if safe then
+      for _,side in ipairs({doubleLayout.player,doubleLayout.enemy})do
+        for _,cell in ipairs(side)do
+          local height=scene.groundAt(map,cell.x,cell.y)
+          if not height or BattleArena.visibility(map,rig.eye,
+              {cell.x*16+8,cell.y*16+8},height)<3 then
+            safe=false;break
+          end
+        end
+        if not safe then break end
+      end
+    end
+    if safe then return arena end
+    reason='double-map-camera-unsafe'
+  end
+  if first == 1 and not doubleLayout then
     local ok, arena, review = pcall(BattleArena.find, state.map,
       state.player.cellX, state.player.cellY, state.player.surfing)
     if ok and arena then
@@ -2133,6 +2157,10 @@ function OverworldBattle.stageFor(state, plan, bypassPreflight)
   for index=math.max(2,first),4 do
     local ok, arena = pcall(OverworldBattle.portableStageFor, state, modes[index], camera)
     if ok and arena then
+      if doubleLayout then
+        arena=V.require('SeviiDoubleVisual').attach(arena,doubleLayout)
+        if not arena then return nil end
+      end
       if index > first then
         arena.mapFallback=true; arena.requestedMode=requested
         arena.fallbackReason=reason
@@ -2527,6 +2555,10 @@ local function rendererSwitchSide(battle, payload)
   if payload.battler ~= nil and type(battle) == "table" then
     if payload.battler == battle.player then return "player" end
     if payload.battler == battle.enemy then return "enemy" end
+    if battle.doubleBattle==true then
+      if payload.battler==battle.player2 then return "player2" end
+      if payload.battler==battle.enemy2 then return "enemy2" end
+    end
   end
   local side = payload.side
   if type(side) == "table" then
@@ -2947,7 +2979,7 @@ function OverworldBattle.begin(state, battle)
     BattleStage.retryFailedImages()
   end
 
-  local arena = OverworldBattle.stageFor(state, plan)
+  local arena = OverworldBattle.stageFor(state, plan, nil, battle)
   if not arena then
     claimLifecycle(battle, plan, "DEFAULT", "selected-stage-unavailable",
       "overworld.pushBattle")
@@ -3315,7 +3347,10 @@ local function shotMatchesTextures(shot, textures)
   local visuals = shot and shot.actorVisuals
   if type(visuals) ~= "table" or type(textures) ~= "table" then return false end
   local matched = false
-  for _, side in ipairs({ "player", "enemy" }) do
+  local battle=textures.vascRenderBattle
+  local sides=battle and battle.doubleBattle==true
+    and {'player','player2','enemy','enemy2'} or {'player','enemy'}
+  for _, side in ipairs(sides) do
     local actor, texture = visuals[side], textures[side]
     if actor == nil and texture ~= nil then return false end
     if actor then
@@ -3337,7 +3372,8 @@ local function replacementFramePending(active, shot, textures)
   local pending = active and active.pendingSwitch
   if pending == nil then return false end
   local side = pending.side
-  if side ~= "player" and side ~= "enemy" then
+  if side ~= "player" and side ~= "enemy"
+      and side~='player2' and side~='enemy2' then
     return nil, "replacement side is invalid"
   end
   local battle = active.battle
@@ -3397,7 +3433,9 @@ local function committedShotMatchesBattle(active)
       and type(active.shot.actorVisuals) == "table"
       and type(active.battle) == "table") then return false end
   local matched = false
-  for _, side in ipairs({ "player", "enemy" }) do
+  local sides=active.battle.doubleBattle==true
+    and {'player','player2','enemy','enemy2'} or {'player','enemy'}
+  for _, side in ipairs(sides) do
     local actor = active.shot.actorVisuals[side]
     if actor then
       local battler = active.battle[side]
@@ -3642,10 +3680,13 @@ local function pendingCoverActorsMatch(active, cover, textures)
   if next(visuals) == nil then return true end
   local pending = active and active.pendingSwitch
   local side = pending and pending.side
-  if side ~= "player" and side ~= "enemy" then return false end
+  if side ~= "player" and side ~= "enemy"
+      and side~='player2' and side~='enemy2' then return false end
   if visuals[side] ~= nil then return false end
   local battle = active.battle
-  for _, other in ipairs({ "player", "enemy" }) do
+  local sides=battle and battle.doubleBattle==true
+    and {'player','player2','enemy','enemy2'} or {'player','enemy'}
+  for _, other in ipairs(sides) do
     local actor = visuals[other]
     if actor then
       if other == side then return false end
@@ -3678,6 +3719,11 @@ local function holdCommittedPresentation(active, reason, textures)
       and owner.playerMon == (battle.player and battle.player.mon)
       and owner.enemy == battle.enemy
       and owner.enemyMon == (battle.enemy and battle.enemy.mon)
+      and (battle.doubleBattle~=true or
+        (owner.player2==battle.player2
+         and owner.player2Mon==(battle.player2 and battle.player2.mon)
+         and owner.enemy2==battle.enemy2
+         and owner.enemy2Mon==(battle.enemy2 and battle.enemy2.mon)))
       and owner.deploymentToken == active.rendererDeploymentToken
       and owner.pendingSwitch == active.pendingSwitch) then
     return false
@@ -3910,8 +3956,12 @@ local function commitShot(active, shot, pendingActors)
       battle=battle,
       player=battle.player,
       playerMon=battle.player and battle.player.mon,
+      player2=battle.player2,
+      player2Mon=battle.player2 and battle.player2.mon,
       enemy=battle.enemy,
       enemyMon=battle.enemy and battle.enemy.mon,
+      enemy2=battle.enemy2,
+      enemy2Mon=battle.enemy2 and battle.enemy2.mon,
       deploymentToken=active.rendererDeploymentToken,
       pendingSwitch=active.pendingSwitch,
     } or nil
@@ -4053,7 +4103,7 @@ function OverworldBattle.retryNativePresentation()
   for k,v in pairs(request.plan) do plan[k]=v end
   plan.mode, plan.pokemonBack, plan.trainerBack = request.mode, false, false
   OverworldBattle.setPlanStage(plan,request.mode)
-  local ok, arena = pcall(OverworldBattle.stageFor, request.state, plan, true)
+  local ok, arena = pcall(OverworldBattle.stageFor, request.state, plan, true, battle)
   if not ok or not arena then unavailable(not ok and arena or "stage-unavailable");return end
   if session then
     if not sameBattle(session.battle,battle) then return end
@@ -4111,7 +4161,7 @@ function OverworldBattle.applyPendingPresentation(active, dt, textures)
   if pending.emergency then plan.pokemonBack=false;plan.trainerBack=false end
   OverworldBattle.setPlanStage(plan,pending.mode)
   if not pending.arena then
-    local ok,arena=pcall(OverworldBattle.stageFor,active.state,plan,true)
+    local ok,arena=pcall(OverworldBattle.stageFor,active.state,plan,true,battle)
     if ok then pending.arena=arena else pending.reason=tostring(arena) end
   end
   local arena=pending.arena
@@ -4245,6 +4295,12 @@ function OverworldBattle.tryPortableRecovery(active, textures, reason, first, la
       active.recoveryStageIndex = index
       local ok,arena=pcall(OverworldBattle.portableStageFor,active.state,modes[index])
       if ok and arena then
+        if active.battle and active.battle.doubleBattle==true then
+          local layout=V.require('SeviiDoubleVisual').layoutFor(active.state,active.battle)
+          arena=layout and V.require('SeviiDoubleVisual').attach(arena,layout) or nil
+        end
+      end
+      if ok and arena then
         arena.mapFallback=true
         arena.requestedMode=active.arena.requestedMode or active.arena.presentationMode
         arena.fallbackReason=reason
@@ -4282,6 +4338,7 @@ function OverworldBattle.tryMapRecovery(active,textures,reason)
   if not active or not active.arena or active.arena.presentationMode~="MAP"
       or active.mapCourtsTried or active.pendingPresentation or not textures
       or active.rendererOwnerKind~="legacy" then return false end
+  if active.battle and active.battle.doubleBattle==true then return false end
   active.mapCourtsTried=true
   local state=active.state
   local ok,review=pcall(BattleArena.withVisibilitySamples,BattleArena.review,
@@ -4873,6 +4930,7 @@ local nativeCartridgeBattle = nil
 local pinnedTrainerBackSprite = nil
 
 local texCanvas = {}
+OverworldBattle.partnerCopiedCanvas = {}
 local innerPics = nil                   -- captured by install()
 local innerHUDs = nil                   -- likewise, for the snapped HUD layer
 local innerText = nil                   -- and the edge-docked command panes
@@ -5348,7 +5406,8 @@ local function baseSideTexture(battle, side)
       appearance.choice(battle)) or nil
   -- Preserve HD pixels through the side capture without changing its logical
   -- coordinates, anchor, grow/shrink effects or the resulting world size.
-  local canvas = texCanvasFor(side, V.require("HdPokemonPresentation").density(selectedSprite))
+  local canvas = texCanvasFor(OverworldBattle.captureCanvasSlot or side,
+    V.require("HdPokemonPresentation").density(selectedSprite))
   local requestedPlayerFront = nil
   if side == "player" and battle.player and battle.player.sprite
       and not battle.showPlayerBack
@@ -5495,6 +5554,55 @@ function OverworldBattle.textures(battle)
     end
     return legacyPresentation("sideTexture", battle, side)
   end
+  local function partnerTexture(side)
+    if battle.doubleBattle~=true then return nil end
+    local partner=battle[side..'2']
+    if not(partner and partner.sprite and partner.mon
+        and partner.mon.hp>0 and not partner.fainted)then return nil end
+    local lead=battle[side]
+    local trainer,back=battle.showEnemyTrainer,battle.showPlayerBack
+    battle[side]=partner
+    battle.showEnemyTrainer=false
+    battle.showPlayerBack=false
+    OverworldBattle.captureCanvasSlot=side..'2'
+    local ok,texture=pcall(function()
+      local result=selectedTexture(side)
+      if not result then return nil end
+      result=OverworldBattle.finalizeSideTexture(battle,side,result)
+      -- A companion may return its own reusable receipt table for both
+      -- captures. Preserve partner metadata before the lead is captured.
+      local independent={}
+      for key,value in pairs(result)do independent[key]=value end
+      result=independent
+      local source=result.canvas
+      if source and type(source.getDimensions)=='function' then
+        local w,h=source:getDimensions()
+        local slot=side..'2'
+        local copy=OverworldBattle.partnerCopiedCanvas[slot]
+        if not(copy and copy:getWidth()==w and copy:getHeight()==h)then
+          copy=love.graphics.newCanvas(w,h)
+          copy:setFilter('nearest','nearest')
+          OverworldBattle.partnerCopiedCanvas[slot]=copy
+        end
+        if source~=copy then
+          result.canvas=V.require('SeviiCanvasCopy').copy(love.graphics,
+            source,copy)
+        end
+      end
+      result.vascBattleSlot=side..'2'
+      return result
+    end)
+    OverworldBattle.captureCanvasSlot=nil
+    battle[side]=lead
+    battle.showEnemyTrainer=trainer
+    battle.showPlayerBack=back
+    if not ok then error(texture,0)end
+    return texture
+  end
+  -- Capture second battlers before leads. Companion providers may reuse the
+  -- same side canvas; the independent copy above preserves all four pixels.
+  out.enemy2=partnerTexture('enemy')
+  out.player2=partnerTexture('player')
   local okE, enemy = pcall(selectedTexture, "enemy")
   local okP, player = true, nil
   if not OverworldBattle.playerBackPinned(battle) then
@@ -5523,7 +5631,7 @@ function OverworldBattle.textures(battle)
     if not okStanding then error(value, 0) end
     standing = value == true
   end
-  if not (out.enemy or out.player or standing) then return nil end
+  if not (out.enemy or out.player or out.enemy2 or out.player2 or standing) then return nil end
   V.require('BattleHeroesBridge').attach(out,battle)
   out.flash = OverworldBattle.flashing(battle)
   return out

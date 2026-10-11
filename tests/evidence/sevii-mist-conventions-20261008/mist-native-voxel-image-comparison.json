@@ -1,0 +1,402 @@
+[
+  {
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+    "day": "day",
+    "light": true,
+    "changedPixels": 751267,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+    "day": "day",
+    "light": false,
+    "changedPixels": 751267,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+    "day": "night",
+    "light": true,
+    "changedPixels": 751267,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_FIVE_ISLAND_LOST_CAVE_ROOM1",
+    "day": "night",
+    "light": false,
+    "changedPixels": 751267,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST",
+    "day": "day",
+    "light": true,
+    "changedPixels": 835621,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST",
+    "day": "day",
+    "light": false,
+    "changedPixels": 835989,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST",
+    "day": "night",
+    "light": true,
+    "changedPixels": 831173,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_THREE_ISLAND_BERRY_FOREST",
+    "day": "night",
+    "light": false,
+    "changedPixels": 835540,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_FIVE",
+    "day": "day",
+    "light": true,
+    "changedPixels": 632846,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_FIVE",
+    "day": "day",
+    "light": false,
+    "changedPixels": 632484,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_FIVE",
+    "day": "night",
+    "light": true,
+    "changedPixels": 654780,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_FIVE",
+    "day": "night",
+    "light": false,
+    "changedPixels": 647553,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR",
+    "day": "day",
+    "light": true,
+    "changedPixels": 364635,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR",
+    "day": "day",
+    "light": false,
+    "changedPixels": 357958,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR",
+    "day": "night",
+    "light": true,
+    "changedPixels": 428840,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_MT_EMBER_EXTERIOR",
+    "day": "night",
+    "light": false,
+    "changedPixels": 426566,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_CENTER",
+    "day": "day",
+    "light": true,
+    "changedPixels": 710056,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_CENTER",
+    "day": "day",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_CENTER",
+    "day": "night",
+    "light": true,
+    "changedPixels": 710296,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "KA_SEVII_CENTER",
+    "day": "night",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "MT_MOON_1F",
+    "day": "day",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "MT_MOON_1F",
+    "day": "day",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "MT_MOON_1F",
+    "day": "night",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "MT_MOON_1F",
+    "day": "night",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "VIRIDIAN_FOREST",
+    "day": "day",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "VIRIDIAN_FOREST",
+    "day": "day",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "VIRIDIAN_FOREST",
+    "day": "night",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "VIRIDIAN_FOREST",
+    "day": "night",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "ROUTE_21",
+    "day": "day",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "ROUTE_21",
+    "day": "day",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "ROUTE_21",
+    "day": "night",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "ROUTE_21",
+    "day": "night",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "ROUTE_3",
+    "day": "day",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "ROUTE_3",
+    "day": "day",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "ROUTE_3",
+    "day": "night",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "ROUTE_3",
+    "day": "night",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "VIRIDIAN_POKECENTER",
+    "day": "day",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "VIRIDIAN_POKECENTER",
+    "day": "day",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "VIRIDIAN_POKECENTER",
+    "day": "night",
+    "light": true,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  },
+  {
+    "map": "VIRIDIAN_POKECENTER",
+    "day": "night",
+    "light": false,
+    "changedPixels": 0,
+    "dimensions": [
+      1100,
+      760
+    ]
+  }
+]

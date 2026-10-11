@@ -1,7 +1,12 @@
-local C=assert(loadfile('lib/ScenePrefetchCache.lua'))().new()
+local module=assert(loadfile('lib/ScenePrefetchCache.lua'))()
+local C=module.new()
 local a={id='A',def={width=10,height=9,connections={east={map='B',offset=0}}}}
 local b={id='B',def={width=10,height=9}}
 local s={map=a,player={cellX=1,cellY=2,px=16,py=32,facing='right'},neighbors={{map=b,ox=320,oy=0}}}
+assert(module.covers(s,{A=true,B=true}),'published required maps rejected')
+assert(not module.covers(s,{A=true,OLD=true}),'equal-sized obsolete neighbourhood reused')
+assert(not module.covers(s,{B=true}),'missing current map reused')
+assert(module.covers(s,{A=true,B=true,OLD=true}),'complete retained superset rejected')
 local result={'terrain',{},nil,{}, {state=s}}
 C.store(s,1,result,1,false,'trees')
 assert(C.get(s,1,1,false,'trees')==result,'same-frame work repeated')

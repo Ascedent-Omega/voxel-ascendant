@@ -1821,6 +1821,10 @@ function LedgeElevation.map(map, explicitData)
   if type(map) ~= "table" then
     return readonlySnapshot(0, 0, profileStep(), {}, nil, 0, nil, mode())
   end
+  if map.def and map.def.kaOwner=='kasc.sevii-expedition/v1'then
+    local authored=V.require('KascSeviiScenery').elevation(map)
+    if authored then return authored end
+  end
   local data = gameData(explicitData)
   local buildMode = mode()
   local entry = cache[map]

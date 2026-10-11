@@ -109,6 +109,14 @@ end
 -- Woodland dominates rural edges; buildings appear as occasional clearings.
 function H.profile(map,kind)
  local id=map.id or ''
+ local sevii=map.def and map.def.kaOwner=='kasc.sevii-expedition/v1'and V.require('KascSeviiScenery').profile(map)
+ if sevii and sevii.exterior then
+  local region=V.require('SeviiLandscape').region(sevii)
+  if region=='volcano'or region=='volcanic_coast'then return 'volcanic'end
+  if region=='tower_roof'then return 'city'end
+  if region=='canyon'or region=='ruins'then return 'foothills'end
+  return region=='forest'and'woodland'or'harbor'
+ end
  if id=='LAVENDER_TOWN'or id=='ROUTE_8'or id=='ROUTE_10'or id=='ROUTE_12'then return 'lavender' end
  if id=='FUCHSIA_CITY'or id:find('SAFARI')or id=='ROUTE_15'then return 'safari' end
  if id=='CINNABAR_ISLAND'or id=='ROUTE_20'or id=='ROUTE_21'then return 'volcanic' end

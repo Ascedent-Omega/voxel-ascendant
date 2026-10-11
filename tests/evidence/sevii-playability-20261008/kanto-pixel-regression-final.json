@@ -1,0 +1,215 @@
+{
+  "pass": true,
+  "maps": 16,
+  "scope": "Full uncropped RGBA, no masks/tolerance; fixed native 1/60 update, coordinates, clocks, RNG, authored NPCs and 450 stable frames. Two maps use identical isolated fixtures to eliminate prior-map initialization dependence. Current after sources include weather, Eon, Surf and native PP Max menu-owner fixes. Optional Fly companion is inactive in these world-reference captures; its region-view behavior has dedicated native proofs.",
+  "rows": [
+    {
+      "map": "GAME_CORNER",
+      "file": "kanto-GAME_CORNER.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "VIRIDIAN_POKECENTER",
+      "file": "kanto-VIRIDIAN_POKECENTER.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "CERULEAN_CITY",
+      "file": "kanto-CERULEAN_CITY.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "ROUTE_12",
+      "file": "kanto-ROUTE_12.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "REDS_HOUSE_1F",
+      "file": "kanto-REDS_HOUSE_1F.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "ROCK_TUNNEL_1F",
+      "file": "kanto-ROCK_TUNNEL_1F.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "VERMILION_TRADE_HOUSE",
+      "file": "kanto-VERMILION_TRADE_HOUSE.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "ROUTE_1",
+      "file": "kanto-ROUTE_1.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "PALLET_TOWN",
+      "file": "kanto-PALLET_TOWN.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "VIRIDIAN_CITY",
+      "file": "kanto-VIRIDIAN_CITY.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto-viridian0361-final-v10",
+      "after": "fix-after-quick-kanto-viridian0361-final-v14"
+    },
+    {
+      "map": "MT_MOON_1F",
+      "file": "kanto-MT_MOON_1F.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "ROUTE_23",
+      "file": "kanto-ROUTE_23.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "ROUTE_20",
+      "file": "kanto-ROUTE_20.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "CINNABAR_ISLAND",
+      "file": "kanto-CINNABAR_ISLAND.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto-cinnabar0361-final-v10",
+      "after": "fix-after-quick-kanto-cinnabar0361-final-v14"
+    },
+    {
+      "map": "VIRIDIAN_FOREST",
+      "file": "kanto-VIRIDIAN_FOREST.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    },
+    {
+      "map": "SEAFOAM_ISLANDS_1F",
+      "file": "kanto-SEAFOAM_ISLANDS_1F.png",
+      "run": null,
+      "identical": true,
+      "size": [
+        1100,
+        760
+      ],
+      "changed_pixels": 0,
+      "before": "fix-before-quick-kanto0361-final-v9",
+      "after": "fix-after-quick-kanto0361-final-v14"
+    }
+  ]
+}
